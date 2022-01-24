@@ -106,6 +106,7 @@ export default {
                 } else {
                     this.showmsg = "Continue to be checkout (Next page in progress).";
                 }
+                this.$router.push('/checkout'); 
             }
             
             setTimeout(()=>{

@@ -1,24 +1,20 @@
 <template>
   <div id="app">
     <div class="header">
-    <a href="#" class="logo">Dashboard</a>
+    <router-link to="/">Dashboard</router-link>
     <div class="header-right">
-      <a href="#">Products</a>
+      <router-link to="/checkout">Products</router-link>
       <a href="#">Sign out</a>
     </div>
   </div>
-    <Product />
+  <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Product from '../components/Product.vue'
 
 export default {
   name: 'App',
-  components: {
-    Product
-  }
 }
 </script>
 <style scoped>
