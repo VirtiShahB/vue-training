@@ -7,20 +7,19 @@
           <p v-if="errors.length">
             <b>Please correct the following error(s):</b>
             <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
             </ul>
             </p>
          </b-col>
         <b-col sm="7">
           <b-card class="mt-3" header="Billing Details">
             <pre class="m-0"></pre>
-            <b-form @submit="checkForm" method="post" id="frm-billing" v-if="show" class="m-2">
+            <b-form @submit="checkForm" method="post" id="frm-billing" class="m-2">
               <b-row>
                 <b-col sm="6" class="my-2">
                   <b-form-group
                     id="lbl-first-name"
                     label="First Name:"
-                    label-for="first_name"
                     size="sm"                    
                   >
                     <b-form-input
@@ -37,7 +36,6 @@
                   <b-form-group
                     id="lbl-last-name"
                     label="Last Name:"
-                    label-for="last_name"
                     size="sm"
                   >
                     <b-form-input
@@ -56,7 +54,6 @@
                   <b-form-group
                     id="phone-number"
                     label="Phone number:"
-                    label-for="phone_number"
                   >
                     <b-form-input
                       id="phone_number"
@@ -72,9 +69,7 @@
                 <b-col sm="6" class="my-2">
                   <b-form-group
                     id="lbl-email"
-                    label="Email Address:"
-                    label-for="email"
-                  >
+                    label="Email Address:">
                     <b-form-input
                       id="email"
                       placeholder="Enter Email Address"
@@ -91,9 +86,7 @@
                 <b-col sm="12" class="my-2">
                   <b-form-group
                     id="lbl-address"
-                    label="Address:"
-                    label-for="address"
-                  >
+                    label="Address:">
                     <b-form-input
                       id="address"
                       placeholder="Enter Address"
@@ -109,9 +102,7 @@
                 <b-col sm="12" class="my-2">
                   <b-form-group
                     id="country"
-                    label="Country:"
-                    label-for="country"
-                  >
+                    label="Country:">
                     <b-form-select
                       class="form-select form-select-sm"
                       id="country"
@@ -128,9 +119,7 @@
                 <b-col sm="4" class="my-2">
                   <b-form-group
                     id="lbl-city"
-                    label="Town/City:"
-                    label-for="city"
-                  >
+                    label="Town/City:">
                     <b-form-input
                       id="city"
                       placeholder="Enter Town/City"
@@ -144,9 +133,7 @@
                 <b-col sm="4" class="my-2">
                   <b-form-group
                     id="lbl-state"
-                    label="State/County:"
-                    label-for="state"
-                  >
+                    label="State/County:">
                     <b-form-input
                       id="state"
                       placeholder="Enter State/County"
@@ -160,9 +147,7 @@
                 <b-col sm="4" class="my-2">
                   <b-form-group
                     id="lbl-postal-code"
-                    label="Postal Code:"
-                    label-for="postal-code"
-                  >
+                    label="Postal Code:">
                     <b-form-input
                       id="postal-code"
                       placeholder="Enter Postal Code"
@@ -188,8 +173,7 @@
                 <li
                   class="list-group-item"
                   v-for="product in cart"
-                  :key="product.id"
-                >
+                  :key="product.id">
                   <label
                     >{{ product.title
                     }}<span class="badge bg-info m-1">
@@ -213,17 +197,14 @@
                         :aria-describedby="ariaDescribedby"
                         name="some-radios"
                         value="free_shipping"
-                        v-model="shipping_method"
-                      >
-                        Free Shipping</b-form-radio
-                      >
+                        v-model="shipping_method">
+                        Free Shipping</b-form-radio>
                       <b-form-radio
                         :aria-describedby="ariaDescribedby"
                         name="some-radios"
                         value="local_pickup"
                         v-model="shipping_method"
-                        >Local Pickup</b-form-radio
-                      >
+                        >Local Pickup</b-form-radio>
                     </b-form-group>
                   </label>
                 </li>
@@ -237,8 +218,7 @@
                 @click="checkForm"
                 size="sm"
                 class="float-end mt-2"
-                >Place Order</b-button
-              >
+                >Place Order</b-button>
             </b-card-text>
           </b-card>
         </b-col>
@@ -246,7 +226,6 @@
     </b-container>
   </div>
 </template>
-
 <script>
 import Header from "../../components/Header.vue";
 export default {
@@ -269,15 +248,13 @@ export default {
         state: null,
         postal_code: null,
       },
-      show: true,
-      selected: null,
       shipping_method: "free_shipping",
       country: [
         { text: "Select Country", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
+        "India",
+        "Canada",
+        "USA",
+        "UK",
       ],
     };
   },
@@ -333,8 +310,4 @@ export default {
     },
   },
 };
-// console.log(cart);
 </script>
-
-<style>
-</style>
