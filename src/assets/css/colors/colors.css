@@ -16,9 +16,13 @@
 }
 
 .blue-color {
-  color: #3476a6;
+  color: red;
 }
 
 .blue-button-color {
   background: #235890;
+}
+.yellow-color {
+  color: #d7a903;
+  font-family: sans-serif;
 }

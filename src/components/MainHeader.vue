@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <h1>Ecommerce App</h1>
+    <h1>ShoppingCard - Vue.js</h1>
     <transition name="move" appear>
-      <div style="margin-right: 20px">
+      <div style="margin-right: 20px" >
         <b-icon-cart-4 v-if="show" class="chart" />
         <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
       </div>
@@ -17,7 +17,7 @@ export default {
     return {
       show: true,
     };
-  },
+  }, 
 };
 </script>
 
@@ -45,5 +45,4 @@ export default {
     transform: translateX(0px) rotate(45deg);
   }
 }
-
 </style>
