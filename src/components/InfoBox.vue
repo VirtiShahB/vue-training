@@ -100,7 +100,6 @@ export default {
       this.showCart = false;
     },
     openCart() {
-      console.log("open cart");
       this.showCart = true;
     },
   },

@@ -65,8 +65,6 @@ export default {
       for (var i = 0; i < this.cartItem.length; i++) {
         amount += this.product[0]["price"];
       }
-      console.log("amount");
-      console.log(amount);
       return amount;
     },
   },
@@ -85,8 +83,6 @@ export default {
     },
   },
   mounted() {
-    console.log("this.showCart");
-    console.log(this.showCart);
     if (this.showCart == true) {
       (this.cClass = "cart on"), (this.modalClass = "modal");
     } else {
