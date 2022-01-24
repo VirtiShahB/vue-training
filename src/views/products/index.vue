@@ -104,58 +104,17 @@
     </div>
 
     <div v-if="isCheckout">
-      <div class="row mt-5">
-        <b-col md="8" offset-md="2">
-          <div class="overflow-hidden mx-5">
-            <h2 class="text-success float-start">Cart Details</h2>
-            <b-button
-              class="float-end"
-              href="#"
-              block
-              size="md"
-              variant="success ml-5"
-              >Total amount is {{ cartTotal }}</b-button
-            >
-          </div>
-        </b-col>
-      </div>
-      <div class="row">
-        <b-col md="8" offset-md="2">
-          <b-card class="overflow-hidden m-5">
-            <ul class="list-unstyled m-2">
-              <b-media v-for="product in cart" tag="li" :key="product.id">
-                <template #aside>
-                  <b-img
-                    :src="product.image"
-                    width="64"
-                    alt="placeholder"
-                  ></b-img>
-                </template>
-                <h5 class="mt-0 mb-1">
-                  {{ product.title }}
-                </h5>
-                <p class="mb-0">
-                  {{ product.description }}
-                </p>
-                <p>
-                  <span class="badge bg-danger">
-                    $Price: {{ product.price }}
-                  </span>
-                  <span class="badge bg-primary mx-1"
-                    >Qty: {{ product.qty }} Piece</span
-                  >
-                </p>
-              </b-media>
-            </ul>
-          </b-card>
-        </b-col>
-      </div>
+      <Checkout :cart="cart" :carttotal="cartTotal"/>      
     </div>
   </div>
 </template>
 <script>
+import Checkout from "./checkout.vue";
 export default {
   name: "Dashboard",
+  components: {
+    Checkout,
+  },
   data: function () {
     return {
       isEmptyCart: true,
