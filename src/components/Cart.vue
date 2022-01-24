@@ -1,11 +1,15 @@
 <template>
-  <div class="wrapper">
-    <h1>Cart</h1>
-  </div>
+    <div>
+        <h1>About</h1>
+        <p>This is the about page!</p>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'cart',
-};
+    export default {
+    }
 </script>
+
+<style scoped>
+
+</style>

@@ -4,6 +4,7 @@
     <main-header
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
+      
     />
     <b-container>
       <b-row>
@@ -19,6 +20,7 @@
         :products="selectedProducts"
       />
     </b-container>
+    
   </div>
 </template>
 
@@ -27,7 +29,6 @@ import MainHeader from "./components/MainHeader.vue";
 import ProductCard from "./components/ProductCard.vue";
 import Toast from "./components/Toast.vue";
 import products from "./data/products";
-
 export default {
   name: "App",
   components: {

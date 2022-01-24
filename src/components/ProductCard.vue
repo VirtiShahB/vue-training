@@ -72,6 +72,7 @@
           @click="addToChart" >ADD TO Cart</b-button
             >
           </b-col>
+          <router-link to="/cart">Home</router-link>
         </b-row>
         
        
