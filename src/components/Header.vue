@@ -8,7 +8,6 @@
       <a class="navbar-brand py-0 pl-5">
         <img src="@/assets/fi-logo.svg" width="50" height="50" />
       </a>
-      <!--Header navigation-->
     </nav>
     
   </div>
