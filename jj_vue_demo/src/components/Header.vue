@@ -7,12 +7,7 @@
         </h3>
         <div class="form-inline my-2 my-lg-0">
             <b-icon-cart scale="2"></b-icon-cart>
-            <span class="total-quantity">0</span>
-            <div v-if="showCart" class="cart-dropdown">
-                <ul class="cart-dropdown__list">
-                    <li>Hello</li>
-                </ul>
-            </div>
+            <span class="total-quantity">{{cart}}</span>
         </div>
         </nav>
   </div>
@@ -23,9 +18,14 @@ export default {
   data () {
     return {
         title: 'Products',
-        showCart: false
+        cart: 0
     }
-  }
+  },
+     mounted() {
+        this.$root.$on('cartcount', (quantity) => {
+            this.cart += quantity
+        })
+     }
 }
 </script>
 
