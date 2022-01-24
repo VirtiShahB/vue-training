@@ -4,7 +4,6 @@
       <div class="dropdown d-xl-none d-lg-none mr-auto">
         <div class="dropdown-menu hb" aria-labelledby="navd"></div>
       </div>
-      <!--Logo-->
       <a class="navbar-brand py-0 pl-5">
         <img src="@/assets/fi-logo.svg" width="50" height="50" />
       </a>
