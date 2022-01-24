@@ -103,18 +103,17 @@ export default {
       quantity: 0,
       price: 180,
       Msg: "",
-
-      methods: {
-        onAddCart() {
-          console.log(this.quantity);
-          if (this.quantity == 0) {
-            this.Msg = "Removed from cart";
-          } else {
-            this.Msg = `Product added with qty ${this.quantity} in a cart`;
-          }
-        },
-      },
     };
+  },
+  methods: {
+    onAddCart() {
+      console.log(this.quantity);
+      if (this.quantity == 0) {
+        this.Msg = "Removed from cart";
+      } else {
+        this.Msg = `Product added with qty ${this.quantity} in a cart & total amount :$ ${this.quantity * this.price} `;
+      }
+    },
   },
 };
 </script>
