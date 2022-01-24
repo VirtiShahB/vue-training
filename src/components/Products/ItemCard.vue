@@ -14,11 +14,15 @@
             <b-row no-gutters>
               <b-card-text> {{ product.description }} </b-card-text>
             </b-row>
-            <b-row no-gutters class="mt-5">
-              <b-col md="6">
+            <b-row no-gutters>
+              <b><h3>${{ product.price }}</h3></b></b-row
+            >
+            <hr />
+            <b-row no-gutters class="mt-3">
+              <b-col md="5">
                 <b-input-group>
                   <b-input-group-append>
-                    <b-button @click="addItem">+</b-button>
+                    <b-button @click="removeItem">-</b-button>
                   </b-input-group-append>
                   <b-form-input
                     type="text"
@@ -26,12 +30,15 @@
                     disabled
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-button @click="removeItem">-</b-button>
+                    <b-button @click="addItem">+</b-button>
                   </b-input-group-append>
                 </b-input-group>
               </b-col>
+              <b-col md="1"></b-col>
               <b-col md="6">
-                <b-button variant="danger" @click="addToCart(product.id)">Add to cart</b-button>
+                <b-button variant="danger" @click="addToCart(product.id)"
+                  >Add to cart</b-button
+                >
               </b-col>
             </b-row>
           </b-card-body>
@@ -48,7 +55,7 @@ export default {
   props: ['product'],
   data () {
     return {
-      itemCount: 0
+      itemCount: 1
     }
   },
   methods: {
@@ -64,10 +71,15 @@ export default {
     },
     addToCart (productId) {
       if (this.itemCount > 0) {
-        const selectedProducts = {'id': productId, 'qty': this.itemCount}
+        const selectedProducts = { id: productId, qty: this.itemCount }
         this.$emit('cartListener', selectedProducts)
       }
     }
   }
 }
 </script>
+<style scoped>
+.input-group  {
+  width: 107% !important;
+}
+</style>

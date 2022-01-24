@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-5 mr-5">
+  <div class="mr-5">
     <b-row no-gutters>
       <ProductList />
     </b-row>

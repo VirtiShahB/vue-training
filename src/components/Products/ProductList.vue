@@ -9,12 +9,19 @@
       >{{ errorMessage }}
     </b-alert>
 
-    <b-row style="float: right">
-      <b-badge variant="danger">
-        <b-icon-cart></b-icon-cart>{{ totalCartValue }}
-      </b-badge>
+    <b-row :style="styleObject">
+      <b-icon
+        @click="buyNow"
+        icon="cart-fill"
+        class="rounded-circle bg-danger p-2"
+        font-scale="2"
+        variant="light"
+        v-b-tooltip.hover
+        title="View Cart"
+      ></b-icon>
+      <b-badge variant="light"> {{ totalCartValue }} </b-badge>
     </b-row>
-    <b-row>
+    <b-row class="mt-5">
       <b-col
         md="6"
         class="mt-5"
@@ -24,7 +31,7 @@
         <ItemCard :product="product" @cartListener="addTocart" />
       </b-col>
     </b-row>
-    <b-row class="mt-5 ml-5">
+    <b-row class="mt-5" style="margin-left: 45%;">
       <b-button variant="warning" @click="buyNow"
         ><b-icon-cart></b-icon-cart>Buy Now</b-button
       >
@@ -45,18 +52,15 @@ export default {
       dismissSecs: 5,
       dismissCountDown: 0,
       errorMessage: '',
-      alertType: 'danger'
+      alertType: 'danger',
+      styleObject: {
+        float: 'right'
+      }
     }
   },
   computed: {
     totalCartValue () {
-      if (this.totalCartItem.length === 0) {
-        return ''
-      } else {
-        return this.totalCartItem
-          .map((item) => item.qty)
-          .reduce((prev, next) => prev + next)
-      }
+      return this.totalCartItem.length
     }
   },
   methods: {
@@ -78,7 +82,12 @@ export default {
       if (this.totalCartItem.length === 0) {
         this.showAlert('danger', 'Your cart is empty!!')
       } else {
-        this.showAlert('success', 'Hooray You have ' + this.totalCartValue + ' products in cart ! Buy product Work in progress !!')
+        this.$router.push({
+          name: 'Checkout',
+          params: {
+            cartData: this.totalCartItem
+          }
+        })
       }
     },
     countDownChanged (dismissCountDown) {
@@ -92,3 +101,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.badge {
+  position: relative;
+  top: -10px;
+  font-size: 17px;
+  background-color: white;
+}
+</style>

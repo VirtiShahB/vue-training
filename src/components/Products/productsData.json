@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "The Black Google Tee",
-    "description": "100% cotton Google t-shirt",
+    "description": "100% cotton Google t-shirt ,Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ",
     "image": "https://developers.google.com/shopping-content/images/shirt.jpg",
     "price": 23,
     "qty": 50
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "name": "Google Twill Cap",
-    "description": "Classic Google cap",
+    "description": "Classic Google cap ,Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ",
     "image": "https://developers.google.com/shopping-content/images/cap.jpg",
     "price": 13,
     "qty": 50
