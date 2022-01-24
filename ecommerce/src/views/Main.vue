@@ -16,7 +16,7 @@
             </b-nav-item>
 
             <b-nav-item href="#">
-              <router-link active-class="active" class="nav-link" to="/cart">Cart</router-link>
+              <router-link active-class="active" class="nav-link" to="/cart">Product</router-link>
             </b-nav-item>
 
             <b-nav-item href="#">
