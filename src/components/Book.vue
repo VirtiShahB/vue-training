@@ -5,7 +5,7 @@
             <b-col>
               <img :src="require('@/assets/images/'+item.image)" alt="" class="img-fluid">
             </b-col>
-            <b-col class="text-start">
+            <b-col class="text-left">
               <h1>{{item.title}}</h1><hr>
               <p>{{item.desc}}</p>
               <span class="item_price">{{'₹ '+item.price}}</span>
