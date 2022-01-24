@@ -1,0 +1,23 @@
+.btn-add {
+  border: none;
+}
+
+.count-box {
+  display: inline-block;
+}
+
+.rating {
+  padding: 0px !important;
+}
+
+.rating span {
+  font-size: 1rem;
+  flex-grow: 0 !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .mt {
+    margin-top: 10px;
+  }
+}
