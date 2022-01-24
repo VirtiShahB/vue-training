@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <b-card class="container">
         <b-alert :variant="variant" :show="show">{{ showmsg }}</b-alert>
     <div class="card">
         <div class="row">
@@ -60,14 +60,14 @@
         </div>
     </div>
 </div>
-</div>  
+    </b-card>  
 </template>
 <script>
 export default {
     name:"Product",
     data() {
         return {
-            pro_name : 'Bolt earphone',
+            pro_name : 'Bolt headphone',
             price: '25.99',
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.BoAt Bassheads 900 Wired On Ear Headphones with Mic",
             quantity: 0,
@@ -138,8 +138,5 @@ export default {
 }
 .card-body.p-5 {
     text-align: initial;
-}
-.card{
-    border: 5px solid rgba(0,0,0,.125) !important;
 }
 </style>
