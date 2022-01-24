@@ -32,12 +32,12 @@
           <br>
 
           <p class="d-flex">
-            Reference : <span class="text-danger">demo_42</span>
+            Reference : <span class="ml-8 text-danger">demo_42</span>
 
           </p>
 
           <p class="d-flex">
-            Condition : <span class="text-danger">New Product</span>
+            Condition : <span class="ml-8 text-danger">New Product</span>
           </p>
 
           <hr>
@@ -154,8 +154,13 @@
           this.price = this.price * this.quantity;
         },
         decrement(){
+
           this.price = this.price / this.quantity;
-          this.quantity = this.quantity-1;
+          
+          let customqty = this.quantity-1;
+
+          this.quantity = customqty != 0 ? customqty : 1;
+          
           
         }
     },
