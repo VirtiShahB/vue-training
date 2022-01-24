@@ -116,6 +116,22 @@ export default {
     watch:{
         quantity: function(newValue) {
 
+            if( this.quantity == 0 ) {
+
+                localStorage.setItem("pro_name", '');
+                localStorage.setItem("price", '');
+                localStorage.setItem("quantity", '');
+                localStorage.setItem("size", '');
+                
+                this.variant="danger";
+                this.show = true;
+                this.showmsg = "Removed item from cart.";
+
+                 setTimeout(()=>{
+                    this.show = false;
+                },3000);
+            }
+
             if( newValue <= -1 ) {
                 this.quantity = 0;
             }
