@@ -4,6 +4,8 @@
 
 <code>Node JS 16.+ should be installed</code>
 
+<code>npm install</code>
+
 <code>cd ecommerce</code>
 
 <code>npm run serve</code>
