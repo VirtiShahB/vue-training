@@ -1,13 +1,14 @@
 <template>
   <div class="header">
     <h1>Ecommerce App - Vue.js</h1>
+    <router-link to="/checkout">
     <transition name="move" appear>
       <div style="margin-right: 20px" >
         <b-icon-cart-4 v-if="show" class="chart" />
-          <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
+        <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
 
       </div>
-    </transition>    
+    </transition> </router-link>   
   </div>
 </template>
 
