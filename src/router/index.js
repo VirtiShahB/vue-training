@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Product from "../views/Product.vue";
 import AddtoCart from "../views/AddtoCart.vue";
+import CHECKOUT from "../views/Checkout.vue";
+
 
 Vue.use(VueRouter);
 
@@ -12,8 +14,14 @@ const routes = [
     component: Product,
   },
   {
-    path:"addtocart",
+    path:"/addtocart",
+    name:"AddtoCart",
     component:AddtoCart,
+  },
+  {
+    path:"/checkout",
+    name:"Checkout",
+    component: CHECKOUT,
   }
 ];
 

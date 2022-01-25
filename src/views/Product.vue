@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <ProductDetail product="Women's Velvet Dress" price="30"/>
+    <ProductDetail />
   </div>
 </template>
 
