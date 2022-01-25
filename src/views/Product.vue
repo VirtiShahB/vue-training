@@ -5,8 +5,20 @@
     </template>
     <template #content>
       <div class="row">
-        <div class="col-6">
-          <img width="350px" class="img-fluid img-thumbnail" src="../assets/images/product.jpg" alt="">
+        <div class="col-md-6">
+            <center>
+              <carousel items="1" autoplay="true" :nav="false">
+
+                <img class="img-owl" src="https://placeimg.com/200/200/any?1">
+
+                <img class="img-owl" src="https://placeimg.com/200/200/any?2">
+
+                <img class="img-owl" src="https://placeimg.com/200/200/any?3">
+
+                <img class="img-owl" src="https://placeimg.com/200/200/any?4">
+
+            </carousel>
+            </center>
         </div>
 
         <div class="col-md-6">
@@ -137,16 +149,23 @@
 
 <script>
   import Main from './Main.vue';
+  import carousel from 'vue-owl-carousel';
 
   export default {
     data(){
       return {
         quantity : 1,
-        price    : 30.50
+        price    : 30.50,
+        images: [
+          'https://img.freepik.com/free-psd/close-up-wood-texture-mockup_23-2149160964.jpg',
+          'https://image.freepik.com/free-psd/book-mockup-with-shadow-overlay_23-2149209545.jpg',
+          'https://image.freepik.com/free-psd/minimalist-book-cover-mock-up_23-2148622915.jpg',
+        ]
       }
     },
     components: {
-      Main
+      Main,
+      carousel
     },
     methods : {
         increment(){
@@ -163,9 +182,6 @@
           
           
         }
-    },
-    mounted() {
-      console.log('Hey i am mounted');
     }
   }
 </script>

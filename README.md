@@ -1,12 +1,24 @@
-# Vue based ecommerce
+# ecommerce
 
-## Kindly follow this :
+## Project setup
+```
+npm install
+```
 
-<code>Node JS 16.+ should be installed</code>
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-<code>npm install</code>
+### Compiles and minifies for production
+```
+npm run build
+```
 
-<code>cd ecommerce</code>
+### Lints and fixes files
+```
+npm run lint
+```
 
-<code>npm run serve</code>
-
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

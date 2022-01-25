@@ -15,3 +15,8 @@
     width: 30px;
     background-color: white;
  }
+
+ .img-owl{
+   width: 400px !important;
+   object-fit: fill;
+ }
