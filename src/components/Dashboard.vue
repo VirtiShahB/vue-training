@@ -1,18 +1,18 @@
 <template>
   <div class="hello">
     <h1>Welcome to E-commerce Application</h1>
-    <ProductList/>
+    <Product/>
   </div>
 </template>
 
 
 <script>
-import ProductList from './ProductList.vue'
+import Product from './Product.vue'
 
 export default {
   name: 'App',
   components: {
-    ProductList,
+    Product,
   }
 }
 </script>

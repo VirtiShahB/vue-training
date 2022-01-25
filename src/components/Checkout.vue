@@ -181,10 +181,9 @@
               <b-col class="text-left">
                 <b-form-group v-slot="{ ariaDescribedby }">
                   <b-form-radio
-                    v-model="accepted"
                     :aria-describedby="ariaDescribedby"
                     name="some-radios"
-                    value="accepted"
+                    value="stripe"
                     >Stripe</b-form-radio
                   >
                   <b-form-radio
@@ -197,7 +196,9 @@
               </b-col>
             </b-row>
 
-            <b-button class="float-right" href="#" variant="danger" >Place Order</b-button>
+            <b-button class="float-right" href="#" variant="danger"
+              >Place Order</b-button
+            >
           </b-card></b-col
         >
       </b-row>
