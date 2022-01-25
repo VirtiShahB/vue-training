@@ -63,7 +63,9 @@
           <b-button squared :pressed="true" variant="danger"
             ><b-icon icon="cart"></b-icon
           ></b-button>
-          <b-button @click="addToCart()" squared variant="danger">ADD TO CART</b-button></b-form
+          <b-button @click="addToCart()" squared variant="danger"
+            >ADD TO CART</b-button
+          ></b-form
         >
       </div>
     </div>
@@ -121,17 +123,12 @@ export default {
     name: String,
     price: Number,
     currency: String,
-    image: String,
-    total: Number
+    image: String
   },
   methods: {
     addToCart() {
-      this.total = this.price*this.qty
-      console.log(this.total)
-      this.$router.push({name: 'checkout', params: { total: this.total, productName: this.name }}).catch(() => {})
-      // this.$router.push('/checkout'); 
-      // this.$router.go({name:'checkout', params: {total: '[this.total]'}});      
-      // console.log(this.total)
+      const total = this.price*this.qty
+      this.$router.push({name: 'checkout', params: { total: total, productName: this.name }})
     },
     incrementQty() {
       this.qty++;
