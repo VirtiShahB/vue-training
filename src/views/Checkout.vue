@@ -1,11 +1,11 @@
 <template>   
   <div class="checkout">
-    <toast message="Product added to cart" :show.sync="showToast" />
+  
     <main-header
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
     />
-    <checkout-page/>
+    <checkout-page :productCart="products"/>
   </div>
 </template>
 
@@ -20,11 +20,19 @@ export default {
     CheckoutPage,
   },
 
-    data() {
+  data() {
     return {
       selectedProducts: [], // Selected products list.
       productCount: 0, // Total selected product count.
     };
+  },
+  watch: {
+    getCart() {
+      let products = window.localStorage.getItem('productsOnCart');
+      
+      console.log(products);
+      return products;
+    }
   }
   
 }

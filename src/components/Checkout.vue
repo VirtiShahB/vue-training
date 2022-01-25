@@ -116,7 +116,7 @@
             <hr>
             <b-row>
                 <b-col md="6">
-                <span title-tag="p">Denim Jacket</span>   
+                <span title-tag="p">Oversized Jacket With Denim Panels</span>   
                 </b-col>
                 <b-col md="6">
                 <span title-tag="p">$ 200</span>

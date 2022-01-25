@@ -107,6 +107,7 @@ export default {
       let indexOfSize = this.product.sizes
         .map((item) => item.value)
         .indexOf(this.selectedSize);
+     
       let newProduct = {
         id: this.product.id,
         name: this.product.name,
@@ -120,6 +121,12 @@ export default {
         piece: this.selectedCount,
         image: this.product.image,
       };
+      if(localStorage.getItem('productsOnCart')){
+          newProduct = JSON.parse(localStorage.getItem('productsOnCart'));
+      }
+      //cartProducts.push(JSON.stringify(newProduct));
+      localStorage.setItem('productsOnCart',JSON.stringify(newProduct));
+      console.log(localStorage.getItem('productsOnCart'));
       this.$emit("add-to-chart", newProduct);
       this.resetSelections();
     },
