@@ -41,7 +41,7 @@
             <b-form-input id="state" v-model="form.state"></b-form-input>
           </b-form-group>
           <b-form-group label="Postal Code" label-for="postal_code" >
-            <b-form-input id="postal_code" v-model="form.postal_code"></b-form-input>
+            <b-form-input id="postal_code" v-model="form.postal_code" type="number"></b-form-input>
           </b-form-group>
         </b-col>
         <b-col>
@@ -129,8 +129,8 @@
     },
     methods: {
       onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
+        event.preventDefault();
+        JSON.stringify(this.form);
       },
       getCart() {
         if (!localStorage.getItem("cart")) {
