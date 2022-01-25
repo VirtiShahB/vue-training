@@ -1,27 +1,25 @@
 <template>
   <div>
     <Header></Header>
-    <Dashboard :products="products"></Dashboard>
+    <router-view :products="products"></router-view>
   </div>
 </template>
 
 <script>
-import Dashboard from './components/Dashboard/Dashboard.vue'
-import Header from './components/Header.vue'
+ import Header from './components/Header.vue'
 export default {
   name: 'App',
   data () {
     return {
       products: [
-        {name: 'Shirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30},
-        {name: 'TShirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30},
-        {name: 'Jeans', description: "Van Heusen Men's Slim Business Casual Pants", price: 30}
+        {id: 0,name: 'Shirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0},
+        {id: 1,name: 'TShirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0},
+        {id: 2,name: 'Jeans', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0}
       ]
     }
   },
   components: {
-    Dashboard,
-    Header
+     Header
   }
 }
 </script>

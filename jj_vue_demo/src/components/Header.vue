@@ -1,51 +1,54 @@
 <template>
   <div>
-      <nav class="navbar navbar-light bg-danger bg-gradient p-3">
-        <h3><b>
-            {{ title }}
+    <nav class="navbar navbar-light bg-danger bg-gradient p-3">
+      <h3>
+        <b>
+          {{ title }}
         </b>
-        </h3>
-        <div class="form-inline my-2 my-lg-0">
-            <b-icon-cart scale="2"></b-icon-cart>
-            <span class="total-quantity">{{cart}}</span>
-        </div>
-        </nav>
+      </h3>
+      <div class="form-inline my-2 my-lg-0">
+        <router-link to="/checkout">
+          <b-icon-cart scale="2"></b-icon-cart>
+          <span class="total-quantity">{{ cart }}</span>
+        </router-link>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-        title: 'Products',
-        cart: 0
-    }
+      title: "Products",
+      cart: 0,
+    };
   },
-     mounted() {
-        this.$root.$on('cartcount', (quantity) => {
-            this.cart += quantity
-        })
-     }
-}
+  mounted() {
+    this.$root.$on("cartcount", (quantity) => {
+      this.cart += quantity;
+    });
+  },
+};
 </script>
 
 <style scoped>
 .total-quantity {
-      align-items: center;
-      background: lightblue;
-      border-radius: 50%;
-      display: flex;
-      font-weight: bold;
-      height: 2rem;
-      justify-content: center;
-      padding: 0.5rem;
-      position: absolute;
-      right: 1px;
-      top: 3px;
-      width: 2rem;
-    }
+  align-items: center;
+  background: lightblue;
+  border-radius: 50%;
+  display: flex;
+  font-weight: bold;
+  height: 2rem;
+  justify-content: center;
+  padding: 0.5rem;
+  position: absolute;
+  right: 1px;
+  top: 3px;
+  width: 2rem;
+}
 
-    .cart-dropdown {
+.cart-dropdown {
   background: white;
   border: 1px solid lightgray;
   border-radius: 10px;
@@ -66,4 +69,3 @@ export default {
   margin: 1rem 0;
 }
 </style>
-
