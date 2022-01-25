@@ -15,7 +15,7 @@
         </transition>
 
         <transition-group name="fade">
-          <div class="row" v-for="(item, index) in cartItem" v-bind:key="index">
+          <div class="row" v-for="(item, index) in cartItem" :key="index+item.id">
             <div class="col4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
               <img :src="item.img" style="width: 90px" />
             </div>
@@ -41,6 +41,8 @@
             <h4>${{ cartPrice }}</h4>
           </div>
         </div>
+        <button type="button" class="checkout-button" @click="showCheckout()">Checkout</button>
+        <!-- <router-link to="/checkout" class="checkout-button" tag="button">Checkout</router-link> -->
       </div>
     </div>
 
@@ -77,6 +79,10 @@ export default {
         this.cClass = "cart on";
         this.modalClass = "modal";
       }
+    },
+    showCheckout() {
+      window.localStorage.setItem('cartitem', JSON.stringify(this.cartItem));
+      this.$router.push({ path: '/checkout' });
     },
     removeThing(index) {
       this.cartItem.splice(index, 1);
@@ -167,5 +173,26 @@ hr {
 
 .remove-btn:hover {
   background-color: grey;
+}
+.checkout-button {
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  width: 330px;
+  height: 35px;
+  background-color: #2c3539;
+  color: #fff;
+  font-size: 15px;
+  padding: 0px 30px;
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  z-index: 10;
+  border: none;
+  box-shadow: 0 26px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.checkout-button:hover,
+.checkout-button:focus {
+  background-color: inherit;
+  color: black;
 }
 </style>

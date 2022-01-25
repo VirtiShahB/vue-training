@@ -63,13 +63,21 @@
 import Cart from "./Cart.vue";
 
 export default {
-  props: ["product"],
-  name: "InfoBox",
+  props: [],
+  name: "Product",
   data() {
     return {
       productQty: 1,
       inCart: [],
       showCart: false,
+      product: [
+        {
+          id: 0,
+          img: require("@/assets/1.jpg"),
+          title: "Soft Bed",
+          price: 156,
+        },
+      ],
     };
   },
   components: {
