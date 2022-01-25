@@ -64,7 +64,7 @@
 </template>
 <script>
 export default {
-    name:"Product",
+    name:"ProductDetail",
     data() {
         return {
             ProductName : 'Bolt headphone',

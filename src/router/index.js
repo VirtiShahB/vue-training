@@ -1,17 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Checkout from '../components/Checkout.vue'
-// import Dashboard from '../components/dashboard.vue'
-import Product from '../components/Product.vue'
-// import Home from '../views/Home.vue'
+import ProductDetail from '../components/ProductDetail.vue'
+import ProductList from '../components/ProductList.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name:'Product',
-    component: Product
+    name:'ProductList',
+    component: ProductList
+  },
+  {
+    path: '/product/detail',
+    name:'ProductDetail',
+    component: ProductDetail
   },
   {
     path: '/checkout',
