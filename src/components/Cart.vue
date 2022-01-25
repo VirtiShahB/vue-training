@@ -13,11 +13,11 @@
         <b-tr v-for="(c, index) of cart" :key="index">
           <b-td>
             <b-row>
-              <b-col cols="4" class="text-left">
+              <b-col class="text-left">
                 <img
                   :src="require('@/assets/images/' + c.image)"
                   alt=""
-                  class="d-inline-block img-fluid col-4"
+                  class="d-inline-block img-fluid col-1"
                 />
                 <span class="cart_book_title d-inline-block">{{
                   c.title

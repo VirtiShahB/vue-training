@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-container class="bv-example-row">
-          <b-row v-for="item of items" :key="item.id">
+          <b-row>
             <b-col>
               <img :src="require('@/assets/images/'+item.image)" alt="" class="img-fluid">
             </b-col>
@@ -13,7 +13,7 @@
                 <label for="qty" class="pr-5">Quantity: </label>
                 <b-form-spinbutton id="qty" v-model="item.default_qty" min="1" max="50" class="qty" inline></b-form-spinbutton>
               </div><br>
-              <b-button @click="addToCart(item.id)" variant="success">Add to cart</b-button>
+              <b-button @click="addToCart(item)" variant="success">Add to cart</b-button>
             </b-col>
           </b-row>
         </b-container>
@@ -26,21 +26,11 @@
         data(){
           return{
             cart:[],
-            items: [
-              {
-                id:1,
-                title: "400 Days",
-                desc: "12-year-old Siya has been missing nine months. It’s a cold case, but Keshav wants to help her mother, Alia, who refuses to give up. Welcome to 400 Days―a mystery and romance story like no other.",
-                price: "400.00",
-                image: '400_days.jpg',
-                default_qty: 1
-              },
-            ]
+            item: [],
           }
         },
         methods: {
-          addToCart(itemId) {
-              const item = this.items.find(({ id }) => id === itemId);
+          addToCart(item) {
               item.qty = document.getElementById('qty').value ;
               if (!localStorage.getItem("cart")) {
                 localStorage.setItem("cart", JSON.stringify([]));
@@ -50,8 +40,14 @@
               localStorage.setItem("cart", JSON.stringify(cartItems));
               this.cart = JSON.parse(localStorage.getItem("cart"));
               this.$router.push('/cart')
+          },
+        },
+        mounted() {
+          this.item = this.$route.params.item;
+          if (!this.item) {
+            this.$router.push("/");
           }
-        }
+        },
     }
 </script>
 

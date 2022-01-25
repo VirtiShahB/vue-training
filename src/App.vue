@@ -50,4 +50,15 @@ ul{
 li:last-child {
   float: right; /* last li item */
 }
+.book_title{
+  color: #007185;
+}
+.book_author{
+  font-size:12px;
+}
+.book_view,.book_view:hover{
+  text-decoration: none;
+  color: #007185;
+}
+
 </style>
