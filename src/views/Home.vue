@@ -1,0 +1,73 @@
+<template>
+  <div id="app">
+    <b-container class="my-5">
+      <h4 class="font-weight-bold">Dashboard</h4>
+      <b-row>
+        <b-col cols="8">
+          <product-detail-component
+            :product="product"
+            @addToCart="onAddToCart($event)"
+            v-for="product in products"
+            :key="product.id"
+          ></product-detail-component>
+        </b-col>
+        <b-col cols="4">
+          <cart-component :cart="cart"></cart-component>
+          <router-link class="btn btn-primary btn-block mt-3" :class="{disabled:!cart.length}" to="/checkout"
+          >Checkout</router-link
+        >
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
+</template>
+
+<script>
+import ProductDetailComponent from "../components/ProductDetailComponent.vue";
+import { products } from "../services/Product";
+import CartComponent from "../components/Cart/CartComponent.vue";
+export default {
+  name: "App",
+  components: {
+    ProductDetailComponent,
+    CartComponent,
+  },
+  data() {
+    return {
+      products,
+      cart: [],
+    };
+  },
+  created() {
+    let cartItems = JSON.parse(localStorage.getItem("cart"));
+    if (cartItems) {
+      this.cart = cartItems;
+    }
+  },
+  // computed:{
+  //   cartItems: function(){
+  //     return this.cart;
+  //   }
+  // },
+  methods: {
+    onAddToCart(product) {
+      let cartItems = JSON.parse(localStorage.getItem("cart"));
+      if (cartItems) {
+        let itemInd = cartItems.findIndex((item) => item.id == product.id);
+        if (itemInd >= 0) {
+          cartItems[itemInd] = product;
+          this.cart[itemInd].quantity = product.quantity;
+        } else {
+          cartItems.push(product);
+          this.cart.push(product);
+        }
+      } else {
+        cartItems = [];
+        cartItems.push(product);
+        this.cart.push(product);
+      }
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    },
+  },
+};
+</script>
