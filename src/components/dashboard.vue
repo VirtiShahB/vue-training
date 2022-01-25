@@ -3,7 +3,7 @@
     <div class="header">
     <router-link to="/">Dashboard</router-link>
     <div class="header-right">
-      <router-link to="/checkout">Products</router-link>
+      <router-link to="/">Products</router-link>
       <a href="#">Sign out</a>
     </div>
   </div>

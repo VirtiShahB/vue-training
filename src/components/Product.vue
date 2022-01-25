@@ -12,7 +12,7 @@
             </aside>
         <div class="col-sm-7">
             <div class="card-body p-5">
-                <h3 class="title mb-3">{{ pro_name }}</h3>
+                <h3 class="title mb-3">{{ ProductName }}</h3>
                 <p class="price-detail-wrap"> 
                     <span class="price h3 text-warning"> 
                     <span class="price">${{ price }}</span>
@@ -67,7 +67,7 @@ export default {
     name:"Product",
     data() {
         return {
-            pro_name : 'Bolt headphone',
+            ProductName : 'Bolt headphone',
             price: '25.99',
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.BoAt Bassheads 900 Wired On Ear Headphones with Mic",
             quantity: 0,
@@ -95,7 +95,7 @@ export default {
                 this.variant="danger";
                 this.showmsg = "Please select any size.";
             } else {
-                localStorage.setItem("pro_name", this.pro_name);
+                localStorage.setItem("ProductName", this.ProductName);
                 localStorage.setItem("price", this.price);
                 localStorage.setItem("quantity", this.quantity);
                 localStorage.setItem("size", this.selected);
@@ -119,7 +119,7 @@ export default {
 
             if( this.quantity == 0 ) {
 
-                localStorage.setItem("pro_name", '');
+                localStorage.setItem("ProductName", '');
                 localStorage.setItem("price", '');
                 localStorage.setItem("quantity", '');
                 localStorage.setItem("size", '');

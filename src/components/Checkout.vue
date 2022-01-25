@@ -36,7 +36,7 @@
                <b-form-group id="input-group-3" label="Country:" label-for="input-3" class="mb-4">
                   <b-form-select
                      id="input-3"
-                     :options="foods"
+                     :options="countries"
                      required
                      ></b-form-select>
                </b-form-group>
@@ -78,48 +78,68 @@
             </div>
             <div class="col-sm-6">
                <b-card class="cart_section">
-                  <b-form-group id="input-group-2" label="Product" label-for="input-2">
-                     <b-form-input
-                        id="input-2"
-                        placeholder="Product"
-                        required
-                        ></b-form-input>
-                  </b-form-group>
-                  <b-form-group id="input-group-3" label="Postal Code" label-for="input-3">
-                     <b-form-input
-                        id="input-3"
-                        placeholder="Last name"
-                        required
-                        ></b-form-input>
-                  </b-form-group>
-                  <b-form-group
-                     id="input-group-1"
-                     label="Email address:"
-                     label-for="input-1"
-                     >
-                     <b-form-input
-                        id="input-1"
-                        type="email"
-                        placeholder="Enter email"
-                        required
-                        ></b-form-input>
-                  </b-form-group>
-                  <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-                     <b-form-select
-                        id="input-3"
-                        :options="foods"
-                        required
-                        ></b-form-select>
-                  </b-form-group>
-                  <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-                     <b-form-checkbox-group
-                        id="checkboxes-4"
-                        :aria-describedby="ariaDescribedby"
-                        >
-                     </b-form-checkbox-group>
-                  </b-form-group>
-                  <b-button type="submit" variant="primary" class="placeorder">Place order</b-button>
-                  <b-button type="button" variant="warning" @click="goToHome()">Back</b-button>
+                    <div class="row">
+                     <div class="col-sm-6">
+                        <strong>Product</strong>
+                        <hr>
+                        <p>{{ ProductName }} ({{ quantity }} x {{ price }})</p>
+                     </div>
+                     <div class="col-sm-6">
+                        <strong>Total</strong>
+                        <hr>
+                        <p>${{ price }}</p>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <p>Size ( {{size}} )</p>
+                     </div>
+                  </div>
+
+                  <hr>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <p><strong>Subtotal</strong></p>
+                        <p><strong>Shipping</strong></p>
+                     </div>
+                     <div class="col-sm-6">
+                        <p :style="{color:'red'}">${{ quantity * price }}</p>
+                        <p> <b-form-checkbox id="checkbox-1"  name="checkbox-1" value="free_shipping">Free Shipping</b-form-checkbox></p>
+                        <p> <b-form-checkbox id="checkbox-2"  name="checkbox-2" value="local_pickup">Local pickup</b-form-checkbox></p>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <strong>Total</strong>
+                     </div>
+                     <div class="col-sm-6">
+                        <p :style="{color:'red'}">${{ quantity * price }}</p>
+                     </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <b-form-group v-slot="{ ariaDescribedby }">
+                           <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="payment_type" value="Stripe">Stripe</b-form-radio>
+                           <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="payment_type" value="Paypal">Paypal</b-form-radio>
+                        </b-form-group>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <p><b-img src="../../public/images/payment-icon.png" fluid alt="Responsive image"></b-img></p>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-sm-6" :style="{float:'right'}">
+                        <b-button type="submit" variant="primary" class="placeorder">Place order</b-button>
+                        <router-link to="/" tag="button" variant="warning" class="btn">Back</router-link>
+                        </div>
+                  </div>
                </b-card>
             </div>
          </div>
@@ -131,14 +151,19 @@
        name:"Checkoout",
        data() {
          return {
-           form: {
-             email: '',
-             name: '',
-             food: null,
-             checked: []
-           },
-           foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-           show: true
+            ProductName : localStorage.getItem('ProductName'),
+            price: localStorage.getItem('price'),
+            quantity: localStorage.getItem('quantity'),
+            size: localStorage.getItem('size').toUpperCase(),
+            selected: null,
+            form: {
+               email: '',
+               name: '',
+               country: null,
+               checked: []
+            },
+            countries: [{ text: 'Select One', value: null }, 'India', 'Australia', 'Norway', 'France'],
+            show: true
          }
        },
        methods: {
@@ -161,7 +186,7 @@
          },
          goToHome(event) {
             event.preventDefault()
-            this.$router.push('/'); 
+            this.$router.push('/');
          }
        }
      }
@@ -179,5 +204,8 @@
    }
    .placeorder{
        margin-right: 20px;
+   }
+   button.router-link-active {
+      background-color: #efe36f;
    }
 </style>
