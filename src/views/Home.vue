@@ -13,9 +13,12 @@
         </b-col>
         <b-col cols="4">
           <cart-component :cart="cart"></cart-component>
-          <router-link class="btn btn-primary btn-block mt-3" :class="{disabled:!cart.length}" to="/checkout"
-          >Checkout</router-link
-        >
+          <router-link
+            class="btn btn-primary btn-block mt-3"
+            :class="{ disabled: !cart.length }"
+            to="/checkout"
+            >Checkout</router-link
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -44,15 +47,13 @@ export default {
       this.cart = cartItems;
     }
   },
-  // computed:{
-  //   cartItems: function(){
-  //     return this.cart;
-  //   }
-  // },
   methods: {
+    // Emit an event and update cart
     onAddToCart(product) {
+      // check cart in localstorage
       let cartItems = JSON.parse(localStorage.getItem("cart"));
       if (cartItems) {
+        // if cart exists in localstorage then find item index
         let itemInd = cartItems.findIndex((item) => item.id == product.id);
         if (itemInd >= 0) {
           cartItems[itemInd] = product;
