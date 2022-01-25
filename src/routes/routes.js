@@ -3,11 +3,16 @@ import NotFound from '../pages/NotFoundPage.vue'
 
 import Overview from 'src/pages/Overview.vue'
 import ProductDetails from 'src/pages/ProductDetails.vue'
+import Checkout from 'src/pages/Checkout.vue'
 
 const routes = [
   { 
     path: '/product-details', 
     component: ProductDetails
+  },
+  { 
+    path: '/checkout', 
+    component: Checkout
   },
   {
     path: '/admin',
@@ -20,8 +25,7 @@ const routes = [
         component: Overview
       },
     ]
-  },
-  { path: '*', component: NotFound }
+  }
 ]
 
 

@@ -3,9 +3,22 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="/admin/overview" to="/admin/overview">
             <img src="img/vue-logo.png" /><b>Store</b>
           </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-left">
+        <li class="float-right">
+          <router-link :to="{ path: '/checkout', query: 
+              { 
+                quntity: cart ,
+                productPrice: productPrice,
+                productTitle: productTitle,
+              }
+            }">
+          <i class="nc-icon nc-cart-simple"></i>
+            <b> {{ cart }} </b></router-link>
         </li>
       </ul>
     </nav>
@@ -36,7 +49,8 @@
             <ul v-for="detail in productChecks">
               <li>{{ detail }}</li>
             </ul>
-            <h4>$ {{ Price() }}</h4>
+            <h4>Price : ${{productPrice}}</h4>
+            <h4>Total : ${{totalPrice() }}</h4>
             <form>
               <div
                 class="value-button"
@@ -47,7 +61,7 @@
               >
                 -
               </div>
-                <input type="number" id="number"  v-model="cart">
+              <input type="text" id="number" v-model="cart" />
               <div
                 class="value-button"
                 @click="addToCart"
@@ -79,7 +93,7 @@ form {
   border: 1px solid #ddd;
   margin: 0px;
   width: 40px;
-  height: 20px;
+  height: 46px;
   text-align: center;
   vertical-align: middle;
   padding: 11px 0;
@@ -117,8 +131,8 @@ input#number {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   margin: 0px;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 46px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -192,8 +206,7 @@ export default {
           imageUrl: "img/product-3.jpeg",
         },
       ],
-      cart: 1,
-      stockAvailability: true,
+      cart: 0,
       activeClass: 0,
     };
   },
@@ -201,8 +214,8 @@ export default {
     addToCart: function () {
       this.cart = this.cart + 1;
     },
-    Price: function () {
-      return this.cart *  this.productPrice;
+    totalPrice: function () {
+      return this.cart * this.productPrice;
     },
     removeToCart: function () {
       if (this.cart > 1) {
