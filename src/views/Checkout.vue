@@ -4,7 +4,7 @@
       Checkout
     </template>
     <template #content>
-      <div class="row">
+      <div v-if="carts != null && carts.length > 0" class="row">
         <div class="col-md-6">
           <h4>
             Billing Details
@@ -69,7 +69,7 @@
                   Address
                 </label>
 
-               <input type="text" class="form-control" placeholder="Enter address">
+                <input type="text" class="form-control" placeholder="Enter address">
               </div>
             </div>
 
@@ -79,7 +79,7 @@
                   Town/City
                 </label>
 
-               <input type="text" class="form-control" placeholder="Enter town or city">
+                <input type="text" class="form-control" placeholder="Enter town or city">
               </div>
             </div>
 
@@ -89,7 +89,7 @@
                   State / Country:
                 </label>
 
-               <input type="text" class="form-control" placeholder="Enter state or country">
+                <input type="text" class="form-control" placeholder="Enter state or country">
               </div>
             </div>
 
@@ -99,7 +99,7 @@
                   Postel Code:
                 </label>
 
-               <input type="text" class="form-control" placeholder="Enter postel code" pattern="[0-9]+">
+                <input type="text" class="form-control" placeholder="Enter postel code" pattern="[0-9]+">
               </div>
             </div>
 
@@ -114,77 +114,91 @@
         </div>
 
         <div class="col-md-6">
-            <div class="border p-5 bg-light">
-              <div class="row">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    Product
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    TOTAL
-                  </div>
-                  <hr class="mt-4">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    BELTED DRESS X 1
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    $185.00
-                  </div>
-                  <hr class="mt-4">
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <small>Subtotal</small>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <span class="font-weight-bold text-danger">
-                      $185.00
-                    </span>
-                  </div>
-
-                  <div class="mt-3 col-xs-6 col-sm-6 col-md-6">
-                    <small>Shipping</small>
-                  </div>
-                  <div class="mt-3 col-xs-6 col-sm-6 col-md-6">
-                    <label>
-                      <input type="checkbox" name="shipping" id="free_s"> Free Shipping
-                    </label>
-                    <br>
-                    <label>
-                      <input type="checkbox" name="shipping" id="lp"> Local Pickup
-                    </label>
-                  </div>
-                  <hr class="mt-4">
-                    <div class="col-xs-6 col-sm-6 col-md-6">
-                    <small>Total</small>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 col-md-6">
-                    <span class="font-weight-bold text-danger">
-                      $185.00
-                    </span>
-                  </div>
-                  <hr class="mt-4">
-
-                  <div class="col-12">
-                    <label>
-                      <input type="radio" name="payment" id="free_s"> Stripe
-                    </label>
-                    <br>
-                    <label>
-                      <input type="radio" name="payment" id="lp"> Paypal
-                    </label>
-                  </div>
-
-                  <div class="col-12">
-                    <img width="250px" class="paymentprovider img-fluid" src="../assets/images/paymentproviders.png" alt="payment_provider.png">
-                  </div>
-
-                  <div class="offset-md-6 col-6">
-                    <button disabled class="pull-right btn btn-md btn-danger">
-                      Place Order
-                    </button>
-                  </div>
-
+          <div class="border p-5 bg-light">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-9">
+                Product
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                TOTAL
               </div>
             </div>
+            <div v-for="(cart,index) in carts" :key="index" class="row">
+
+              <hr class="mt-4">
+              <div class="col-xs-6 col-sm-6 col-md-9">
+               {{ index+1 }}. {{ cart.product }} ({{ cart.size }},{{cart.color}})
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                ${{ cart.price.toFixed(2) }}
+              </div>
+             
+            </div>
+            
+             
+            <div class="row">
+               <hr class="mt-4">
+               <div class="col-xs-6 col-sm-6 col-md-9">
+                <small>Subtotal</small>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <span class="font-weight-bold text-danger">
+                  ${{ grandtotal.toFixed(2) }}
+                </span>
+              </div>
+              <div class="mt-3 col-xs-6 col-sm-6 col-md-9">
+                <small>Shipping</small>
+              </div>
+              <div class="mt-3 col-xs-6 col-sm-6 col-md-3">
+                <label>
+                  <input type="checkbox" name="shipping" id="free_s"> Free Shipping
+                </label>
+                <br>
+                <label>
+                  <input type="checkbox" name="shipping" id="lp"> Local Pickup
+                </label>
+              </div>
+              <hr class="mt-4">
+              <div class="col-xs-6 col-sm-6 col-md-9">
+                <small>Total</small>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <span class="font-weight-bold text-danger">
+                  ${{ grandtotal.toFixed(2) }}
+                </span>
+              </div>
+              <hr class="mt-4">
+
+              <div class="col-12">
+                <label>
+                  <input type="radio" name="payment" id="free_s"> Stripe
+                </label>
+                <br>
+                <label>
+                  <input type="radio" name="payment" id="lp"> Paypal
+                </label>
+              </div>
+
+              <div class="col-12">
+                <img width="250px" class="paymentprovider img-fluid" src="../assets/images/paymentproviders.png"
+                  alt="payment_provider.png">
+              </div>
+
+              <div class="offset-md-6 col-6">
+                <button disabled class="pull-right btn btn-md btn-danger">
+                  Place Order
+                </button>
+              </div>
+
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div v-else>
+        <h4 class="text-center">
+          <i class="fa fa-shopping-cart"></i> Your cart is empty
+        </h4>
       </div>
     </template>
   </Main>
@@ -199,7 +213,7 @@
     },
     data() {
       return {
-
+        grandtotal : 0,
         countries: [{
             name: 'India',
             id: 1
@@ -220,19 +234,22 @@
             name: 'Australia',
             id: 5
           },
-
-
-        ]
+        ],
+        carts: JSON.parse(localStorage.getItem('cart_storage'))
       }
     },
     mounted() {
-      console.log('Hey i am mounted');
+
+      this.carts.forEach(element => {
+            this.grandtotal += element.price
+      });
+
     }
   }
 </script>
 
 <style>
-  .paymentprovider{
+  .paymentprovider {
     position: relative;
     right: 15px;
   }

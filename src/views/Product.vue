@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-6">
             <center>
-              <carousel items="1" autoplay="true" :nav="false">
+              <carousel :items="1" :autoplay="true" :nav="false">
 
                 <img class="img-owl" src="https://placeimg.com/200/200/any?1">
 
@@ -24,7 +24,7 @@
         <div class="col-md-6">
 
           <h4 class="d-flex justify-content-between">
-            PRINTED SUMMER DRESS
+            {{product}}
           </h4>
 
           <div class="d-flex">
@@ -70,7 +70,7 @@
             </div>
 
             <div class="col-2">
-              <input type="text" class="form-control" v-model="quantity">
+              <input @change="reflectprice()" type="text" class="form-control" v-model="quantity">
             </div>
 
             <div class="col-1">
@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-4">
-              <button class="btn btn-md btn-danger">
+              <button @click.prevent="addtocart()" class="btn btn-md btn-danger">
                 <i class="fa fa-cart-plus"></i> ADD TO CART
               </button>
             </div>
@@ -113,12 +113,12 @@
           <div class="mt-3 d-flex">
 
             <label class="p-1">Size</label>
-            <select name="size" id="size" class="ml-15 w-50 form-control">
+            <select name="size" id="size" v-model="size" class="ml-15 w-50 form-control">
               <option value="">Please select size</option>
-              <option value="s">S</option>
-              <option value="m">M</option>
-              <option value="l">L</option>
-              <option value="xl">XL</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
             </select>
             
           </div>
@@ -132,11 +132,11 @@
 
           <div class="p-1 mt-1 d-flex">
              
-            <div class="border box-yellow">
+            <div @click.prevent="colorchooser('1','Yellow')" :class="{ active_c : active == 1 }" class="border box-yellow">
               &nbsp;
             </div>
 
-            <div class="ml-8 border bg-white-custom">
+            <div @click.prevent="colorchooser('2','White')" :class="{ active_c : active == 2 }" class="ml-8 border bg-white-custom">
               &nbsp;
             </div>
           </div>
@@ -154,13 +154,13 @@
   export default {
     data(){
       return {
+        product  : 'PRINTED SUMMER DRESS',
         quantity : 1,
         price    : 30.50,
-        images: [
-          'https://img.freepik.com/free-psd/close-up-wood-texture-mockup_23-2149160964.jpg',
-          'https://image.freepik.com/free-psd/book-mockup-with-shadow-overlay_23-2149209545.jpg',
-          'https://image.freepik.com/free-psd/minimalist-book-cover-mock-up_23-2148622915.jpg',
-        ]
+        orignal_price : 30.50,
+        size     : '',
+        color    : '',
+        active   : 0
       }
     },
     components: {
@@ -169,23 +169,76 @@
     },
     methods : {
         increment(){
-          this.quantity += 1;
-          this.price = this.price * this.quantity;
+          
+          this.quantity = this.quantity + 1;
+          this.price = this.orignal_price * this.quantity;
+          
+
+        },
+        reflectprice(){
+
+          this.price = this.orignal_price * this.quantity;
+
         },
         decrement(){
 
           this.price = this.price / this.quantity;
           
-          let customqty = this.quantity-1;
+          let customqty = this.quantity - 1;
+
+          this.price = customqty != 0 ? this.price * customqty : this.price * 1;
 
           this.quantity = customqty != 0 ? customqty : 1;
           
-          
+        },
+        addtocart(){
+
+          if(this.size == ''){
+            alert('Please select size');
+            return false;
+          }
+
+          if(this.color == ''){
+            alert('Please choose color');
+            return false;
+          }
+
+          let cart = JSON.parse(localStorage.getItem('cart_storage'));
+
+          cart = cart != null ? cart : [];
+
+          let index = cart.findIndex(c => c.product == this.product && c.size == this.size && c.color == this.color);
+
+          if (index !== -1) {
+            cart.splice(index, 1);
+          }
+
+
+          cart.push(
+            {
+              qty     : this.quantity,
+              price   : this.price,
+              size    : this.size,
+              color   : this.color,
+              product : this.product
+            }
+          );
+
+          localStorage.setItem('cart_storage',JSON.stringify(cart));
+
+          this.$router.push('/checkout');
+
+        },
+        colorchooser(id, value){
+            this.color = value;
+            this.active = id;
         }
     }
   }
 </script>
 
-<style>
-
+<style scoped>
+  .active_c{
+    border: 1px solid red !important;
+  }
 </style>
