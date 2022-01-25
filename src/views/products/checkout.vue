@@ -1,26 +1,30 @@
 <template>
   <div>
-    <Header />
     <b-container class="bv-example-row mt-3">
-      <b-row>
-          <b-col sm="12">
+      <b-row v-if="!this.$store.state.isEmptyCart">
+        <b-col sm="12">
           <p v-if="errors.length">
             <b>Please correct the following error(s):</b>
             <ul>
                 <li v-for="error in errors" :key="error">{{ error }}</li>
             </ul>
-            </p>
-         </b-col>
+          </p>
+        </b-col>
         <b-col sm="7">
           <b-card class="mt-3" header="Billing Details">
             <pre class="m-0"></pre>
-            <b-form @submit="checkForm" method="post" id="frm-billing" class="m-2">
+            <b-form
+              @submit="checkForm"
+              method="post"
+              id="frm-billing"
+              class="m-2"
+            >
               <b-row>
                 <b-col sm="6" class="my-2">
                   <b-form-group
                     id="lbl-first-name"
                     label="First Name:"
-                    size="sm"                    
+                    size="sm"
                   >
                     <b-form-input
                       size="sm"
@@ -33,11 +37,7 @@
                   </b-form-group>
                 </b-col>
                 <b-col sm="6" class="my-2">
-                  <b-form-group
-                    id="lbl-last-name"
-                    label="Last Name:"
-                    size="sm"
-                  >
+                  <b-form-group id="lbl-last-name" label="Last Name:" size="sm">
                     <b-form-input
                       size="sm"
                       id="last_name"
@@ -51,10 +51,7 @@
               </b-row>
               <b-row>
                 <b-col sm="6" class="my-2">
-                  <b-form-group
-                    id="phone-number"
-                    label="Phone number:"
-                  >
+                  <b-form-group id="phone-number" label="Phone number:">
                     <b-form-input
                       id="phone_number"
                       placeholder="Enter Phone.No"
@@ -67,9 +64,7 @@
                   </b-form-group>
                 </b-col>
                 <b-col sm="6" class="my-2">
-                  <b-form-group
-                    id="lbl-email"
-                    label="Email Address:">
+                  <b-form-group id="lbl-email" label="Email Address:">
                     <b-form-input
                       id="email"
                       placeholder="Enter Email Address"
@@ -84,9 +79,7 @@
               </b-row>
               <b-row>
                 <b-col sm="12" class="my-2">
-                  <b-form-group
-                    id="lbl-address"
-                    label="Address:">
+                  <b-form-group id="lbl-address" label="Address:">
                     <b-form-input
                       id="address"
                       placeholder="Enter Address"
@@ -100,9 +93,7 @@
               </b-row>
               <b-row>
                 <b-col sm="12" class="my-2">
-                  <b-form-group
-                    id="country"
-                    label="Country:">
+                  <b-form-group id="country" label="Country:">
                     <b-form-select
                       class="form-select form-select-sm"
                       id="country"
@@ -117,9 +108,7 @@
               </b-row>
               <b-row>
                 <b-col sm="4" class="my-2">
-                  <b-form-group
-                    id="lbl-city"
-                    label="Town/City:">
+                  <b-form-group id="lbl-city" label="Town/City:">
                     <b-form-input
                       id="city"
                       placeholder="Enter Town/City"
@@ -131,9 +120,7 @@
                   </b-form-group>
                 </b-col>
                 <b-col sm="4" class="my-2">
-                  <b-form-group
-                    id="lbl-state"
-                    label="State/County:">
+                  <b-form-group id="lbl-state" label="State/County:">
                     <b-form-input
                       id="state"
                       placeholder="Enter State/County"
@@ -145,9 +132,7 @@
                   </b-form-group>
                 </b-col>
                 <b-col sm="4" class="my-2">
-                  <b-form-group
-                    id="lbl-postal-code"
-                    label="Postal Code:">
+                  <b-form-group id="lbl-postal-code" label="Postal Code:">
                     <b-form-input
                       id="postal-code"
                       placeholder="Enter Postal Code"
@@ -172,15 +157,18 @@
                 </li>
                 <li
                   class="list-group-item"
-                  v-for="product in cart"
-                  :key="product.id">
+                  v-for="product in this.$store.state.cart"
+                  :key="product.id"
+                >
                   <label
                     >{{ product.title
                     }}<span class="badge bg-info m-1">
                       {{ product.price }} * {{ product.qty }}
                     </span>
                   </label>
-                  <label class="float-end">${{ product.price * product.qty }}</label>
+                  <label class="float-end"
+                    >${{ product.price * product.qty }}</label
+                  >
                 </li>
               </ul>
               <hr />
@@ -197,14 +185,17 @@
                         :aria-describedby="ariaDescribedby"
                         name="some-radios"
                         value="free_shipping"
-                        v-model="shipping_method">
-                        Free Shipping</b-form-radio>
+                        v-model="shipping_method"
+                      >
+                        Free Shipping</b-form-radio
+                      >
                       <b-form-radio
                         :aria-describedby="ariaDescribedby"
                         name="some-radios"
                         value="local_pickup"
                         v-model="shipping_method"
-                        >Local Pickup</b-form-radio>
+                        >Local Pickup</b-form-radio
+                      >
                     </b-form-group>
                   </label>
                 </li>
@@ -218,21 +209,26 @@
                 @click="checkForm"
                 size="sm"
                 class="float-end mt-2"
-                >Place Order</b-button>
+                >Place Order</b-button
+              >
             </b-card-text>
           </b-card>
         </b-col>
+      </b-row>
+      <b-row v-else class="m-5">
+        <b-card bg-variant="light" text-variant="dark" class="text-center">
+          <b-card-text> OOPS! Your cart is empty! </b-card-text>
+          <router-link class="btn btn-outline-primary" :to="'/'"
+            >Let's Brows the products</router-link
+          >
+        </b-card>
       </b-row>
     </b-container>
   </div>
 </template>
 <script>
-import Header from "../../components/Header.vue";
 export default {
   name: "Checkout",
-  components: {
-    Header,
-  },
   props: ["cart"],
   data: function () {
     return {
@@ -259,9 +255,6 @@ export default {
     };
   },
   methods: {
-    placeOrder: function () {
-      alert("Order Placed Successfully!");
-    },
     checkForm: function (e) {
       this.errors = [];
       if (!this.form.first_name) {
@@ -295,14 +288,16 @@ export default {
         e.preventDefault();
       } else {
         alert("Order Placed Successfully!");
+        this.$store.dispatch("emptyTheCart");        
+        this.$router.push({ name: "Dashboard" });
       }
     },
   },
   computed: {
     cartTotal: function () {
       var totalAount = 0;
-      if (this.cart.length > 0) {
-        this.cart.map((product) => {
+      if (this.$store.state.cart.length > 0) {
+        this.$store.state.cart.map((product) => {
           totalAount += product.qty * parseInt(product.price);
         });
       }

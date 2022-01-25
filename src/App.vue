@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <Dashboard />
-    <!-- <Checkout /> -->
+    <div id="nav">
+      <Header />
+    </div>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Dashboard from "./views/products/index.vue";
-// import Checkout from "./views/products/checkout.vue";
+import Header from "./components/Header.vue";
 
 export default {
   name: "App",
   components: {
-    Dashboard,
-    // Checkout,
+    Header,
   },
 };
 </script>
-
-
