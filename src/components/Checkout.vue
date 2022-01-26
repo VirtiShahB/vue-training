@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="mr-5 ml-5">
+    <ShowAlert :error="error" />
     <b-row>
-      <b-col class="md-8">
+      <b-col>
         <ShippingDetails />
       </b-col>
-      <b-col :class="['md-4', 'mr-5', { summary: true }]">
+      <b-col :class="[{ summary: true }]">
         <b-row>
           <b-col class="md-10">
             <h3>Product</h3>
@@ -25,25 +26,14 @@
               <b-col class="md-2">Qty: {{ product.qty }}</b-col>
             </b-row>
           </b-col>
-          <b-col class="md-2"> ${{ product.qty * product.price }} </b-col>
+          <b-col class="md-2"> ${{ (product.qty * product.price).toFixed(2) }} </b-col>
         </b-row>
-        <b-row>
-          <b-col class="md-10">
-            <h3>Subtotal</h3>
-          </b-col>
-          <b-col class="md-2">
-            <h3>${{getSubtotal}}</h3>
-            <b-checkbox>Free Shipping</b-checkbox>
-            <b-checkbox>Local Pickup</b-checkbox>
-          </b-col>
-        </b-row>
-        <hr />
         <b-row>
           <b-col class="md-10">
             <h3>Total</h3>
           </b-col>
           <b-col class="md-2">
-            <h3>${{getSubtotal}}</h3>
+            <h3>${{ getSubtotal.toFixed(2) }}</h3>
           </b-col>
         </b-row>
         <hr />
@@ -53,8 +43,10 @@
               >Countinue Shopping</b-button
             >
           </b-col>
-          <b-col class="md-4 text-center">
-            <b-button variant="warning">Place Order</b-button>
+          <b-col class="md-4 text-center" v-show="this.cartSummary.length > 0">
+            <b-button variant="warning" @click="placeOrder"
+              >Place Order</b-button
+            >
           </b-col>
         </b-row>
       </b-col>
@@ -65,20 +57,21 @@
 <script>
 import productsData from './Products/productsData.json'
 import ShippingDetails from './ShippingDetails'
+import ShowAlert from './UI/ShowAlert'
 export default {
   name: 'Checkout',
-  components: { ShippingDetails },
+  components: { ShippingDetails, ShowAlert },
   mounted () {
     this.getProductData()
   },
   computed: {
-    CartData () {
-      return this.$route.params.cartData
-    },
     getSubtotal () {
-      return this.cartSummary
-        .map((item) => item.price * item.qty)
-        .reduce((prev, next) => prev + next)
+      if (this.cartSummary.length > 0) {
+        return this.cartSummary
+          .map((item) => item.price * item.qty)
+          .reduce((prev, next) => prev + next)
+      }
+      return 0
     }
   },
   data () {
@@ -89,7 +82,8 @@ export default {
         email: '',
         name: ''
       },
-      show: true
+      show: true,
+      error: {}
     }
   },
   methods: {
@@ -103,12 +97,8 @@ export default {
       this.form.name = ''
     },
     getProductData () {
-      const cartData = this.$route.params.cartData
-      if (cartData === undefined) {
-        this.$router.push({
-          name: 'dashboard'
-        })
-      } else {
+      if (localStorage.getItem('cartItems')) {
+        const cartData = JSON.parse(localStorage.getItem('cartItems'))
         this.cartSummary = this.productsData.filter(function (o1) {
           return cartData.some(function (o2) {
             o1.qty = o2.qty
@@ -116,6 +106,11 @@ export default {
           })
         })
       }
+    },
+    placeOrder () {
+      localStorage.removeItem('cartItems')
+      this.cartSummary = []
+      this.error = ['success', 'Horray Order Placed , Continue shopping']
     }
   }
 }

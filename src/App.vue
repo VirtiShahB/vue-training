@@ -1,6 +1,8 @@
 <template>
-  <div id="app" class="ml-5">
+  <div id="app">
+    <b-container fluid>
     <router-view />
+    </b-container>
   </div>
 </template>
 

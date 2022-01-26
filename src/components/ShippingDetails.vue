@@ -77,10 +77,7 @@ export default {
   name: 'ShippingDetails',
   data () {
     return {
-      form: {
-        email: '',
-        name: ''
-      },
+      form: {},
       show: true
     }
   },
@@ -93,7 +90,6 @@ export default {
       event.preventDefault()
       // Reset our form values
       this.form.email = ''
-      this.form.name = ''
     }
   }
 }

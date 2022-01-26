@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Checkout from '@/components/Checkout'
+import ItemDetail from '@/components/Products/ItemDetail'
 
 Vue.use(Router)
 
@@ -18,9 +19,14 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/Checkout',
+      path: '/checkout',
       name: 'Checkout',
       component: Checkout
+    },
+    {
+      path: '/product/:productId',
+      name: 'ItemDetail',
+      component: ItemDetail
     }
   ]
 })
