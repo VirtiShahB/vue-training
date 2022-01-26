@@ -1,5 +1,8 @@
 <template>
   <div class="p-4">
+    <div class="row float-right">
+      <b-button variant="outline-primary" @click="openCart()">Cart</b-button>
+    </div>
     <div class="row">
       <span
         ><strong>{{ name }}</strong></span
@@ -63,8 +66,11 @@
           <b-button squared :pressed="true" variant="danger"
             ><b-icon icon="cart"></b-icon
           ></b-button>
-          <b-button @click="addToCart()" squared variant="danger"
-            >ADD TO CART</b-button
+          <b-button
+            @click="isInCart ? removeFromCart(id) : addToCart(id, qty)"
+            squared
+            variant="danger"
+            >{{ isInCart ? "Remove" : "ADD TO CART" }}</b-button
           ></b-form
         >
       </div>
@@ -123,18 +129,34 @@ export default {
     name: String,
     price: Number,
     currency: String,
-    image: String
+    image: String,
+  },
+  computed: {
+    isInCart() {
+      return this.$store.getters.isInCart(this.id);
+    },
   },
   methods: {
-    addToCart() {
-      const total = this.price*this.qty
-      this.$router.push({name: 'checkout', params: { total: total, productName: this.name }})
+    addToCart(id, qty) {
+      this.$store.dispatch("addToCart", { id, qty });
+      // const total = this.price*this.qty
+      // this.$router.push({name: 'checkout', params: { total: total, productName: this.name }})
+      // this.$router.push({name: '/'})
+    },
+    removeFromCart(id) {
+      this.$store.dispatch("removeFromCart", { id });
     },
     incrementQty() {
       this.qty++;
     },
     decrementQty() {
       this.qty--;
+    },
+    openCart() {
+      this.$router.push({
+        name: "checkout",
+        params: { cart: this.$store.state.cart },
+      });
     },
   },
 };

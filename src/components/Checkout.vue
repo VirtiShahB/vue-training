@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Billing</h1>
+    <h1 class="text-left ml-5">Billing</h1>
 
     <b-form fluid class="bv-example-row">
       <b-row class="m-5">
@@ -127,12 +127,12 @@
               </b-col>
             </b-row>
             <hr />
-            <b-row>
+            <b-row v-for="cart in cartInfo" :key="cart.id">
               <b-col class="text-left">
-                <label>{{ $route.params.productName }}</label>
+                <label>{{ cart.name }} x {{ cart.qty }}</label>
               </b-col>
               <b-col class="text-left">
-                <span class="text-danger">EUR {{ $route.params.total }}</span>
+                <span class="text-danger">EUR {{ getTotal(cart) }}</span>
               </b-col>
             </b-row>
             <hr />
@@ -141,7 +141,7 @@
                 <label>Subtotal:</label>
               </b-col>
               <b-col class="text-left">
-                <span class="text-danger">EUR {{ $route.params.total }}</span>
+                <span class="text-danger">EUR {{ getSubTotal() }}</span>
               </b-col>
             </b-row>
             <b-row>
@@ -173,7 +173,7 @@
                 <label>Total:</label>
               </b-col>
               <b-col class="text-left">
-                <span class="text-danger">EUR {{ $route.params.total }}</span>
+                <span class="text-danger">EUR {{ getSubTotal() }}</span>
               </b-col>
             </b-row>
             <hr />
@@ -205,3 +205,36 @@
     </b-form>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      qty: 1,
+    };
+  },
+  props: {
+    id: Number,
+    name: String,
+    price: Number,
+    currency: String,
+    image: String,
+  },
+  computed: {
+    cartInfo() {
+      return this.$store.state.cart;
+    },
+  },
+  methods: {
+    getTotal(cart) {
+      return (cart.price * cart.qty).toFixed(2);
+    },
+    getSubTotal() {
+      return this.$store.state.cart.reduce((acc, curr) => {
+        const tp = (curr.price * curr.qty)
+        return (acc += tp);
+      }, 0).toFixed(2);
+    },
+  },
+};
+</script>

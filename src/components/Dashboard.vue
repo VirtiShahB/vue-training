@@ -1,18 +1,22 @@
 <template>
   <div class="hello">
     <h1>Welcome to E-commerce Application</h1>
-    <Product/>
+    <ItemList/>
   </div>
 </template>
 
-
 <script>
-import Product from './Product.vue'
+import ItemList from "./ItemList.vue";
 
 export default {
-  name: 'App',
+  name: "Dashboard",
   components: {
-    Product,
-  }
-}
+    ItemList,
+  },
+  computed: {
+    products() {
+      return this.$store.state.products;
+    }
+  },
+};
 </script>
