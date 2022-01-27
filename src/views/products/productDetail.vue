@@ -111,7 +111,7 @@ export default {
         this.quanity = parseInt(this.quanity) - 1;
       }
     },
-    addToCart: function (productId = {}) {
+    addToCart (productId = {}) {
       var IsAlreadyAdded = false;
       if (this.quanity && this.quanity > 0) {
         this.$store.state.cart.forEach((product) => {

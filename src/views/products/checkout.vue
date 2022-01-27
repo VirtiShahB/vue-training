@@ -255,7 +255,7 @@ export default {
     };
   },
   methods: {
-    checkForm: function (e) {
+    checkForm(e) {
       this.errors = [];
       if (!this.form.first_name) {
         this.errors.push("First name is required");
@@ -288,13 +288,13 @@ export default {
         e.preventDefault();
       } else {
         alert("Order Placed Successfully!");
-        this.$store.dispatch("emptyTheCart");        
+        this.$store.dispatch("emptyTheCart");
         this.$router.push({ name: "Dashboard" });
       }
     },
   },
   computed: {
-    cartTotal: function () {
+    cartTotal() {
       var totalAount = 0;
       if (this.$store.state.cart.length > 0) {
         this.$store.state.cart.map((product) => {

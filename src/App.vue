@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
+import Header from "./views/Layouts/Header.vue";
 
 export default {
   name: "App",

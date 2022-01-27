@@ -9,9 +9,21 @@
           <b-nav-item v-if="!this.$store.state.isEmptyCart" href="#"
             ><router-link to="/checkout">Checkout</router-link></b-nav-item
           >
-          <b-nav-item-dropdown text="Profile" right>
-            <b-dropdown-item href="#">Settings</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+          <b-nav-item-dropdown
+            v-if="this.$store.state.wishlist.length"
+            text="Wishlist"
+            right
+          >
+            <b-dropdown-item
+              v-for="product in this.$store.state.wishlist"
+              :key="'wishlist-' + product.id"
+              disabled
+              href="#"
+              >{{ product.title
+              }}<span class="badge bg-info m-1">
+                ${{ product.price }}
+              </span></b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </div>

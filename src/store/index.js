@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import '@/api/api.js'
+
 Vue.use(Vuex)
 
 const state = {
   cart: [],
+  wishlist: [],
   isEmptyCart: true,
+  isEmptyWishlist: true,
+  // products: [],
   products: [
     {
       id: 1,
-      image: require('./assets/product_images/img1.jpg'),
+      image: require('../assets/product_images/img1.jpg'),
       title: 'Product 1',
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
@@ -17,7 +22,7 @@ const state = {
     },
     {
       id: 2,
-      image: require('./assets/product_images/img2.jpg'),
+      image: require('../assets/product_images/img2.jpg'),
       title: 'Product 2',
       description:
         '0s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also',
@@ -26,7 +31,7 @@ const state = {
     },
     {
       id: 3,
-      image: require('./assets/product_images/img3.jpg'),
+      image: require('../assets/product_images/img3.jpg'),
       title: 'Product 3',
       description:
         'Letraset sheets containing Lorem Ipsum passages, and more recently with desktop pu',
@@ -35,7 +40,7 @@ const state = {
     },
     {
       id: 4,
-      image: require('./assets/product_images/img4.jpg'),
+      image: require('../assets/product_images/img4.jpg'),
       title: 'Product 4',
       description:
         'atin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable',
@@ -44,15 +49,29 @@ const state = {
     },
   ],
 }
-
 const mutations = {
-  addToCart(state, payload) {
-    state.cart.push(payload)
-    this.state.isEmptyCart = false
+  SET_INITAL_PRODUCTS(state, payload) {
+    state.products = payload.productsData
   },
-  emptyTheCart(state) {
+  ADDTOCART(state, payload) {
+    state.cart.push(payload)
+    state.isEmptyCart = false
+  },
+  ADDTOWISHLIST(state, payload) {
+    state.wishlist.push(payload)
+    state.isEmptyWishlist = false
+  },
+  REMOVETOWISHLIST(state, payload) {
+    var removeIndex = this.state.wishlist
+      .map(function (product) {
+        return product.id
+      })
+      .indexOf(payload.id)
+    state.wishlist.splice(removeIndex, 1)
+  },
+  EMPTYTHECART(state) {
     state.cart = []
-    this.state.isEmptyCart = true
+    state.isEmptyCart = true
   },
 }
 
@@ -63,13 +82,23 @@ const getters = {
 }
 
 const actions = {
+  setInitialProducts({ commit }, payload) {
+    commit('SET_INITAL_PRODUCTS', payload)
+  },
   addToCart({ commit }, payload) {
     var product = state.products.find((p) => p.id === parseInt(payload.id))
     product.qty = payload.qty
-    commit('addToCart', product)
+    commit('ADDTOCART', product)
+  },
+  addToWishlist({ commit }, payload) {
+    var product = state.products.find((p) => p.id === parseInt(payload.id))
+    commit('ADDTOWISHLIST', product)
+  },
+  removeToWishlist({ commit }, payload) {
+    commit('REMOVETOWISHLIST', payload)
   },
   emptyTheCart({ commit }) {
-    commit('emptyTheCart')
+    commit('EMPTYTHECART')
   },
 }
 
