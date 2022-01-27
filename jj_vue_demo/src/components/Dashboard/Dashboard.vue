@@ -1,26 +1,27 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="mt-4" v-for="(product, index) in products" :key="index">
-        <ProductDetail :product="product"></ProductDetail>
+    <div class="row mt-4">
+      <div class="col-md-4" v-for="(product, index) in products" :key="index">
+        <Product :product="product"/>
       </div>
+      
     </div>
   </div>
 </template>
 
 <script>
-import ProductDetail from "./ProductDetail.vue";
+import Product from "../Product.vue";
 
 export default {
   data() {
     return {
-      cartProducts: [],
+       
     };
   },
   props: ["products"],
   name: "Dashboard",
   components: {
-    ProductDetail,
+    Product
   },
 };
 </script>

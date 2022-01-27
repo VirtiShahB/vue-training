@@ -96,9 +96,12 @@ export default {
           },
         },
       ],
-      carts: JSON.parse(window.localStorage.getItem("cartProducts")),
+      carts: [],
       show: true,
     };
+  },
+  mounted (){
+    this.carts = this.$store.state.cartProducts
   },
   computed: {
     cartTotal() {

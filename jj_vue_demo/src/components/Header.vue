@@ -1,11 +1,13 @@
 <template>
   <div>
     <nav class="navbar navbar-light bg-danger bg-gradient p-3">
+      <router-link to="/">
       <h3>
         <b>
           {{ title }}
         </b>
       </h3>
+      </router-link>
       <div class="form-inline my-2 my-lg-0">
         <router-link to="/checkout">
           <b-icon-cart scale="2"></b-icon-cart>
