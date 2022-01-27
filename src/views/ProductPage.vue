@@ -1,23 +1,40 @@
 <template>
-  <div class="home">
+  <div class="product-page">
     <toast message="Product added to cart" :show.sync="showToast" />
     <main-header
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
     />
-    
+    <b-container>
+      <b-row>
+        <product-card
+          v-for="(product, i) in allProducts"
+          :key="i"
+          :product="product"
+          @add-to-chart="addToChard"
+        />
+      </b-row>
+      <products-dialog
+        :isActive="isProductsDialogActive"
+        :products="selectedProducts"
+      />
+    </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
+import ProductCard from '@/components/ProductCard.vue';
+import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
 
 export default {
-  name: 'Home',
+  name: 'ProductPage',
   components: {
     MainHeader,
+    ProductCard,
+    Toast
   },
   data() {
     return {
