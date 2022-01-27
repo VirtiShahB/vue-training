@@ -29,6 +29,9 @@
                 <b-button squared variant="success" @click="addToCartProduct"
                   >Add to Cart</b-button
                 >
+
+                <b-button squared variant="primary" class="ml-4" @click="$router.push({path: '/checkout'})">Buy Now</b-button
+                >
               </div>
 
               <div class="row justify-content-center mt-3">
@@ -212,6 +215,10 @@ img {
 
 .tooltip-inner {
   padding: 1.3em; }
+
+.ml-4{
+   margin-left: 4px !important;
+}
 
 @-webkit-keyframes opacity {
   0% {
