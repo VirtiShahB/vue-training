@@ -46,7 +46,7 @@
           <div class="col-md-4">
             <h3 class="my-4">{{ productTitle }}</h3>
             <h3 class="my-3">Details</h3>
-            <ul v-for="detail in productChecks">
+            <ul v-for="detail in productChecks" :key="detail.productTitle">
               <li>{{ detail }}</li>
             </ul>
             <h4>Price : ${{productPrice}}</h4>
@@ -206,6 +206,14 @@ export default {
           imageUrl: "img/product-3.jpeg",
         },
       ],
+      watch: {
+        books: {
+          handler() {
+            localStorage.setItem('books',JSON.stringify(this.books))
+          },
+        deep: true
+        }
+      },
       cart: 0,
       activeClass: 0,
     };
