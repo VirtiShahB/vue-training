@@ -3,7 +3,7 @@
         <b-container class="bv-example-row">
           <b-row>
             <b-col>
-              <img :src="require('@/assets/images/'+item.image)" alt="" class="img-fluid">
+              <img :src="require('@/assets/images/'+item.image)" alt="" class="img-fluid col-6">
             </b-col>
             <b-col class="text-left">
               <h1>{{item.title}}</h1><hr>
@@ -23,30 +23,45 @@
 <script>
     export default {
         name: "Book",
+        created() {
+         this.item = this.$route.params.item;
+          if (!this.item) {
+            this.$router.push("/");
+          }
+        },
         data(){
           return{
             cart:[],
-            item: [],
+            item: []
           }
         },
         methods: {
           addToCart(item) {
               item.qty = document.getElementById('qty').value ;
+              
               if (!localStorage.getItem("cart")) {
                 localStorage.setItem("cart", JSON.stringify([]));
               }
               const cartItems = JSON.parse(localStorage.getItem("cart"));
-              cartItems.push(item);
+              var cartDataPush = 1;
+
+              if(cartItems.length > 0){
+                for(let i = 0; i < cartItems.length ;i++){
+                  if(item.id === cartItems[i].id){
+                    cartItems[i].qty = parseInt(cartItems[i].qty) + parseInt(item.qty);
+                    cartDataPush = 0;
+                  }
+                }
+              }
+
+              if(cartDataPush == 1){
+                cartItems.push(item);
+              }
+              
               localStorage.setItem("cart", JSON.stringify(cartItems));
               this.cart = JSON.parse(localStorage.getItem("cart"));
               this.$router.push('/cart')
           },
-        },
-        mounted() {
-          this.item = this.$route.params.item;
-          if (!this.item) {
-            this.$router.push("/");
-          }
         },
     }
 </script>

@@ -19,7 +19,7 @@
                   alt=""
                   class="d-inline-block img-fluid col-1"
                 />
-                <span class="cart_book_title d-inline-block">{{
+                <span class="cart_book_title d-inline-block" @click="viewProduct(c)">{{
                   c.title
                 }}</span>
               </b-col>
@@ -34,9 +34,11 @@
         </b-tr>
         <b-tr>
           <b-td></b-td>
-          <b-td></b-td>
           <b-td>
-            <strong>Total: {{ "₹ " + total }}</strong>
+            <p class="text-center" v-if="! total">No item in your cart</p>
+          </b-td>
+          <b-td>
+            <strong v-if="total">Total: {{ "₹ " + total }}</strong>
           </b-td>
         </b-tr>
       </b-tbody>

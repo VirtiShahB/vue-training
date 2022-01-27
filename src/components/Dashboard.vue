@@ -3,7 +3,7 @@
         <b-container class="bv-example-row">
           <h1 class="text-left mb-5">Products Listing</h1>
           <b-row>
-            <b-col cols="3" v-for="item of items" :key="item.id" class="mt-2" @click="viewProduct(item)">
+            <b-col cols="3" v-for="item of items" :key="item.id" class="mt-2 item_block" @click="viewProduct(item)">
               <img :src="require('@/assets/images/'+item.image)" alt="book image" class="img-fluid mb-2" v-bind="mainProps">
               <div class="">
                 <p class="mb-0 book_title">{{item.title}}</p>
@@ -83,6 +83,7 @@
 </script>
 
 <style scoped>
-
-
+.item_block{
+  cursor:pointer;
+}
 </style>
