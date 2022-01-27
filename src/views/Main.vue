@@ -23,6 +23,10 @@
               <router-link class="nav-link" active-class="active" to="/checkout">Checkout</router-link>
             </b-nav-item>
 
+            <b-nav-item href="#" right>
+              <router-link class="nav-link" active-class="active" to="/checkout">My Wishlist</router-link>
+            </b-nav-item>
+
           </b-navbar-nav>
 
         </b-collapse>
