@@ -5,19 +5,45 @@
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
     />
+    <section class="pv-wrapper">
     
+    <main class="pv-container">
+        <div>
+          <div class="card-main-title">
+           
+          </div>
+          <div class="cards-main">
+            <div
+              class="prod-card-wrapper"              
+            >
+            <b-row>
+              <product-list 
+                v-for="(product, i) in allProducts"
+                :key="i"
+                :product="product"
+                @add-to-chart="addToChard"
+              />
+            </b-row>
+            </div>
+          </div>
+
+        </div>
+    </main>
+  </section>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
+import ProductList from '@/components/ProductList.vue';
 import products from '@/data/products.js';
 
 export default {
   name: 'Home',
   components: {
     MainHeader,
+    ProductList,
   },
   data() {
     return {
@@ -59,4 +85,8 @@ export default {
   },
 }
 </script>
-
+<style scoped>
+.prod-card-wrapper{
+  padding: 20px;
+}
+</style>
