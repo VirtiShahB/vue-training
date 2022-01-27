@@ -1,7 +1,10 @@
 <template>
   <div class="p-4">
-    <div class="row float-right">
+    <div class="row">
       <b-button variant="outline-primary" @click="openCart()">Cart</b-button>
+      <b-button variant="outline-primary" @click="openWishlist()"
+        >Wishlist</b-button
+      >
     </div>
     <div class="row">
       <span
@@ -91,6 +94,7 @@
         ></b-icon>
         <b-icon
           icon="heart"
+          @click="addToWishList(id)"
           class="rounded-circle bg-secondary p-2 mr-2"
           scale="0.65"
           variant="light"
@@ -156,6 +160,15 @@ export default {
       this.$router.push({
         name: "checkout",
         params: { cart: this.$store.state.cart },
+      });
+    },
+    addToWishList(id) {
+      this.$store.dispatch("addToWishList", { id });
+    },
+    openWishlist() {
+      this.$router.push({
+        name: "wishlist",
+        params: { wishList: this.$store.state.wishList },
       });
     },
   },

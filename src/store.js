@@ -21,11 +21,17 @@ export const mutations = {
     const product = state.products.find((product) => {
       return product.id === payload.id;
     });
-    var qty = payload.qty
+    var qty = payload.qty;
     state.cart = [...state.cart, { ...product, qty }]; //spread operator
   },
   removeFromCart(state, payload) {
     state.cart = state.cart.filter((product) => product.id !== payload.id);
+  },
+  addToWishList(state, payload) {
+    const product = state.products.find((product) => {
+      return product.id === payload.id;
+    });
+    state.wishList = [...state.wishList, { ...product }];
   },
 };
 
@@ -36,12 +42,16 @@ const actions = {
   removeFromCart(context, payload) {
     context.commit("removeFromCart", payload);
   },
+  addToWishList(context, payload) {
+    context.commit("addToWishList", payload);
+  },
 };
 
 export default new Vuex.Store({
   state: {
     products: productsData,
     cart: [],
+    wishList: [],
   },
   getters,
   mutations,

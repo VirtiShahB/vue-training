@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Dashboard from "../components/Dashboard.vue";
 import ItemDetails from "../components/ItemDetails.vue";
 import Checkout from "../components/Checkout.vue";
+import WishList from "../components/WishList.vue"
 
 Vue.use(Router);
 
@@ -33,6 +34,11 @@ export default new Router({
       path: "/checkout",
       name: "checkout",
       component: Checkout,
+    },
+    {
+      path: "/wishlist",
+      name: "wishlist",
+      component: WishList,
     },
   ],
 });
