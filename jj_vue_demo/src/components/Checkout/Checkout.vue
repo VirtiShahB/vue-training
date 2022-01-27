@@ -57,7 +57,9 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary" class="mt-4">Submit</b-button>
+          <b-button type="submit" variant="primary" class="mt-4"
+            >Submit</b-button
+          >
           <b-button type="reset" variant="danger" class="mt-4">Reset</b-button>
         </b-form>
       </b-col>
@@ -67,7 +69,9 @@
             <td><b>Total</b></td>
             <td />
             <td />
-            <td><b>${{ cartTotal }}</b></td>
+            <td>
+              <b>${{ cartTotal }}</b>
+            </td>
           </template>
         </b-table>
       </b-col>
@@ -86,7 +90,7 @@ export default {
           key: "price",
           formatter: (value) => {
             return "$" + value;
-          }
+          },
         },
         "quantity",
         {
@@ -100,8 +104,8 @@ export default {
       show: true,
     };
   },
-  mounted (){
-    this.carts = this.$store.state.cartProducts
+  mounted() {
+    this.carts = this.$store.state.cartProducts;
   },
   computed: {
     cartTotal() {

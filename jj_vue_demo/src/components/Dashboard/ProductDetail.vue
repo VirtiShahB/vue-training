@@ -1,17 +1,12 @@
 <template>
   <div class="container">
-    <!-- <b-button
-      variant="outline-primary"
-      class="mt-3 mr-3"
-      @click="goBack()"
-      >Back</b-button> -->
     <b-card
       img-src="https://placekitten.com/300/300"
       img-alt="Card image"
       img-left
       class="mb-3 mt-4"
     >
-      <b-card-text >
+      <b-card-text>
         <h3>{{ product.name }}</h3>
         <hr />
         <h5>{{ product.description }}</h5>
@@ -48,13 +43,13 @@
 export default {
   data() {
     return {
-      product: {}
+      product: {},
     };
   },
-  created (){
-      this.product = this.$route.params.data
-    },
-  methods: {    
+  created() {
+    this.product = this.$route.params.data;
+  },
+  methods: {
     incQty() {
       this.product.quantity += 1;
     },
@@ -76,11 +71,10 @@ export default {
           }
         }
       }
-      //window.localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
     },
     goBack() {
-      this.$router.push('/')
-    }
+      this.$router.push("/");
+    },
   },
 };
 </script>
