@@ -7,9 +7,8 @@
     />
     <b-container>
       <b-row>
-        <product-detail
-          v-for="(product, i) in allProducts"
-          :key="i"
+        <product-card
+          v-for="(product, i) in getData($route.params.id)" :key="i"
           :product="product"
           @add-to-chart="addToChard"
         />
@@ -25,15 +24,15 @@
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
-import ProductDetail from '@/components/ProductDetail.vue';
+import ProductCard from '@/components/ProductCard.vue';
 import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
 
 export default {
-  name: 'AboutPage',
+  name: 'ProductDetail',
   components: {
     MainHeader,
-    ProductDetail,
+    ProductCard,
     Toast,
   },
   data() {
@@ -72,6 +71,12 @@ export default {
       this.productCount += product.piece;
       this.showToast = true;
     },
+    getData(id) {
+      let data = this.allProducts
+      return data.filter(item => {
+          return item.id == id
+      })
+    }
     
   },
 }

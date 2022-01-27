@@ -15,7 +15,10 @@
                 <div class="card-info-wrapper">
                   <div class="price">$ {{ price }}.00</div>
                   <br>
-                  <div class="card-name">{{ product.name }}</div>
+                  <router-link :to="{ name: 'ShowDetails', params: { id: product.id } }"
+                    ><div class="card-name">{{ product.name }}</div></router-link
+                  >
+                  
                   <br>
                   <div class="card-info"> {{ product.description }}</div>
                 </div>
@@ -95,7 +98,7 @@ export default {
       console.log(localStorage.getItem('productsOnCart'));
       this.$emit("add-to-chart", newProduct);
       this.resetSelections();
-    },
+    },   
     // Given first valeus to selectCount and selectedSize.
     resetSelections() {
       this.selectedCount = 1;

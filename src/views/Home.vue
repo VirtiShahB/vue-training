@@ -37,6 +37,7 @@
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
 import ProductList from '@/components/ProductList.vue';
+import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
 
 export default {
@@ -44,6 +45,7 @@ export default {
   components: {
     MainHeader,
     ProductList,
+    Toast,
   },
   data() {
     return {
@@ -81,6 +83,7 @@ export default {
       this.productCount += product.piece;
       this.showToast = true;
     },
+    
     
   },
 }
