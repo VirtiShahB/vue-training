@@ -75,7 +75,7 @@
           viewProduct:function(items) {
             this.$router.push({
               name: "ProductDetail",
-              params:{item:items},
+              params:{id:items.id,item:items},
             });
           }
         },

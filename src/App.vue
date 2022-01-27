@@ -7,7 +7,7 @@
             <router-link class="nav-link" to="/"> Home </router-link>
           </li>
           <li class="text-right">
-            <router-link class="nav-link" to="cart">
+            <router-link class="nav-link" to="/cart">
               <b-icon-cart></b-icon-cart>
             </router-link>
           </li>

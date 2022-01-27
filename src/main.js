@@ -8,7 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 
 import Dashboard from './components/Dashboard.vue'
-import Product from './components/Product.vue'
+import ProductShow from './components/ProductShow.vue'
 import Cart from './components/Cart.vue'
 import Checkout from './components/Checkout.vue'
 
@@ -18,7 +18,7 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     { path: '/', component: Dashboard },
-    { path: '/product', component: Product,name: 'ProductDetail'},
+    { path: '/product/:id', component: ProductShow,name: 'ProductDetail'},
     { path: '/cart', component: Cart },
     { path: '/checkout', component: Checkout },
   ]
