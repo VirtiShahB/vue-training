@@ -1,11 +1,6 @@
 <template>
   <div>
-    <Cart
-      v-if="showCart == true"
-      :showCart="showCart"
-      :inCart="inCart"
-      :product="product"
-    />
+    <Cart v-if="showCart == true" :showCart="showCart" />
     <div class="row mb-5" v-for="item in product" :key="item.id">
       <div class="col6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <img class="img-fluid" :src="item.img" />
@@ -49,7 +44,7 @@
           <button
             v-if="showCartButton"
             class="add-to-cart-button"
-            @click="openCart()"
+            @click="openCartbox()"
           >
             View Cart
           </button>
@@ -63,21 +58,13 @@
 import Cart from "./Cart.vue";
 
 export default {
-  props: [],
   name: "Product",
   data() {
     return {
       productQty: 1,
       inCart: [],
       showCart: false,
-      product: [
-        {
-          id: 0,
-          img: require("@/assets/1.jpg"),
-          title: "Soft Bed",
-          price: 156,
-        },
-      ],
+      product: [],
     };
   },
   components: {
@@ -85,7 +72,7 @@ export default {
   },
   computed: {
     showCartButton() {
-      if (this.inCart.length > 0) {
+      if (this.$store.getters.itemsNumber > 0) {
         return true;
       }
       return false;
@@ -103,13 +90,17 @@ export default {
     addtoCart(item, id) {
       this.inCart = [];
       for (var i = 0; i < this.productQty; i++) {
-        this.inCart.push(id);
+        this.$store.commit("inCart", item, id);
       }
+
       this.showCart = false;
     },
-    openCart() {
+    openCartbox() {
       this.showCart = true;
     },
+  },
+  mounted() {
+    this.product.push(this.$store.state.infoItem);
   },
 };
 </script>

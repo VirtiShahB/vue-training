@@ -15,16 +15,22 @@
         </transition>
 
         <transition-group name="fade">
-          <div class="row" v-for="(item, index) in cartItem" :key="index+item.id">
+          <div
+            class="row"
+            v-for="(item, index) in cartItem"
+            :key="index + item.id"
+          >
             <div class="col4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
               <img :src="item.img" style="width: 90px" />
             </div>
             <div class="col6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-              <h4>{{ item.title }}</h4>
+              <h4>{{ item.title }}{{ index }}</h4>
               <h6>${{ item.price }}</h6>
             </div>
             <div class="col2 col-xl-2 col-lg-2 col-md-2 col-sm-2 pt-4">
-              <span class="remove-btn" @click="removeThing(index)">remove</span>
+              <span class="remove-btn" @click="removeThing(item.id)"
+                >remove</span
+              >
             </div>
           </div>
         </transition-group>
@@ -41,8 +47,9 @@
             <h4>${{ cartPrice }}</h4>
           </div>
         </div>
-        <button type="button" class="checkout-button" @click="showCheckout()">Checkout</button>
-        <!-- <router-link to="/checkout" class="checkout-button" tag="button">Checkout</router-link> -->
+        <button type="button" class="checkout-button" @click="showCheckout()">
+          Checkout
+        </button>
       </div>
     </div>
 
@@ -53,7 +60,7 @@
 <script>
 export default {
   name: "Cart",
-  props: ["showCart", "inCart", "product"],
+  props: ["showCart"],
   data() {
     return {
       cClass: "",
@@ -63,11 +70,7 @@ export default {
   },
   computed: {
     cartPrice() {
-      var amount = 0;
-      for (var i = 0; i < this.cartItem.length; i++) {
-        amount += this.product[0]["price"];
-      }
-      return amount;
+      return this.$store.getters.cartTotalAmount;
     },
   },
   methods: {
@@ -81,11 +84,11 @@ export default {
       }
     },
     showCheckout() {
-      window.localStorage.setItem('cartitem', JSON.stringify(this.cartItem));
-      this.$router.push({ path: '/checkout' });
+      this.$router.push({ path: "/checkout" });
     },
-    removeThing(index) {
-      this.cartItem.splice(index, 1);
+    removeThing(itemId) {
+      let index = this.$store.state.cartItems.findIndex((x) => x.id === itemId);
+      this.$store.state.cartItems.splice(index, 1);
     },
   },
   mounted() {
@@ -94,10 +97,7 @@ export default {
     } else {
       (this.cClass = "cart"), (this.modalClass = "modal off");
     }
-
-    for (var i = 0; i < this.inCart.length; i++) {
-      this.cartItem.push(this.product[0]);
-    }
+    this.cartItem = this.$store.state.cartItems;
   },
 };
 </script>

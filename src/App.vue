@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <!-- <div class="container py-5" style="padding-top: 70px">
-      <Product />
-    </div>
-    <Checkout/> -->
-    <router-view :data='cartItem'/>
+    <router-view :data="cartItem" />
     <NewsLetter />
   </div>
 </template>
@@ -13,24 +9,22 @@
 <script>
 import Header from "./components/Header.vue";
 import NewsLetter from "./components/NewsLetter.vue";
-// import Product from "./components/Product.vue";
-// import Checkout from "./components/Checkout.vue";
 
 export default {
   name: "App",
   data() {
     return {
-      cartItem : [],
+      cartItem: [],
     };
   },
   components: {
     Header,
     NewsLetter,
+    // AllProduct
     // Product,
     // Checkout,
   },
-  mounted(){
-  }
+  mounted() {},
 };
 </script>
 

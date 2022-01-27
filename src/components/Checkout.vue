@@ -141,20 +141,13 @@ export default {
   },
   computed: {
     totalPrice() {
-      var amount = 0;
-      for (var i = 0; i < this.checkoutItem.length; i++) {
-        amount += this.checkoutItem[0]["price"];
-      }
-      return amount;
+      return this.$store.getters.cartTotalAmount;
     },
   },
   mounted() {
-    this.checkoutItem = JSON.parse(window.localStorage.getItem("cartitem"));
+    this.checkoutItem = this.$store.state.cartItems;
   },
-  created() {
-    this.$root.$on("checkoutitem", () => {
-    });
-  },
+  created() {},
 };
 </script>
 <style scoped>
