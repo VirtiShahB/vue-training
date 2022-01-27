@@ -4,6 +4,7 @@
     <router-link to="/">Dashboard</router-link>
     <div class="header-right">
       <router-link to="/">Products</router-link>
+      <router-link to="/product/wishlist">Wishlist</router-link>
       <a href="#">Sign out</a>
     </div>
   </div>

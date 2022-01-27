@@ -3,11 +3,18 @@
       <div class="row product-list">
          <h2>
             <p><strong>Products</strong></p>
-         </h2>
+         </h2>  
          <div class="col-sm-4" v-for="(item, index) in items" :key="index">
             <b-img thumbnail v-bind:src="'../../images/'+ item.image" alt="Earphone" fluid class="img-section"></b-img>
             <div class="product-outline">
                 <h1>{{ item.pro_name }}</h1>
+                    <div v-if="item.favorite == 0" class="h2 mb-0" @click="AddToFavorite(item,index)">
+                        <b-icon icon="heart"></b-icon>
+                    </div>
+                    <div v-else class="h2 mb-0" @click="RemoveFromFavorite(item,index)">
+                        <b-icon icon="heart-fill"></b-icon>
+                    </div>
+
                 <p class="price"> ${{ item.price }} </p>
                 <p>{{ item.description }}</p>
                 <router-link :to="'product/detail/'+ item.id">
@@ -30,6 +37,7 @@ var items = [
                     image: 'earphone.jpeg',
                     model: 'Bolt',
                     color:'Black and white',
+                    favorite:0
                 },
                 {
                     id:2,
@@ -39,6 +47,7 @@ var items = [
                     image: 'jbl-headphone.jpeg',
                     model: 'JBL',
                     color:'Grey and white',
+                    favorite:0
                 },
                 {
                     id:3,
@@ -48,16 +57,48 @@ var items = [
                     image: 'sony-headphone.jpeg',
                     model: 'Sony',
                     color:'Blue and black',
+                    favorite:0
                 }
             ];
-localStorage.setItem("items", JSON.stringify(items));
+    if( localStorage.getItem('items') === null ){
+        localStorage.setItem("items", JSON.stringify(items));
+    } else {
+        items = JSON.parse(localStorage.getItem("items"));   
+    }
+
 export default {
     name:"ProductList",
     data() {
-    return {
-        items: items
-    }
-},
+        return {
+            items: items,
+            ArrWishList: [],
+        }
+    },
+    methods: {
+        AddToFavorite: function (item,index){
+
+            this.items[index].favorite = 1;
+            this.ArrWishList.push(item);
+
+            const parsedObject = JSON.parse(localStorage.getItem("items"));
+            parsedObject[index].favorite = 1;
+            const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+            localStorage.setItem("items", modifiedndstrigifiedForStorage);
+
+            localStorage.setItem('WishListitems',JSON.stringify(this.ArrWishList));
+        },
+        RemoveFromFavorite: function(item,index) {
+            this.items[index].favorite = 0;
+            this.ArrWishList.pop(item);
+
+            const parsedObject = JSON.parse(localStorage.getItem("items"));
+            parsedObject[index].favorite = 0;
+            const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
+            localStorage.setItem("items", modifiedndstrigifiedForStorage);
+
+            localStorage.setItem('WishListitems',JSON.stringify(this.ArrWishList));
+        }
+    },
 }
 </script>
 <style scoped>
@@ -104,5 +145,8 @@ p.cart-btn {
 }
 .product-outline {
     border: 1px outset;
+}
+svg.bi-heart.b-icon.bi {
+    cursor: pointer;
 }
 </style>
