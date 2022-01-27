@@ -1,11 +1,21 @@
 <template>
   <div class="product">
+    
     <div class="container">
       <div class="col-lg-8 border p-3 main-section bg-white">
+        <div
+      class="d-flex align-items-center justify-content-end px-sm-3 pt-3 px-1"
+    >
+      <div class="cart-div">
+        <a href=""><i class="fa fa-shopping-cart"></i></a>
+        <span v-if="count > 0">{{count}}</span>
+      </div>
+    </div>
         <div class="row m-0">
-          <div class="col-lg-4 left-side-product-box pb-3">
+          <div class="col-lg-4 left-side-product-box pb-3" >
             <img :src="mainimage" class="border p-3" />
-            <span
+            <div class="var-img">
+              <span
               class="sub-img"
               v-for="(variant, index) in variants"
               :key="index"
@@ -17,6 +27,8 @@
                 @mouseleave="updatemainimage(mainimage)"
               />
             </span>
+            </div>
+            
           </div>
           <div class="col-lg-8">
             <div class="right-side-pro-detail border p-3 m-0">
@@ -89,84 +101,14 @@
     </div>
   </div>
 </template>
-<style>
-.count {
-  width: 10% !important;
-  margin-left: 1%;
-  margin-right: 1%;
-  color: #fff;
-  background-color: #908b8b;
-  border-color: #908b8b;
-}
-h6 {
-  width: 18%;
-}
-.text-center {
-  width: 10% !important;
-}
-body {
-  font-family: "Roboto Condensed", sans-serif;
-  background-color: #fdccbc;
-}
-
-.hedding {
-  font-size: 20px;
-  color: #ab8181;
-}
-
-.main-section {
-  position: absolute;
-  left: 50%;
-  right: 50%;
-  transform: translate(-50%, 5%);
-}
-
-.left-side-product-box img {
-  width: 100%;
-}
-
-.left-side-product-box .sub-img img {
-  margin-top: 5px;
-  width: 83px;
-  height: 100px;
-  cursor: pointer;
-}
-
-.right-side-pro-detail span {
-  font-size: 15px;
-}
-
-.right-side-pro-detail p {
-  font-size: 25px;
-  color: #a1a1a1;
-}
-
-.right-side-pro-detail .price-pro {
-  color: #e45641;
-}
-
-.right-side-pro-detail .tag-section {
-  font-size: 18px;
-  color: #5d4c46;
-}
-
-.pro-box-section .pro-box img {
-  width: 100%;
-  height: 200px;
-}
-
-@media (min-width: 360px) and (max-width: 640px) {
-  .pro-box-section .pro-box img {
-    height: auto;
-  }
-}
-</style>
 
 <script>
 export default {
   name: "ProductDetail",
   data() {
     return {
+      pro : localStorage.getItem('PROLIST'),
+      count : localStorage.getItem('cartProduct'),
       product: "Women's Velvet Dress",
       price: 30,
       description:

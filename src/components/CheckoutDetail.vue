@@ -253,16 +253,6 @@
   </main>
   <!--Main layout-->
 </template>
-<style>
-.md-form {
-  text-align: left;
-  font-size: 14px;
-}
-.mb-5,
-.my-5 {
-  margin-bottom: 1rem !important;
-}
-</style>
 <script>
 export default {
   name: "CheckoutDetail",
