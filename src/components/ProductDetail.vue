@@ -3,13 +3,9 @@
         <b-alert :variant="variant" :show="show">{{ showmsg }}</b-alert>
     <div class="card">
         <div class="row">
-            <aside class="col-sm-5">
-                <article class="gallery-wrap">
-                    <div class="img-big-wrap">
-                        <b-img src="../../public/images/earphone.jpeg" alt="Earphone" fluid-grow></b-img>
-                    </div>
-                </article>
-            </aside>
+            <div class="col-sm-4">
+                <b-img v-bind:src="'../../images/' + imgName" alt="Earphone" fluid-grow></b-img>
+            </div>
         <div class="col-sm-7">
             <div class="card-body p-5">
                 <h3 class="title mb-3">{{ ProductName }}</h3>
@@ -52,6 +48,7 @@
                         </b-form-select>
                     </div>
                     </div>
+                    <input type="hidden" :val="this.$route.params.id" class="proid">
                 </div>
                 <hr>
                 <b-button class="buy-now text-uppercase" variant="primary" @click="addToCart(quantity,'buy')"> Buy now </b-button>
@@ -67,12 +64,13 @@ export default {
     name:"ProductDetail",
     data() {
         return {
-            ProductName : 'Bolt headphone',
-            price: '25.99',
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.BoAt Bassheads 900 Wired On Ear Headphones with Mic",
+            ProductName : '',
+            price: '',
+            description: "",
             quantity: 0,
-            model: 'Bolt',
-            color:'Black and white',
+            model: '',
+            color:'',
+            imgName: '',
             selected: null,
             options: [
                 { value: 'sm', text: 'SM' },
@@ -137,7 +135,22 @@ export default {
                 this.quantity = 0;
             }
         }
-    }
+    },
+    created: function(){
+        var index = this.$route.params.id - 1;
+        var items = localStorage.getItem("items"); // From localstorage
+        var itemsObject = JSON.parse(items);
+        for (var key in itemsObject) {
+            if ( key == index){
+                this.ProductName = itemsObject[key].pro_name;
+                this.price = itemsObject[key].price;
+                this.description = itemsObject[key].description;
+                this.model = itemsObject[key].model;
+                this.color = itemsObject[key].color;
+                this.imgName = itemsObject[key].image;
+            }
+        }
+      }
 }
 </script>
 <style scoped>

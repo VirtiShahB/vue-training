@@ -1,67 +1,61 @@
 <template>
-    <div class="container">
-        <div class="row product-list">
-            <div class="col-sm-4" v-for="(item, index) in items" :key="index">
+   <div class="container">
+      <div class="row product-list">
+         <h2>
+            <p><strong>Products</strong></p>
+         </h2>
+         <div class="col-sm-4" v-for="(item, index) in items" :key="index">
             <b-img thumbnail v-bind:src="'../../images/'+ item.image" alt="Earphone" fluid class="img-section"></b-img>
-                    <h1>{{ item.pro_name }}</h1>
-                    <p class="price"> {{ item.price }} </p>
-                    <p>{{ item.description }}</p>
-
-                    <p class="cart-btn">
-                        <b-button class="cart-btn">View</b-button>
-                    </p>
+            <div class="product-outline">
+                <h1>{{ item.pro_name }}</h1>
+                <p class="price"> ${{ item.price }} </p>
+                <p>{{ item.description }}</p>
+                <router-link :to="'product/detail/'+ item.id">
+                <p class="view-button">
+                    <b-button class="form-control">View</b-button>
+                </p>
+                </router-link>
             </div>
-            <!-- <div class="col-sm-4">
-            <b-img thumbnail src="" alt="Earphone" fluid></b-img>
-                    <h1>{{ pro_name }}</h1>
-                    <p class="price"> {{ price }} </p>
-                    <p>{{ description }}</p>
-
-                    <p class="cart-btn">
-                        <b-button class="cart-btn" @click="addToCart(quantity)">View</b-button>
-                    </p>
-            </div>
-            <div class="col-sm-4">
-            <b-img thumbnail src="" alt="Earphone" fluid></b-img>
-                    <h1>{{ pro_name }}</h1>
-                    <p class="price"> {{ price }} </p>
-                    <p>{{ description }}</p>
-
-                    <p class="cart-btn">
-                        <b-button class="cart-btn" @click="addToCart(quantity)">View</b-button>
-                    </p>
-            </div> -->
-        </div>
-</div>
+         </div>
+      </div>
+   </div>
 </template>
 <script>
+var items = [
+                {
+                    id:1,
+                    pro_name : "Bolt headphone",
+                    price: '25.99',
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    image: 'earphone.jpeg',
+                    model: 'Bolt',
+                    color:'Black and white',
+                },
+                {
+                    id:2,
+                    pro_name : "JBL headphone",
+                    price: '40.99',
+                    description: "JBL headphone is great product of the printing and typesetting industry.",
+                    image: 'jbl-headphone.jpeg',
+                    model: 'JBL',
+                    color:'Grey and white',
+                },
+                {
+                    id:3,
+                    pro_name : "Sony headphone",
+                    price: '50.99',
+                    description: "This is just text of the printing and typesetting industry.",
+                    image: 'sony-headphone.jpeg',
+                    model: 'Sony',
+                    color:'Blue and black',
+                }
+            ];
+localStorage.setItem("items", JSON.stringify(items));
 export default {
     name:"ProductList",
     data() {
     return {
-        items: [
-            {
-                id:1,
-                pro_name : "Bolt headphone",
-                price: '$25.99',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                image: 'earphone.jpeg',
-            },
-            {
-                id:3,
-                pro_name : "JBL headphone",
-                price: '$25.99',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                image: 'jbl-headphone.jpeg',
-            },
-            {
-                id:4,
-                pro_name : "Sony headphone",
-                price: '$25.99',
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                image: 'sony-headphone.jpeg',
-            }
-        ]
+        items: items
     }
 },
 }
@@ -69,7 +63,7 @@ export default {
 <style scoped>
 
 .price {
-  color: grey;
+  color: rgb(251 3 83);
   font-size: 22px;
 }
 
@@ -83,6 +77,9 @@ export default {
   cursor: pointer;
   width: 100%;
   font-size: 18px;
+}
+.view-button{
+    background-color: #747b74 !important;
 }
 
 .card button:hover {
@@ -102,7 +99,10 @@ p.cart-btn {
     text-align: center;
 }
 .img-section{
-height: 35%;
-width: 100%;
+    height: 35%;
+    width: 100%;
+}
+.product-outline {
+    border: 1px outset;
 }
 </style>

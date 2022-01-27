@@ -137,7 +137,7 @@
                   <div class="row">
                      <div class="col-sm-6" :style="{float:'right'}">
                         <b-button type="submit" variant="primary" class="placeorder">Place order</b-button>
-                        <router-link to="/" tag="button" variant="warning" class="btn">Back</router-link>
+                        <a @click="$router.go(-1)" tag="button" variant="warning" class="btn">Back</a>
                         </div>
                   </div>
                </b-card>
