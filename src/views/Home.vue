@@ -1,7 +1,7 @@
 <template>
   <Main>
     <template #iteminbread>
-      Main
+      Products
     </template>
     <template #content>
       <h1>
@@ -10,36 +10,7 @@
       <hr>
       <div v-if="!loading" class="row">
         <div v-for="product in products" :key="product.id" class="mb-3 col-md-4">
-          <div class="h-100 card">
-            <div class="border-primay bg-primary card-header">
-              <h5 class="card-title">
-                <a href="#" class="text-light">
-                  {{product.title}}
-                </a>
-              </h5>
-            </div>
-            <a href="#">
-              <img :src="product.image" class="card-img-custom card-img-top" alt="...">
-            </a>
-            <div class="card-body">
-              
-              <p class="card-text">
-
-                {{ product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description }}
-
-              </p>
-        
-            </div>
-            <div class="card-footer">
-              <a @click.prevent="addtocart(1,product.price,'L','White',product.title)" class="btn btn-success btn-md">
-                <i class="fa fa-cart-plus"></i> ADD TO CART
-              </a>
-
-              <h4 class="text-danger pull-right">
-                 ${{product.price.toFixed(2)}}
-              </h4>
-            </div>
-          </div>
+            <Product :product="product"></Product>
         </div>
       </div>
       <div v-else>
@@ -67,9 +38,11 @@
 <script>
   import Main from './Main.vue';
   import axios from 'axios';
+  import Product from './ProductCard.vue';
   export default {
     components: {
-      Main
+      Main,
+      Product
     },
     data() {
       return {
@@ -77,52 +50,39 @@
         loading: true
       }
     },
-    methods: {
-      addtocart(qty, price, size, color, product) {
+    async created()  {
 
-        let cart = JSON.parse(localStorage.getItem('cart_storage'));
+      /** Get Product From API */
 
-        cart = cart != null ? cart : [];
-
-        let index = cart.findIndex(c => c.product == product);
-
-        if (index !== -1) {
-          cart.splice(index, 1);
-        }
-
-        cart.push({
-
-          qty     : qty,
-          price   : price,
-          size    : size,
-          color   : color,
-          product : product
-
-        });
-
-        localStorage.setItem('cart_storage', JSON.stringify(cart));
-
-      }
-    },
-    created() {
-      axios.get('https://fakestoreapi.com/products')
+      await axios.get('https://fakestoreapi.com/products')
         .then(res => {
           this.products = res.data;
+
+          let get_wishlist = JSON.parse(localStorage.getItem('wishlist'));
+
+          this.products = this.products.map(function(item){
+
+            /** covert rating into percentage */
+
+            item['rating']['width'] = (item.rating.rate / 5) * 100;
+
+            /** get item wishlist and check if item is in wishlist*/
+
+            let in_wishlist = get_wishlist != null && get_wishlist.length > 0 ? get_wishlist.findIndex(wish => wish.id == item.id) : null ;
+
+            item['in_wishlist'] = in_wishlist != null && in_wishlist !== -1 ? true : false
+
+            return item;
+
+          });
+
           this.loading = false;
+
         })
         .catch(err => {
-          console.log(err);
+          console.log('error : '+err)
         })
     }
   }
 </script>
 
-<style>
-  .card-img-custom {
-    width: 200px;
-    align-items: center;
-    position: relative;
-    left: 100px;
-    padding: 15px;
-  }
-</style>

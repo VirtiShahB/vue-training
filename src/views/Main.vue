@@ -16,17 +16,21 @@
             </b-nav-item>
 
             <b-nav-item href="#">
-              <router-link active-class="active" class="nav-link" to="/cart">Product</router-link>
+              <router-link active-class="active" class="nav-link" to="/cart">Sample Product</router-link>
             </b-nav-item>
 
             <b-nav-item href="#">
               <router-link class="nav-link" active-class="active" to="/checkout">Checkout</router-link>
             </b-nav-item>
 
-            <b-nav-item href="#" right>
-              <router-link class="nav-link" active-class="active" to="/checkout">My Wishlist</router-link>
-            </b-nav-item>
+            
 
+          </b-navbar-nav>
+
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="#">
+              <router-link class="nav-link" active-class="active" to="/wishlist">My Wishlist ({{wishlist != null && wishlist.length > 0 ? wishlist.length : 0}})</router-link>
+            </b-nav-item>
           </b-navbar-nav>
 
         </b-collapse>
@@ -45,3 +49,29 @@
     
 
 </template>
+<script>
+import { bus } from '../eventBus';
+
+export default {
+  data(){
+    return {
+      wishlist : []
+    }
+  },
+  methods : {
+      getWishlist() {
+        this.wishlist = JSON.parse(localStorage.getItem('wishlist'));
+      }
+  },
+  created(){
+
+    bus.$on('wishlist', () => {
+      
+      this.getWishlist();
+    });
+
+    this.getWishlist();
+
+  }
+}
+</script>

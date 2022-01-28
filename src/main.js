@@ -6,9 +6,10 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'fontawesome-4.7/css/font-awesome.css';
+
+
 import './assets/style.css';
 import router from './router';
-
 
 
 // Make BootstrapVue available throughout your project
@@ -21,3 +22,4 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
