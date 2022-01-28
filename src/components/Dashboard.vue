@@ -1,14 +1,22 @@
 <template>
     <div>
         <b-container class="bv-example-row">
-          <h1 class="text-left mb-5">Products Listing</h1>
+          <h1 class="text-left">Products Listing</h1>
           <b-row>
-            <b-col cols="3" v-for="item of items" :key="item.id" class="mt-2 item_block" @click="viewProduct(item)">
-              <img :src="require('@/assets/images/'+item.image)" alt="book image" class="img-fluid mb-2" v-bind="mainProps">
-              <div class="">
-                <p class="mb-0 book_title">{{item.title}}</p>
+            <b-col cols="3" v-for="item of items" :key="item.id" class="p-0 mt-5 item_block">
+              <router-link :to="{ name: 'ProductDetail', params: {id:item.id,item:item}}">
+                <img :src="require('@/assets/images/'+item.image)" alt="book image" class="img-fluid mb-2" v-bind="mainProps">
+              </router-link>
+              <span class="wishlist_block">
+                <b-icon v-if="IsWishlisted(item.id)" icon="heart"  @click="addWishlist(item,wishListItemId)" font-scale="1.5"  class="wishlist_icon"></b-icon>
+                <b-icon v-else icon="heart-fill"  font-scale="1.5"  class="wishlist_icon"  @click="removeFromWishlist(item,wishListItemId)" variant="danger"></b-icon>
+              </span>
+              <div class="book_detail_block">
+                <router-link :to="{ name: 'ProductDetail', params: {id:item.id,item:item}}">
+                  <p class="mb-0 book_title">{{item.title}}</p>
+                </router-link>
                 <p class="book_author mb-0"><b-icon-chevron-right scale="0.7"></b-icon-chevron-right>{{item.author}}</p>
-                <p class="red">{{'₹ '+item.price}}</p>
+                <p class="red mt-2 mb-2">{{'₹ '+item.price}}</p>
               </div>
             </b-col>
           </b-row>
@@ -21,7 +29,9 @@
         name: "Dashboard",
         data(){
           return{
-            mainProps:{ blank: true, width: 85, height: 85, class: 'm1' },
+            wishList:[],
+            wishListItemId:[],
+            mainProps:{ blank: true,class: 'm1' },
             items: [
               {
                 id:1,
@@ -72,12 +82,29 @@
           }
         },
         methods: {
-          viewProduct:function(items) {
-            this.$router.push({
-              name: "ProductDetail",
-              params:{id:items.id,item:items},
-            });
-          }
+          addWishlist(item,wishListItemId) {
+            this.$store.commit('addWishlist',{item,wishListItemId})
+          },
+          removeFromWishlist(item,wishListItemId) {
+            this.$store.commit('removeFromWishlist',{item,wishListItemId})
+          },
+          IsWishlisted(itemId){
+            return !this.wishListItemId.includes(itemId);
+          },
+          getWishList() {
+            this.$store.commit('getWishList');
+            var wishListArray = this.$store.wishList;
+            if(wishListArray.length > 0){
+              for(var i = 0;i<wishListArray.length;i++){
+                if(!wishListArray.includes(wishListArray[i].id)){
+                  this.wishListItemId[i] = wishListArray[i].id;
+                }
+              }
+            }
+          },
+        },
+        beforeMount() {
+          this.getWishList();
         },
     }
 </script>
@@ -85,5 +112,45 @@
 <style scoped>
 .item_block{
   cursor:pointer;
+  height: 100%;
+  
+  margin: 0 20px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+}
+.item_block img{
+  overflow: hidden;
+  height: 222px;
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.item_block .book_detail_block{
+  height: 100px;
+}
+.wishlist_icon {
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: 0 1px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+.wishlist_block{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 15px;
+    background: #00000058;
+    border-radius: 5px;
+    top: 20px;
 }
 </style>

@@ -11,6 +11,12 @@
               <b-icon-cart></b-icon-cart>
             </router-link>
           </li>
+          <li class="text-right">
+            <router-link class="nav-link" to="/wishlist">
+              <b-icon-heart></b-icon-heart>
+            </router-link>
+          </li>
+          
         </ul>
       </div>
     </nav>
@@ -42,13 +48,13 @@ export default {
 .red{
   color:#B12704;
 }
-li {float: left;}
+li {float: right;}
 ul{
     display: block !important;
     width:100%
 }
-li:last-child {
-  float: right; /* last li item */
+li:first-child {
+  float: left; /* last li item */
 }
 .book_title{
   color: #007185;
@@ -59,6 +65,9 @@ li:last-child {
 .book_view,.book_view:hover{
   text-decoration: none;
   color: #007185;
+}
+a {
+  text-decoration: none !important;
 }
 
 </style>

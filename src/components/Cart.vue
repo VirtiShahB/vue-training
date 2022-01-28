@@ -19,9 +19,9 @@
                   alt=""
                   class="d-inline-block img-fluid col-1"
                 />
-                <span class="cart_book_title d-inline-block" @click="viewProduct(c)">{{
-                  c.title
-                }}</span>
+                <span class="cart_book_title d-inline-block">
+                  <router-link :to="{ name: 'ProductDetail', params: {id:c.id,item:c}}">{{ c.title }}</router-link>
+                </span>
               </b-col>
             </b-row>
           </b-td>

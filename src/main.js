@@ -6,10 +6,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import VueRouter from 'vue-router'
+import store from './store.js'
 
 import Dashboard from './components/Dashboard.vue'
 import ProductShow from './components/ProductShow.vue'
 import Cart from './components/Cart.vue'
+import Wishlist from './components/Wishlist.vue'
 import Checkout from './components/Checkout.vue'
 
 Vue.use(VueRouter)
@@ -20,6 +22,7 @@ const router = new VueRouter({
     { path: '/', component: Dashboard },
     { path: '/product/:id', component: ProductShow,name: 'ProductDetail'},
     { path: '/cart', component: Cart },
+    { path: '/wishlist', component: Wishlist },
     { path: '/checkout', component: Checkout },
   ]
 })
@@ -30,5 +33,6 @@ Vue.use(IconsPlugin)
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
