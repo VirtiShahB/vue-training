@@ -112,8 +112,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 my-3" v-if="cartItems && cartItems.length > 0">
-                      <button
+                    <div
+                      class="col-12 my-3"
+                      v-if="cartItems && cartItems.length > 0"
+                    >
+                      <router-link
+                        :to="{ name: 'checkout' }"
                         class="p-3 text-white border-0 w-100 checkout-btn"
                         style="
                           background-color: hsl(26, 100%, 55%);
@@ -121,9 +125,8 @@
                           font-size: 14px;
                           border-radius: 10px;
                         "
+                        >Checkout</router-link
                       >
-                        Checkout
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -133,7 +136,7 @@
             <b-nav-item class="col-6">
               <span>
                 <b-img
-                  src="./assets/user.jpg"
+                  src="/assets/user.jpg"
                   class="avatar"
                   rounded="circle"
                   alt="User"
@@ -153,7 +156,7 @@
             <div class="col-12 px-md-2 d-none d-md-block">
               <div style="cursor: pointer">
                 <b-img
-                  :src="mainImage"
+                  :src="product.image"
                   alt=""
                   style="width: 100%"
                   class="image"
@@ -165,19 +168,6 @@
 
         <div class="col-12 col-md-6 text-left my-3">
           <div class="container">
-            <div>
-              <span
-                style="
-                  font-size: 13px;
-                  letter-spacing: 1px;
-                  color: hsl(26, 100%, 55%);
-                  font-weight: 700;
-                "
-              >
-                Adidas Company
-              </span>
-            </div>
-
             <div class="mt-2 mb-4">
               <span
                 style="
@@ -187,16 +177,13 @@
                   line-height: 2.8rem;
                 "
               >
-                {{ title }}
+                {{ product.title }}
               </span>
             </div>
 
             <div class="my-3">
               <span class="text-muted">
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
-                or a typeface without relying on meaningful content. Lorem ipsum
-                may be used as a placeholder before the final copy is available
+                {{ product.description }}
               </span>
             </div>
 
@@ -204,7 +191,7 @@
               <div class="col-8 col-md-12 d-flex flex-row align-items-center">
                 <div>
                   <span style="font-size: 24px; font-weight: 900">
-                    ${{ parseFloat(price).toFixed(2) }}
+                    ${{ parseFloat(product.price).toFixed(2) }}
                   </span>
                 </div>
               </div>
@@ -249,20 +236,13 @@
 </template>
 
 <script>
-// import NavBar from './NavBar'
-
+var one_product = JSON.parse(localStorage.getItem("products_list"));
 export default {
   name: "ProductPage",
-  props: {},
-  components: {
-    // NavBar
-  },
   data() {
     return {
-      title: "Limited Edition Sneakers",
-      price: "1250.00",
+      product: one_product[this.$route.params.prod_id - 1],
       count: 1,
-      mainImage: "/assets/image-product-1.jpg",
       categories: ["Home"],
       cartItems: [],
     };
@@ -300,20 +280,26 @@ export default {
 
       if (ItemData == null) ItemData = [];
 
-      var entry = {
-        title: this.title,
-        price: this.price,
-        quantity: this.count,
-        image: this.mainImage,
-      };
+      //Find index of specific object using findIndex method.
+      var objIndex = ItemData.findIndex((obj) => obj.id == this.product.id);
 
-      localStorage.setItem("latestItem", JSON.stringify(entry));
-
-      ItemData.push(entry);
+      if (ItemData[objIndex]) {
+        //Update object's name property.
+        ItemData[objIndex].quantity = this.count;
+      } else {
+        var entry = {
+          id: this.product.id,
+          title: this.product.title,
+          price: this.product.price,
+          quantity: this.count,
+          image: this.product.image,
+          description: this.product.description,
+        };
+        localStorage.setItem("latestItem", JSON.stringify(entry));
+        ItemData.push(entry);
+      }
       localStorage.setItem("myCart", JSON.stringify(ItemData));
-
       console.log("myCart", JSON.parse(localStorage.getItem("myCart")));
-
       this.cartItems = JSON.parse(localStorage.getItem("myCart"));
     },
   },
