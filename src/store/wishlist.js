@@ -16,9 +16,7 @@ const wishlist = {
       state.wishlist.push(product);
     },
     REMOVE_FROM_WISHLIST(state, ind) {
-      console.log(ind);
       state.wishlist.splice(ind, 1);
-      console.log(state.wishlist);
     },
   },
   actions: {
@@ -29,9 +27,8 @@ const wishlist = {
           (item) => item.id == product.id
         );
         if (wishlistProductInd >= 0) {
-          console.log(wishlistProductInd);
           commit("REMOVE_FROM_WISHLIST", wishlistProductInd);
-          wishlist.splice(wishlistProductInd,1);
+          wishlist.splice(wishlistProductInd, 1);
         } else {
           wishlist.push(product);
         }
