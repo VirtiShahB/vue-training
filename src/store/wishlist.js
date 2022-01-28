@@ -3,11 +3,6 @@ const wishlist = {
   state: {
     wishlist: [],
   },
-  getters: {
-    GET_WISHLIST(state) {
-      return state.wishlist;
-    },
-  },
   mutations: {
     SET_TO_WISHLIST(state, products) {
       state.wishlist.push(...products);
@@ -31,12 +26,14 @@ const wishlist = {
           wishlist.splice(wishlistProductInd, 1);
         } else {
           wishlist.push(product);
+          commit("ADD_TO_WISHLIST", product);
         }
         localStorage.setItem("wishlist", JSON.stringify(wishlist));
       } else {
         localStorage.setItem("wishlist", JSON.stringify([product]));
+        commit("ADD_TO_WISHLIST", product);
       }
-      commit("ADD_TO_WISHLIST", product);
+      
     },
     getWishlist({ commit }) {
       let wishlist = JSON.parse(localStorage.getItem("wishlist"));

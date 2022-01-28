@@ -1,24 +1,17 @@
 <template>
-  <b-list-group>
-    <b-list-group-item v-for="(item, ind) in wishlist" :key="ind">
-      <div class="d-flex flex-row align-items-center justify-content-between">
-        <p>{{ item.title }}</p>
-        <b-button size="sm" variant="danger"
-          ><b-icon-trash></b-icon-trash
-        ></b-button>
+  
+    <b-list-group-item >
+      <div class="d-flex flex-row align-items-center">
+        <b-avatar class="mr-3" variant="transparent" :src="product.image"></b-avatar>
+          <span class="mr-auto small">{{ product.title }}</span>
+        <b-icon-x-circle-fill variant="danger" style="cursor:pointer" @click="$store.dispatch('wishlist/addToWishlist', product)"></b-icon-x-circle-fill>
       </div>
     </b-list-group-item>
-  </b-list-group>
 </template>
 <script>
 export default {
-  created() {
-    this.$store.dispatch("wishlist/getWishlist");
-  },
-  computed: {
-    wishlist: function () {
-      return this.$store.state.wishlist.wishlist;
-    },
+  props:{
+    product:Object
   },
 };
 </script>

@@ -12,8 +12,13 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
 
-          <b-nav-item-dropdown text="Wishlist" menu-class="wishlist" right>
-            <wishlist-component></wishlist-component>
+          <b-nav-item-dropdown text="Wishlist" template menu-class="wishlist" right>
+            <template #button-content>
+              Wishlist <b-badge pill variant="light" v-show="wishlist.length">{{wishlist.length}}</b-badge>
+            </template>
+            <b-list-group flush>
+            <wishlist-component v-for="(item, ind) in wishlist" :key="ind" :product="item"></wishlist-component>
+            </b-list-group>
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown right>
@@ -30,10 +35,16 @@
 </template>
 <script>
 import WishlistComponent from "../Wishlist/WishlistComponent.vue"
-
+var that;
 export default {
-  components: { WishlistComponent }
-    
+  components: { WishlistComponent },
+  created() {
+    that = this;
+    this.$store.dispatch("wishlist/getWishlist");
+  },
+  computed: {
+    wishlist: () => that.$store.state.wishlist.wishlist
+  },
 }
 </script>
 <style>
