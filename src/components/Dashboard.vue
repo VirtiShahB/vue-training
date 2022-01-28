@@ -22,9 +22,8 @@
             >
               <!--<img src="../assets/heart-fill.svg" />-->
               <img
-                v-if="product.isFavorite == 1" 
+                v-if="product.isFavorite == 1"
                 src="../assets/heart-fill.svg"
-                
               />
               <img v-else src="../assets/heart.svg" />
             </b-link>
@@ -51,12 +50,11 @@ export default {
   data() {
     return {
       products,
-      favoriteProducts : []
+      favoriteProducts: [],
     };
   },
   methods: {
     addProductWishlist(productId) {
-      //var alertMessage = "";
       var wishlistProductData = {
         id: productId,
       };
@@ -71,7 +69,7 @@ export default {
         return p.id === parseInt(productId);
       });
       if (allReadyInWishListIndex !== -1) {
-        this.products[productId-1].isFavorite = 0;
+        this.products[productId - 1].isFavorite = 0;
         // remove from wishlist
         localWishListProducts.splice(allReadyInWishListIndex, 1);
         console.log(localWishListProducts);
@@ -79,9 +77,8 @@ export default {
           "wish-products",
           JSON.stringify(localWishListProducts)
         );
-        //alertMessage = "Product removed from favorite items";
       } else {
-        this.products[productId-1].isFavorite = 1;
+        this.products[productId - 1].isFavorite = 1;
         // add it to wish list
         localStorage.setItem(
           "wish-products",
@@ -92,18 +89,17 @@ export default {
           "wish-products",
           JSON.stringify(localWishListProducts)
         );
-        //alertMessage = "Product added to favorite items";
-      } //console.log(alertMessbage);
-      //alert(alertMessage);
+      }
     },
     IsProductInWishList(productId) {
       var localWishListProducts = JSON.parse(
         localStorage.getItem("wish-products")
       );
-      if(localWishListProducts)
-      { 
-        var ab= localWishListProducts.map(function(a) {return a.id;});
-        console.log(productId,ab);
+      if (localWishListProducts) {
+        var ab = localWishListProducts.map(function (a) {
+          return a.id;
+        });
+        console.log(productId, ab);
       }
       return true;
     },
