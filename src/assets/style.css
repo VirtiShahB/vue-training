@@ -1,0 +1,101 @@
+.image {
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .image {
+    border-radius: 0px !important;
+  }
+}
+
+.discount {
+  /* border-radius: 10px; */
+  background-color: hsl(25, 100%, 94%);
+}
+
+.bg-quantity {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 14px;
+}
+
+.bg-add-cart {
+  background-color: hsl(26, 100%, 55%);
+  color: white !important;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 14px;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0px 23px 19px 10px hsl(25, 100%, 94%);
+}
+
+.bg-add-cart:hover {
+  background-color: hsl(24, 91%, 86%);
+}
+
+.plus-minus {
+  color: hsl(26, 100%, 55%);
+  cursor: pointer;
+}
+
+.thumbnail img{
+  cursor: pointer;
+  opacity: 1;
+  transition: .3s;
+}
+
+.thumbnail:hover img{
+  /* background-color: #d2d2d2 !important;  */
+  opacity: 0.3 !important;
+}
+
+.activess {
+  opacity: 0.4 !important;
+  border: 3px solid hsl(26, 100%, 55%) !important;
+}
+
+i {
+  transition: 0.3s;
+}
+
+i:hover {
+  color: hsl(24, 91%, 86%);
+}
+
+/* navbar */
+.avatar:hover {
+    border: 2px solid hsl(26, 100%, 55%) !important;
+}
+
+.category {
+    transition: 0.1s;
+}
+
+.category:hover {
+    border-bottom: 3px solid hsl(26, 100%, 55%);
+}
+
+.category:hover .text {
+  color: black !important;
+}
+
+.checkout-btn {
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: hsl(24, 91%, 86%) !important;
+}
+
+.cart-count {
+  position: absolute;
+  top: 3px;
+  left: 22px;
+  padding: 0px 7px;
+  font-size: 9px;
+  background-color: hsl(26, 100%, 55%);
+  color: white;
+  border-radius: 5px;
+}

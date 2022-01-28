@@ -1,7 +1,7 @@
 <template>
   <div>
+    <NavBar :selectedItems="selectedItems"/>
     <ShowAlert :error="error" />
-    <Cart :selectedItems="selectedItems" @errorListener="errorListener" />
     <ProductList @refreshCartListener="refreshCart" />
   </div>
 </template>
@@ -10,9 +10,10 @@
 import ProductList from './Products/ProductList'
 import Cart from './Products/Cart'
 import ShowAlert from './UI/ShowAlert'
+import NavBar from './Common/NavBar'
 export default {
   name: 'Dashboard',
-  components: { ProductList, Cart, ShowAlert },
+  components: { ProductList, Cart, ShowAlert, NavBar },
   data () {
     return {
       selectedItems: {},

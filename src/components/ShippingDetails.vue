@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>Billing Details</h3>
+
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-row>
         <b-col class="md-6">
@@ -12,7 +13,7 @@
           >
             <b-form-input
               id="lastName"
-              v-model="form.firstName"
+              v-model.lazy="form.firstName"
               type="text"
               placeholder="Enter first name"
               required
@@ -28,7 +29,7 @@
           >
             <b-form-input
               id="input-2"
-              v-model="form.lastName"
+              v-model.lazy="form.lastName"
               placeholder="Enter last name"
               required
             ></b-form-input>
@@ -40,8 +41,8 @@
           <b-form-group id="phone" label="Phone:" label-for="phone">
             <b-form-input
               id="phone"
-              v-model="form.phone"
-              type="number"
+              v-model.number="form.phone"
+              type="text"
               placeholder="Enter phone"
               required
             >
@@ -52,7 +53,7 @@
           <b-form-group id="email" label="Email:" label-for="email">
             <b-form-input
               id="email"
-              v-model="form.email"
+              v-model.lazy="form.email"
               type="email"
               placeholder="Enter Email"
               required
@@ -66,7 +67,8 @@
     </b-form>
     <b-row>
       <b-card class="mt-3" header="Process Data">
-        <pre class="m-0">{{ form }}</pre>
+        <pre class="m-0">{{ firstName }}</pre>
+        <pre class="m-0">{{ form.firstName }}</pre>
       </b-card>
     </b-row>
   </div>
@@ -78,7 +80,8 @@ export default {
   data () {
     return {
       form: {},
-      show: true
+      show: true,
+      firstName: ''
     }
   },
   methods: {

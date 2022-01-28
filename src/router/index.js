@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Checkout from '@/components/Checkout'
 import ItemDetail from '@/components/Products/ItemDetail'
+import WishListItems from '@/components/Products/WishListItems'
 
 Vue.use(Router)
 
@@ -15,7 +16,7 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      name: 'dashboard',
+      name: 'Dashboard',
       component: Dashboard
     },
     {
@@ -27,6 +28,11 @@ export default new Router({
       path: '/product/:productId',
       name: 'ItemDetail',
       component: ItemDetail
+    },
+    {
+      path: '/wishlist',
+      name: 'WishList',
+      component: WishListItems
     }
   ]
 })

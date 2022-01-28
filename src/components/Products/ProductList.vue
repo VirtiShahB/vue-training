@@ -32,11 +32,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.badge {
-  position: relative;
-  top: -10px;
-  font-size: 17px;
-  background-color: white;
-}
-</style>

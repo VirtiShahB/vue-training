@@ -16,9 +16,11 @@
       </b-card-text>
       <b-row>
         <b-col md="6"
-          ><b-card-text> <h3>${{ product.price.toFixed(2) }}</h3> </b-card-text></b-col
+          ><b-card-text>
+            <h3>${{ product.price && product.price.toFixed(2) }}</h3>
+          </b-card-text></b-col
         >
-        <b-col md="6"
+        <b-col v-show="!fromWishlist" md="3"
           ><b-icon
             @click="addToCart(product.id)"
             icon="cart-fill"
@@ -27,6 +29,39 @@
             variant="light"
             v-b-tooltip.hover
             title="Add to cart"
+          ></b-icon
+        ></b-col>
+        <b-col v-show="!fromWishlist && !favFlag" md="3"
+          ><b-icon
+            @click="addToWishList(product.id)"
+            icon="heart"
+            class="p-2"
+            font-scale="2 "
+            variant="danger"
+            v-b-tooltip.hover
+            title="WishList"
+          ></b-icon
+        ></b-col>
+        <b-col v-show="!fromWishlist && favFlag" md="3"
+          ><b-icon
+            @click="deleteFromWishList(product.id)"
+            icon="heart-fill"
+            class="p-2"
+            font-scale="2 "
+            variant="danger"
+            v-b-tooltip.hover
+            title="Remove From WishList"
+          ></b-icon
+        ></b-col>
+        <b-col v-show="fromWishlist" md="3"
+          ><b-icon
+            @click="deleteFromWishList(product.id)"
+            icon="heart-fill"
+            class="p-2"
+            font-scale="2 "
+            variant="danger"
+            v-b-tooltip.hover
+            title="Remove From WishList"
           ></b-icon
         ></b-col>
       </b-row>
@@ -38,7 +73,25 @@
 export default {
   name: 'ItemCard',
   components: {},
-  props: ['product'],
+  props: ['product', 'fromWishlist'],
+  mounted () {
+    // localStorage.removeItem('userFavItems')
+    if (localStorage.getItem('userFavItems')) {
+      const wishListItems = JSON.parse(localStorage.getItem('userFavItems'))
+      if (wishListItems.length > 0) {
+        if (wishListItems.indexOf(this.product.id)) {
+          this.favFlag = true
+        }
+      }
+    }
+  },
+  data () {
+    return {
+      favFlag: false,
+      selfavFlag: false,
+      favItems: []
+    }
+  },
   methods: {
     addToCart (productId) {
       const selectedProducts = { id: productId, qty: 1 }
@@ -51,6 +104,17 @@ export default {
           productId: productId
         }
       })
+    },
+    addToWishList (productId) {
+      if (localStorage.getItem('userFavItems')) {
+        this.favItems = JSON.parse(localStorage.getItem('userFavItems'))
+      }
+      this.favItems.push(productId)
+      localStorage.setItem('userFavItems', JSON.stringify(this.favItems))
+      this.favFlag = !this.favFlag
+    },
+    deleteFromWishList (productId) {
+      this.$emit('refreshWishList', productId)
     }
   }
 }

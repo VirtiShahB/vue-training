@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Cart :selectedItems="selectedItems" />
+    <NavBar :selectedItems="selectedItems" />
     <b-card no-body class="" style="max-width: 60%">
       <b-row no-gutters>
         <b-col md="6">
@@ -58,12 +58,12 @@
 </template>
 
 <script>
+import NavBar from '../Common/NavBar.vue'
 import productsData from './productsData.json'
-import Cart from './Cart'
 
 export default {
   name: 'ItemDetail',
-  components: { Cart },
+  components: { NavBar },
   mounted () {
     this.getProductData()
   },
