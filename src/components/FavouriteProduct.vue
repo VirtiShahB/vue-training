@@ -5,7 +5,7 @@
         Favourite Products
       </b-col>
     </b-row>
-    <b-row>
+    <b-row >
       <b-col sm="3" class="mt-1" v-for="product in favItem" :key="product.id">
         <b-card
           :img-src="product.image"
@@ -39,27 +39,27 @@ export default {
   data() {
     return {
       products,
-      favItem : []
+      favItem : [],
+      isFavItem: JSON.parse(localStorage.getItem("wish-products")) ? false :true,
     };
   },
   created() {
       var localWishListProducts = JSON.parse(
         localStorage.getItem("wish-products")
       );
-      console.log(localWishListProducts);
+     
       if(localWishListProducts)
       {
         var favItemArray = localWishListProducts.map(function(a) {return a.id;});
         favItemArray.forEach((productId) => {
-
             var itemData = this.products.find(
               (p) => p.id === parseInt(productId)
             );
             this.favItem.push(itemData);
-            console.log(this.favItem);
+
         });
       }
-      console.log(this.favItem);
+
   },
 };
 </script>

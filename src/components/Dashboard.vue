@@ -53,6 +53,21 @@ export default {
       favoriteProducts: [],
     };
   },
+  mounted() {
+    var localWishListProducts = JSON.parse(
+      localStorage.getItem("wish-products")
+    );
+    console.log(localWishListProducts);
+    if (localWishListProducts) {
+      var favItemArray = localWishListProducts.map(function (a) {
+        return a.id;
+      });
+      favItemArray.forEach((productId) => {
+        this.products[productId-1].isFavorite = 1;
+      });
+    }
+    console.log(this.favItem);
+  },
   methods: {
     addProductWishlist(productId) {
       var wishlistProductData = {
