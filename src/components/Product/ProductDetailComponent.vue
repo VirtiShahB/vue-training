@@ -71,7 +71,6 @@ export default {
     };
   },
   methods: {
-    
     // Method to add item in a cart
     onAddToCart() {
       if (this.quantity == 0) {

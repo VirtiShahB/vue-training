@@ -3,13 +3,15 @@
     <b-container class="my-5">
       <h4 class="font-weight-bold">Checkout</h4>
       <b-form @submit.prevent="onSubmit" novalidate>
-      <b-row>
-        <b-col cols="7">
-          <h6>Billing Details</h6>
-          <b-alert variant="danger" v-if="showError" show dismissible>
-            <p v-for="(err, ind) in errors" class="small mb-0" :key="ind">{{err}}</p>
-          </b-alert>
-          
+        <b-row>
+          <b-col cols="7">
+            <h6>Billing Details</h6>
+            <b-alert variant="danger" v-if="showError" show dismissible>
+              <p v-for="(err, ind) in errors" class="small mb-0" :key="ind">
+                {{ err }}
+              </p>
+            </b-alert>
+
             <b-form-row>
               <b-form-group id="input-group-1" class="col-6" label="First Name">
                 <b-form-input
@@ -48,14 +50,14 @@
                 ></b-form-input>
               </b-form-group>
             </b-form-row>
-            
+
             <b-form-group id="input-group-5" label="Country">
               <b-form-select
-          id="input-5"
-          v-model="checkoutForm.country"
-          :options="countries"
-          required
-        ></b-form-select>
+                id="input-5"
+                v-model="checkoutForm.country"
+                :options="countries"
+                required
+              ></b-form-select>
             </b-form-group>
             <b-form-group id="input-group-6" label="Address">
               <b-form-input
@@ -93,16 +95,16 @@
                 required
               ></b-form-input>
             </b-form-group>
-          
-          <b-button variant="danger">Create an account</b-button>
-        </b-col>
-        <b-col cols="5">
-          <cart-component :cart="cart"></cart-component>
-          <b-button type="submit" variant="primary" class="float-right mt-3"
-            >Place Order</b-button
-          >
-        </b-col>
-      </b-row>
+
+            <b-button variant="danger">Create an account</b-button>
+          </b-col>
+          <b-col cols="5">
+            <cart-component :cart="cart"></cart-component>
+            <b-button type="submit" variant="primary" class="float-right mt-3"
+              >Place Order</b-button
+            >
+          </b-col>
+        </b-row>
       </b-form>
     </b-container>
   </div>
@@ -125,60 +127,66 @@ export default {
         state: null,
         postal: null,
       },
-      countries: [{ text: 'Select One', value: null }, 'India', 'Algeria', 'China', 'Germany'],
-      cart:[],
-      errors:[],
-      showError:false
+      countries: [
+        { text: "Select One", value: null },
+        "India",
+        "Algeria",
+        "China",
+        "Germany",
+      ],
+      cart: [],
+      errors: [],
+      showError: false,
     };
   },
   created() {
-     let cartItems = JSON.parse(localStorage.getItem("cart"));
+    let cartItems = JSON.parse(localStorage.getItem("cart"));
     if (cartItems) {
       this.cart = cartItems;
     }
   },
-  methods:{
-    onSubmit(){
-      if(!this.checkoutForm.firstName){
-        this.errors.push('First name is required.')
+  methods: {
+    onSubmit() {
+      if (!this.checkoutForm.firstName) {
+        this.errors.push("First name is required.");
       }
-      if(!this.checkoutForm.lastName){
-        this.errors.push('Last name is required.')
+      if (!this.checkoutForm.lastName) {
+        this.errors.push("Last name is required.");
       }
-      if(!this.checkoutForm.phone){
-        this.errors.push('Phone is required.')
+      if (!this.checkoutForm.phone) {
+        this.errors.push("Phone is required.");
       }
-      if(!this.checkoutForm.email){
-        this.errors.push('Email is required.')
+      if (!this.checkoutForm.email) {
+        this.errors.push("Email is required.");
       }
-      if(!this.checkoutForm.country){
-        this.errors.push('Country is required.')
+      if (!this.checkoutForm.country) {
+        this.errors.push("Country is required.");
       }
-      if(!this.checkoutForm.address){
-        this.errors.push('Address is required.')
+      if (!this.checkoutForm.address) {
+        this.errors.push("Address is required.");
       }
-      if(!this.checkoutForm.townCity){
-        this.errors.push('Town Or City is required.')
+      if (!this.checkoutForm.townCity) {
+        this.errors.push("Town Or City is required.");
       }
-      if(!this.checkoutForm.state){
-        this.errors.push('State is required.')
+      if (!this.checkoutForm.state) {
+        this.errors.push("State is required.");
       }
-      if(!this.checkoutForm.postal){
-        this.errors.push('Postal code is required.')
+      if (!this.checkoutForm.postal) {
+        this.errors.push("Postal code is required.");
       }
 
-      if(this.errors.length){
+      if (this.errors.length) {
         this.showError = true;
-        setTimeout(()=>{
-          this.showError=false;
+        setTimeout(() => {
+          this.showError = false;
           this.errors = [];
-        },3000)
-      }else{
-        localStorage.removeItem('cart');
+        }, 3000);
+      } else {
+        localStorage.removeItem("cart");
         this.cart = [];
-        alert('Order has been placed successfully.');
+        alert("Order has been placed successfully.");
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -3,21 +3,9 @@
     <b-container class="my-5">
       <h4 class="font-weight-bold">All Products</h4>
       <b-row>
-        <b-col cols="3" v-for="product in products"
-            :key="product.id">
-          <product
-            :product="product"
-          ></product>
+        <b-col cols="3" v-for="product in products" :key="product.id">
+          <product :product="product"></product>
         </b-col>
-        <!-- <b-col cols="4">
-          <cart-component :cart="cart"></cart-component>
-          <router-link
-            class="btn btn-primary btn-block mt-3"
-            :class="{ disabled: !cart.length }"
-            to="/checkout"
-            >Checkout</router-link
-          >
-        </b-col> -->
       </b-row>
     </b-container>
   </div>
@@ -35,6 +23,6 @@ export default {
     return {
       products,
     };
-  }
+  },
 };
 </script>
