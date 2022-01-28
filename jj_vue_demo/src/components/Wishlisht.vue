@@ -15,22 +15,6 @@
             <hr />
             <h5>{{ wishlisht.description }}</h5>
             <h5>${{ wishlisht.price }}</h5>
-            <!-- <b-col sm="2">
-              <b-button
-                variant="outline-primary"
-                class="mt-3 mr-md-5"
-                style="margin-right: 10px"
-                @click="incQty()"
-                >+</b-button
-              >
-              <span class="cart__quantity">{{ wishlisht.quantity }}</span>
-              <b-button
-                variant="outline-primary"
-                class="mt-3 mr-3"
-                @click="decQty()"
-                >-</b-button
-              >
-            </b-col> -->
             <b-button
               variant="outline-primary"
               class="mt-3 mr-3"
