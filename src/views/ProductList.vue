@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout">
+  <div class="ProductList">
     <div class="container wrapper">
       <div class="row">
         <div class="col-md-3 text-left">
@@ -8,20 +8,28 @@
       </div>
 
       <div class="row">
-        <div v-for="(product, productKey) in products" :key="productKey">
-          <div class="col-md-3">
-            <div class="card">
-              <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-              <div class="card-body">
-                <h4 class="card-title"><a href="product.html" title="View Product">{{ product.product_name }}</a></h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <div class="row">
-                  <div class="col">
-                      <p class="btn btn-danger btn-block">99.00 $</p>
-                  </div>
-                  <div class="col">
-                      <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                  </div>
+        <div class="col-md-12 text-right">
+          <button class="btn btn-primary" @click="$router.push({path: '/wishlist/products'})">View Wishlist Products</button>
+        </div>
+      </div>
+      <div class="clearfix"></div><br />
+
+      <div class="row">
+        <div class="col-md-3" v-for="(product, productKey) in products" :key="productKey">
+          <div class="card">
+            <img class="card-img-top" :src="product.image" :alt="product.title">
+            <div class="card-body">
+              <h4 class="card-title"><span title="View Product" @click="$router.push({path: '/product/'+product.id})">{{ product.title }}</span></h4>
+              <p class="card-text">{{ product.description }}</p>
+              <div class="row">
+                <div class="col">
+                    <p class="btn btn-danger btn-block">{{ product.price }} $</p>
+                </div>
+                <div class="col">
+                    <p class="btn btn-danger btn-block" @click="addProductToWishlist(product)">Add to Wishlist</p>
+                </div>
+                <div class="col">
+                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
                 </div>
               </div>
             </div>
@@ -34,6 +42,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'ProductList',
   props: {
@@ -41,31 +51,44 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          'id': 1,
-          'product_name': 'Tomato',
-          'image': 'https://cdn.pixabay.com/photo/2011/03/16/16/01/tomatoes-5356__340.jpg'
-        }
-      ]
+       products: []
     }
   },
   mounted() {
     axios.get('https://fakestoreapi.com/products')
       .then(res => {
-        //this.products = res.data;
-
-        console.log(res);
-
-
-        
+        this.products = res.data; 
       })
       .catch(err => {
         console.log(err);
       })
   },
   methods: {
-    //
+    addProductToWishlist(product){
+      var _this = this;
+      var wishlistProducts = localStorage.getItem('wishlist_products');
+
+      if(wishlistProducts != undefined || wishlistProducts != null){
+        wishlistProducts = JSON.parse(wishlistProducts);
+
+        var isProductExist = 0;
+
+        wishlistProducts.map(function(value, key) {
+          if(product.id == value.id){
+            isProductExist = 1;
+          }
+        });
+
+        if(isProductExist == 0){
+          wishlistProducts.push(product);
+        }
+      }else{
+        wishlistProducts = [];
+        wishlistProducts.push(product);
+      }
+
+      localStorage.setItem('wishlist_products', JSON.stringify(wishlistProducts));
+    }
   },
 }
 </script>
@@ -74,5 +97,8 @@ export default {
 <style scoped>
  .text-left{
    text-align: left !important;
+ }
+ .text-right{
+   text-align: right !important;
  }
 </style>

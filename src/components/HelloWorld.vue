@@ -6,13 +6,13 @@
           <div class="wrapper row">
             <div class="preview col-md-6">
               <div class="preview-pic tab-content">
-                <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+                <div class="tab-pane active" id="pic-1"><img :src="product.image" /></div>
               </div>
             </div>
             <div class="details col-md-6">
-              <h3 class="product-title">men's shoes fashion</h3>
-              <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-              <h4 class="price">current price: <span>$180</span></h4> 
+              <h3 class="product-title">{{ product.title }}</h3>
+              <p class="product-description">{{ product.description }}</p>
+              <h4 class="price">current price: <span>${{ product.price }}</span></h4> 
               <div class="row justify-content-center">
                 <div class="col-md-6 col-sm-6">
                   <b-form-spinbutton
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -57,8 +59,29 @@ export default {
   data() {
     return {
       quantity: 1,
-      price: 180
+      price: 180,
+      productId : '',
+      product: []
     };
+  },
+  mounted() {
+    var _this = this;
+    this.productId = this.$route.params.id;
+
+    axios.get('https://fakestoreapi.com/products')
+    .then(res => {
+      var products = res.data;
+
+      products.map(function(value, key) {
+         if(_this.productId == value.id){
+            _this.product = value;
+            _this.price = value.price;
+         }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
   },
   methods: {
     addToCartProduct() {
