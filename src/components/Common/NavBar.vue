@@ -14,6 +14,7 @@
               class="py-4 category"
               v-for="(category, index) in categories"
               :key="index"
+              @click="goToHome(category)"
             >
               <div class="px-2">
                 <span class="text-muted text">
@@ -98,10 +99,8 @@
 
         <b-collapse id="nav-collapse" is-nav class="">
           <b-navbar-nav>
-            <b-nav-item class="" >
-              <div @click="goToHome">
-                <span class="text-muted"> Dashboard </span>
-              </div>
+            <b-nav-item class="" @click="goToHome('Dashboard')">
+              <span class="text-muted"> Dashboard </span>
             </b-nav-item>
           </b-navbar-nav>
         </b-collapse>
@@ -128,8 +127,10 @@ export default {
         name: 'WishList'
       })
     },
-    goToHome () {
-      this.$router.push({ name: 'Dashboard' })
+    goToHome (type) {
+      if (type === 'Dashboard') {
+        this.$router.push({ name: 'Dashboard' })
+      }
     }
   }
 }
