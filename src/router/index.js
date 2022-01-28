@@ -4,7 +4,7 @@ import Product from "../views/Product.vue";
 import AddtoCart from "../views/AddtoCart.vue";
 import CHECKOUT from "../views/Checkout.vue";
 import ProductList from "@/components/ProductList.vue";
-
+import WISHLIST from "@/components/WishList.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +28,10 @@ const routes = [
     path:"/checkout",
     name:"Checkout",
     component: CHECKOUT,
+  },{
+    path:"/goToWishList",
+    name:"WishList",
+    component:WISHLIST,
   }
 ];
 

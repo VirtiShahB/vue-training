@@ -321,7 +321,8 @@ div.h4 {
 }
 
 .card {
-    position: relative
+    position: relative;
+    
 }
 
 .card:hover {
@@ -334,9 +335,12 @@ div.h4 {
     position: absolute;
     color: #fff;
     border-radius: 5px;
-    right: 5px;
+    right: 185px;
     top: 5px;
     font-size: 0.9rem
+}
+.remove-wish{
+  margin-left: 87%;
 }
 
 a:hover {
@@ -491,3 +495,4 @@ body {
 .var-img{
   display: inline-flex;
 }
+.wish-list{ cursor: pointer;}

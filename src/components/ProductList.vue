@@ -14,7 +14,11 @@
         <option value="featured">Featured</option>
       </select>
       <div class="cart-div">
-        <a href=""><i class="fa fa-shopping-cart"></i></a>
+        <a href="javascript:void(0)" @click="GoToWishList"><i class="fa fa-heart"></i></a>
+        <span class="cart-num" v-if="WishPro > 0">{{WishPro}}</span>
+      </div>
+      <div class="cart-div">
+        <a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i></a>
         <span class="cart-num" v-if="CartPro > 0">{{CartPro}}</span>
       </div>
     </div>
@@ -53,6 +57,12 @@
             class="d-flex align-items-center justify-content-between py-2 px-3"
           >
             <div class="h4"><span>$</span>{{ products.PPRICE }}</div>
+            <div class="wish-list" v-if="!wishList.includes(products.PID)" @click="AddToWishList(products.PID)">
+              <i class="far fa-heart" aria-hidden></i>
+            </div>
+            <div v-else class="wish-list">
+              <i class="fas fa-heart"></i> 
+            </div>
             <div>
               <button @click="AddTOCart(products.PID)" class="btn btn-dark text-uppercase">Add To Cart</button>
             </div>
@@ -68,7 +78,10 @@ export default {
   data() {
     return {
       CartPro:0,
+      WishPro:0,
       cartProduct : [],
+      wishProduct : [],
+      wishList : JSON.parse(localStorage.getItem("wishProduct")) ? JSON.parse(localStorage.getItem("wishProduct")) : '0',
       productList: [
         {
           PID: 1,
@@ -172,11 +185,11 @@ export default {
     };
   },
   mounted() {
-    localStorage.setItem('PROLIST', this.productList);
+    localStorage.setItem('PROLIST', JSON.stringify(this.productList));
+    
   },
   methods:{
     ProductDetails(id){
-      this.$router.push("/productDetails");
       this.$router.push({
         path: "/productDetails",
         query: {
@@ -187,8 +200,21 @@ export default {
     AddTOCart(pid){
       this.CartPro += 1;
       this.cartProduct.push(pid); 
-      localStorage.setItem('cartProduct', this.cartProduct);
+      localStorage.setItem('cartProduct', JSON.stringify(this.cartProduct));
+    },
+    AddToWishList(pid){
+      this.WishPro += 1;
+      this.wishProduct.push(pid); 
+      localStorage.setItem('wishProduct', JSON.stringify(this.wishProduct));
+      // this.$router.go()
+    },
+    GoToWishList(){
+      this.$router.push("/goToWishList");
     }
+  },
+  created: function(){
+    this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
+    this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
   }
 };
 </script>

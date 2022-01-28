@@ -107,6 +107,7 @@ export default {
   name: "ProductDetail",
   data() {
     return {
+      productDetails:[],
       pro : localStorage.getItem('PROLIST'),
       count : localStorage.getItem('cartProduct'),
       product: "Women's Velvet Dress",
@@ -170,6 +171,12 @@ export default {
       });
     },
   },
+  created:function(){
+    this.productDetails = JSON.parse(localStorage.getItem("PROLIST"));
+    this.productDetails.forEach(function(element){
+       console.log(element)
+    });
+  }
 };
 </script>
 
