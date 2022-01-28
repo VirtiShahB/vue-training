@@ -5,7 +5,8 @@
     <div class="header-right">
       <router-link to="/">Products</router-link>
       <router-link to="/product/wishlist">Wishlist</router-link>
-      <a href="#">Sign out</a>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/signup">Signup</router-link>
     </div>
   </div>
   <router-view></router-view>
@@ -24,7 +25,7 @@ export default {
   overflow: hidden;
   background-color: #a7bfe2;
   padding: 20px 10px;
-  position:fixed;
+  position: inherit;
   top:0;
   width:100%;;
 }

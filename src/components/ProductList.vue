@@ -137,7 +137,7 @@ p.cart-btn {
     background-color: #181f18 !important;
 }
 .product-list {
-    margin-top: 20%;
+    margin-top: 10%;
     text-align: center;
 }
 .img-section{
