@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import ProductDetail from '@/components/ProductDetail'
 import Cart from '@/components/Cart'
+import FavouriteProduct from '@/components/FavouriteProduct'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart,
+  },
+  {
+    path: '/favourite-products',
+    name: 'FavouriteProduct',
+    component: FavouriteProduct
   }
 ]
 const router = new VueRouter({

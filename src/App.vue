@@ -7,6 +7,9 @@
             ><router-link to="/">Products</router-link></b-nav-item
           >
           <b-nav-item href="#"
+            ><router-link to="/favourite-products">Favourite Products</router-link></b-nav-item
+          >
+          <b-nav-item href="#"
             ><router-link to="/cart"
               >Cart
               <span class="badge bg-warning m-1" v-if="totalCartItem > 0">
