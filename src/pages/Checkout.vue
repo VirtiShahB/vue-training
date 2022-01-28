@@ -75,13 +75,15 @@
                   <b> </b>
                   </span>
                </h4>
-                  <p v-for="data in cart" :key="data.id">{{data.name}} 
-                    <a href="#"></a> 
-                    <span class="price">$ {{data.price}} </span>
+                  <p v-for="data  in cart" :key="data.id" @priceChanged="onPriceChanged">{{data.name}} 
+                    <a href="#"></a> <span class="price">$ {{data.price}}</span>
                   </p>
                 <hr>
-               <p>Total <span class="price" style="color:black"><b>$
-                  </b></span></p>
+               <p>Total 
+                  <span class="price" style="color:black">
+                     <b>${{total}}</b>
+                  </span>
+               </p>
             </div>
          </div>
       </div>
@@ -89,13 +91,18 @@
 </template>
 <script>
    export default {
-     name: "Store",
-     data() {
+      name: "Store",
+      total: 0,
+      data() {
        return {
          cart: [],
        };
-     },
-     beforeMount(){
+      },
+      onPriceChanged(value) {
+         alert(total);
+        return this.total += value;
+      },
+      beforeMount(){
        if (localStorage.getItem("cart")) {
            this.cart = JSON.parse(localStorage.getItem("cart"));
        }
