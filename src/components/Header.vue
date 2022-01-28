@@ -11,7 +11,8 @@
       <!--Header navigation-->
       <span class="navbar-item bc d-none d-xl-block d-lg-block py-0">
         <router-link class="px-5" to="/">Products</router-link>
-        <router-link to="/checkout">Checkout</router-link>
+        <router-link class="px-5" to="/checkout">Checkout</router-link>
+        <router-link class="px-5" to="/wishlist">Wishlist</router-link>
       </span>
       <p class="navbar-item ml-auto"></p>
       <div class="bag">

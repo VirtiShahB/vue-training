@@ -13,7 +13,22 @@
           <span class="float-left pr-3">★★★★★</span>
           <h6 style="width: 190px">3 reviews</h6>
           <h1 class="font-weight-bold text-uppercase pt-3">{{ item.title }}</h1>
+
           <h4>${{ item.price }}</h4>
+          <button class="btn btn-secondary">
+            <p
+              v-if="addedToWishlist == false"
+              class="wishlist-btn"
+              @click="addTowishlist(item)"
+            >
+              Add to Wishlist <span><i class="fa fa-heart-o fa-xs"></i></span>
+            </p>
+
+            <p v-else class="wishlist-btn" @click="addTowishlist(item)">
+              Remove from Wishlist
+              <span><i class="fa fa-heart fa-xs"></i></span>
+            </p>
+          </button>
           <br /><br /><br />
           <div class="control number text-center">
             <button
@@ -35,12 +50,13 @@
             >
               +
             </button>
+
             <br /><br />
           </div>
           <button class="add-to-cart-button" @click="addtoCart(item, item.id)">
             ADD TO CART
           </button>
-          &nbsp;
+          &nbsp; &nbsp;
           <button
             v-if="showCartButton"
             class="add-to-cart-button"
@@ -65,6 +81,7 @@ export default {
       inCart: [],
       showCart: false,
       product: [],
+      wishlistId: [],
     };
   },
   components: {
@@ -73,6 +90,12 @@ export default {
   computed: {
     showCartButton() {
       if (this.$store.getters.itemsNumber > 0) {
+        return true;
+      }
+      return false;
+    },
+    addedToWishlist() {
+      if (this.wishlistId.includes(this.product[0].id)) {
         return true;
       }
       return false;
@@ -98,9 +121,17 @@ export default {
     openCartbox() {
       this.showCart = true;
     },
+    addTowishlist(item) {
+      this.$store.commit("inWishlist", item);
+      this.getWishlistItemId();
+    },
+    getWishlistItemId() {
+      this.wishlistId = this.$store.state.wishlistId;
+    },
   },
   mounted() {
     this.product.push(this.$store.state.infoItem);
+    this.getWishlistItemId();
   },
 };
 </script>
@@ -152,5 +183,9 @@ export default {
 .add-to-cart-button:focus {
   background-color: inherit;
   color: black;
+}
+.wishlist-btn {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 </style>

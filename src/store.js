@@ -58,11 +58,24 @@ export default new Vuex.Store({
     ],
     infoItem: [],
     cartItems: [],
+    wishlist: [],
+    wishlistId: [],
   },
   mutations: {
     inCart(state, n) {
       // Cart Component
       return state.cartItems.push(n);
+    },
+    inWishlist(state, item) {
+      if (state.wishlistId.includes(item.id) == false) {
+        state.wishlistId.push(item.id);
+        state.wishlist.push(item);
+      } else {
+        let getIndex = state.wishlistId.indexOf(item.id);
+        state.wishlistId.splice(getIndex, 1);
+        state.wishlist.splice(getIndex, 1);
+      }
+      return state.wishlist;
     },
     outCart(state, n) {
       // Cart Component

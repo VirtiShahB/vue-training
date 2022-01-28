@@ -35,6 +35,12 @@
               <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
                 <p class="card-text">${{ item.price }}</p>
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  @click="addTowishlist(item)"
+                >
+                  Add to Wishlist <i class="fa fa-heart"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -54,6 +60,8 @@ export default {
       itemCount: 0,
       infoItem: [],
       showInfoComp: false,
+      wishlist: [],
+      wishlistId: [],
     };
   },
   components: {
@@ -66,13 +74,22 @@ export default {
       this.$store.state.infoItem = item;
       this.showInfoComp = true;
     },
+    addTowishlist(item) {
+      this.$store.commit("inWishlist", item);
+      this.getWishlistItemId();
+    },
+    getWishlistItemId() {
+      this.wishlistId = this.$store.state.wishlistId;
+    },
   },
   mounted() {
     this.showInfoComp = false;
+    this.getWishlistItemId();
   },
   created() {
     this.CardArray = this.$store.state.items;
     this.itemCount = this.$store.state.items.length;
+    this.wishlist = this.$store.state.wishlist;
   },
 };
 </script>
