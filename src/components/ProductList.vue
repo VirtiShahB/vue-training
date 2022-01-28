@@ -88,15 +88,16 @@ export default {
             localStorage.setItem('WishListitems',JSON.stringify(this.ArrWishList));
         },
         RemoveFromFavorite: function(item,index) {
+            var WishedList = JSON.parse(localStorage.getItem('WishListitems'));
             this.items[index].favorite = 0;
-            this.ArrWishList.pop(item);
+
+            WishedList.splice(index,1);
+            localStorage.setItem('WishListitems',JSON.stringify(WishedList));
 
             const parsedObject = JSON.parse(localStorage.getItem("items"));
             parsedObject[index].favorite = 0;
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
             localStorage.setItem("items", modifiedndstrigifiedForStorage);
-
-            localStorage.setItem('WishListitems',JSON.stringify(this.ArrWishList));
         }
     },
 }
