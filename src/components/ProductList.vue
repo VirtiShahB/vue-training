@@ -13,11 +13,12 @@
                   />
                 </div>
                 <div class="card-info-wrapper">
-                  <div class="price">$ {{ price }}.00</div>
-                  <br>
                   <router-link :to="{ name: 'ShowDetails', params: { id: product.id } }"
                     ><div class="card-name">{{ product.name }}</div></router-link
                   >
+                  
+                  <br>
+                  <div class="price">$ {{ price }}.00</div>
                   
                   <br>
                   <div class="card-info"> {{ product.description }}</div>
@@ -26,13 +27,13 @@
                   <button type="button" class="btn add-to-card" @click="addToChart">
                     Add to Cart
                   </button>
-                  <div
+                  <button type="button"
                     
-                    class="add-to-favorites"
+                    class="add-to-favorites btn" @click="addToWhislist"
                    
-                  >
-                   Add to Whislist
-                  </div>
+                  ><b-icon-heart></b-icon-heart></button>
+                   
+                 
                  
                 </div>
 
@@ -98,7 +99,34 @@ export default {
       console.log(localStorage.getItem('productsOnCart'));
       this.$emit("add-to-chart", newProduct);
       this.resetSelections();
-    },   
+    },  
+    addToWhislist() {
+      let indexOfSize = this.product.sizes
+        .map((item) => item.value)
+        .indexOf(this.selectedSize);
+     
+      let newProduct = {
+        id: this.product.id,
+        name: this.product.name,
+        sizes: [
+          {
+            number: parseInt(this.selectedSize),
+            piece: parseInt(this.selectedCount),
+          },
+        ],
+        price: (this.product.price + indexOfSize * 10) * this.selectedCount,
+        piece: this.selectedCount,
+        image: this.product.image,
+      };
+      if(localStorage.getItem('productsOnCart')){
+          newProduct = JSON.parse(localStorage.getItem('productsOnCart'));
+      }
+      //cartProducts.push(JSON.stringify(newProduct));
+      localStorage.setItem('productsOnCart',JSON.stringify(newProduct));
+      console.log(localStorage.getItem('productsOnCart'));
+      this.$emit("add-to-chart", newProduct);
+      this.resetSelections();
+    }, 
     // Given first valeus to selectCount and selectedSize.
     resetSelections() {
       this.selectedCount = 1;
@@ -212,17 +240,25 @@ export default {
 }
 
 .add-to-favorites {
-  color: #ff005e;
+  color: red;
   cursor: pointer;
   width: fit-content;
-  max-width: 50%;
+      background: #fff;
+    display: block;
+    line-height: 1rem;
 }
 
 .add-to-favorites:hover {
-  color: #bb0042;
+  color: #fff;
+  background:red
 }
 
 .add-to-favorites:active {
   color: #7c002c;
+}
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    cursor: pointer;
 }
 </style>

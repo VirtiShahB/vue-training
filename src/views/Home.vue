@@ -22,6 +22,7 @@
                 :key="i"
                 :product="product"
                 @add-to-chart="addToChard"
+                @add-to-whislist="addToWhislist"
               />
             </b-row>
             </div>
@@ -61,6 +62,29 @@ export default {
      * @param {Object} product - Product at selectedProducts array
      */
     addToChard(product) {
+      let sameProduct = this.selectedProducts.find((item) => item.id === product.id);
+      if (sameProduct) {
+        const findedSize = sameProduct.sizes.find(
+          (item) => item.number === product.sizes[0].number
+        );
+        if (findedSize) {
+          findedSize.piece += product.sizes[0].piece;
+        } else {
+          sameProduct.sizes.push({
+            number: product.sizes[0].number,
+            piece: product.sizes[0].piece,
+          });
+        }
+
+        sameProduct.piece += product.piece;
+        sameProduct.price += product.price;
+      } else {
+        this.selectedProducts.push(product);
+      }
+      this.productCount += product.piece;
+      this.showToast = true;
+    },
+    addToWhislist(product) {
       let sameProduct = this.selectedProducts.find((item) => item.id === product.id);
       if (sameProduct) {
         const findedSize = sameProduct.sizes.find(

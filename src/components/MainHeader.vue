@@ -1,15 +1,27 @@
 <template>
-  <div class="header">
-    <h1>Ecommerce App - Vue.js</h1>
-    <router-link to="/checkout">
-    <transition name="move" appear>
-      <div style="margin-right: 20px" >
-        <b-icon-cart-4 v-if="show" class="chart" />
-        <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
-
-      </div>
-    </transition> </router-link>   
-  </div>
+  <div class="header">   
+    <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+    <router-link class="navbar-brand" :to="{ name: 'Home' }">
+       <img id="logo" src="../assets/images/icon.png"  />
+    </router-link>    
+      <ul class="navbar-nav ml-auto">        
+        <li class="nav-item">
+          <div id="cart">
+            <span id="nav-cart-count"></span>           
+              <router-link to="/checkout">
+                <transition name="move" appear>
+                  <div style="margin-right: 20px" >
+                    <b-icon-cart-4 v-if="show" class="chart" />
+                    <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
+                  </div>
+                </transition> 
+              </router-link>  
+          </div>
+        </li>
+      </ul>
+    
+    </nav>
+  </div>  
 </template>
 
 <script>
@@ -24,14 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  width: 100%;
-  height: 50px;
-  background: orange;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .chart {
   font-size: 30px;
 }
@@ -46,5 +51,25 @@ export default {
   100% {
     transform: translateX(0px) rotate(45deg);
   }
+}
+#logo {
+  width: 150px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255);
+}
+
+#search-button-navbar {
+  background-color: #febd69;
+  border-color: #febd69;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+#cart {
+  position: relative;
 }
 </style>

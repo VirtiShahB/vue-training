@@ -23,7 +23,7 @@ export default [
     id: 2,
     name: "Nike Epic React Flyknit",
     piece: 1,
-    price: 200,
+    price: 2000,
     image: require("../assets/images/shoe2.jpg"),
     color: "blue",
     description:
@@ -43,7 +43,7 @@ export default [
     id: 3,
     name: "Nike Epic Vue Flyknit",
     piece: 1,
-    price: 200,
+    price: 2500,
     image: require("../assets/images/shoe2.jpg"),
     color: "blue",
     description:
@@ -63,7 +63,7 @@ export default [
     id: 4,
     name: "Nike Epic Vue Flyknit",
     piece: 1,
-    price: 200,
+    price: 1200,
     image: require("../assets/images/shoe1.jpg"),
     color: "pink",
     description:
