@@ -2,11 +2,11 @@
   <div>
     <b-card
       :title="product.name"
-      img-src="https://picsum.photos/600/300/?image=25"
+      :img-src="product.img"
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem"
+      style="max-width: 20rem;"
       class="mb-2"
     >
       <b-card-text> ${{ product.price }} </b-card-text>
@@ -34,3 +34,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card-img-top {
+    width: 100%;
+    height: 300px;
+}
+</style>

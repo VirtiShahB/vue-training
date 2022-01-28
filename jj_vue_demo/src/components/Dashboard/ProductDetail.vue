@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-card
-      img-src="https://placekitten.com/300/300"
+      :img-src="product.img"
       img-alt="Card image"
       img-left
       class="mb-3 mt-4"
@@ -33,7 +33,9 @@
           style="margin-right: 10px"
           @click="updateCart()"
           >Add to cart</b-button
-        >
+        ><br/>
+        <b-icon-suit-heart v-if="showIcon" @click="updateWishlist('add')" scale="1" class="mr-3 mt-3"></b-icon-suit-heart>
+        <b-icon-suit-heart-fill v-else scale="1" class="mr-3 mt-3" @click="updateWishlist('remove')"></b-icon-suit-heart-fill>
       </b-card-text>
     </b-card>
   </div>
@@ -44,6 +46,7 @@ export default {
   data() {
     return {
       product: {},
+      showIcon: true
     };
   },
   created() {
@@ -72,9 +75,17 @@ export default {
         }
       }
     },
-    goBack() {
-      this.$router.push("/");
-    },
+    updateWishlist(productAction){
+      this.showIcon = !this.showIcon
+      var wishlishtProducts = this.$store.state.wishlistProducts;
+
+      if(productAction == 'add'){
+        wishlishtProducts.push(this.product)
+      }
+      else{
+        wishlishtProducts.find((element,index) => {if(element.id == this.product.id){ wishlishtProducts.splice(index,1)}})
+      }
+    }
   },
 };
 </script>
@@ -83,5 +94,9 @@ export default {
 .cart__quantity {
   font-size: 1.5rem;
   margin: 0 1rem;
+}
+.card-img-left {
+    width: 35%;
+    height: 300px;
 }
 </style>

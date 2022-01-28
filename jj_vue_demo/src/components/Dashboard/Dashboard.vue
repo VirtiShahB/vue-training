@@ -2,9 +2,8 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col-md-4" v-for="(product, index) in products" :key="index">
-        <Product :product="product"/>
+        <Product :product="product" />
       </div>
-      
     </div>
   </div>
 </template>
@@ -14,14 +13,12 @@ import Product from "../Product.vue";
 
 export default {
   data() {
-    return {
-       
-    };
+    return {};
   },
   props: ["products"],
   name: "Dashboard",
   components: {
-    Product
+    Product,
   },
 };
 </script>

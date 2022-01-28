@@ -9,6 +9,10 @@
         </h3>
       </router-link>
       <div class="form-inline my-2 my-lg-0">
+        <router-link to="/wishlist">
+        <b-icon-suit-heart scale="2" style="margin-right:30px"></b-icon-suit-heart>
+        </router-link>
+        
         <router-link to="/checkout">
           <b-icon-cart scale="2"></b-icon-cart>
           <span class="total-quantity">{{ cart }}</span>
@@ -22,7 +26,7 @@
 export default {
   data() {
     return {
-      title: "Products",
+      title: "Home",
       cart: 0,
     };
   },

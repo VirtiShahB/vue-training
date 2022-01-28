@@ -12,9 +12,9 @@ export default {
   data () {
     return {
       products: [
-        {id: 0,name: 'Shirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0},
-        {id: 1,name: 'TShirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0},
-        {id: 2,name: 'Jeans', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0}
+        {id: 0,name: 'Shirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0, img:require("@/assets/shirt.jpg")},
+        {id: 1,name: 'TShirt', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0, img:require("@/assets/tshirt.jpg")},
+        {id: 2,name: 'Jeans', description: "Van Heusen Men's Slim Business Casual Pants", price: 30, quantity: 0, img:require("@/assets/pants.jpg")}
       ]
     }
   },
