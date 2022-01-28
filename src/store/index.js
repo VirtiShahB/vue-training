@@ -9,6 +9,8 @@ const state = {
   wishlist: [],
   isEmptyCart: true,
   isEmptyWishlist: true,
+  authToken: '',
+  isLogin: false,
   // products: [],
   products: [
     {
@@ -50,6 +52,10 @@ const state = {
   ],
 }
 const mutations = {
+  SUCESS_LOGIN(state, payload) {
+    state.authToken = payload.authData.token
+    state.isLogin = true
+  },
   SET_INITAL_PRODUCTS(state, payload) {
     state.products = payload.productsData
   },
@@ -84,6 +90,9 @@ const getters = {
 const actions = {
   setInitialProducts({ commit }, payload) {
     commit('SET_INITAL_PRODUCTS', payload)
+  },
+  login({ commit }, payload) {
+    commit('SUCESS_LOGIN', payload)
   },
   addToCart({ commit }, payload) {
     var product = state.products.find((p) => p.id === parseInt(payload.id))

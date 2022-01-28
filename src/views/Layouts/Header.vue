@@ -2,9 +2,9 @@
   <div>
     <b-navbar type="dark" variant="secondary">
       <div class="container">
-        <b-navbar-nav>
+        <b-navbar-nav v-if="this.$store.state.isLogin">
           <b-nav-item href="#"
-            ><router-link to="/">Dashboard</router-link></b-nav-item
+            ><router-link to="/dashboard">Products</router-link></b-nav-item
           >
           <b-nav-item v-if="!this.$store.state.isEmptyCart" href="#"
             ><router-link to="/checkout">Checkout</router-link></b-nav-item
@@ -25,6 +25,13 @@
               </span></b-dropdown-item
             >
           </b-nav-item-dropdown>
+        </b-navbar-nav>
+        <b-navbar-nav v-else>
+          <b-nav-item href="#"
+            ><router-link to="/register">Sign up</router-link></b-nav-item
+          ><b-nav-item href="#"
+            ><router-link to="/">Login</router-link></b-nav-item
+          >
         </b-navbar-nav>
       </div>
     </b-navbar>
