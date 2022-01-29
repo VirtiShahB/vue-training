@@ -15,9 +15,11 @@ const wishlist = {
     },
   },
   actions: {
+    // add to wishlist
     addToWishlist({ commit }, product) {
       let wishlist = JSON.parse(localStorage.getItem("wishlist"));
       if (wishlist) {
+        // wishlist exists in products
         let wishlistProductInd = wishlist.findIndex(
           (item) => item.id == product.id
         );
@@ -33,7 +35,6 @@ const wishlist = {
         localStorage.setItem("wishlist", JSON.stringify([product]));
         commit("ADD_TO_WISHLIST", product);
       }
-      
     },
     getWishlist({ commit }) {
       let wishlist = JSON.parse(localStorage.getItem("wishlist"));

@@ -27,7 +27,7 @@
               <em>User</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item button @click="onLogout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -45,6 +45,12 @@ export default {
   computed: {
     wishlist: () => that.$store.state.wishlist.wishlist
   },
+  methods:{
+    onLogout(){
+      localStorage.removeItem('user');
+      this.$router.replace('/login');
+    }
+  }
 }
 </script>
 <style>

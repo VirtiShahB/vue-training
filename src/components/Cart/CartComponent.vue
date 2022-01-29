@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     // To get the total of cart items and called when any changes happen in cart prop
-    getCartTotal: function() {
+    getCartTotal: function () {
       return this.cart.reduce(function (acc, obj) {
         return acc + obj.quantity * obj.price;
       }, 0);
