@@ -5,19 +5,19 @@
             <p><strong>Products</strong></p>
          </h2>  
          <div class="col-sm-4" v-for="(item, index) in items" :key="index">
-            <b-img thumbnail v-bind:src="'../../images/'+ item.image" alt="Earphone" fluid class="img-section"></b-img>
+            <b-img thumbnail v-bind:src="'../../images/'+ item.Image" alt="Earphone" fluid class="img-section"></b-img>
             <div class="product-outline">
-                <h1>{{ item.pro_name }}</h1>
-                    <div v-if="item.favorite == 0" class="h2 mb-0" @click="AddToFavorite(item,index)">
+                <h1>{{ item.ProductName }}</h1>
+                    <div v-if="item.Favorite == 0" class="h2 mb-0" @click="AddToFavorite(item,index)">
                         <b-icon icon="heart"></b-icon>
                     </div>
                     <div v-else class="h2 mb-0" @click="RemoveFromFavorite(item,index)">
                         <b-icon icon="heart-fill"></b-icon>
                     </div>
 
-                <p class="price"> ${{ item.price }} </p>
-                <p>{{ item.description }}</p>
-                <router-link :to="'product/detail/'+ item.id">
+                <p class="price"> ${{ item.Price }} </p>
+                <p>{{ item.Description }}</p>
+                <router-link :to="'product/detail/'+ item.Id">
                 <p class="view-button">
                     <b-button class="form-control">View</b-button>
                 </p>
@@ -30,34 +30,34 @@
 <script>
 var items = [
                 {
-                    id:1,
-                    pro_name : "Bolt headphone",
-                    price: '25.99',
-                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    image: 'earphone.jpeg',
-                    model: 'Bolt',
-                    color:'Black and white',
-                    favorite:0
+                    Id:1,
+                    ProductName : "Bolt headphone",
+                    Price: '25.99',
+                    Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    Image: 'earphone.jpeg',
+                    Model: 'Bolt',
+                    Color:'Black and white',
+                    Favorite:0
                 },
                 {
-                    id:2,
-                    pro_name : "JBL headphone",
-                    price: '40.99',
-                    description: "JBL headphone is great product of the printing and typesetting industry.",
-                    image: 'jbl-headphone.jpeg',
-                    model: 'JBL',
-                    color:'Grey and white',
-                    favorite:0
+                    Id:2,
+                    ProductName : "JBL headphone",
+                    Price: '40.99',
+                    Description: "JBL headphone is great product of the printing and typesetting industry.",
+                    Image: 'jbl-headphone.jpeg',
+                    Model: 'JBL',
+                    Color:'Grey and white',
+                    Favorite:0
                 },
                 {
-                    id:3,
-                    pro_name : "Sony headphone",
-                    price: '50.99',
-                    description: "This is just text of the printing and typesetting industry.",
-                    image: 'sony-headphone.jpeg',
-                    model: 'Sony',
-                    color:'Blue and black',
-                    favorite:0
+                    Id:3,
+                    ProductName : "Sony headphone",
+                    Price: '50.99',
+                    Description: "This is just text of the printing and typesetting industry.",
+                    Image: 'sony-headphone.jpeg',
+                    Model: 'Sony',
+                    Color:'Blue and black',
+                    Favorite:0
                 }
             ];
     if( localStorage.getItem('items') === null ){
@@ -77,11 +77,11 @@ export default {
     methods: {
         AddToFavorite: function (item,index){
 
-            this.items[index].favorite = 1;
+            this.items[index].Favorite = 1;
             this.ArrWishList.push(item);
 
             const parsedObject = JSON.parse(localStorage.getItem("items"));
-            parsedObject[index].favorite = 1;
+            parsedObject[index].Favorite = 1;
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
             localStorage.setItem("items", modifiedndstrigifiedForStorage);
 
@@ -89,13 +89,13 @@ export default {
         },
         RemoveFromFavorite: function(item,index) {
             var WishedList = JSON.parse(localStorage.getItem('WishListitems'));
-            this.items[index].favorite = 0;
+            this.items[index].Favorite = 0;
 
             WishedList.splice(index,1);
             localStorage.setItem('WishListitems',JSON.stringify(WishedList));
 
             const parsedObject = JSON.parse(localStorage.getItem("items"));
-            parsedObject[index].favorite = 0;
+            parsedObject[index].Favorite = 0;
             const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
             localStorage.setItem("items", modifiedndstrigifiedForStorage);
         }

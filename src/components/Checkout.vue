@@ -82,18 +82,18 @@
                      <div class="col-sm-6">
                         <strong>Product</strong>
                         <hr>
-                        <p>{{ ProductName }} ({{ quantity }} x {{ price }})</p>
+                        <p>{{ ProductName }} ({{ Quantity }} x {{ Price }})</p>
                      </div>
                      <div class="col-sm-6">
                         <strong>Total</strong>
                         <hr>
-                        <p>${{ price }}</p>
+                        <p>${{ Price }}</p>
                      </div>
                   </div>
 
                   <div class="row">
                      <div class="col-sm-6">
-                        <p>Size ( {{size}} )</p>
+                        <p>Size ( {{Size}} )</p>
                      </div>
                   </div>
 
@@ -104,7 +104,7 @@
                         <p><strong>Shipping</strong></p>
                      </div>
                      <div class="col-sm-6">
-                        <p :style="{color:'red'}">${{ quantity * price }}</p>
+                        <p :style="{color:'red'}">${{ Quantity * Price }}</p>
                         <p> <b-form-checkbox id="checkbox-1"  name="checkbox-1" value="free_shipping">Free Shipping</b-form-checkbox></p>
                         <p> <b-form-checkbox id="checkbox-2"  name="checkbox-2" value="local_pickup">Local pickup</b-form-checkbox></p>
                      </div>
@@ -115,7 +115,7 @@
                         <strong>Total</strong>
                      </div>
                      <div class="col-sm-6">
-                        <p :style="{color:'red'}">${{ quantity * price }}</p>
+                        <p :style="{color:'red'}">${{ Quantity * Price }}</p>
                      </div>
                   </div>
                   <hr>
@@ -152,9 +152,9 @@
        data() {
          return {
             ProductName : localStorage.getItem('ProductName'),
-            price: localStorage.getItem('price'),
-            quantity: localStorage.getItem('quantity'),
-            size: localStorage.getItem('size').toUpperCase(),
+            Price: localStorage.getItem('Price'),
+            Quantity: localStorage.getItem('Quantity'),
+            Size: localStorage.getItem('Size').toUpperCase(),
             selected: null,
             form: {
                email: '',

@@ -4,38 +4,38 @@
     <div class="card">
         <div class="row">
             <div class="col-sm-4">
-                <b-img v-bind:src="'../../images/' + imgName" alt="Earphone" fluid-grow></b-img>
+                <b-img v-bind:src="'../../images/' + ImgName" alt="Earphone" fluid-grow></b-img>
             </div>
         <div class="col-sm-7">
             <div class="card-body p-5">
                 <h3 class="title mb-3">{{ ProductName }}</h3>
                 <p class="price-detail-wrap"> 
                     <span class="price h3 text-warning"> 
-                    <span class="price">${{ price }}</span>
+                    <span class="price">${{ Price }}</span>
                     </span>
                 </p>
                 <dl>
                     <dt>Description</dt>
-                    <dd><p>{{ description }}</p></dd>
+                    <dd><p>{{ Description }}</p></dd>
                 </dl>
                 <dl>
                     <dt>Model#</dt>
-                    <dd>{{ model }}</dd>
+                    <dd>{{ Model }}</dd>
                 </dl>
                 <dl>
                     <dt>Color</dt>
-                    <dd>{{ color }}</dd>
+                    <dd>{{ Color }}</dd>
                 </dl>
                 <hr>
                 <div class="row">
                     <div class="col-sm-5">
                     <b-input-group>
                         <b-input-group-prepend>
-                            <b-btn variant="outline-info" @click="quantity--">-</b-btn>
+                            <b-btn variant="outline-info" @click="Quantity--">-</b-btn>
                         </b-input-group-prepend>
-                        <b-form-input type="number" min="0.00" v-model="quantity" class="cart-quantity"></b-form-input>
+                        <b-form-input type="number" min="0.00" v-model="Quantity" class="cart-quantity"></b-form-input>
                         <b-input-group-append>
-                            <b-btn variant="outline-secondary" @click="quantity++">+</b-btn>
+                            <b-btn variant="outline-secondary" @click="Quantity++">+</b-btn>
                         </b-input-group-append>
                     </b-input-group>
                     </div>
@@ -51,8 +51,8 @@
                     <input type="hidden" :val="this.$route.params.id" class="proid">
                 </div>
                 <hr>
-                <b-button class="buy-now text-uppercase" variant="primary" @click="addToCart(quantity,'buy')"> Buy now </b-button>
-                <b-button  class="text-uppercase" @click="addToCart(quantity,'cart')" variant="success"> <b-icon icon="cart"></b-icon> Add to cart </b-button>
+                <b-button class="buy-now text-uppercase" variant="primary" @click="addToCart(Quantity,'buy')"> Buy now </b-button>
+                <b-button  class="text-uppercase" @click="addToCart(Quantity,'cart')" variant="success"> <b-icon icon="cart"></b-icon> Add to cart </b-button>
             </div>
         </div>
     </div>
@@ -65,12 +65,12 @@ export default {
     data() {
         return {
             ProductName : '',
-            price: '',
-            description: "",
-            quantity: 0,
-            model: '',
-            color:'',
-            imgName: '',
+            Price: '',
+            Description: "",
+            Quantity: 0,
+            Model: '',
+            Color:'',
+            ImgName: '',
             selected: null,
             options: [
                 { value: 'sm', text: 'SM' },
@@ -94,9 +94,9 @@ export default {
                 this.showmsg = "Please select any size.";
             } else {
                 localStorage.setItem("ProductName", this.ProductName);
-                localStorage.setItem("price", this.price);
-                localStorage.setItem("quantity", this.quantity);
-                localStorage.setItem("size", this.selected);
+                localStorage.setItem("Price", this.Price);
+                localStorage.setItem("Quantity", this.Quantity);
+                localStorage.setItem("Size", this.selected);
                 this.variant="success";
 
                 if( action == 'cart' ) {
@@ -118,9 +118,9 @@ export default {
             if( this.quantity == 0 ) {
 
                 localStorage.setItem("ProductName", '');
-                localStorage.setItem("price", '');
-                localStorage.setItem("quantity", '');
-                localStorage.setItem("size", '');
+                localStorage.setItem("Price", '');
+                localStorage.setItem("Quantity", '');
+                localStorage.setItem("Size", '');
                 
                 this.variant="danger";
                 this.show = true;
@@ -142,12 +142,12 @@ export default {
         var itemsObject = JSON.parse(items);
         for (var key in itemsObject) {
             if ( key == index){
-                this.ProductName = itemsObject[key].pro_name;
-                this.price = itemsObject[key].price;
-                this.description = itemsObject[key].description;
-                this.model = itemsObject[key].model;
-                this.color = itemsObject[key].color;
-                this.imgName = itemsObject[key].image;
+                this.ProductName = itemsObject[key].ProductName;
+                this.Price = itemsObject[key].Price;
+                this.Description = itemsObject[key].Description;
+                this.Model = itemsObject[key].Model;
+                this.Color = itemsObject[key].Color;
+                this.ImgName = itemsObject[key].Image;
             }
         }
       }
