@@ -1,7 +1,7 @@
 <template>
     <b-card class="container">
         <h2><p :style="'text-align:center'"><strong>Login</strong></p></h2>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit">
       <b-form-group
         id="input-group-1"
         label="Email Address:"
@@ -22,6 +22,7 @@
           v-model="form.password"
           placeholder="Password"
           required
+          :type="'password'"
         ></b-form-input>
       </b-form-group>
 
@@ -54,7 +55,9 @@ export default {
           email: '',
           password: '',
         },
-        show: true
+        show: true,
+        users: [],
+        existUser: '',
       }
     },
     validations () {
@@ -66,18 +69,14 @@ export default {
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.password = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+        this.users.push(localStorage.getItem('user'));
+        var user = JSON.parse(this.users);
+
+        if( this.form.email == user.email && this.form.password == user.password ) {
+          alert("Login successfully");
+        } else {
+          alert("Invalid credentials.");
+        }
       }
     }
 }

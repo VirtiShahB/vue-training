@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Checkout from '../components/Checkout.vue'
-import Login from '../components/Login.vue'
-import ProductDetail from '../components/ProductDetail.vue'
-import ProductList from '../components/ProductList.vue'
-import Signup from '../components/Signup.vue'
-import WishList from '../components/WishList.vue'
+import Checkout from '@/components/Checkout.vue'
+import Login from '@/components/Login.vue'
+import ProductDetail from '@/components/ProductDetail.vue'
+import ProductList from '@/components/ProductList.vue'
+import Signup from '@/components/Signup.vue'
+import WishList from '@/components/WishList.vue'
 
 Vue.use(VueRouter)
 

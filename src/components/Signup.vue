@@ -1,26 +1,26 @@
 <template>
     <b-card class="container">
         <h2><p :style="'text-align:center'"><strong>Signup</strong></p></h2>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" >
         <b-form-group
         id="input-group-1"
         label="Full Name:"
         label-for="input-1"
         >
         <b-form-input 
-            v-model="form.text" 
+            v-model="form.fullName" 
             placeholder="Enter your name"
             required
         >
         </b-form-input>
         </b-form-group>
         <b-form-group
-            id="input-group-1"
+            id="input-group-2"
             label="Email Address:"
-            label-for="input-1"
+            label-for="input-2"
         >
         <b-form-input
-          id="input-1"
+          id="input-3"
           v-model="form.email"
           type="email"
           placeholder="Enter email"
@@ -28,32 +28,23 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+      <b-form-group id="input-group-4" label="Password:" label-for="input-4">
         <b-form-input
-          id="input-2"
-          v-model="form.name"
+          id="input-4"
+          :type="'password'"
+          v-model="form.password"
           placeholder="Password"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Confirm Password:" label-for="input-2">
+      <b-form-group id="input-group-5" label="Confirm Password:" label-for="input-5">
         <b-form-input
-          id="input-2"
-          v-model="form.name"
+          id="input-5"
+          :type="'password'"
           placeholder="Confirm password"
           required
         ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-        <b-form-checkbox-group
-          v-model="form.checked"
-          id="checkboxes-4"
-          :aria-describedby="ariaDescribedby"
-        >
-          <b-form-checkbox value="me">Remember me</b-form-checkbox>
-        </b-form-checkbox-group>
       </b-form-group>
 
       <b-button type="submit" variant="primary">Signup</b-button>
@@ -66,29 +57,19 @@ export default {
      data() {
       return {
         form: {
+          fullName: '',
           email: '',
-          name: '',
           password: ''
         },
-        show: true
+        user: [],
       }
     },
     methods: {
       onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.password = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+        event.preventDefault();
+        this.user.push(JSON.stringify(this.form));
+        localStorage.setItem('user',this.user);
+        alert("User signup successfully");
       }
     }
 }

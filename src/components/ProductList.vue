@@ -75,7 +75,7 @@ export default {
         }
     },
     methods: {
-        AddToFavorite: function (item,index){
+        AddToFavorite(item,index){
 
             this.items[index].Favorite = 1;
             this.ArrWishList.push(item);
@@ -87,7 +87,7 @@ export default {
 
             localStorage.setItem('WishListitems',JSON.stringify(this.ArrWishList));
         },
-        RemoveFromFavorite: function(item,index) {
+        RemoveFromFavorite(item,index) {
             var WishedList = JSON.parse(localStorage.getItem('WishListitems'));
             this.items[index].Favorite = 0;
 

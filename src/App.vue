@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Dashboard from './components/dashboard.vue'
+import Dashboard from '@/components/dashboard.vue'
 
 export default {
   name: 'App',
@@ -26,6 +26,14 @@ export default {
 body { 
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+  font-size: 1.5rem;
+}
+p{
+    text-align: unset;
+    padding: 1px;
 }
 
 </style>

@@ -83,7 +83,7 @@ export default {
         }
     },
     methods: {
-        addToCart: function(quantity,action){
+        addToCart(quantity,action){
             this.show = true;
             if( quantity == 0 ){
                 this.variant="danger";
@@ -113,7 +113,7 @@ export default {
         }
     },
     watch:{
-        quantity: function(newValue) {
+        quantity(newValue) {
 
             if( this.quantity == 0 ) {
 
@@ -136,7 +136,7 @@ export default {
             }
         }
     },
-    created: function(){
+    created(){
         var index = this.$route.params.id - 1;
         var items = localStorage.getItem("items"); // From localstorage
         var itemsObject = JSON.parse(items);
@@ -168,5 +168,10 @@ export default {
 }
 .card-body.p-5 {
     text-align: initial;
+}
+div img.img-fluid.w-100 {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
 }
 </style>
