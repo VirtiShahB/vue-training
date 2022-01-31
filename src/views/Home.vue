@@ -1,21 +1,27 @@
 <template>
   <Main>
-    <template #iteminbread>
-      Products
-    </template>
+    <template #breadcrumbItems> Products </template>
     <template #content>
-      <h1>
-        All Products
-      </h1>
-      <hr>
+      <h1>All Products</h1>
+      <hr />
       <div v-if="!loading" class="row">
-        <div v-for="product in products" :key="product.id" class="mb-3 col-md-4">
-            <Product :product="product"></Product>
+        <div
+          v-for="product in products"
+          :key="product.id"
+          class="mb-3 col-md-4"
+        >
+          <Product :product="product"></Product>
         </div>
       </div>
       <div v-else>
         <b-row>
-          <b-col class="mb-3" v-for="(i,index) in 6" :key="index" cols="12" md="4">
+          <b-col
+            class="mb-3"
+            v-for="(i, index) in 6"
+            :key="index"
+            cols="12"
+            md="4"
+          >
             <b-card class="h-100" no-body img-top>
               <b-skeleton-img card-img="top" aspect="3:1"></b-skeleton-img>
               <b-card-body>
@@ -30,59 +36,56 @@
           </b-col>
         </b-row>
       </div>
-
     </template>
   </Main>
 </template>
 
 <script>
-  import Main from './Main.vue';
-  import axios from 'axios';
-  import Product from './ProductCard.vue';
-  export default {
-    components: {
-      Main,
-      Product
-    },
-    data() {
-      return {
-        products: [],
-        loading: true
-      }
-    },
-    async created()  {
+import Main from "@/views/Header.vue";
+import Product from "@/views/ProductCard.vue";
+export default {
+  components: {
+    Main,
+    Product,
+  },
+  data() {
+    return {
+      products: [],
+      loading: true,
+    };
+  },
+  async created() {
+    /** Get Product From API */
 
-      /** Get Product From API */
+    await this.$axios
+      .get("https://fakestoreapi.com/products")
+      .then((res) => {
+        this.products = res.data;
 
-      await axios.get('https://fakestoreapi.com/products')
-        .then(res => {
-          this.products = res.data;
+        let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
 
-          let get_wishlist = JSON.parse(localStorage.getItem('wishlist'));
+        this.products = this.products.map(function (item) {
+          /** covert rating into percentage */
 
-          this.products = this.products.map(function(item){
+          item["rating"]["width"] = (item.rating.rate / 5) * 100;
 
-            /** covert rating into percentage */
+          /** get item wishlist and check if item is in wishlist*/
 
-            item['rating']['width'] = (item.rating.rate / 5) * 100;
+          let in_wishList = fetchWishList != null && fetchWishList.length > 0
+              ? fetchWishList.findIndex((wish) => wish.id == item.id)
+              : null;
 
-            /** get item wishlist and check if item is in wishlist*/
+          item["in_wishlist"] = in_wishList != null && in_wishList !== -1 ? true : false;
 
-            let in_wishlist = get_wishlist != null && get_wishlist.length > 0 ? get_wishlist.findIndex(wish => wish.id == item.id) : null ;
+          return item;
 
-            item['in_wishlist'] = in_wishlist != null && in_wishlist !== -1 ? true : false
+        });
 
-            return item;
-
-          });
-
-          this.loading = false;
-
-        })
-        .catch(err => {
-          console.log('error : '+err)
-        })
-    }
-  }
+        this.loading = false;
+      })
+      .catch((err) => {
+        console.log("error : " + err);
+      });
+  },
+};
 </script>
-

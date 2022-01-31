@@ -1,222 +1,237 @@
 <template>
-
-    <div :class="block[product.id]" class="h-100 card">
-       
-        <div class="border-primay bg-primary card-header">
-            <h5 class="card-title">
-                <router-link class="text-light" active-class="active"
-                    :to="{ name: 'view.product', params: { id: product.id, name : product.title.replace(' ','-') }}">
-                    {{product.title}}
-                </router-link>
-            </h5>
-        </div>
-        <a v-if="temp_wishlist.findIndex(x => x == product.id) == -1" title="Add to wishlist" class="p-3" @click.prevent="addtowishlist(product)">
-            <i class="float-right text-danger" :class="not_in_wish_icon"></i>
-        </a>
-        <a v-else title="Remove from wishlist" class="p-3" @click.prevent="removefromwishlist(product)">
-            <i class="float-right text-danger" :class="in_wish_icon"></i>
-            
-        </a>
-        <router-link :to="{ name: 'view.product', params: { id: product.id, name : product.title.replace(' ','-') }}">
-            <img :src="product.image" class="card-img-custom card-img-top" alt="...">
+  <div :class="block[product.id]" class="h-100 card">
+    <div class="border-primay bg-primary card-header">
+      <h5 :title="product.title" class="card-title">
+        <router-link
+          class="text-light"
+          active-class="active"
+          :to="{
+            name: 'view.product',
+            params: { id: product.id, name: product.title.replace(' ', '-') },
+          }"
+        >
+          {{ product.title.length > 25
+            ? product.title.substring(0, 25) + "..."
+            : product.title }}
         </router-link>
-        <div class="card-body">
-
-            <p class="card-text">
-
-                {{ product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description }}
-
-            </p>
-
-            <p class="card-text">
-                In : <span class="font-weight-normal">{{ product.category.toUpperCase() }}</span>
-            </p>
-
-
-            <div class="d-inline mr-2">{{product.rating.rate}}</div>
-            <div class="ratings">
-                <div class="empty-stars"></div>
-                <div class="full-stars" :style="{width : `${product.rating.width}%` }"></div>
-            </div>
-
-            <p class="card-text">
-
-                ({{`${product.rating.count} reviews`}})
-
-            </p>
-
-        </div>
-        <div class="card-footer">
-            <a @click.prevent="addtocart(1,product.price,'L','White',product.title)" class="btn btn-success btn-md">
-                <i class="fa fa-cart-plus"></i> ADD TO CART
-            </a>
-
-            <h4 class="text-danger pull-right">
-                ${{product.price.toFixed(2)}}
-            </h4>
-        </div>
+      </h5>
     </div>
+    <a
+      v-if="temp_wishList.findIndex((w) => w == product.id) == -1"
+      title="Add to wishlist"
+      class="p-3"
+      @click.prevent="addToWishList(product)"
+    >
+      <i class="float-right text-danger" :class="notInWishIcon"></i>
+    </a>
+    <a
+      v-else
+      title="Remove from wishlist"
+      class="p-3"
+      @click.prevent="removeFromWishList(product)"
+    >
+      <i class="float-right text-danger" :class="inWishIcon"></i>
+    </a>
+    <router-link
+      :to="{
+        name: 'view.product',
+        params: { id: product.id, name: product.title.replace(' ', '-') },
+      }"
+    >
+      <img
+        :src="product.image"
+        class="card-img-custom card-img-top"
+        :alt="product.image"
+      />
+    </router-link>
+    <div class="card-body">
+      <p class="card-text">
+        {{
+          product.description.length > 100
+            ? product.description.substring(0, 100) + "..."
+            : product.description
+        }}
+      </p>
+
+      <p class="card-text">
+        In :
+        <span class="font-weight-normal">{{
+          product.category.toUpperCase()
+        }}</span>
+      </p>
+
+      <div class="d-inline mr-2">{{ product.rating.rate }}</div>
+      <div class="ratings">
+        <div class="empty-stars"></div>
+        <div
+          class="full-stars"
+          :style="{ width: `${product.rating.width}%` }"
+        ></div>
+      </div>
+
+      <p class="card-text">({{ `${product.rating.count} reviews` }})</p>
+    </div>
+    <div class="card-footer">
+      <a
+        @click.prevent="
+          addToCart(1, product.price, 'L', 'White', product.title)
+        "
+        class="btn btn-success btn-md"
+      >
+        <i class="fa fa-cart-plus"></i> ADD TO CART
+      </a>
+
+      <h4 class="text-danger pull-right">${{ product.price.toFixed(2) }}</h4>
+    </div>
+  </div>
 </template>
 
 <script>
-    import { bus } from '../eventBus';
-    export default {
-        props : ['product'],
-        data(){
-            return {
-                in_wish_icon     : 'fa fa-heart',
-                not_in_wish_icon : 'fa fa-heart-o',
-                temp_wishlist    : [],
-                block            : [],
-            }
-        },
-        methods: {
-            addtocart(qty, price, size, color, product) {
+import { bus } from "@/eventBus";
+export default {
+  props: ["product"],
+  data() {
+    return {
+      inWishIcon: "fa fa-heart",
+      notInWishIcon: "fa fa-heart-o",
+      temp_wishList: [],
+      block: [],
+    };
+  },
+  methods: {
+    addToCart(qty, price, size, color, product) {
+      /** Fetch existing cart from storage */
 
-                /** Fetch existing cart from storage */
+      let cart = JSON.parse(localStorage.getItem("cartStorage"));
 
-                let cart = JSON.parse(localStorage.getItem('cart_storage'));
+      cart = cart != null ? cart : [];
 
-                cart = cart != null ? cart : [];
+      /** Check if cart has already have this product */
 
-                /** Check if cart has already have this product */
+      let index = cart.findIndex((c) => c.product == product);
 
-                let index = cart.findIndex(c => c.product == product);
+      /** if has then remove it  */
 
-                /** if has then remove it  */
+      if (index !== -1) {
+        cart.splice(index, 1);
+      }
 
-                if (index !== -1) {
-                    cart.splice(index, 1);
-                }
+      /** Push the item in cart */
 
-                /** Push the item in cart */
+      cart.push({
+        qty: qty,
+        price: price,
+        size: size,
+        color: color,
+        product: product,
+      });
 
-                cart.push({
+      /** Push cart in localstorage */
 
-                    qty: qty,
-                    price: price,
-                    size: size,
-                    color: color,
-                    product: product
+      localStorage.setItem("cartStorage", JSON.stringify(cart));
 
-                });
+      this.$bvToast.toast("Item is added to cart !", {
+        title: "Added",
+        variant: "success",
+        toaster:  'b-toaster-bottom-center',
+        solid: true
+      });
 
-                /** Push cart in localstorage */
+    },
+    addToWishList(product) {
 
-                localStorage.setItem('cart_storage', JSON.stringify(cart));
+      let wishList = JSON.parse(localStorage.getItem("wishList"));
 
-                this.$bvToast.toast('Item is added to cart !', {
-                    title: 'Added',
-                    variant: 'success',
-                    solid: true
-                });
+      wishList = wishList != null ? wishList : [];
 
-            },
-            addtowishlist(product) {
+      /** Check if wishList has already have this product */
 
+      let index = wishList.findIndex((c) => c.id == product.id);
 
-                let wishlist = JSON.parse(localStorage.getItem('wishlist'));
+      /** if has then remove it  */
 
-                wishlist = wishlist != null ? wishlist : [];
+      if (index !== -1) {
+        wishList.splice(index, 1);
+      }
 
-                /** Check if wishlist has already have this product */
+      /** Push the item in wishList array */
 
-                let index = wishlist.findIndex(c => c.id == product.id);
+      wishList.push(product);
 
-                /** if has then remove it  */
+      /** Push cart in localstorage */
 
-                if (index !== -1) {
-                    wishlist.splice(index, 1);
-                }
+      localStorage.setItem("wishList", JSON.stringify(wishList));
 
-                /** Push the item in wishlist array */
+      this.$bvToast.toast("Item is added to wishlist !", {
+        title: "Added",
+        variant: "success",
+        toaster:  'b-toaster-bottom-center',
+        solid: true,
+      });
 
-                wishlist.push(product);
+      this.temp_wishList.push(product.id);
 
-                /** Push cart in localstorage */
+      bus.$emit("wishList");
+    },
+    removeFromWishList(product) {
+      if (this.$route.name == "wishList") {
+        this.block[product.id] = "d-none";
+      }
 
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      let wishList = JSON.parse(localStorage.getItem("wishList"));
 
-                this.$bvToast.toast('Item is added to wishlist !', {
-                    title: 'Added',
-                    variant: 'success',
-                    solid: true
-                });
+      /** check if wishList is not empty or not null */
 
-                this.temp_wishlist.push(product.id);
+      if (wishList != null && wishList.length > 0) {
+        /** Check if wishList has already have this product */
 
-                bus.$emit('wishlist');
+        let index = wishList.findIndex((c) => c.id == product.id);
 
+        /** if has then remove it  */
 
-            },
-            removefromwishlist(product) {
+        if (index !== -1) {
+          wishList.splice(index, 1);
 
+          localStorage.setItem("wishList", JSON.stringify(wishList));
 
-
-                if(this.$route.name == 'wishlist'){
-                    this.block[product.id] = 'd-none';
-                }
-
-                let wishlist = JSON.parse(localStorage.getItem('wishlist'));
-
-                /** check if wishlist is not empty or not null */
-
-                if (wishlist != null && wishlist.length > 0) {
-
-                    /** Check if wishlist has already have this product */
-
-                    let index = wishlist.findIndex(c => c.id == product.id);
-
-                    /** if has then remove it  */
-
-                    if (index !== -1) {
-
-                        wishlist.splice(index, 1);
-
-                        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-
-                        this.$bvToast.toast('Item is removed from wishlist !', {
-                            title: 'Removed',
-                            variant: 'success',
-                            solid: true
-                        });
-
-                    }
-
-                }
-
-                if (this.temp_wishlist != null && this.temp_wishlist.length > 0) {
-
-                    let index = this.temp_wishlist.findIndex(w => w == product.id);
-
-                    if (index !== -1) {
-                        this.temp_wishlist.splice(index, 1);
-                    }
-
-                }
-
-                bus.$emit('wishlist');
-
-            }
-        },
-        
-        mounted(){
-
-            if(this.product.in_wishlist == true){
-                this.temp_wishlist.push(this.product.id);
-            }
-            
+          this.$bvToast.toast("Item is removed from wishlist !", {
+            title: "Removed",
+            variant: "success",
+            toaster:  'b-toaster-bottom-center',
+            solid: true,
+          });
         }
+      }
+
+      if (this.temp_wishList != null && this.temp_wishList.length > 0) {
+        let index = this.temp_wishList.findIndex((w) => w == product.id);
+
+        if (index !== -1) {
+          this.temp_wishList.splice(index, 1);
+        }
+      }
+
+      bus.$emit("wishList");
+    },
+  },
+
+  mounted() {
+
+    if (this.product.in_wishlist == true) {
+      this.temp_wishList.push(this.product.id);
     }
+
+  },
+};
 </script>
 <style scoped>
-    .card-img-custom {
-        width: 200px;
-        height: 200px;
-        object-fit: scale-down;
-        align-items: center;
-        position: relative;
-        left: 70px;
-        padding: 15px;
-    }
+  .card-img-custom {
+    width: 200px;
+    height: 200px;
+    object-fit: scale-down;
+    align-items: center;
+    position: relative;
+    left: 70px;
+    padding: 15px;
+  }
 </style>

@@ -7,36 +7,27 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import('@/views/Home.vue')
   },
   {
-    path: '/cart',
+    path: '/static/sample-product',
     name: 'sample.product',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/SampleProduct.vue')
+    component: () => import('@/views/SampleProduct.vue')
   },
   {
     path: '/checkout',
     name: 'checkout',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Checkout.vue')
+    component: () => import('@/views/Checkout.vue')
   },
   {
     path: '/wishlist',
     name: 'wishlist',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Wishlist.vue')
+    component: () => import('@/views/Wishlist.vue')
   },
   { 
     path: '/product/:id/:name', 
     name: 'view.product',  
-    component: () => import(/* webpackChunkName: "about" */ '../views/Product.vue')
+    component: () => import('@/views/Product.vue')
   }
 
 ]
