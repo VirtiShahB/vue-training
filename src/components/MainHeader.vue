@@ -1,25 +1,27 @@
 <template>
   <div class="header">   
     <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+      <div>
     <router-link class="navbar-brand" :to="{ name: 'Home' }">
        <img id="logo" src="../assets/images/icon.png"  />
-    </router-link>    
-      <ul class="navbar-nav ml-auto">        
-        <li class="nav-item">
-          <div id="cart">
-            <span id="nav-cart-count"></span>           
-              <router-link to="/checkout">
-                <transition name="move" appear>
-                  <div style="margin-right: 20px" >
-                    <b-icon-cart-4 v-if="show" class="chart" />
-                    <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
-                  </div>
-                </transition> 
-              </router-link>  
-          </div>
-        </li>
-      </ul>
-    
+    </router-link>
+      <div>    
+        <ul class="navbar-nav ml-auto">        
+          <li class="nav-item">
+            <div id="cart">
+              <span id="nav-cart-count"></span>           
+                <router-link to="/checkout">
+                  <transition name="move" appear>
+                    <div style="margin-right: 20px" >
+                      <b-icon-cart-4 v-if="show" class="chart" />
+                      <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
+                    </div>
+                  </transition> 
+                </router-link>  
+            </div>
+          </li>
+        </ul>
+      </div>
     </nav>
   </div>  
 </template>

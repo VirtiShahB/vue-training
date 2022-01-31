@@ -20,11 +20,16 @@ const routes = [
     name : 'ShowDetails',
     component: () => import('../views/About.vue')
   },
-  // {
-  //   path: '/product-detail',
-  //   name: 'AboutPage',
-  //   component: () => import('../views/About.vue')
-  // },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/SignUp.vue')
+  },
   {
     path: '/checkout',
     name: 'Checkout',
