@@ -17,12 +17,12 @@
       </h5>
     </div>
     <a
-      v-if="temp_wishList.findIndex((w) => w == product.id) == -1"
+      v-if="tempWishList.findIndex((w) => w == product.id) == -1"
       title="Add to wishlist"
       class="p-3"
       @click.prevent="addToWishList(product)"
     >
-      <i class="float-right text-danger" :class="notInWishIcon"></i>
+      <b-icon-heart class="float-right text-danger"></b-icon-heart>
     </a>
     <a
       v-else
@@ -30,7 +30,7 @@
       class="p-3"
       @click.prevent="removeFromWishList(product)"
     >
-      <i class="float-right text-danger" :class="inWishIcon"></i>
+      <b-icon-heart-fill class="float-right text-danger"></b-icon-heart-fill>
     </a>
     <router-link
       :to="{
@@ -45,6 +45,8 @@
       />
     </router-link>
     <div class="card-body">
+          
+
       <p class="card-text">
         {{
           product.description.length > 100
@@ -81,7 +83,7 @@
         <i class="fa fa-cart-plus"></i> ADD TO CART
       </a>
 
-      <h4 class="text-danger pull-right">${{ product.price.toFixed(2) }}</h4>
+      <h4 class="text-danger float-right">${{ product.price.toFixed(2) }}</h4>
     </div>
   </div>
 </template>
@@ -92,9 +94,7 @@ export default {
   props: ["product"],
   data() {
     return {
-      inWishIcon: "fa fa-heart",
-      notInWishIcon: "fa fa-heart-o",
-      temp_wishList: [],
+      tempWishList: [],
       block: [],
     };
   },
@@ -169,7 +169,7 @@ export default {
         solid: true,
       });
 
-      this.temp_wishList.push(product.id);
+      this.tempWishList.push(product.id);
 
       bus.$emit("wishList");
     },
@@ -203,11 +203,11 @@ export default {
         }
       }
 
-      if (this.temp_wishList != null && this.temp_wishList.length > 0) {
-        let index = this.temp_wishList.findIndex((w) => w == product.id);
+      if (this.tempWishList != null && this.tempWishList.length > 0) {
+        let index = this.tempWishList.findIndex((w) => w == product.id);
 
         if (index !== -1) {
-          this.temp_wishList.splice(index, 1);
+          this.tempWishList.splice(index, 1);
         }
       }
 
@@ -218,7 +218,7 @@ export default {
   mounted() {
 
     if (this.product.in_wishlist == true) {
-      this.temp_wishList.push(this.product.id);
+      this.tempWishList.push(this.product.id);
     }
 
   },

@@ -11,7 +11,7 @@ import {
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'fontawesome-4.7/css/font-awesome.css';
+
 
 import './assets/style.css';
 import router from './router';

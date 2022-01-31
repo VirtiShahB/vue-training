@@ -216,7 +216,7 @@
 
       <div v-else>
         <h4 class="text-center">
-          <i class="fa fa-shopping-cart"></i> Your cart is empty
+           <b-icon-cart3></b-icon-cart3> Your cart is empty
         </h4>
       </div>
     </template>
