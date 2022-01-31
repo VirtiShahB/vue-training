@@ -10,7 +10,7 @@
       <b-icon-x-circle-fill
         variant="danger"
         style="cursor: pointer"
-        @click="$store.dispatch('wishlist/addToWishlist', product)"
+        @click="removeFromWishlist"
       ></b-icon-x-circle-fill>
     </div>
   </b-list-group-item>
@@ -20,5 +20,15 @@ export default {
   props: {
     product: Object,
   },
+  methods:{
+    removeFromWishlist(){
+      this.$store.dispatch('wishlist/addToWishlist', this.product)
+      this.$bvToast.toast('Removed from wishlist.', {
+        title: "Wishlist",
+        variant: 'success',
+        solid: true,
+      });
+    }
+  }
 };
 </script>

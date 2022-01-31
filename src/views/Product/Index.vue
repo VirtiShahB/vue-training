@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Product from "../../components/Product/Product.vue";
-import { products } from "../../services/Product";
+import Product from "@/components/Product/Product.vue";
+import { products } from "@/services/Product";
 export default {
   name: "App",
   components: {

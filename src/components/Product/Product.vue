@@ -1,5 +1,4 @@
 <template>
-  
     <b-card :img-src="product.image" footer-tag="footer" img-alt="Card image" img-top>
       <b-card-text>
         <router-link
@@ -12,7 +11,7 @@
         <h4>${{ product.price }}</h4>
       </b-card-text>
       <template #footer>
-        <b-icon-heart @click="$store.dispatch('wishlist/addToWishlist', product)"></b-icon-heart>
+        <b-icon-heart @click="addToWishlist" />
       </template>
     </b-card>
 </template>
@@ -21,5 +20,15 @@ export default {
   props: {
     product: Object,
   },
+  methods:{
+    addToWishlist(){
+      this.$store.dispatch('wishlist/addToWishlist', this.product)
+      this.$bvToast.toast('Added to wishlist.', {
+        title: "Wishlist",
+        variant: 'success',
+        solid: true,
+      });
+    }
+  }
 };
 </script>

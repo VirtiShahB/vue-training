@@ -104,10 +104,12 @@ export default {
       if (this.errors.length) {
         return false;
       } else {
-        alert("Signup successfull");
-        setTimeout(() => {
-          this.$router.push("/login");
-        }, 3000);
+        
+        this.$bvToast.toast('Signup successfull.', {
+        title: "Signup",
+        variant: 'success',
+        solid: true,
+      });
       }
     },
   },

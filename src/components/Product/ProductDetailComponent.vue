@@ -37,18 +37,10 @@
               </b-col>
               <b-col>
                 <b-button variant="success" @click="onAddToCart"
-                  ><b-icon-cart></b-icon-cart> Add To Cart</b-button
+                  ><b-icon-cart /> Add To Cart</b-button
                 >
               </b-col>
             </b-row>
-            <b-alert
-              v-model="showDismissibleAlert"
-              :variant="alertType"
-              class="mt-3"
-              dismissible
-            >
-              {{ alertMsg }}
-            </b-alert>
           </b-card-body>
         </b-col>
       </b-row>
@@ -65,22 +57,39 @@ export default {
   data() {
     return {
       quantity: 0,
-      showDismissibleAlert: false,
-      alertType: "success",
-      alertMsg: "",
     };
   },
   methods: {
     // Method to add item in a cart
     onAddToCart() {
-      if (this.quantity == 0) {
-        this.alertMsg = "Please select atleast one";
-      } else {
+      let variant = "danger";
+      let msg = "please select at least one quantity";
+      if (this.quantity) {
         this.product.quantity = this.quantity;
-        this.$emit("addToCart", this.product);
-        this.alertMsg = `Product added in cart successfully`;
+        let cartItems = JSON.parse(localStorage.getItem("cart"));
+        if (cartItems) {
+          // if cart exists in localstorage then find item index
+          let itemInd = cartItems.findIndex(
+            item => item.id == this.product.id
+          );
+          if (itemInd >= 0) {
+            cartItems[itemInd] = this.product;
+          } else {
+            cartItems.push(this.product);
+          }
+        } else {
+          cartItems = [];
+          cartItems.push(this.product);
+        }
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        msg = `Product added in cart successfully`;
+        variant = "success";
       }
-      this.showDismissibleAlert = true;
+      this.$bvToast.toast(msg, {
+        title: "Added in cart",
+        variant: variant,
+        solid: true,
+      });
     },
   },
 };

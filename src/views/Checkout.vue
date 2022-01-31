@@ -7,8 +7,8 @@
           <b-col cols="7">
             <h6>Billing Details</h6>
             <b-alert variant="danger" v-if="showError" show dismissible>
-              <p v-for="(err, ind) in errors" class="small mb-0" :key="ind">
-                {{ err }}
+              <p v-for="error in errors" class="small mb-0" :key="error">
+                {{ error }}
               </p>
             </b-alert>
 

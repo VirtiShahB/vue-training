@@ -1,9 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Product from "../views/Product/Product.vue";
-import Login from "../views/Login.vue";
-import Signup from "../views/Signup.vue";
+import Home from "@/views/Home.vue";
+import Product from "@/views/Product/Index.vue";
+import Login from "@/views/Login.vue";
+import Signup from "@/views/Signup.vue";
+import Cart from "@/views/Cart.vue";
 
 Vue.use(VueRouter);
 
@@ -32,20 +33,24 @@ const routes = [
         path: "",
         name: "product",
         component: Product,
+      },{
+        path: "cart",
+        name: "cart",
+        component: Cart,
       },
       {
         path: "products/:id",
         name: "ProductDetail",
         component: () =>
           import(
-            /* webpackChunkName: "about" */ "../views/Product/ProductShow.vue"
+            /* webpackChunkName: "about" */ "@/views/Product/ProductShow.vue"
           ),
       },
       {
         path: "checkout",
         name: "Checkout",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/Checkout.vue"),
+          import(/* webpackChunkName: "about" */ "@/views/Checkout.vue"),
       },
     ],
   },
