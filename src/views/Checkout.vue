@@ -6,126 +6,143 @@
         <div class="col-md-6">
           <h4>Billing Details</h4>
 
-          <div class="row">
-            <div class="mb-2 col-md-6">
-              <div class="form-group">
-                <label class="py-1"> First Name </label>
+          <form id="billingForm" action="" method="POST">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>
+                    First Name: <span class="text-danger">*</span>
+                  </label>
 
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter first name"
-                />
+                  <input
+                    type="text"
+                    class="form-control"
+                    required
+                    placeholder="Enter first name"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Last Name: <span class="text-danger">*</span></label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter first name"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Phone: <span class="text-danger">*</span></label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter phone"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Email Address </label>
+
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter email address"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>
+                    Select Country: <span class="text-danger">*</span>
+                  </label>
+
+                  <select required class="form-control">
+                    <option value="">Please select country</option>
+                    <option
+                      v-for="country in countries"
+                      :key="country.id"
+                      :value="country.id"
+                    >
+                      {{ country.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label> Address: <span class="text-danger">*</span></label>
+
+                  <input
+                    required
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter address"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label> Town/City: <span class="text-danger">*</span></label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter town or city"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>
+                    State / Country: <span class="text-danger">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter state or country"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>
+                    Postel Code: <span class="text-danger">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter postel code"
+                    pattern="[0-9]+"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-12">
+                <a class="text-warning font-weight-bold" href="">
+                  Create Account ?
+                </a>
               </div>
             </div>
-            <div class="mb-2 col-md-6">
-              <div class="form-group">
-                <label class="py-1"> Last Name </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter first name"
-                />
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="py-1"> Phone </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter phone"
-                />
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-6">
-              <div class="form-group">
-                <label class="py-1"> Email Address </label>
-
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Enter email address"
-                />
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-12">
-              <div class="form-group">
-                <label class="py-1"> Select Country </label>
-
-                <select class="form-control">
-                  <option value="">Please select country</option>
-                  <option
-                    v-for="country in countries"
-                    :key="country.id"
-                    :value="country.id"
-                  >
-                    {{ country.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-12">
-              <div class="form-group">
-                <label class="py-1"> Address </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter address"
-                />
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-12">
-              <div class="form-group">
-                <label class="py-1"> Town/City </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter town or city"
-                />
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-12">
-              <div class="form-group">
-                <label class="py-1"> State / Country: </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter state or country"
-                />
-              </div>
-            </div>
-
-            <div class="mb-2 col-md-12">
-              <div class="form-group">
-                <label class="py-1"> Postel Code: </label>
-
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter postel code"
-                  pattern="[0-9]+"
-                />
-              </div>
-            </div>
-
-            <div class="mb-5 col-md-12">
-              <a class="text-warning font-weight-bold" href="">
-                Create Account ?
-              </a>
-            </div>
-          </div>
+          </form>
         </div>
 
         <div class="col-md-6">
@@ -156,7 +173,7 @@
 
             <div class="mt-4 row">
               <div class="p-2 border-bottom col-xs-6 col-sm-6 col-md-9">
-                <small>Subtotal</small>
+                <small class="font-weight-bold">Subtotal</small>
               </div>
               <div class="p-2 border-bottom col-xs-6 col-sm-6 col-md-3">
                 <span class="font-weight-bold text-danger">
@@ -164,20 +181,21 @@
                 </span>
               </div>
               <div class="p-2 border-bottom mt-3 col-xs-6 col-sm-6 col-md-8">
-                <small>Shipping</small>
+                <small class="font-weight-bold">Shipping</small>
               </div>
               <div class="p-2 border-bottom mt-3 col-xs-6 col-sm-6 col-md-4">
                 <label>
-                  <input type="checkbox" name="shipping" id="free_Shipping" /> Free
-                  Shipping
+                  <input type="checkbox" name="shipping" id="free_Shipping" />
+                  Free Shipping
                 </label>
                 <br />
                 <label>
-                  <input type="checkbox" name="shipping" id="local_Pickup" /> Local Pickup
+                  <input type="checkbox" name="shipping" id="local_Pickup" />
+                  Local Pickup
                 </label>
               </div>
               <div class="p-3 border-bottom col-xs-6 col-sm-6 col-md-9">
-                <small>Total</small>
+                <small class="font-weight-bold">Total</small>
               </div>
               <div class="p-3 border-bottom col-xs-6 col-sm-6 col-md-3">
                 <span class="font-weight-bold text-danger">
@@ -187,11 +205,27 @@
 
               <div class="p-3 col-12">
                 <label>
-                  <input type="radio" name="payment" id="stripe_Payment" /> Stripe
+                  <input
+                    form="billingForm"
+                    type="radio"
+                    name="payment"
+                    id="stripe_Payment"
+                    value="stripe"
+                    required
+                  />
+                  Stripe
                 </label>
                 <br />
                 <label>
-                  <input type="radio" name="payment" id="paypal_Payment" /> Paypal
+                  <input
+                    form="billingForm"
+                    type="radio"
+                    name="payment"
+                    id="paypal_Payment"
+                    value="paypal"
+                    required
+                  />
+                  Paypal
                 </label>
               </div>
 
@@ -205,7 +239,11 @@
               </div>
 
               <div class="offset-md-6 col-6">
-                <button disabled class="pull-right btn btn-md btn-danger">
+                <button
+                  type="submit"
+                  form="billingForm"
+                  class="float-right btn btn-md btn-danger"
+                >
                   Place Order
                 </button>
               </div>
@@ -216,7 +254,7 @@
 
       <div v-else>
         <h4 class="text-center">
-           <b-icon-cart3></b-icon-cart3> Your cart is empty
+          <b-icon-cart3></b-icon-cart3> Your cart is empty
         </h4>
       </div>
     </template>
