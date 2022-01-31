@@ -16,8 +16,8 @@
               <b-col class="text-left">
                 <img
                   :src="require('@/assets/images/' + c.image)"
-                  alt=""
-                  class="d-inline-block img-fluid col-1"
+                  alt="" v-bind="mainProps"
+                  class="d-inline-block img-fluid "
                 />
                 <span class="cart_book_title d-inline-block">
                   <router-link :to="{ name: 'ProductDetail', params: {id:c.id,item:c}}">{{ c.title }}</router-link>
@@ -56,6 +56,7 @@ export default {
   name: "Cart",
   data() {
     return {
+      mainProps: { blank: true, width: 75, height: 75, class: 'm1' },
       cart: [],
     };
   },

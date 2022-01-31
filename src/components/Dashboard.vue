@@ -8,7 +8,7 @@
                 <img :src="require('@/assets/images/'+item.image)" alt="book image" class="img-fluid mb-2" v-bind="mainProps">
               </router-link>
               <span class="wishlist_block">
-                <b-icon v-if="IsWishlisted(item.id)" icon="heart"  @click="addWishlist(item,wishListItemId)" font-scale="1.5"  class="wishlist_icon"></b-icon>
+                <b-icon v-if="isWishlisted(item.id)" icon="heart"  @click="addWishlist(item,wishListItemId)" font-scale="1.5"  class="wishlist_icon"></b-icon>
                 <b-icon v-else icon="heart-fill"  font-scale="1.5"  class="wishlist_icon"  @click="removeFromWishlist(item,wishListItemId)" variant="danger"></b-icon>
               </span>
               <div class="book_detail_block">
@@ -88,7 +88,7 @@
           removeFromWishlist(item,wishListItemId) {
             this.$store.commit('removeFromWishlist',{item,wishListItemId})
           },
-          IsWishlisted(itemId){
+          isWishlisted(itemId){
             return !this.wishListItemId.includes(itemId);
           },
           getWishList() {

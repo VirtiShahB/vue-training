@@ -17,17 +17,36 @@ import Wishlist from './components/Wishlist.vue'
 import Checkout from './components/Checkout.vue'
 
 Vue.use(VueRouter)
+
+function beforeRouteEnter(to, from, next)
+{
+  var isAuthenticated= false;
+  if(localStorage.getItem('LoggedUser')){
+    isAuthenticated = true;
+  }else {
+    isAuthenticated= false;
+  }
+  if(isAuthenticated) 
+  {
+    next();
+  } 
+  else
+  {
+    next('/login');
+  }
+}
+
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
     { path: '/', component: Signup },
-    { path: '/signin', component: Signin },
-    { path: '/home', component: Dashboard },
-    { path: '/product/:id', component: ProductShow,name: 'ProductDetail'},
-    { path: '/cart', component: Cart },
-    { path: '/wishlist', component: Wishlist },
-    { path: '/checkout', component: Checkout },
+    { path: '/login', component: Signin },
+    { path: '/home', component: Dashboard,beforeEnter : beforeRouteEnter },
+    { path: '/product/:id', component: ProductShow,name: 'ProductDetail',beforeEnter : beforeRouteEnter},
+    { path: '/cart', component: Cart, beforeEnter : beforeRouteEnter},
+    { path: '/wishlist', component: Wishlist, beforeEnter : beforeRouteEnter },
+    { path: '/checkout', component: Checkout, beforeEnter : beforeRouteEnter },
   ]
 })
 

@@ -33,56 +33,52 @@
 import { validationMixin } from "vuelidate";
 import { required,email } from "vuelidate/lib/validators";
 
-   export default {
-    mixins: [validationMixin],
-    data() {
-      return {
-        submitted: false,
-        error: false,
-        errorText:'You have entered an invalid username or password',
-        users:[],
-        form: {
-          email: '',
-          password:'',
-        },
-      }
-    },
-    validations: {
+export default {
+  mixins: [validationMixin],
+  data() {
+    return {
+      submitted: false,
+      error: false,
+      errorText:'You have entered an invalid username or password',
+      users:[],
       form: {
-        email: { required, email },
-        password: { required},
-      }
-    },
-    methods: {
-      validateState(name) {
-        const { $dirty, $error } = this.$v.form[name];
-        return $dirty ? !$error : null;
+        email: '',
+        password:'',
       },
-      onSubmit() {
-        this.submitted = true;
-        this.$v.$touch();
-        if (this.$v.$invalid) {
-            return;
-        }
-        if (!localStorage.getItem("users")) {
-          localStorage.setItem("users", JSON.stringify([]));
-        }
-        const registerUsers = JSON.parse(localStorage.getItem("users"));
-        if(registerUsers.length > 0){
-          for(var i = 0 ;i<registerUsers.length;i++){
-            if((registerUsers[i].email === this.form.email) && (registerUsers[i].password === this.form.password )){
-              this.$router.push('/home') 
-            }else{
-              this.error = true;
-            }
+    }
+  },
+  validations: {
+    form: {
+      email: { required, email },
+      password: { required},
+    }
+  },
+  methods: {
+    validateState(name) {
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    },
+    onSubmit() {
+      this.submitted = true;
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+          return;
+      }
+      if (!localStorage.getItem("users")) {
+        localStorage.setItem("users", JSON.stringify([]));
+      }
+      const registerUsers = JSON.parse(localStorage.getItem("users"));
+      if(registerUsers.length > 0){
+        for(var i = 0 ;i<registerUsers.length;i++){
+          if((registerUsers[i].email === this.form.email) && (registerUsers[i].password === this.form.password )){
+            localStorage.setItem('LoggedUser',registerUsers[i]);
+            this.$router.push('/home') 
+          }else{
+            this.error = true;
           }
         }
       }
-    },
-    
-  }
+    }
+  },
+}
 </script>
-
-<style scoped>
-
-</style>

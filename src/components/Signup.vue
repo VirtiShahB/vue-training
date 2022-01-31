@@ -42,7 +42,7 @@
             </b-form-group>
             <b-button type="submit" variant="primary" class="mr-2">Sign up</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
-            <p class="btn d-inline">Already a member? <router-link  to="/signin"> Sign in </router-link></p>
+            <p class="btn d-inline">Already a member? <router-link  to="/login"> Sign in </router-link></p>
           </b-col>
         </b-row>
       </b-form>
@@ -54,75 +54,75 @@
 import { validationMixin } from "vuelidate";
 import { required,email,minLength ,sameAs } from "vuelidate/lib/validators";
 
-   export default {
-    mixins: [validationMixin],
-    data() {
-      return {
-        submitted: false,
-        savingSuccessful: false,
-        savingError: false,
-        errorText:'',
-        successText:'Your account has been created successfully!',
-        users:[],
-        form: {
-          first_name:'',
-          last_name:'',
-          email: '',
-          password:'',
-          confirm_password:''
-        },
-      }
+export default {
+mixins: [validationMixin],
+data() {
+  return {
+    submitted: false,
+    savingSuccessful: false,
+    savingError: false,
+    errorText:'',
+    successText:'Your account has been created successfully!',
+    users:[],
+    form: {
+      first_name:'',
+      last_name:'',
+      email: '',
+      password:'',
+      confirm_password:''
     },
-    validations: {
-      form: {
-        first_name: { required },
-        last_name: { required },
-        email: { required, email },
-        password: { required, minLength: minLength(8) },
-        confirm_password: { required, sameAsPassword: sameAs('password') }
-      }
-    },
-    methods: {
-      validateState(name) {
-        const { $dirty, $error } = this.$v.form[name];
-        return $dirty ? !$error : null;
-      },
-      onSubmit() {
-        this.submitted = true;
-        this.$v.$touch();
-        if (this.$v.$invalid) {
-            return;
-        }
-        if (!localStorage.getItem("users")) {
-          localStorage.setItem("users", JSON.stringify([]));
-        }
-        
-        const registeredUser = JSON.parse(localStorage.getItem("users"));
-
-        if(registeredUser.length > 0){
-          for(var i = 0 ;i<registeredUser.length;i++){
-            if((registeredUser[i].email === this.form.email) ){
-              this.savingError = true;
-            }
-          }
-        }
-        if(this.savingError){
-          this.errorText = 'Email is already registered';
-        }else{
-          registeredUser.push(this.form);
-          localStorage.setItem("users", JSON.stringify(registeredUser));
-          JSON.parse(localStorage.getItem("users"));
-          this.savingSuccessful = true;
-          this.$router.push('/signin')
-        }
-      },
-       onReset(event) {
-        event.preventDefault()
-        this.form.first_name = this.form.last_name = this.form.email = this.form.phone = this.form.password = this.form.confirm_password = ''
-      }
-    },
-    
   }
+},
+validations: {
+  form: {
+    first_name: { required },
+    last_name: { required },
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
+    confirm_password: { required, sameAsPassword: sameAs('password') }
+  }
+},
+methods: {
+  validateState(name) {
+    const { $dirty, $error } = this.$v.form[name];
+    return $dirty ? !$error : null;
+  },
+  onSubmit() {
+    this.submitted = true;
+    this.$v.$touch();
+    if (this.$v.$invalid) {
+        return;
+    }
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify([]));
+    }
+    
+    const registeredUser = JSON.parse(localStorage.getItem("users"));
+
+    if(registeredUser.length > 0){
+      for(var i = 0 ;i<registeredUser.length;i++){
+        if((registeredUser[i].email === this.form.email) ){
+          this.savingError = true;
+        }
+      }
+    }
+    if(this.savingError){
+      this.errorText = 'Email is already registered';
+    }else{
+      registeredUser.push(this.form);
+      localStorage.setItem("users", JSON.stringify(registeredUser));
+      JSON.parse(localStorage.getItem("users"));
+      this.savingSuccessful = true;
+      this.$router.push('/login')
+    }
+  },
+  onReset(event) {
+    event.preventDefault()
+    this.form.first_name = this.form.last_name = this.form.email = this.form.phone = this.form.password = this.form.confirm_password = ''
+  }
+},
+
+}
 </script>
 
 <style scoped>

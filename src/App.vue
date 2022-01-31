@@ -3,25 +3,24 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li> 
+          <li v-if="isAuthenticated" class="float-left"> 
             <router-link class="nav-link" to="/home"> Home </router-link>
           </li>
-          <li class="text-right">
-            <router-link class="nav-link" to="/signin">
+          <li class="float-right" v-else>
+            <router-link class="nav-link" to="/login">
               <b-button  variant="primary" class="mr-2">Sign in</b-button>
             </router-link>
           </li>
-          <li class="text-right">
+          <li class="float-right" v-if="isAuthenticated">
             <router-link class="nav-link" to="/cart">
               <b-icon-cart></b-icon-cart>
             </router-link>
           </li>
-          <li class="text-right">
+          <li class="float-right" v-if="isAuthenticated">
             <router-link class="nav-link" to="/wishlist">
               <b-icon-heart></b-icon-heart>
             </router-link>
           </li>
-           
         </ul>
       </div>
     </nav>
@@ -34,6 +33,17 @@
 <script>
 export default {
   name: 'App',
+  computed: {
+    isAuthenticated() {
+      var isAuthenticated= false;
+      if(localStorage.getItem('LoggedUser')){
+        isAuthenticated = true;
+      }else {
+        isAuthenticated= false;
+      }
+      return isAuthenticated;
+    },
+  },
 }
 </script>
 
@@ -58,9 +68,6 @@ ul{
     display: block !important;
     width:100%
 }
-li:first-child {
-  float: left; /* last li item */
-}
 .book_title{
   color: #007185;
 }
@@ -74,5 +81,10 @@ li:first-child {
 a {
   text-decoration: none !important;
 }
-
+.collapse:not(.show) {
+  display: block !important;
+}
+.collapse li{
+  margin: 5px;
+}
 </style>
