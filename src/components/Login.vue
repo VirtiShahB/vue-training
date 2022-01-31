@@ -56,8 +56,7 @@ export default {
           password: '',
         },
         show: true,
-        users: [],
-        existUser: '',
+        arrLoginnedUser: [],
       }
     },
     validations () {
@@ -69,7 +68,20 @@ export default {
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        localStorage.getItem('user');
+        const email = this.form.email;
+        const password = this.form.password;
+        const registeredUser = JSON.parse(localStorage.getItem('users'));
+        const userInfo = registeredUser.find(function(user) {
+          if(user.email == email && user.password == password){
+            return true;
+          }
+        });
+        if(typeof userInfo == 'object'){
+          this.arrLoginnedUser.push(userInfo);
+          localStorage.setItem('loginnedUser',JSON.stringify(this.arrLoginnedUser));
+        } else {
+          alert("Invalid Credentials");
+        }
       }
     }
 }

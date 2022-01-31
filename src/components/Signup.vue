@@ -61,19 +61,19 @@ export default {
           email: '',
           password: ''
         },
-        users: [],
-        ArrUser: '',
+        registeredUser: [],
       }
     },
     methods: {
       onSubmit(event) {
         event.preventDefault();
-        if( localStorage.getItem('user') !== null ) {
-            this.users.push(JSON.stringify(this.form));
-        } else {
-            this.users.push(JSON.stringify(this.form));
+        if(localStorage.getItem('users') !== null) {
+          this.registeredUser = JSON.parse(localStorage.getItem('users'));
+          this.registeredUser.push(this.form)
+        } else{
+          this.registeredUser.push(this.form);
         }
-        localStorage.setItem('user',this.users);
+        localStorage.setItem("users", JSON.stringify(this.registeredUser));
         alert("User signup successfully");
       }
     }

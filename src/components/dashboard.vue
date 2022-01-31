@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <div class="header">
-    <router-link to="/">Dashboard</router-link>
+    <router-link to="/dashboard" v-if="isAuthenticated">Dashboard</router-link>
     <div class="header-right">
       <router-link to="/">Products</router-link>
       <router-link to="/product/wishlist">Wishlist</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/signup">Signup</router-link>
+      <span v-if="isAuthenticated">
+        <a @click="signOut()">Signout</a>
+      </span>
+      <span v-else>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/signup">Signup</router-link>
+      </span>
     </div>
   </div>
   <router-view></router-view>
@@ -75,3 +80,26 @@ export default {
   margin-top: 150px;
 }
 </style>
+<script>
+export default {
+  name:"Dashboard",
+  data(){
+    return{
+      isAuthenticated:false,
+    }
+  },
+  methods: {
+    signOut(){
+      if(localStorage.getItem('loginnedUser') !== null){
+          localStorage.setItem('loginnedUser','');
+          this.isAuthenticated = false;
+      }
+    }
+  },
+  created() {
+    if(localStorage.getItem('loginnedUser') !== null){
+      this.isAuthenticated = true;
+    }
+  },
+}
+</script>

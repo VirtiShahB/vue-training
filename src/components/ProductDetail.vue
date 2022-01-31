@@ -106,7 +106,6 @@ export default {
                 }
                 this.$router.push('/checkout'); 
             }
-            
             setTimeout(()=>{
                 this.show = false;
             },3000);
@@ -114,23 +113,18 @@ export default {
     },
     watch:{
         quantity(newValue) {
-
             if( this.quantity == 0 ) {
-
                 localStorage.setItem("ProductName", '');
                 localStorage.setItem("Price", '');
                 localStorage.setItem("Quantity", '');
                 localStorage.setItem("Size", '');
-                
                 this.variant="danger";
                 this.show = true;
                 this.showmsg = "Removed item from cart.";
-
                  setTimeout(()=>{
                     this.show = false;
                 },3000);
             }
-
             if( newValue <= -1 ) {
                 this.quantity = 0;
             }
