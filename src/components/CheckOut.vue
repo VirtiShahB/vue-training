@@ -1,55 +1,153 @@
 <template>
   <div class="row">
     <div class="offset-md-1 col-md-5">
-      <b-card class="mt-3" header="Shipping Details">
-        <b-form @submit="onSubmit">
-          <b-form-group
-            id="input-group-1"
-            label="Email address:"
-            label-for="input-1"
-          >
-            <b-form-input
-              id="input-1"
-              v-model="form.email"
-              type="email"
-              placeholder="Enter email"
-              required
-            ></b-form-input>
-          </b-form-group>
+      <b-card class="mt-5 mb-5" header="Shoping Cart Details">
+        <h4>Billing Details</h4>
+        <div class="row">
+          <div class="mb-1 col-md-6">
+            <b-form-group
+              id="input-group-1"
+              label="First Name:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.name"
+                type="text"
+                placeholder="Enter first name"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
+          <div class="mb-1 col-md-6">
+            <b-form-group
+              id="input-group-1"
+              label="Last Name:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.last_name"
+                type="text"
+                placeholder="Enter last name"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
+          <div class="col-md-6">
+            <b-form-group id="input-group-1" label="Phone:" label-for="input-1">
+              <b-form-input
+                id="input-1"
+                v-model="form.phone"
+                type="text"
+                placeholder="Enter phone number"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
 
-          <b-form-group
-            id="input-group-2"
-            label="Your Name:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
-          </b-form-group>
+          <div class="mb-1 col-md-6">
+            <b-form-group
+              id="input-group-1"
+              label="Email address:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                type="email"
+                placeholder="Enter email"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
 
-          <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-            <b-form-select
-              id="input-3"
-              v-model="form.food"
-              :options="foods"
-              required
-            ></b-form-select>
-          </b-form-group>
-          <b-button type="submit" variant="primary">Submit</b-button>
-        </b-form>
+          <div class="mb-1 col-md-12">
+            <b-form-group
+              id="input-group-1"
+              label="Country:"
+              label-for="input-1"
+            >
+              <b-form-select
+                id="input-3"
+                v-model="form.country"
+                :options="country"
+                required
+              ></b-form-select>
+            </b-form-group>
+          </div>
+
+          <div class="mb-1 col-md-12">
+            <b-form-group
+              id="input-group-1"
+              label="Enter State:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.state"
+                type="text"
+                placeholder="Enter state"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
+
+          <div class="mb-1 col-md-12">
+            <b-form-group
+              id="input-group-1"
+              label="Enter City:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.city"
+                type="text"
+                placeholder="Enter city"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
+
+          <div class="mb-1 col-md-12">
+            <b-form-group
+              id="input-group-1"
+              label="Enter Address:"
+              label-for="input-1"
+            >
+            <b-form-textarea
+              id="textarea"
+              v-model="address"
+              placeholder="Enter Address"
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
+            </b-form-group>
+          </div>
+
+          <div class="mb-1 col-md-12">
+            <b-form-group
+              id="input-group-1"
+              label="Enter Postal Code:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.postal_code"
+                type="number"
+                placeholder="Enter postal code"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </div>
+        </div>
       </b-card>
     </div>
 
     <div class="col-md-5">
-      <b-card class="mt-3" header="Shoping Cart Details">
-        <div class="d-flex flex-column">
-          <div
-            class="col-12 px-1 mt-3"
-            style="max-height: 600px; overflow: auto"
-          >
+      <b-card class="mt-5" header="Shoping Cart Details">
+        <div class="flex-column">
+          <div class="col-12 px-1 mt-3" style="height: 600px; overflow: auto">
             <div v-if="cartItems && cartItems.length > 0">
               <div
                 v-for="(item, index) in cartItems"
@@ -112,18 +210,13 @@ export default {
   name: "Checkout",
   data() {
     return {
-      form: {
-        email: "",
-        name: "",
-        food: null,
-        checked: [],
-      },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
+      form: {},
+      country: [
+        { text: "Select Country", value: null },
+        "India",
+        "USA",
+        "Dubai",
+        "Canada",
       ],
       cartItems: JSON.parse(localStorage.getItem("myCart")),
     };

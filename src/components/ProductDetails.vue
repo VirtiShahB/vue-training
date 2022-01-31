@@ -30,7 +30,81 @@
           </b-collapse>
 
           <b-navbar-nav class="ml-auto d-flex flex-row align-items-center">
-            <b-nav-item class="col-6">
+            <b-nav-item class="col-4">
+              <b-dropdown
+                size="xl"
+                variant="link"
+                toggle-class="text-decoration-none"
+                no-caret
+                right
+              >
+                <!-- <template #button-content> -->
+                <b-img src="/assets/red-heart.svg" alt="WishList"></b-img>
+                <span class="cart-count"> {{ wishListItemsCount }} </span>
+                <!-- </template> -->
+                <div
+                  style="
+                    min-width: 350px;
+                    box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 15px !important;
+                  "
+                >
+                  <div class="d-flex flex-column">
+                    <div class="col-12 p-3 border-bottom">
+                      <span style="font-weight: 700"> WishList </span>
+                    </div>
+                    <div
+                      class="col-12 px-1 mt-3"
+                      style="max-height: 200px; overflow: auto"
+                    >
+                      <div v-if="wishListItems && wishListItems.length > 0">
+                        <div
+                          v-for="(item, index) in wishListItems"
+                          :key="index"
+                          class="d-flex flex-row justify-content-between my-3"
+                        >
+                          <div class="col-3 px-0 text-center">
+                            <img
+                              :src="item.image"
+                              alt="product Image"
+                              width="70%"
+                              height="50px"
+                              style="object-fit: cover; border-radius: 10px"
+                            />
+                          </div>
+                          <div class="col-8 px-1 d-flex flex-column">
+                            <div>
+                              <span style="font-size: 14px" class="text-muted">
+                                {{ item.title }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-1 px-1">
+                            <span @click="deleteWishListItem(item, index)">
+                              <img src="/assets/icon-delete.svg" alt="" />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-else>
+                        <div
+                          class="row justify-content-center align-items-center"
+                          style="min-height: 200px"
+                        >
+                          <div class="col-12 text-center">
+                            <span class="text-muted" style="font-weight: 700">
+                              Your wish list is empty.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </b-dropdown>
+            </b-nav-item>
+
+            <b-nav-item class="col-4">
               <b-dropdown
                 size="xl"
                 variant="link"
@@ -44,7 +118,6 @@
                     {{ cartItemsCount }}
                   </span>
                 </template>
-
                 <!-- <b-dropdown-item href="#"> -->
                 <div
                   style="
@@ -133,7 +206,7 @@
                 <!-- </b-dropdown-item> -->
               </b-dropdown>
             </b-nav-item>
-            <b-nav-item class="col-6">
+            <b-nav-item class="col-4">
               <span>
                 <b-img
                   src="/assets/user.jpg"
@@ -226,6 +299,17 @@
                   </span>
                   <span style="font-weight: 700"> Add to cart </span>
                 </b-button>
+                <b-button
+                  class="bg-add-cart border-0 mt-1"
+                  :disabled="this.count == 0"
+                  style="width: 100%"
+                  @click="addToWishList"
+                >
+                  <span class="mx-3">
+                    <i class="fas fa-heart text-white"></i>
+                  </span>
+                  <span style="font-weight: 700"> Add to Wishlist </span>
+                </b-button>
               </div>
             </div>
           </div>
@@ -245,16 +329,29 @@ export default {
       count: 1,
       categories: ["Home"],
       cartItems: [],
+      wishListItems: [],
     };
   },
   mounted() {
     const items = JSON.parse(localStorage.getItem("myCart"));
-    console.log("items", items);
+    const wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
     this.cartItems = items;
+    this.wishListItems = wishListItems;
+    console.log("items", items);
+    console.log("wishListItems", wishListItems);
   },
   computed: {
     cartItemsCount() {
-      return this.cartItems.length;
+      if (this.cartItems && this.cartItems.length > 0) {
+        return this.cartItems.length;
+      }
+      return 0;
+    },
+    wishListItemsCount() {
+      if (this.wishListItems && this.wishListItems.length > 0) {
+        return this.wishListItems.length;
+      }
+      return 0;
     },
   },
   methods: {
@@ -302,6 +399,22 @@ export default {
       console.log("myCart", JSON.parse(localStorage.getItem("myCart")));
       this.cartItems = JSON.parse(localStorage.getItem("myCart"));
     },
+    addToWishList() {
+      var wishListData = JSON.parse(localStorage.getItem("wishListItems"));
+      if (wishListData == null) wishListData = [];
+
+      var wishList = {
+        id: this.product.id,
+        title: this.product.title,
+        price: this.product.price,
+        quantity: this.count,
+        image: this.product.image,
+        description: this.product.description,
+      };
+      localStorage.setItem("wishListItems", JSON.stringify(wishList));
+      wishListData.push(wishListData);
+      this.wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
+    },
   },
 };
 </script>
@@ -330,11 +443,11 @@ export default {
   padding: 14px;
   transition: 0.3s;
   cursor: pointer;
-  box-shadow: 0px 23px 19px 10px hsl(25, 100%, 94%);
 }
 
 .bg-add-cart:hover {
   background-color: hsl(24, 91%, 86%);
+  border: 1px solid gray !important;
 }
 
 .plus-minus {
