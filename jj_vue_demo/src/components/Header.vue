@@ -10,13 +10,17 @@
       </router-link>
       <div class="form-inline my-2 my-lg-0">
         <router-link to="/wishlist">
-        <b-icon-suit-heart scale="2" style="margin-right:30px"></b-icon-suit-heart>
+          <b-icon-suit-heart
+            scale="2"
+            style="margin-right: 30px"
+          ></b-icon-suit-heart>
         </router-link>
-        
+
         <router-link to="/checkout">
-          <b-icon-cart scale="2"></b-icon-cart>
+          <b-icon-cart scale="2" style="margin-right: 30px"></b-icon-cart>
           <span class="total-quantity">{{ cart }}</span>
         </router-link>
+        <a href="#" @click="logout()">Logout</a>
       </div>
     </nav>
   </div>
@@ -35,6 +39,12 @@ export default {
       this.cart += quantity;
     });
   },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push({ name: "login" });
+    },
+  },
 };
 </script>
 
@@ -49,7 +59,7 @@ export default {
   justify-content: center;
   padding: 0.5rem;
   position: absolute;
-  right: 1px;
+  right: 80px;
   top: 3px;
   width: 2rem;
 }

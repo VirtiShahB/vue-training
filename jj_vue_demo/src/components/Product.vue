@@ -6,7 +6,7 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="max-width: 20rem"
       class="mb-2"
     >
       <b-card-text> ${{ product.price }} </b-card-text>
@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 .card-img-top {
-    width: 100%;
-    height: 300px;
+  width: 100%;
+  height: 300px;
 }
 </style>
