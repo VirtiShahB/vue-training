@@ -32,6 +32,21 @@ const routes = [
     path:"/goToWishList",
     name:"WishList",
     component:WISHLIST,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../components/Login.vue')
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../components/Signup.vue')
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../components/ForgotPassword.vue')
   }
 ];
 
