@@ -1,24 +1,17 @@
 <template>
   <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="/admin/overview" to="/admin/overview">
             <img src="img/vue-logo.png" /><b>Store</b>
           </a>
         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-left">
-        <li class="float-right">
-          <router-link :to="{ path: '/checkout', query: 
-              { 
-                quntity: cart ,
-                productPrice: productPrice,
-                productTitle: productTitle,
-              }
-            }">
-          <i class="nc-icon nc-cart-simple"></i>
-            <b> {{ cart }} </b></router-link>
+        <li>
+          <router-link :to="'/checkout'">
+            <i class="nc-icon nc-cart-simple"></i>
+            <b> {{cart.length}} </b>
+          </router-link>  
         </li>
       </ul>
     </nav>
@@ -29,47 +22,30 @@
             <img class="img-fluid" :src="bannerImage" alt="" />
             <div class="product-thumbnails">
               <ul>
-                <li
-                  v-for="(image, index) in productImages"
+                <li v-for="(image, index) in this.ProductDetails.productImages"
                   :class="[activeClass == index ? 'thumbnail-active' : '']"
-                  :key="index"
-                >
-                  <img
-                    @click="currentThumnail(image.imageUrl, index)"
-                    :src="image.imageUrl"
-                    alt=""
-                  />
+                  :key="index">
+                  <img@click="currentThumnail(image.imageUrl, index)"
+                    :src="image.imageUrl" :alt="image.imageUrl" />
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-md-4">
-            <h3 class="my-4">{{ productTitle }}</h3>
+            <h3 class="my-4">{{ this.ProductDetails.About }}</h3>
             <h3 class="my-3">Details</h3>
-            <ul v-for="detail in productChecks" :key="detail.productTitle">
+            <ul v-for="detail in this.ProductDetails.productChecks">
               <li>{{ detail }}</li>
             </ul>
-            <h4>Price : ${{productPrice}}</h4>
+            <h4>Price : ${{this.ProductDetails.price}}</h4>
             <h4>Total : ${{totalPrice() }}</h4>
             <form>
-              <div
-                class="value-button"
-                @click="removeToCart"
-                id="decrease"
-                onclick="decreaseValue()"
-                value="Decrease Value"
-              >
-                -
+              <div class="value-button" @click="removeToCart" id="decrease" 
+                value="Decrease Value">-
               </div>
-              <input type="text" id="number" v-model="cart" />
-              <div
-                class="value-button"
-                @click="addToCart"
-                id="increase"
-                onclick="increaseValue()"
-                value="Increase Value"
-              >
-                +
+              <input type="text" id="number" v-model="cart.length" />
+              <div class="value-button" @click="addToCart" id="increase" 
+                value="Increase Value">+
               </div>
             </form>
           </div>
@@ -78,7 +54,6 @@
     </div>
   </body>
 </template>
-
 
 <style scoped>
 form {
@@ -184,46 +159,28 @@ body {
 
 <script>
 export default {
-  name: "ProductDetails",
+  products      :"",
+  ProductDetails: "",
+  bannerImage   : "",
   data() {
     return {
-      productTitle: "Round Neck Vue Logo T-Shirt",
-      productPrice: 20,
-      productChecks: [
-        "100% cotton on the neckline",
-        "certified and safe",
-        "ash in color",
-        "Smooth in quality",
-      ],
-      bannerImage: "img/product-2.jpeg",
-      productImages: [
-        {
-          id: 3435,
-          imageUrl: "img/product-2.jpeg",
-        },
-        {
-          id: 3436,
-          imageUrl: "img/product-3.jpeg",
-        },
-      ],
-      watch: {
-        books: {
-          handler() {
-            localStorage.setItem('books',JSON.stringify(this.books))
-          },
-        deep: true
-        }
-      },
-      cart: 0,
+      cart: [],
       activeClass: 0,
     };
   },
   methods: {
     addToCart: function () {
-      this.cart = this.cart + 1;
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+      const cartItems = JSON.parse(localStorage.getItem("cart"));
+      cartItems.push(this.ProductDetails);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+      console.log(this.cart );
     },
     totalPrice: function () {
-      return this.cart * this.productPrice;
+      return this.cart.length * this.ProductDetails.price;
     },
     removeToCart: function () {
       if (this.cart > 1) {
@@ -234,6 +191,16 @@ export default {
       this.bannerImage = image;
       this.activeClass = index;
     },
+  },
+  beforeMount(){
+    if (localStorage.getItem("items")) {
+        this.products       = JSON.parse(localStorage.getItem("items"));
+        this.ProductDetails = this.products.find(product => product.id == this.$route.params.id);
+        this.bannerImage    = this.ProductDetails.imageUrl;
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+        // alert(this.ProductDetails.imageUrl);
+        // console.log(this.ProductDetails.productImages);
+    }
   },
 };
 </script>
