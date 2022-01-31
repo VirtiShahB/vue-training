@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <router-view :data="cartItem" />
-    <NewsLetter />
+    <NewsLetter v-show="showNewNewsLetter == true" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       cartItem: [],
+      showNewNewsLetter: true,
     };
   },
   components: {
@@ -24,7 +25,23 @@ export default {
     // Product,
     // Checkout,
   },
-  mounted() {},
+  watch: {
+    $route(to, from) {
+      from;
+      if (to.name != "SignIn" || to.name != "Signup") {
+        this.showNewNewsLetter = true;
+      } else {
+        this.showNewNewsLetter = false;
+      }
+    },
+  },
+  mounted() {
+    if (this.$route.name != "SignIn" || this.$route.name != "SignUp") {
+      this.showNewNewsLetter = true;
+    } else {
+      this.showNewNewsLetter = false;
+    }
+  },
 };
 </script>
 

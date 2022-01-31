@@ -13,15 +13,23 @@
         <router-link class="px-5" to="/">Products</router-link>
         <router-link class="px-5" to="/checkout">Checkout</router-link>
         <router-link class="px-5" to="/wishlist">Wishlist</router-link>
+        <a
+          v-if="this.$store.state.loginUser == true"
+          @click.prevent="logout()"
+          class="px-5"
+          >Log out</a
+        >
+        <router-link v-else class="px-5" :to="routeUrl">{{
+          routeName
+        }}</router-link>
       </span>
-      <p class="navbar-item ml-auto"></p>
+
       <div class="bag">
         <img class="pb-1" src="@/assets/cart.svg" />
         <span class="mb-3" v-if="this.bagItemscount > 0">{{
           bagItemscount
         }}</span>
       </div>
-      <div class="user"></div>
     </nav>
   </div>
 </template>
@@ -29,10 +37,43 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      routeUrl: "/signin",
+      routeName: "SignIn",
+    };
+  },
+  watch: {
+    $route(to, from) {
+      from;
+      if (to.name == "SignIn") {
+        this.routeUrl = "/signup";
+        this.routeName = "SignUp";
+      } else {
+        this.routeUrl = "/signin";
+        this.routeName = "SignIn";
+      }
+    },
+  },
   computed: {
     bagItemscount() {
       return this.$store.getters.itemsNumber;
     },
+  },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push({ path: "/signin" });
+    },
+  },
+  mounted() {
+    if (this.$route.name == "SignIn") {
+      this.routeUrl = "/signup";
+      this.routeName = "SignUp";
+    } else {
+      this.routeUrl = "/signin";
+      this.routeName = "SignIn";
+    }
   },
 };
 </script>
@@ -67,7 +108,7 @@ nav {
   border-radius: 0;
 }
 
-/* .search {
+.search {
   outline: none;
   border: 1px #f8f8f8;
   background: #ededed url("../assets/search.png") no-repeat 5px center;
@@ -80,7 +121,7 @@ nav {
   -moz-transition: all 0.5s;
   transition: all 0.5s;
   margin-right: 10px;
-} */
+}
 
 .search:focus {
   width: 160px;
@@ -132,6 +173,10 @@ form .btn-xl.btn-success.mt-3 {
   padding-top: 10px;
 }
 
+.bag {
+  margin-right: 0px;
+  padding-top: 10px;
+}
 .user:hover {
   text-decoration: underline;
 }

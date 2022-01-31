@@ -56,10 +56,19 @@ export default new Vuex.Store({
         type: "table",
       },
     ],
+    user: [
+      {
+        firstName: "",
+        lastName: "",
+        email: "jash",
+        password: "",
+      },
+    ],
     infoItem: [],
     cartItems: [],
     wishlist: [],
     wishlistId: [],
+    loginUser: false,
   },
   mutations: {
     inCart(state, n) {
@@ -81,6 +90,9 @@ export default new Vuex.Store({
       // Cart Component
       let index = state.cartItems.findIndex((x) => x.id === n);
       return state.cartItems.splice(index, 1);
+    },
+    logout(state) {
+      state.loginUser = false;
     },
   },
   getters: {
