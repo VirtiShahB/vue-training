@@ -55,9 +55,19 @@ export default {
     }
   },
   mounted() {
+    const arr1 = ["Cecilie", "Lone"];
+    const arr2 = ["Emil", "Tobias", "Linus"];
+    const children = arr1.concat(arr2);
+
+    let text = "ABCDEFG"
+    const myArr = Array.from(text);
+
+    console.log(myArr);
+
     axios.get('https://fakestoreapi.com/products')
       .then(res => {
         this.products = res.data; 
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
