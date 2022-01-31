@@ -1,8 +1,11 @@
 <template>
   <div class="p-4">
+    <Header />
     <div class="row">
-      <b-button variant="outline-primary" @click="openCart()">Cart</b-button>
-      <b-button variant="outline-primary" @click="openWishlist()"
+      <b-button class="mr-3" variant="outline-primary" @click="openCart()"
+        >Cart</b-button
+      >
+      <b-button class="mr-3" variant="outline-primary" @click="openWishlist()"
         >Wishlist</b-button
       >
     </div>
@@ -80,24 +83,13 @@
     </div>
     <div class="row mt-3 pl-0">
       <div style="font-size: 3rem">
+        <b-icon icon="envelope" class="rounded-circle p-2 mr-2"></b-icon>
+        <b-icon icon="printer" class="rounded-circle p-2 mr-2"></b-icon>
+
         <b-icon
-          icon="envelope"
-          class="rounded-circle bg-secondary p-2 mr-2"
-          scale="0.65"
-          variant="light"
-        ></b-icon>
-        <b-icon
-          icon="printer"
-          class="rounded-circle bg-secondary p-2 mr-2"
-          scale="0.65"
-          variant="light"
-        ></b-icon>
-        <b-icon
-          icon="heart"
+          v-bind:icon="isLiked ? 'heart-fill' : 'heart'"
           @click="addToWishList(id)"
-          class="rounded-circle bg-secondary p-2 mr-2"
-          scale="0.65"
-          variant="light"
+          class="rounded-circle p-2"
         ></b-icon>
       </div>
     </div>
@@ -122,10 +114,17 @@
   </div>
 </template>
 <script>
+import Header from "./Header.vue";
+
 export default {
+  name: "ProductDetails",
+  components: {
+    Header,
+  },
   data() {
     return {
       qty: 1,
+      isLiked: false,
     };
   },
   props: {
@@ -143,9 +142,6 @@ export default {
   methods: {
     addToCart(id, qty) {
       this.$store.dispatch("addToCart", { id, qty });
-      // const total = this.price*this.qty
-      // this.$router.push({name: 'checkout', params: { total: total, productName: this.name }})
-      // this.$router.push({name: '/'})
     },
     removeFromCart(id) {
       this.$store.dispatch("removeFromCart", { id });
@@ -154,7 +150,9 @@ export default {
       this.qty++;
     },
     decrementQty() {
-      this.qty--;
+      if (this.qty > 0) {
+        this.qty--;
+      }
     },
     openCart() {
       this.$router.push({
@@ -163,6 +161,7 @@ export default {
       });
     },
     addToWishList(id) {
+      this.isLiked = true;
       this.$store.dispatch("addToWishList", { id });
     },
     openWishlist() {

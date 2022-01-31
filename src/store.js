@@ -14,6 +14,9 @@ export const getters = {
     });
     return cart ? true : false;
   },
+  isLoggedIn: (state) => {
+    return state.loggedInUser;
+  },
 };
 
 export const mutations = {
@@ -33,6 +36,9 @@ export const mutations = {
     });
     state.wishList = [...state.wishList, { ...product }];
   },
+  addLoggedIn(state, payload) {
+    state.loggedInUser = payload;
+  },
 };
 
 const actions = {
@@ -45,6 +51,9 @@ const actions = {
   addToWishList(context, payload) {
     context.commit("addToWishList", payload);
   },
+  addLoggedIn(context, payload) {
+    context.commit("addLoggedIn", payload);
+  },
 };
 
 export default new Vuex.Store({
@@ -52,6 +61,7 @@ export default new Vuex.Store({
     products: productsData,
     cart: [],
     wishList: [],
+    loggedInUser: [],
   },
   getters,
   mutations,
