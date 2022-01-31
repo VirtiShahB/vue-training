@@ -38,10 +38,24 @@
                 no-caret
                 right
               >
-                <!-- <template #button-content> -->
-                <b-img src="/assets/red-heart.svg" alt="WishList"></b-img>
-                <span class="cart-count"> {{ wishListItemsCount }} </span>
-                <!-- </template> -->
+                <template #button-content>
+                  <b-img
+                    v-if="wishListItemsCount.length > 0"
+                    src="/assets/heart.png"
+                    class="wishlist-icon"
+                    alt="WishList"
+                  ></b-img>
+                  <b-img
+                    v-else
+                    src="/assets/love.png"
+                    class="wishlist-icon"
+                    alt="WishList"
+                  ></b-img>
+                  <span class="cart-count">
+                    {{ wishListItemsCount }}
+                  </span>
+                </template>
+                <!-- <b-dropdown-item href="#"> -->
                 <div
                   style="
                     min-width: 350px;
@@ -51,7 +65,7 @@
                 >
                   <div class="d-flex flex-column">
                     <div class="col-12 p-3 border-bottom">
-                      <span style="font-weight: 700"> WishList </span>
+                      <span style="font-weight: 700"> Wishlist </span>
                     </div>
                     <div
                       class="col-12 px-1 mt-3"
@@ -101,6 +115,7 @@
                     </div>
                   </div>
                 </div>
+                <!-- </b-dropdown-item> -->
               </b-dropdown>
             </b-nav-item>
 
@@ -206,6 +221,7 @@
                 <!-- </b-dropdown-item> -->
               </b-dropdown>
             </b-nav-item>
+
             <b-nav-item class="col-4">
               <span>
                 <b-img
@@ -511,5 +527,9 @@ i:hover {
   background-color: hsl(26, 100%, 55%);
   color: white;
   border-radius: 5px;
+}
+.wishlist-icon {
+  height: 22px;
+  width: 20px;
 }
 </style>
