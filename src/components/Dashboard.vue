@@ -101,7 +101,7 @@ export default {
         this.products[productId - 1].isFavorite = 0;
         // remove from wishlist
         localWishListProducts.splice(allReadyInWishListIndex, 1);
-        console.log(localWishListProducts);
+        //console.log(localWishListProducts);
         localStorage.setItem(
           "wish-products",
           JSON.stringify(localWishListProducts)

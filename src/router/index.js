@@ -9,38 +9,53 @@ import Signup from '@/components/Signup'
 
 Vue.use(VueRouter)
 
+function guardForRoteHandle(to, from, next) {
+  //Check whether user is login  
+  var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
+  if (localIsLogin == true) {
+    next();
+  } else {
+    next("/");
+  }
+}
+
 const routes = [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    beforeEnter: guardForRoteHandle,
   },
   {
     path: '/product/:id',
     name: 'ProductDetail',
     component: ProductDetail,
+    beforeEnter: guardForRoteHandle,
   },
   {
     path: '/cart',
     name: 'Cart',
     component: Cart,
+    beforeEnter: guardForRoteHandle,
   },
   {
     path: '/favourite-products',
     name: 'FavouriteProduct',
-    component: FavouriteProduct
+    component: FavouriteProduct,
+    beforeEnter: guardForRoteHandle,
   },
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
-    component: Login
+    component: Login,
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
   }
 ]
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

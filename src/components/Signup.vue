@@ -135,7 +135,10 @@
                 </b-col>
               </b-row>
 
-            <b-button type="submit" variant="primary">Login</b-button>
+            <b-button type="submit" variant="primary">Sign Up</b-button>
+             &nbsp;
+            <b-button type="button" variant="primary" ><router-link to="/" >Login</router-link></b-button>
+           
             </b-form>
           </b-card>
           </b-col>
@@ -193,3 +196,14 @@ export default {
     }
 }
 </script>
+<style scoped>
+a{ 
+color:white;
+text-decoration: none;
+}
+a:link    {color:white;}
+a:visited {color:white;}
+a:hover   {color:white;}
+a:active  {color:white;}
+
+</style>

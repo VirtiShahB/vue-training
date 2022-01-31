@@ -76,8 +76,11 @@
                         </b-form-checkbox-group>
                     </b-form-group>
                 </b-col>
-              </b-row>
+              </b-row>            
             <b-button type="submit" variant="primary">Login</b-button>
+            &nbsp;
+            <b-button type="button" variant="primary" ><router-link to="/signup" >Sign Up</router-link></b-button>
+            
             </b-form>
           </b-card>
           </b-col>
@@ -116,10 +119,20 @@ export default {
                   JSON.stringify(true)
                 );
                 alert("Login success successfully!")
-                e.preventDefault();
                 this.$router.push({ name: "Dashboard" });
             }
         } 
     }
 }
 </script>
+<style scoped>
+a{ 
+color:white;
+text-decoration: none;
+}
+a:link    {color:white;}
+a:visited {color:white;}
+a:hover   {color:white;}
+a:active  {color:white;}
+
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="bv-example-row mt-3" v-if="localIsLogin">
+    <b-container class="bv-example-row mt-3" v-if="already_login">
       <b-row v-if="!isEmptyCart">
         <b-col sm="12">
           <p v-if="errors.length">
@@ -218,13 +218,13 @@
       <b-row v-else class="m-5">
         <b-card bg-variant="light" text-variant="dark" class="text-center">
           <b-card-text> Your cart is empty, please add product in cart! </b-card-text>
-          <router-link class="btn btn-outline-primary" :to="'/'"
+          <router-link class="btn btn-outline-primary" :to="'/dashboard'"
             >Go to Product Listing</router-link
           >
         </b-card>
       </b-row>
     </b-container>
-    <b-container>
+    <b-container v-else>
       <b-row>
         <b-col> Please Login first </b-col>
       </b-row>
@@ -239,7 +239,7 @@ export default {
       errors: [],
       isEmptyCart: JSON.parse(localStorage.getItem("product-cart")) ? false :true,
       cartProducts:null,
-      localIsLogin:false,
+      already_login:false,
       form: {
         first_name: null,
         last_name: null,
@@ -266,13 +266,12 @@ export default {
     this.cartProducts = JSON.parse(localStorage.getItem("product-cart"))
     var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
     if (localIsLogin == null) localIsLogin = [];
-    
     if (localIsLogin == true) {
       this.already_login = true;
     }
   },
   methods: {
-    checkForm: function (e) {
+    checkForm(e){
       this.errors = [];
       if (!this.form.first_name) {
         this.errors.push("First name is required");
@@ -310,7 +309,7 @@ export default {
     },
   },
   computed: {
-    cartTotal: function () {
+    cartTotal(){
       var totalAount = 0;
       if (this.cartProducts.length > 0) {
         this.cartProducts.map((product) => {
