@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="bv-example-row mt-3">
+    <b-container class="bv-example-row mt-3" v-if="localIsLogin">
       <b-row v-if="!isEmptyCart">
         <b-col sm="12">
           <p v-if="errors.length">
@@ -224,16 +224,22 @@
         </b-card>
       </b-row>
     </b-container>
+    <b-container>
+      <b-row>
+        <b-col> Please Login first </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>
 export default {
   name: "Cart",
-  data: function () {
+  data() {
     return {
       errors: [],
       isEmptyCart: JSON.parse(localStorage.getItem("product-cart")) ? false :true,
       cartProducts:null,
+      localIsLogin:false,
       form: {
         first_name: null,
         last_name: null,
@@ -258,6 +264,12 @@ export default {
   },
   created(){
     this.cartProducts = JSON.parse(localStorage.getItem("product-cart"))
+    var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
+    if (localIsLogin == null) localIsLogin = [];
+    
+    if (localIsLogin == true) {
+      this.already_login = true;
+    }
   },
   methods: {
     checkForm: function (e) {

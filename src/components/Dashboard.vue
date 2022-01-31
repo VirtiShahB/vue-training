@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row mt-3">
+  <b-container class="bv-example-row mt-3" v-if="already_login">
     <b-row>
       <b-col> All Products </b-col>
     </b-row>
@@ -42,6 +42,11 @@
       </b-col>
     </b-row>
   </b-container>
+  <b-container v-else>
+    <b-row>
+      <b-col> Please Login first </b-col>
+    </b-row>    
+  </b-container>
 </template>
 <script>
 import { products } from "../data/Product";
@@ -51,7 +56,16 @@ export default {
     return {
       products,
       favoriteProducts: [],
+      already_login: false,
     };
+  },
+  created() {
+    var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
+    if (localIsLogin == null) localIsLogin = [];
+    console.log("is login val"+localIsLogin);
+    if (localIsLogin == true) {
+      this.already_login = true;
+    }
   },
   mounted() {
     var localWishListProducts = JSON.parse(
@@ -63,7 +77,7 @@ export default {
         return a.id;
       });
       favItemArray.forEach((productId) => {
-        this.products[productId-1].isFavorite = 1;
+        this.products[productId - 1].isFavorite = 1;
       });
     }
     console.log(this.favItem);

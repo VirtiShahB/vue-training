@@ -4,6 +4,12 @@
       <div class="container">
         <b-navbar-nav>
           <b-nav-item href="#"
+            ><router-link to="/login">Login</router-link></b-nav-item
+          >
+          <b-nav-item href="#"
+            ><router-link to="/signup">Sign Up</router-link></b-nav-item
+          >
+          <b-nav-item href="#"
             ><router-link to="/">Products</router-link></b-nav-item
           >
           <b-nav-item href="#"
