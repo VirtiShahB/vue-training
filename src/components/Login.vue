@@ -69,14 +69,7 @@ export default {
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        this.users.push(localStorage.getItem('user'));
-        var user = JSON.parse(this.users);
-
-        if( this.form.email == user.email && this.form.password == user.password ) {
-          alert("Login successfully");
-        } else {
-          alert("Invalid credentials.");
-        }
+        localStorage.getItem('user');
       }
     }
 }
