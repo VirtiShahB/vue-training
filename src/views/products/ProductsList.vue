@@ -7,8 +7,7 @@
       <b-col sm="12" class="mb-1">
         <b-button
           href="#"
-          class="float-end"
-          block
+          class="float-right"
           size="md"
           variant="success"
           @click="checkout"
@@ -34,7 +33,7 @@
           <h5>
             {{ product.name
             }}<b-link
-              :class="'float-end add-to-wishlist-' + product.id"
+              :class="'float-right add-to-wishlist-' + product.id"
               @click="addToWishlist(product.id)"
             >
               <img
@@ -63,7 +62,9 @@
   </b-container>
 </template>
 <script>
+import { toastMixins } from "../../mixins/toastMixins";
 export default {
+  mixins: [toastMixins],
   name: "Products",
   methods: {
     getProducts() {
@@ -71,7 +72,11 @@ export default {
     },
     checkout() {
       if (this.$store.state.cart < 1) {
-        alert("Your Cart is empty! Please Add Some Products!");
+        this.makeToast(
+          "danger",
+          "Error!",
+          "Your Cart is empty! Please Add Some Products!"
+        );
       } else {
         this.$router.push({ name: "Checkout" });
       }
@@ -84,12 +89,20 @@ export default {
         this.$store.dispatch("removeToWishlist", {
           id: productId,
         });
-        alert("Sucess! Removed product from wishlist successfully!");
+        this.makeToast(
+          "success",
+          "Sucess!",
+          "Removed product from wishlist successfully!"
+        );
       } else {
         this.$store.dispatch("addToWishlist", {
           id: productId,
         });
-        alert("Sucess! Added in your wishlist successfully!");
+        this.makeToast(
+          "success",
+          "Sucess!",
+          "Added in your wishlist successfully!"
+        );
       }
     },
   },

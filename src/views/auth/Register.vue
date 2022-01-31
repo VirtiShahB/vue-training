@@ -4,7 +4,7 @@
       <b-row no-gutters>
         <b-col md="6">
           <b-card-body>
-            <b-card-text class="mx-5 mt-5 text-center">
+            <b-card-text class="mt-3 text-center">
               <h3>
                 Signup on <span class="text-muted"> ECOMMERCE SITE </span>
                 <br />
@@ -16,13 +16,14 @@
                 >
               </p>
             </b-card-text>
-            <b-card-text class="m-3">
+            <b-card-text class="">
               <b-form>
-                <b-row no-gutters class="justify-content-center">
+                <b-row>
                   <b-col md="6">
                     <b-form-group>
                       <label>First Name</label>
                       <b-form-input
+                        placeholder="Enter First Name"
                         id="first_name"
                         name="first_name"
                         v-model="$v.form.first_name.$model"
@@ -38,6 +39,7 @@
                     <b-form-group>
                       <label>Last Name</label>
                       <b-form-input
+                        placeholder="Enter Last Name"
                         id="last_name"
                         name="last_name"
                         v-model="$v.form.last_name.$model"
@@ -50,11 +52,12 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <b-row class="mt-2">
+                <b-row>
                   <b-col md="12">
                     <b-form-group>
                       <label>Email Address</label>
                       <b-form-input
+                        placeholder="Enter Email"
                         id="email"
                         name="email"
                         v-model="$v.form.email.$model"
@@ -72,11 +75,12 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <b-row class="mt-2">
+                <b-row>
                   <b-col md="12">
                     <b-form-group>
                       <label>Password</label>
                       <b-form-input
+                        placeholder="Enter Password"
                         id="password"
                         type="password"
                         name="password"
@@ -90,11 +94,12 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <b-row class="mt-2">
+                <b-row>
                   <b-col md="12">
                     <b-form-group>
                       <label>Confirm Password</label>
                       <b-form-input
+                        placeholder="Enter Confirm Password"
                         id="confirm_password"
                         type="password"
                         name="confirm_password"
@@ -117,12 +122,12 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <b-row class="mt-2">
+                <b-row>
                   <b-col md="12">
                     <div class="d-grid gap-2 mt-4">
                       <b-button
                         type="submit"
-                        class="float-end"
+                        class="float-right"
                         squared
                         variant="success"
                         @click="onSubmit($event)"
@@ -149,6 +154,7 @@
 
 <script>
 import { required, email, sameAs } from "vuelidate/lib/validators";
+
 export default {
   name: "Register",
   data() {
@@ -207,8 +213,6 @@ export default {
         return;
       }
       this.$api.auth.register(this.form);
-      alert("Registration done sucessfully!");
-      this.$router.push({ name: "Login" });
     },
   },
 };
@@ -221,6 +225,6 @@ label {
 }
 .side-cover-image {
   object-fit: cover;
-  max-height: 540px;
+  max-height: 532px;
 }
 </style>

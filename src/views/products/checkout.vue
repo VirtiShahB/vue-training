@@ -1,26 +1,18 @@
 <template>
   <div>
-    <b-container class="bv-example-row mt-3">
+    <b-container class="bv-example-row mt-2">
       <b-row v-if="!this.$store.state.isEmptyCart">
-        <b-col sm="12">
-          <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
-            <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
-            </ul>
-          </p>
-        </b-col>
         <b-col sm="7">
-          <b-card class="mt-3" header="Billing Details">
+          <b-card class="mt-2" header="Billing Details">
             <pre class="m-0"></pre>
             <b-form
-              @submit="checkForm"
+              @submit="onSubmit"
               method="post"
               id="frm-billing"
               class="m-2"
             >
               <b-row>
-                <b-col sm="6" class="my-2">
+                <b-col sm="6">
                   <b-form-group
                     id="lbl-first-name"
                     label="First Name:"
@@ -32,11 +24,16 @@
                       placeholder="Enter First Name"
                       required
                       name="first_name"
-                      v-model="form.first_name"
+                      v-model="$v.form.first_name.$model"
+                      :state="validateState('first_name')"
+                      aria-describedby="input-1-live-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="input-1-live-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
-                <b-col sm="6" class="my-2">
+                <b-col sm="6">
                   <b-form-group id="lbl-last-name" label="Last Name:" size="sm">
                     <b-form-input
                       size="sm"
@@ -44,13 +41,18 @@
                       placeholder="Enter First Name"
                       required
                       name="last_name"
-                      v-model="form.last_name"
+                      v-model="$v.form.last_name.$model"
+                      :state="validateState('last_name')"
+                      aria-describedby="last-name-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="last-name-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
-                <b-col sm="6" class="my-2">
+                <b-col sm="6">
                   <b-form-group id="phone-number" label="Phone number:">
                     <b-form-input
                       id="phone_number"
@@ -58,12 +60,17 @@
                       required
                       name="phone_number"
                       size="sm"
-                      v-model="form.phone_number"
                       type="number"
+                      v-model="$v.form.phone_number.$model"
+                      :state="validateState('phone_number')"
+                      aria-describedby="phone-number-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="phone-number-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
-                <b-col sm="6" class="my-2">
+                <b-col sm="6">
                   <b-form-group id="lbl-email" label="Email Address:">
                     <b-form-input
                       id="email"
@@ -71,14 +78,24 @@
                       required
                       name="email"
                       size="sm"
-                      v-model="form.email"
                       type="email"
+                      v-model="$v.form.email.$model"
+                      :state="validateState('email')"
+                      aria-describedby="email-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="email-feedback"
+                      ><span v-if="!$v.form.email.required"
+                        >Email is required</span
+                      >
+                      <span v-if="form.email && !$v.form.email.email"
+                        >Enter valid email address</span
+                      ></b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
-                <b-col sm="12" class="my-2">
+                <b-col sm="12">
                   <b-form-group id="lbl-address" label="Address:">
                     <b-form-input
                       id="address"
@@ -86,13 +103,18 @@
                       required
                       name="address"
                       size="sm"
-                      v-model="form.address"
+                      v-model="$v.form.address.$model"
+                      :state="validateState('address')"
+                      aria-describedby="address-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="address-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
-                <b-col sm="12" class="my-2">
+                <b-col sm="12">
                   <b-form-group id="country" label="Country:">
                     <b-form-select
                       class="form-select form-select-sm"
@@ -101,13 +123,18 @@
                       required
                       size="sm"
                       name="country"
-                      v-model="form.country"
+                      v-model="$v.form.country.$model"
+                      :state="validateState('country')"
+                      aria-describedby="country-feedback"
                     ></b-form-select>
+                    <b-form-invalid-feedback id="country-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
-                <b-col sm="4" class="my-2">
+                <b-col sm="4">
                   <b-form-group id="lbl-city" label="Town/City:">
                     <b-form-input
                       id="city"
@@ -115,11 +142,16 @@
                       required
                       name="city"
                       size="sm"
-                      v-model="form.city"
+                      v-model="$v.form.city.$model"
+                      :state="validateState('city')"
+                      aria-describedby="city-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="city-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
-                <b-col sm="4" class="my-2">
+                <b-col sm="4">
                   <b-form-group id="lbl-state" label="State/County:">
                     <b-form-input
                       id="state"
@@ -127,11 +159,16 @@
                       required
                       name="state"
                       size="sm"
-                      v-model="form.state"
+                      v-model="$v.form.state.$model"
+                      :state="validateState('state')"
+                      aria-describedby="state-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="state-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
-                <b-col sm="4" class="my-2">
+                <b-col sm="4">
                   <b-form-group id="lbl-postal-code" label="Postal Code:">
                     <b-form-input
                       id="postal-code"
@@ -139,8 +176,13 @@
                       required
                       name="postal_code"
                       size="sm"
-                      v-model="form.postal_code"
+                      v-model="$v.form.postal_code.$model"
+                      :state="validateState('postal_code')"
+                      aria-describedby="postal-code-feedback"
                     ></b-form-input>
+                    <b-form-invalid-feedback id="postal-code-feedback"
+                      >This is a required field.</b-form-invalid-feedback
+                    >
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -148,12 +190,12 @@
           </b-card>
         </b-col>
         <b-col sm="5">
-          <b-card class="mt-3">
+          <b-card class="mt-2">
             <b-card-text>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <label class="fw-bolder">Product</label>
-                  <label class="float-end fw-bolder">Total</label>
+                  <label class="float-right fw-bolder">Total</label>
                 </li>
                 <li
                   class="list-group-item"
@@ -166,7 +208,7 @@
                       {{ product.price }} * {{ product.qty }}
                     </span>
                   </label>
-                  <label class="float-end"
+                  <label class="float-right"
                     >${{ product.price * product.qty }}</label
                   >
                 </li>
@@ -175,11 +217,13 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <label>Subtotal</label>
-                  <label class="float-end text-danger">${{ cartTotal }}</label>
+                  <label class="float-right text-danger"
+                    >${{ cartTotal }}</label
+                  >
                 </li>
                 <li class="list-group-item">
                   <label>Shipping</label>
-                  <label class="float-end">
+                  <label class="float-right">
                     <b-form-group v-slot="{ ariaDescribedby }">
                       <b-form-radio
                         :aria-describedby="ariaDescribedby"
@@ -201,36 +245,43 @@
                 </li>
                 <li class="list-group-item">
                   <label>Total</label>
-                  <label class="float-end text-danger">${{ cartTotal }}</label>
+                  <label class="float-right text-danger"
+                    >${{ cartTotal }}</label
+                  >
                 </li>
               </ul>
               <b-button
                 variant="danger"
-                @click="checkForm"
+                @click="onSubmit"
                 size="sm"
-                class="float-end mt-2"
+                class="float-right mt-2"
                 >Place Order</b-button
               >
             </b-card-text>
           </b-card>
         </b-col>
       </b-row>
-      <b-row v-else class="m-5">
-        <b-card bg-variant="light" text-variant="dark" class="text-center">
-          <b-card-text> OOPS! Your cart is empty! </b-card-text>
-          <router-link class="btn btn-outline-primary" :to="'/'"
-            >Let's Brows the products</router-link
-          >
-        </b-card>
+      <b-row v-else>
+        <b-col sm="12" class="m-5">
+          <b-card bg-variant="light" text-variant="dark" class="text-center">
+            <b-card-text> OOPS! Your cart is empty! </b-card-text>
+            <router-link class="btn btn-outline-primary" :to="'/'"
+              >Let's Brows the products</router-link
+            >
+          </b-card>
+        </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
 <script>
+import { required, email } from "vuelidate/lib/validators";
+import { toastMixins } from "../../mixins/toastMixins";
 export default {
+  mixins: [toastMixins],
   name: "Checkout",
   props: ["cart"],
-  data: function () {
+  data() {
     return {
       errors: [],
       form: {
@@ -254,43 +305,64 @@ export default {
       ],
     };
   },
+  validations: {
+    form: {
+      first_name: {
+        required,
+      },
+      last_name: {
+        required,
+      },
+      phone_number: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+      address: {
+        required,
+      },
+      country: {
+        required,
+      },
+      city: {
+        required,
+      },
+      state: {
+        required,
+      },
+      postal_code: {
+        required,
+      },
+    },
+  },
   methods: {
-    checkForm(e) {
-      this.errors = [];
-      if (!this.form.first_name) {
-        this.errors.push("First name is required");
+    validateState(name) {
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    },
+    resetForm() {
+      this.form = {
+        first_name: null,
+        last_name: null,
+        email: null,
+        password: null,
+        confirm_password: null,
+      };
+      this.$nextTick(() => {
+        this.$v.$reset();
+      });
+    },
+    onSubmit(event) {
+      event.preventDefault();
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
       }
-      if (!this.form.last_name) {
-        this.errors.push("Last name is required");
-      }
-      if (!this.form.phone_number) {
-        this.errors.push("Phone number is required");
-      }
-      if (!this.form.email) {
-        this.errors.push("email is required");
-      }
-      if (!this.form.address) {
-        this.errors.push("Address is required");
-      }
-      if (!this.form.country) {
-        this.errors.push("Country is required");
-      }
-      if (!this.form.city) {
-        this.errors.push("City is required");
-      }
-      if (!this.form.state) {
-        this.errors.push("State is required");
-      }
-      if (!this.form.postal_code) {
-        this.errors.push("Postal Code is required");
-      }
-      if (this.errors.length > 0) {
-        e.preventDefault();
-      } else {
-        alert("Order Placed Successfully!");
-        this.$store.dispatch("emptyTheCart");
-        this.$router.push({ name: "Dashboard" });
-      }
+      this.makeToast("success", "Success!", "Order Placed Successfully!");
+      this.$store.dispatch("emptyTheCart");
+      this.$router.push({ name: "Dashboard" });
     },
   },
   computed: {

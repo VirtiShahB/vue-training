@@ -31,6 +31,7 @@
                     <b-form-group>
                       <label>Email Address</label>
                       <b-form-input
+                        placeholder="Enter Email"
                         id="email"
                         name="email"
                         v-model="$v.form.email.$model"
@@ -49,6 +50,7 @@
                     <b-form-group class="mt-2">
                       <label>Password</label>
                       <b-form-input
+                        placeholder="Enter Password"
                         id="password"
                         type="password"
                         name="password"
@@ -57,12 +59,18 @@
                         aria-describedby="password-feedback"
                       ></b-form-input>
                       <b-form-invalid-feedback id="password-feedback"
-                        >This is a required field.</b-form-invalid-feedback
+                        ><span v-if="!$v.form.password.required"
+                          >Password is required</span
+                        >
+                        <span
+                          v-if="form.password && !$v.form.password.minLength"
+                          >The password must be at least 6 characters.</span
+                        ></b-form-invalid-feedback
                       >
                     </b-form-group>
                     <div class="d-grid gap-2 mt-4">
                       <b-button
-                        class="float-end"
+                        class="float-right"
                         @click="onSubmit($event)"
                         squared
                         variant="success"
@@ -81,8 +89,10 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { toastMixins } from "../../mixins/toastMixins";
 export default {
+  mixins: [toastMixins],
   name: "Login",
   data() {
     return {
@@ -100,6 +110,7 @@ export default {
       },
       password: {
         required,
+        minLength: minLength(4),
       },
     },
   },
@@ -117,17 +128,13 @@ export default {
         this.$v.$reset();
       });
     },
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault();
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
       this.$api.auth.login(this.form);
-      if (this.$store.state.isLogin) {
-        alert("Login Sucessfully");
-        this.$router.push({ name: "Dashboard" });
-      }
     },
   },
 };

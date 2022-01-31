@@ -1,7 +1,17 @@
 <template>
   <div>
-    <b-navbar type="dark" variant="secondary">
+    <b-navbar type="dark" variant="info">
       <div class="container">
+        <b-navbar variant="faded" type="light">
+          <b-navbar-brand href="#">
+            <img
+              src="https://placekitten.com/g/30/30"
+              class="d-inline-block align-top"
+              alt="Kitten"
+            />
+            Ecom. Site
+          </b-navbar-brand>
+        </b-navbar>
         <b-navbar-nav v-if="this.$store.state.isLogin">
           <b-nav-item href="#"
             ><router-link to="/dashboard">Products</router-link></b-nav-item
@@ -25,6 +35,11 @@
               </span></b-dropdown-item
             >
           </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="Profile" right>
+            <b-dropdown-item href="#">Change Password</b-dropdown-item>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav v-else>
           <b-nav-item href="#"
@@ -40,6 +55,11 @@
 <script>
 export default {
   name: "Header",
+  methods: {
+    logout() {
+      this.$api.auth.logout();
+    },
+  },
 };
 </script>
 <style scoped>

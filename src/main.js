@@ -6,7 +6,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from './router'
 import store from './store/index'
 import Vuelidate from 'vuelidate'
-
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
@@ -18,9 +17,11 @@ Vue.use(Vuelidate)
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
-Vue.prototype.$apihost = (Vue.config.productionTip) ? 'http://localhost/vue-training-backend/api/' : 'http://localhost/vue-training-backend/api/'
+Vue.prototype.$apihost = Vue.config.productionTip
+  ? 'http://localhost/vue-training-backend/api/'
+  : 'http://localhost/vue-training-backend/api/'
 
-new Vue({
+export const app = new Vue({
   router,
   store,
   render: (h) => h(App),

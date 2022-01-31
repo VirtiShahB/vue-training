@@ -9,7 +9,7 @@ const state = {
   wishlist: [],
   isEmptyCart: true,
   isEmptyWishlist: true,
-  authToken: '',
+  authToken: null,
   isLogin: false,
   // products: [],
   products: [
@@ -56,6 +56,10 @@ const mutations = {
     state.authToken = payload.authData.token
     state.isLogin = true
   },
+  LOGOUT(state) {
+    state.authToken = null
+    state.isLogin = false
+  },
   SET_INITAL_PRODUCTS(state, payload) {
     state.products = payload.productsData
   },
@@ -93,6 +97,12 @@ const actions = {
   },
   login({ commit }, payload) {
     commit('SUCESS_LOGIN', payload)
+  },
+  logout({ commit }, payload) {
+    commit('LOGOUT', payload)
+  },
+  register({ commit }) {
+    commit('SUCESS_REGISTRATION')
   },
   addToCart({ commit }, payload) {
     var product = state.products.find((p) => p.id === parseInt(payload.id))
