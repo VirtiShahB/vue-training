@@ -22,12 +22,6 @@
           </b-nav-item>
 
           <b-nav-item>
-            <router-link active-class="active" class="nav-link" :to="{ name: 'sample.product'}"
-              >Sample Product</router-link
-            >
-          </b-nav-item>
-
-          <b-nav-item>
             <router-link class="nav-link" active-class="active" :to="{ name: 'checkout'}"
               >Checkout</router-link
             >

@@ -289,7 +289,7 @@ export default {
 
       let index = cart.findIndex(
         (c) =>
-          c.product == this.product &&
+          c.product == this.product.title &&
           c.size == this.size &&
           c.color == this.color
       );
