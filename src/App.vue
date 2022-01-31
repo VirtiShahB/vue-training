@@ -4,7 +4,12 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li> 
-            <router-link class="nav-link" to="/"> Home </router-link>
+            <router-link class="nav-link" to="/home"> Home </router-link>
+          </li>
+          <li class="text-right">
+            <router-link class="nav-link" to="/signin">
+              <b-button  variant="primary" class="mr-2">Sign in</b-button>
+            </router-link>
           </li>
           <li class="text-right">
             <router-link class="nav-link" to="/cart">
@@ -16,7 +21,7 @@
               <b-icon-heart></b-icon-heart>
             </router-link>
           </li>
-          
+           
         </ul>
       </div>
     </nav>

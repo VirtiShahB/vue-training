@@ -8,6 +8,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import store from './store.js'
 
+import Signup from './components/Signup.vue'
+import Signin from './components/Signin.vue'
 import Dashboard from './components/Dashboard.vue'
 import ProductShow from './components/ProductShow.vue'
 import Cart from './components/Cart.vue'
@@ -19,7 +21,9 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: Dashboard },
+    { path: '/', component: Signup },
+    { path: '/signin', component: Signin },
+    { path: '/home', component: Dashboard },
     { path: '/product/:id', component: ProductShow,name: 'ProductDetail'},
     { path: '/cart', component: Cart },
     { path: '/wishlist', component: Wishlist },
