@@ -18,6 +18,7 @@
     </div>
     <a
       v-if="tempWishList.findIndex((w) => w == product.id) == -1"
+       v-show="$loggedIn"
       title="Add to wishlist"
       class="p-3"
       @click.prevent="addToWishList(product)"
@@ -26,6 +27,7 @@
     </a>
     <a
       v-else
+      v-show="$loggedIn"
       title="Remove from wishlist"
       class="p-3"
       @click.prevent="removeFromWishList(product)"

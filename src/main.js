@@ -1,29 +1,56 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
+import UUID from "vue-uuid";
 
 import axios from "axios";
 
-import {
-  BootstrapVue,
-  IconsPlugin
-} from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-
-import './assets/style.css';
-import router from './router';
+import "./assets/style.css";
+import router from "./router";
 
 // Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
-Vue.config.productionTip = false
+Vue.use(IconsPlugin);
+Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
+Vue.use(UUID);
+
+let fetchUsers = JSON.parse(localStorage.getItem("loggedInUser"));
+
+let loggedIn = false;
+
+if (fetchUsers != null) {
+  loggedIn = true;
+}
+
+
+console.log(loggedIn);
+
+Vue.prototype.$loggedUser = fetchUsers;
+Vue.prototype.$loggedIn = loggedIn;
+
+router.beforeEach((to, from, next) => {
+  if (to.name == 'checkout' && !loggedIn) next({ name: 'login' })
+  else next()
+
+  if (to.name == 'wishlist' && !loggedIn) next({ name: 'login' })
+  else next()
+
+  if (to.name == 'login' && loggedIn) next({ name: 'home' })
+  else next()
+
+  if (to.name == 'register' && loggedIn) next({ name: 'home' })
+  else next()
+})
 
 new Vue({
   router,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
+

@@ -23,6 +23,20 @@ const routes = [
     path: '/product/:id/:name', 
     name: 'view.product',  
     component: () => import('@/views/Product.vue')
+  },
+  { 
+    path: "/login",
+    name : 'login',
+    component: () => import('@/views/Login.vue')
+  },
+  { 
+    path: "/register", 
+    name : 'register',
+    component: () => import('@/views/Register.vue')
+  },
+  { 
+    path: "*", 
+    component: () => import('@/views/404.vue')
   }
 
 ]
@@ -33,4 +47,6 @@ const router = new VueRouter({
   routes
 })
 
-export default router
+
+
+export default router 
