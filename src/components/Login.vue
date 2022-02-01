@@ -32,6 +32,7 @@ export default {
         },
         message:"",
         showToast: false,
+        loginArray:""
     };
   },
   methods: {
@@ -41,6 +42,11 @@ export default {
     check() {
         console.log(this.email);
         if( this.email == 'admin' && this.password == 'admin'){
+            this.loginArray = {
+                'email':this.email,
+                'password':this.password
+            }
+            localStorage.setItem('productsOnCart',JSON.stringify( this.loginArray));
             this.$router.push({ name: 'Home' });
         } else{
             this.message = "Invalid Credentials";

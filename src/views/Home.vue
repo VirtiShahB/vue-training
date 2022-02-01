@@ -79,8 +79,9 @@ export default {
 
         sameProduct.piece += product.piece;
         sameProduct.price += product.price;
-      } else {
+      } else {       
         this.selectedProducts.push(product);
+        console.log(localStorage.loginArray);
       }
       this.productCount += product.piece;
       this.message =  "Product added to cart";      
