@@ -13,58 +13,49 @@
         <option value="popular">Popular</option>
         <option value="featured">Featured</option>
       </select>
-      <div class="cart-div">
-        <a href="javascript:void(0)" @click="GoToWishList"><i class="fa fa-heart"></i></a>
-        <span class="cart-num" v-if="WishPro > 0">{{WishPro}}</span>
-      </div>
-      <div class="cart-div">
-        <a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i></a>
-        <span class="cart-num" v-if="CartPro > 0">{{CartPro}}</span>
-      </div>
     </div>
     <hr />
     <div class="row px-sm-2 px-0 pt-3">
       <div
         v-for="products in productList"
         :key="products.PID"
-        class="
-          col-md-4
-          offset-md-0 offset-sm-2 offset-1
-          col-sm-8 col-10
-          offset-sm-2 offset-1
-          mb-3
-        " 
+        class="col-md-4 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 offset-sm-2 offset-1 mb-3"
       >
         <div class="card">
           <div class="px-2 red text-uppercase">new</div>
-          <div class="d-flex justify-content-center" @click="ProductDetails(products.PID)">
+          <div
+            class="d-flex justify-content-center"
+            @click="ProductDetails(products.PID)"
+          >
             <img :src="products.PIMAGE" class="product" alt="" />
           </div>
           <b class="px-2">
             <p class="h4">{{ products.PNAME.substring(0, 8) + "..." }}</p>
           </b>
           <div
-            class="
-              d-flex
-              align-items-center
-              justify-content-start
-              rating
-              border-top border-bottom
-              py-2
-            "
+            class="d-flex align-items-center justify-content-start rating border-top border-bottom py-2"
           ></div>
           <div
             class="d-flex align-items-center justify-content-between py-2 px-3"
           >
             <div class="h4"><span>$</span>{{ products.PPRICE }}</div>
-            <div class="wish-list" v-if="!wishList.includes(products.PID)" @click="AddToWishList(products.PID)">
+            <div
+              class="wish-list"
+              v-if="!wishList.includes(products.PID)"
+              @click="AddToWishList(products.PID)"
+            >
               <i class="far fa-heart" aria-hidden></i>
             </div>
             <div v-else class="wish-list">
-              <i class="fas fa-heart"></i> 
+              <i class="fas fa-heart"></i>
             </div>
             <div>
-              <button @click="AddTOCart(products.PID)" class="btn btn-dark text-uppercase">Add To Cart</button>
+              <button
+                @click="AddTOCart(products.PID)"
+                class="btn btn-dark text-uppercase"
+              >
+                Add To Cart
+              </button>
             </div>
           </div>
         </div>
@@ -77,11 +68,13 @@ export default {
   name: "ProductList",
   data() {
     return {
-      CartPro:0,
-      WishPro:0,
-      cartProduct : [],
-      wishProduct : [],
-      wishList : JSON.parse(localStorage.getItem("wishProduct")) ? JSON.parse(localStorage.getItem("wishProduct")) : '0',
+      CartPro: 0,
+      WishPro: 0,
+      cartProduct: [],
+      wishProduct: [],
+      wishList: JSON.parse(localStorage.getItem("wishProduct"))
+        ? JSON.parse(localStorage.getItem("wishProduct"))
+        : "0",
       productList: [
         {
           PID: 1,
@@ -185,11 +178,10 @@ export default {
     };
   },
   mounted() {
-    localStorage.setItem('PROLIST', JSON.stringify(this.productList));
-    
+    localStorage.setItem("PROLIST", JSON.stringify(this.productList));
   },
-  methods:{
-    ProductDetails(id){
+  methods: {
+    ProductDetails(id) {
       this.$router.push({
         path: "/productDetails",
         query: {
@@ -197,24 +189,21 @@ export default {
         },
       });
     },
-    AddTOCart(pid){
+    AddTOCart(pid) {
       this.CartPro += 1;
-      this.cartProduct.push(pid); 
-      localStorage.setItem('cartProduct', JSON.stringify(this.cartProduct));
+      this.cartProduct.push(pid);
+      localStorage.setItem("cartProduct", JSON.stringify(this.cartProduct));
     },
-    AddToWishList(pid){
+    AddToWishList(pid) {
       this.WishPro += 1;
-      this.wishProduct.push(pid); 
-      localStorage.setItem('wishProduct', JSON.stringify(this.wishProduct));
+      this.wishProduct.push(pid);
+      localStorage.setItem("wishProduct", JSON.stringify(this.wishProduct));
       // this.$router.go()
     },
-    GoToWishList(){
-      this.$router.push("/goToWishList");
-    }
   },
-  created: function(){
+  created: function () {
     this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
     this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
-  }
+  },
 };
 </script>

@@ -23,11 +23,32 @@
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
+          <div class="cart-div" v-if="email && password">
+            <a href="javascript:void(0)" @click="GoToWishList"
+              ><i class="fa fa-heart"></i
+            ></a>
+            <span class="cart-num" v-if="WishPro > 0">{{ WishPro }}</span>
+          </div>
+          <div class="cart-div" v-if="email && password">
+            <a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i></a>
+            <span class="cart-num" v-if="CartPro > 0">{{ CartPro }}</span>
+          </div>
           <div class="buttons">
             <a class="button is-dark">
-              <router-link class="nav-link pr-3" to="/login">Sign in</router-link>
-              <router-link class="nav-link pr-3" to="/signup">Sign Up</router-link>
-             </a>
+              <router-link
+                class="nav-link pr-3"
+                to="/login"
+                v-if="!email && !password"
+                >Sign in</router-link
+              >
+              <router-link
+                class="nav-link pr-3"
+                to="/signup"
+                v-if="!email && !password"
+                >Sign Up</router-link
+              >
+              <a href="javascript:void(0)" v-else @click="Logout">Logout</a>
+            </a>
           </div>
         </div>
       </div>
@@ -35,7 +56,33 @@
   </nav>
 </template>
 <script>
-  export default {
-    name: 'Nav',
-  };
+export default {
+  name: "Nav",
+  data() {
+    return {
+      CartPro: 0,
+      WishPro: 0,
+      email: JSON.parse(localStorage.getItem("email"))
+        ? JSON.parse(localStorage.getItem("wishProduct"))
+        : "",
+      password: JSON.parse(localStorage.getItem("password"))
+        ? JSON.parse(localStorage.getItem("password"))
+        : "",
+    };
+  },
+  methods: {
+    Logout() {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      this.$router.push({ name: "Login" });
+    },
+    GoToWishList() {
+      this.$router.push("/goToWishList");
+    },
+  },
+  created: function () {
+    this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
+    this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+  },
+};
 </script>

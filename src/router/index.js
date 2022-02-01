@@ -13,47 +13,75 @@ const routes = [
     path: "/",
     name: "Home",
     component: ProductList,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/productDetails",
     name: "ProductDetails",
     component: Product,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path:"/addtocart",
-    name:"AddtoCart",
-    component:AddtoCart,
+    path: "/addtocart",
+    name: "AddtoCart",
+    component: AddtoCart,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path:"/checkout",
-    name:"Checkout",
+    path: "/checkout",
+    name: "Checkout",
     component: CHECKOUT,
-  },{
-    path:"/goToWishList",
-    name:"WishList",
-    component:WISHLIST,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('../components/Login.vue')
+    path: "/goToWishList",
+    name: "WishList",
+    component: WISHLIST,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: () => import('../components/Signup.vue')
+    path: "/login",
+    name: "Login",
+    component: () => import("../components/Login.vue"),
   },
   {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
-  }
+    path: "/signup",
+    name: "Signup",
+    component: () => import("../components/Signup.vue"),
+  },
+  {
+    path: "/forgot-password",
+    name: "forgot-password",
+    component: () => import("../components/ForgotPassword.vue"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!localStorage.getItem("email") && !localStorage.getItem("password")) {
+      next({ name: "Login" });
+    } else {
+      next(); // go to wherever I'm going
+    }
+  } else {
+    next(); // does not require auth, make sure to always call next()!
+  }
 });
 
 export default router;
