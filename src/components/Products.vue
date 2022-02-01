@@ -1,18 +1,6 @@
 <template>
   <div class="offset-md-1 col-md-10 mt-5 mb-5">
-    <div class="row">
-      <div class="col-md-8">
-        <h2 class="text-bold"><b>Products List</b></h2>
-      </div>
-      <div class="col-md-4">
-        <router-link :to="{ name: 'login' }" class="btn btn-orange"
-          >Login</router-link
-        >
-        <router-link :to="{ name: 'signup' }" class="btn btn-orange"
-          >Signup</router-link
-        >
-      </div>
-    </div>
+    <h2 class="text-bold"><b>Products List</b></h2>
     <hr />
     <b-card-group deck class="mt-4">
       <b-card

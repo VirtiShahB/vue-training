@@ -1,31 +1,71 @@
 <template>
-  <div class="col-md-6 offset-md-3 mt-5">
-    <div class="vue-tempalte">
-      <form>
-        <h3>Sign Up</h3>
+  <div class="signup">
+    <div class="col-md-6">
+      <h2>Sign Up</h2>
+      <hr />
+      <form @submit.prevent="registerUser">
+        <b-form-group
+          id="input-group-2"
+          label="User Name:"
+          label-for="user_name"
+        >
+          <b-form-input
+            id="user_name"
+            v-model="user_name"
+            type="text"
+            placeholder="Enter user name"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" class="form-control form-control-lg" />
-        </div>
+        <b-form-group
+          id="input-group-2"
+          label="Email address:"
+          label-for="email"
+        >
+          <b-form-input
+            id="email"
+            v-model="email"
+            type="email"
+            placeholder="Enter email"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-        <div class="form-group">
-          <label>Email address</label>
-          <input type="email" class="form-control form-control-lg" />
-        </div>
+        <b-form-group
+          id="input-group-2"
+          label="Enter Password:"
+          label-for="password"
+        >
+          <b-form-input
+            id="password"
+            v-model="password"
+            type="password"
+            placeholder="Enter password"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control form-control-lg" />
-        </div>
+        <b-form-group
+          id="input-group-2"
+          label="Confirm Password:"
+          label-for="confirm_password"
+        >
+          <b-form-input
+            id="confirm_password"
+            v-model="confirm_password"
+            type="password"
+            placeholder="Enter confirm password"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-        <button type="submit" class="btn btn-dark btn-lg btn-block">
-          Sign Up
-        </button>
-
+        <b-button type="submit" class="btn btn-dark btn-lg btn-block"
+          >Sign Up</b-button
+        >
         <p class="forgot-password text-right">
           Already registered
-          <router-link :to="{ name: 'login' }">sign in?</router-link>
+          <router-link :to="{ name: 'signin' }">Sign In?</router-link>
         </p>
       </form>
     </div>
@@ -35,7 +75,43 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      user_name: "",
+      email: "",
+      password: "",
+      confirm_password: "",
+      users: [],
+    };
+  },
+  methods: {
+    registerUser() {
+      let user = {
+        user_name: this.user_name,
+        email: this.email,
+        password: this.password,
+        confirm_password: this.confirm_password,
+      };
+
+      if (localStorage.users) {
+        this.user = JSON.parse(localStorage.users);
+      }
+      this.users.push(user);
+      localStorage.setItem("users", JSON.stringify(this.users));
+      this.user_name = "";
+      this.email = "";
+      this.password = "";
+      this.confirm_password = "";
+      this.$router.push("/signin");
+    },
   },
 };
 </script>
+
+<style scoped>
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+</style>
