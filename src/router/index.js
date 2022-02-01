@@ -4,6 +4,8 @@ import Dashboard from '@/components/Dashboard'
 import Checkout from '@/components/Checkout'
 import ItemDetail from '@/components/Products/ItemDetail'
 import WishListItems from '@/components/Products/WishListItems'
+import Login from '@/components/Login'
+import SignUp from '@/components/SignUp'
 
 Vue.use(Router)
 
@@ -11,8 +13,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Dashboard
+      name: 'SignUp',
+      component: SignUp
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/dashboard',

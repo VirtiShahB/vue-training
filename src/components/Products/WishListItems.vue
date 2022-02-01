@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <b-row class="text-center">
       <b-col
         v-show="products.length > 0"
@@ -23,13 +22,13 @@
 </template>
 
 <script>
-import NavBar from '../Common/NavBar'
-import productsData from './productsData.json'
+import { mapGetters } from 'vuex'
 import ItemCard from './ItemCard'
 
 export default {
   name: 'WishListItems',
-  components: { NavBar, ItemCard },
+  components: { ItemCard },
+  computed: mapGetters(['productsData']),
   mounted () {
     const items = JSON.parse(localStorage.getItem('userFavItems'))
     if (items.length > 0) {
@@ -42,7 +41,6 @@ export default {
   },
   data () {
     return {
-      productsData: productsData,
       products: []
     }
   },

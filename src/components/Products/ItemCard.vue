@@ -97,7 +97,7 @@ export default {
   methods: {
     addToCart (productId) {
       const selectedProducts = { id: productId, qty: 1 }
-      this.$emit('cartListener', selectedProducts)
+      this.$store.commit('addToCart', selectedProducts)
     },
     itemDetail (productId) {
       this.$router.push({

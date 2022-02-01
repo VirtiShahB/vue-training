@@ -1,12 +1,5 @@
 <template>
   <div>
-    <b-toast id="cart-toast" variant="success" solid>
-      <template #toast-title> Your Products </template>
-      <template #toast-message>
-        <router-link :to="checkout">View Cart</router-link>
-      </template>
-    </b-toast>
-
     <b-dropdown
       size="xl"
       variant="link"
@@ -26,7 +19,7 @@
             <span style="font-weight: 700"> Cart </span>
           </div>
           <div class="col-12" style="max-height: 200px; overflow: auto">
-            <div v-if="totalCartItem && totalCartItem.length > 0">
+            <div v-if="totalCartItems && totalCartItems.length > 0">
               <div
                 v-for="(item, index) in cartSummary"
                 :key="index"
@@ -80,70 +73,42 @@
 </template>
 
 <script>
-import productsData from '../Products/productsData.json'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cart',
-  props: ['selectedItems'],
-  watch: {
-    selectedItems: function (newVal) {
-      this.getCartItems()
-      this.addTocart(newVal)
-    },
-    totalCartItem: {
-      handler () {
-        this.totalCartValue = this.totalCartItem.length
-      },
-      deep: true
-    }
-  },
   mounted () {
-    this.getCartItems()
+    this.getCartData()
+  },
+  computed: {
+    ...mapGetters({
+      productsData: 'productsData'
+    }),
+    totalCartValue () {
+      return this.totalCartItems.length
+    },
+    totalCartItems () {
+      return window.localStorage.getItem('totalCartItems')
+        ? JSON.parse(window.localStorage.getItem('totalCartItems'))
+        : []
+    }
   },
   data () {
     return {
-      totalCartItem: [],
-      totalCartValue: 0,
-      cartSummary: [],
-      productsData: productsData
+      cartSummary: []
     }
   },
   methods: {
-    getCartItems () {
-      if (localStorage.getItem('cartItems')) {
-        this.totalCartItem = JSON.parse(localStorage.getItem('cartItems'))
-
-        const cartData = this.totalCartItem
-        this.cartSummary = this.productsData.filter(function (o1) {
-          return cartData.some(function (o2) {
-            o1.qty = o2.qty
-            return o1.id === o2.id
-          })
+    getCartData () {
+      const totalCartItems = this.totalCartItems
+      this.cartSummary = this.productsData.filter(function (o1) {
+        return totalCartItems.some(function (o2) {
+          o1.qty = o2.qty
+          return o1.id === o2.id
         })
-      } else {
-        this.totalCartValue = 0
-      }
-    },
-    persistCart () {
-      localStorage.setItem('cartItems', JSON.stringify(this.totalCartItem))
-    },
-    addTocart (product) {
-      const exists = this.totalCartItem.some(function (item) {
-        return item.id === product.id
       })
-      if (exists) {
-        this.totalCartItem.map((item) => {
-          if (item.id === product.id) {
-            item.qty = product.qty
-          }
-        })
-        this.persistCart()
-      } else if (Object.keys(product).length > 0) {
-        this.totalCartItem.push(product)
-        this.persistCart()
-      }
     },
     buyNow () {
-      if (this.totalCartItem.length === 0) {
+      if (this.totalCartItems.length === 0) {
         this.$emit('errorListener', 'danger', 'Your cart is empty!!')
       } else {
         this.$router.push({

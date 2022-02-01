@@ -27,7 +27,7 @@
 
         <b-navbar-nav class="ml-auto d-flex flex-row align-items-center">
           <b-nav-item class="col-4">
-            <Cart :selectedItems="selectedItems" />
+            <Cart />
           </b-nav-item>
           <b-nav-item v-show="this.$route.name != 'WishList'" class="col-4"
             ><b-icon
@@ -41,15 +41,39 @@
             ></b-icon
           ></b-nav-item>
           <b-nav-item class="col-4">
-            <span>
-              <b-img
-                :src="require('@/assets/image-avatar.png')"
-                class="avatar"
-                rounded="circle"
-                alt="Circle image"
-                height="40px"
-              ></b-img>
-            </span>
+            <b-dropdown
+              size="xl"
+              variant="link"
+              toggle-class="text-decoration-none"
+              no-caret
+              right
+            >
+              <template #button-content>
+                <b-img
+                  :src="require('@/assets/image-avatar.png')"
+                  class="avatar"
+                  rounded="circle"
+                  alt="Circle image"
+                  height="40px"
+                ></b-img>
+              </template>
+              <div style="min-width: 150px">
+                <div class="d-flex flex-column">
+                  <div class="col-6 p-3 border-bottom">
+                    <span style="font-weight: 700">
+                      <router-link
+                        v-if="authenticated"
+                        to="/signup"
+                        v-on:click.native="logout"
+                        replace
+                        >Logout</router-link
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- </b-dropdown-item> -->
+            </b-dropdown>
           </b-nav-item>
         </b-navbar-nav>
       </b-navbar>
@@ -114,7 +138,7 @@ import Cart from '../Products/Cart'
 export default {
   name: 'NavBar',
   components: { Cart },
-  props: ['selectedItems'],
+  props: ['authenticated'],
   data () {
     return {
       mainCategory: 'Dashboard',
@@ -131,6 +155,9 @@ export default {
       if (type === 'Dashboard') {
         this.$router.push({ name: 'Dashboard' })
       }
+    },
+    logout () {
+      this.$emit('logout')
     }
   }
 }

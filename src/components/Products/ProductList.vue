@@ -7,28 +7,19 @@
         v-for="product in productsData"
         :key="product.id"
       >
-        <ItemCard :product="product" @cartListener="addTocart" />
+        <ItemCard :product="product" />
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ItemCard from './ItemCard'
-import productsData from './productsData.json'
+
 export default {
   name: 'Dashboard',
   components: { ItemCard },
-  data () {
-    return {
-      productsData: productsData,
-      totalCartItem: []
-    }
-  },
-  methods: {
-    addTocart (product) {
-      this.$emit('refreshCartListener', product)
-    }
-  }
+  computed: mapGetters(['productsData'])
 }
 </script>

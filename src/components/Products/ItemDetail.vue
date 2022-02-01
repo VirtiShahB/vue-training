@@ -1,7 +1,6 @@
 <template>
   <div>
-    <NavBar :selectedItems="selectedItems" />
-    <b-card no-body class="" style="max-width: 60%">
+    <b-card no-body class="mt-5" style="max-width: 70%">
       <b-row no-gutters>
         <b-col md="6">
           <b-card-img
@@ -58,23 +57,20 @@
 </template>
 
 <script>
-import NavBar from '../Common/NavBar.vue'
-import productsData from './productsData.json'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'ItemDetail',
-  components: { NavBar },
+  components: {},
   mounted () {
     this.getProductData()
   },
   data () {
     return {
       itemCount: 1,
-      productsData: productsData,
-      product: [],
-      selectedItems: {}
+      product: []
     }
   },
+  computed: mapGetters(['productsData']),
   methods: {
     addItem () {
       this.itemCount += 1
@@ -87,7 +83,8 @@ export default {
       }
     },
     addToCart (productId) {
-      this.selectedItems = { id: productId, qty: this.itemCount }
+      const selectedProducts = { id: productId, qty: this.itemCount }
+      this.$store.commit('addToCart', selectedProducts)
     },
     getProductData () {
       const productId = this.$route.params.productId

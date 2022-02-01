@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-5 ml-5">
+  <div class="mr-5 ml-5 mt-5">
     <ShowAlert :error="error" />
     <b-row>
       <b-col>
@@ -26,7 +26,9 @@
               <b-col class="md-2">Qty: {{ product.qty }}</b-col>
             </b-row>
           </b-col>
-          <b-col class="md-2"> ${{ (product.qty * product.price).toFixed(2) }} </b-col>
+          <b-col class="md-2">
+            ${{ (product.qty * product.price).toFixed(2) }}
+          </b-col>
         </b-row>
         <b-row>
           <b-col class="md-10">
@@ -55,16 +57,24 @@
 </template>
 
 <script>
-import productsData from './Products/productsData.json'
+import { mapGetters } from 'vuex'
 import ShippingDetails from './ShippingDetails'
 import ShowAlert from './UI/ShowAlert'
 export default {
   name: 'Checkout',
   components: { ShippingDetails, ShowAlert },
   mounted () {
-    this.getProductData()
+    this.getCartData()
   },
   computed: {
+    ...mapGetters({
+      productsData: 'productsData'
+    }),
+    totalCartItems () {
+      return window.localStorage.getItem('totalCartItems')
+        ? JSON.parse(window.localStorage.getItem('totalCartItems'))
+        : []
+    },
     getSubtotal () {
       if (this.cartSummary.length > 0) {
         return this.cartSummary
@@ -76,7 +86,6 @@ export default {
   },
   data () {
     return {
-      productsData: productsData,
       cartSummary: [],
       form: {
         email: '',
@@ -96,19 +105,17 @@ export default {
       this.form.email = ''
       this.form.name = ''
     },
-    getProductData () {
-      if (localStorage.getItem('cartItems')) {
-        const cartData = JSON.parse(localStorage.getItem('cartItems'))
-        this.cartSummary = this.productsData.filter(function (o1) {
-          return cartData.some(function (o2) {
-            o1.qty = o2.qty
-            return o1.id === o2.id
-          })
+    getCartData () {
+      const totalCartItems = this.totalCartItems
+      this.cartSummary = this.productsData.filter(function (o1) {
+        return totalCartItems.some(function (o2) {
+          o1.qty = o2.qty
+          return o1.id === o2.id
         })
-      }
+      })
     },
     placeOrder () {
-      localStorage.removeItem('cartItems')
+      localStorage.removeItem('totalCartItems')
       this.cartSummary = []
       this.error = ['success', 'Horray Order Placed , Continue shopping']
     }
