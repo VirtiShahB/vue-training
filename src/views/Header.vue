@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       wishList: [],
-      key: 'a',
+      key: "a",
     };
   },
   methods: {
@@ -101,8 +101,8 @@ export default {
     },
     logout() {
       localStorage.removeItem("loggedInUser");
-      this.$router.push("/").catch(() => {});
-      location.reload();
+      this.$loggedIn = false;
+      this.$router.push({ path: "/", query: { logout: true } });
     },
   },
   created() {
@@ -111,6 +111,17 @@ export default {
     });
 
     this.fetchWishlist();
+  },
+  mounted() {
+    if (Object.keys(this.$route.query).length !== 0) {
+      setTimeout(() => {
+        this.$router
+          .replace({
+            query: "",
+          })
+          .catch(() => {});
+      }, 1000);
+    }
   },
 };
 </script>

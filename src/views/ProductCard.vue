@@ -10,15 +10,17 @@
             params: { id: product.id, name: product.title.replace(' ', '-') },
           }"
         >
-          {{ product.title.length > 25
-            ? product.title.substring(0, 25) + "..."
-            : product.title }}
+          {{
+            product.title.length > 25
+              ? product.title.substring(0, 25) + "..."
+              : product.title
+          }}
         </router-link>
       </h5>
     </div>
     <a
       v-if="tempWishList.findIndex((w) => w == product.id) == -1"
-       v-show="$loggedIn"
+      v-show="$loggedIn"
       title="Add to wishlist"
       class="p-3"
       @click.prevent="addToWishList(product)"
@@ -47,8 +49,6 @@
       />
     </router-link>
     <div class="card-body">
-          
-
       <p class="card-text">
         {{
           product.description.length > 100
@@ -102,17 +102,14 @@ export default {
   },
   methods: {
     addToCart(qty, price, size, color, product) {
-
       /** Check if user is logged in or not */
 
-      if(!this.$loggedIn){
-
-         this.$bvToast.toast("Please login to continue !", {
+      if (!this.$loggedIn) {
+        this.$bvToast.toast("Please login to continue !", {
           title: "Login Required !",
           variant: "danger",
-          toaster:  'b-toaster-bottom-center',
-          solid: true
-          
+          toaster: "b-toaster-bottom-center",
+          solid: true,
         });
 
         return false;
@@ -151,13 +148,11 @@ export default {
       this.$bvToast.toast("Item is added to cart !", {
         title: "Added",
         variant: "success",
-        toaster:  'b-toaster-bottom-center',
-        solid: true
+        toaster: "b-toaster-bottom-center",
+        solid: true,
       });
-
     },
     addToWishList(product) {
-
       let wishList = JSON.parse(localStorage.getItem("wishList"));
 
       wishList = wishList != null ? wishList : [];
@@ -183,7 +178,7 @@ export default {
       this.$bvToast.toast("Item is added to wishlist !", {
         title: "Added",
         variant: "success",
-        toaster:  'b-toaster-bottom-center',
+        toaster: "b-toaster-bottom-center",
         solid: true,
       });
 
@@ -215,7 +210,7 @@ export default {
           this.$bvToast.toast("Item is removed from wishlist !", {
             title: "Removed",
             variant: "success",
-            toaster:  'b-toaster-bottom-center',
+            toaster: "b-toaster-bottom-center",
             solid: true,
           });
         }
@@ -234,22 +229,20 @@ export default {
   },
 
   mounted() {
-
     if (this.product.in_wishlist == true) {
       this.tempWishList.push(this.product.id);
     }
-
   },
 };
 </script>
 <style scoped>
-  .card-img-custom {
-    width: 200px;
-    height: 200px;
-    object-fit: scale-down;
-    align-items: center;
-    position: relative;
-    left: 70px;
-    padding: 15px;
-  }
+.card-img-custom {
+  width: 200px;
+  height: 200px;
+  object-fit: scale-down;
+  align-items: center;
+  position: relative;
+  left: 70px;
+  padding: 15px;
+}
 </style>

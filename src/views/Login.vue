@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import {bus} from '@/eventBus';
 export default {
   data() {
     return {
@@ -74,12 +75,11 @@ export default {
       let status = this.validation();
 
       if (status == true) {
-        this.$loggedIn = true;
+        
+        bus.$emit('authEvent');
 
-        this.$router.push({
-          name: "home",
-          query: { login: true },
-        });
+        this.$router.push({ name: 'home' })
+
       }
     },
     validation() {
