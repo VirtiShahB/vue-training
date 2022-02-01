@@ -49,11 +49,13 @@
 </template>
 
 <script>
+import toastMixin from "@/mixins/toastMixins";
 export default {
   name: "ProductDetailComponent",
   props: {
     product: Object,
   },
+  mixins: [toastMixin],
   data() {
     return {
       quantity: 0,
@@ -61,35 +63,23 @@ export default {
   },
   methods: {
     // Method to add item in a cart
-    onAddToCart() {
+    onAddToCart: function () {
       let variant = "danger";
       let msg = "please select at least one quantity";
       if (this.quantity) {
         this.product.quantity = this.quantity;
-        let cartItems = JSON.parse(localStorage.getItem("cart"));
-        if (cartItems) {
-          // if cart exists in localstorage then find item index
-          let itemInd = cartItems.findIndex(
-            item => item.id == this.product.id
-          );
-          if (itemInd >= 0) {
-            cartItems[itemInd] = this.product;
-          } else {
-            cartItems.push(this.product);
-          }
-        } else {
-          cartItems = [];
-          cartItems.push(this.product);
-        }
+        let cartItems = JSON.parse(localStorage.getItem("cart"))
+          ? JSON.parse(localStorage.getItem("cart"))
+          : [];
+        let itemInd = cartItems.findIndex((item) => item.id == this.product.id);
+        itemInd >= 0
+          ? (cartItems[itemInd] = this.product)
+          : cartItems.push(this.product);
         localStorage.setItem("cart", JSON.stringify(cartItems));
         msg = `Product added in cart successfully`;
         variant = "success";
       }
-      this.$bvToast.toast(msg, {
-        title: "Added in cart",
-        variant: variant,
-        solid: true,
-      });
+      this.showToast(msg, "Cart", variant);
     },
   },
 };

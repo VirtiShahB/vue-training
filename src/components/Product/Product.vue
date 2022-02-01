@@ -16,18 +16,16 @@
     </b-card>
 </template>
 <script>
+import toastMixin from "@/mixins/toastMixins";
 export default {
   props: {
     product: Object,
   },
+  mixins: [toastMixin],
   methods:{
-    addToWishlist(){
+    addToWishlist: function(){
       this.$store.dispatch('wishlist/addToWishlist', this.product)
-      this.$bvToast.toast('Added to wishlist.', {
-        title: "Wishlist",
-        variant: 'success',
-        solid: true,
-      });
+      this.showToast("Added to wishlist.", "Wishlist");
     }
   }
 };

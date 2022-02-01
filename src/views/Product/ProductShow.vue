@@ -20,12 +20,10 @@
 <script>
 import ProductDetailComponent from "@/components/Product/ProductDetailComponent.vue";
 import { products } from "@/services/Product";
-
 export default {
   name: "App",
   components: {
     ProductDetailComponent,
-    // CartComponent,
   },
   data() {
     return {
@@ -37,6 +35,7 @@ export default {
     let productInd = products.findIndex(
       item => item.id == this.$route.params.id
     );
+
     if (productInd >= 0) {
       this.product = this.products[productInd];
     }

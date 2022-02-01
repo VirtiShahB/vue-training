@@ -52,6 +52,7 @@ import WishlistComponent from "@/components/Wishlist/WishlistComponent.vue";
 var that;
 export default {
   components: { WishlistComponent },
+  
   created() {
     that = this;
     this.$store.dispatch("wishlist/getWishlist");

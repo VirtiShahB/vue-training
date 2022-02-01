@@ -17,29 +17,22 @@ const wishlist = {
   actions: {
     // add to wishlist
     addToWishlist({ commit }, product) {
-      let wishlist = JSON.parse(localStorage.getItem("wishlist"));
-      if (wishlist) {
-        // wishlist exists in products
-        let wishlistProductInd = wishlist.findIndex(
-          (item) => item.id == product.id
-        );
-        if (wishlistProductInd >= 0) {
-          commit("REMOVE_FROM_WISHLIST", wishlistProductInd);
-          wishlist.splice(wishlistProductInd, 1);
-        } else {
-          wishlist.push(product);
-          commit("ADD_TO_WISHLIST", product);
-        }
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      let wishlist = JSON.parse(localStorage.getItem("wishlist")) ? JSON.parse(localStorage.getItem("wishlist")) :[];
+      let wishlistProductInd = wishlist.findIndex(
+        (item) => item.id == product.id
+      );
+      if (wishlistProductInd >= 0) {
+        commit("REMOVE_FROM_WISHLIST", wishlistProductInd);
+        wishlist.splice(wishlistProductInd, 1);
       } else {
-        localStorage.setItem("wishlist", JSON.stringify([product]));
+        wishlist.push(product);
         commit("ADD_TO_WISHLIST", product);
       }
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
     },
     getWishlist({ commit }) {
-      let wishlist = JSON.parse(localStorage.getItem("wishlist"));
-      if (wishlist) commit("SET_TO_WISHLIST", wishlist);
-      else commit("SET_TO_WISHLIST", []);
+      let wishlist = JSON.parse(localStorage.getItem("wishlist")) ? JSON.parse(localStorage.getItem("wishlist")) : []
+      commit("SET_TO_WISHLIST", wishlist);
     },
   },
 };
