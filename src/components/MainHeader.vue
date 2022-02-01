@@ -2,10 +2,10 @@
   <div class="header">   
     <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
       <div>
-    <router-link class="navbar-brand" :to="{ name: 'Home' }">
-       <img id="logo" src="../assets/images/icon.png"  />
-    </router-link>
-      <div>    
+        <router-link class="navbar-brand" :to="{ name: 'Home' }">
+          <img id="logo" src="../assets/images/icon.png"  />
+        </router-link>
+      </div>    
         <ul class="navbar-nav ml-auto">        
           <li class="nav-item">
             <div id="cart">
@@ -20,8 +20,7 @@
                 </router-link>  
             </div>
           </li>
-        </ul>
-      </div>
+        </ul>     
     </nav>
   </div>  
 </template>

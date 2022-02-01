@@ -121,12 +121,7 @@ export default {
         piece: this.selectedCount,
         image: this.product.image,
       };
-      if(localStorage.getItem('productsOnCart')){
-          newProduct = JSON.parse(localStorage.getItem('productsOnCart'));
-      }
-      //cartProducts.push(JSON.stringify(newProduct));
-      localStorage.setItem('productsOnCart',JSON.stringify(newProduct));
-      console.log(localStorage.getItem('productsOnCart'));
+      
       this.$emit("add-to-chart", newProduct);
       this.resetSelections();
     },
@@ -135,6 +130,7 @@ export default {
       this.selectedCount = 1;
       this.selectedSize = this.product.sizes[0].value;
     },
+    
    },
  
 };

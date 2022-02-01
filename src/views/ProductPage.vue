@@ -66,8 +66,11 @@ export default {
 
         sameProduct.piece += product.piece;
         sameProduct.price += product.price;
+        console.log(sameProduct);
       } else {
         this.selectedProducts.push(product);
+        localStorage.setItem('productsOnCart',this.selectedProducts.push(product));
+        console.log(this.selectedProducts.push(product));
       }
       this.productCount += product.piece;
       this.showToast = true;

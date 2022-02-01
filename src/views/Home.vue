@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <toast message="Product added to cart" :show.sync="showToast" />
+    <toast :message="message" :show.sync="showToast" />
     <main-header
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
@@ -54,6 +54,7 @@ export default {
       selectedProducts: [], // Selected products list.
       productCount: 0, // Total selected product count.
       showToast: false, // Showed when any product is added.
+      message:""
     };
   },
   methods: {
@@ -82,6 +83,7 @@ export default {
         this.selectedProducts.push(product);
       }
       this.productCount += product.piece;
+      this.message =  "Product added to cart";      
       this.showToast = true;
     },
     addToWhislist(product) {
@@ -105,6 +107,8 @@ export default {
         this.selectedProducts.push(product);
       }
       this.productCount += product.piece;
+      this.message =  "Product added to cart";
+      console.log(this.message);
       this.showToast = true;
     },
     

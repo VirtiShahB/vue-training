@@ -1,12 +1,12 @@
 <template>
-  <section class="up-wrapper">
+  <div class="up-wrapper">
     <form action="#">
       <h4 class="title">Login</h4>
       <label for="userName" class="userName">Username</label>
-      <input type="text" name="userName" id="userName">
+      <input v-model="email" type="text"   class="form-control" placeholder="UserName" required autofocus>
       <label for="password" class="password">Password</label>
-      <input type="text" name="password" id="password">
-      <button class="btn">Login</button>
+      <input v-model="password" type="password"   class="form-control" placeholder="Password " required>
+      <button class="btn" @click="check()">Login</button>
       <div class="changeType">
         <p class="text">
           Or Signup
@@ -14,24 +14,38 @@
         </p>
       </div>
     </form>
-  </section>
+  </div>
 </template>
 
 <script>
+
 export default {
   name: "Login",
   data() {
     return {
-      type: "Register",
-      otherType: "Login",
-      form: {
-        type: ["Login", "Register"]
-      }
+        email: '',
+        password: '',
+        type: "Register",
+        otherType: "Login",
+        form: {
+            type: ["Login", "Register"]
+        },
+        message:"",
+        showToast: false,
     };
   },
   methods: {
     changeType() {
       this.$router.push({ name: "Register" });
+    },
+    check() {
+        console.log(this.email);
+        if( this.email == 'admin' && this.password == 'admin'){
+            this.$router.push({ name: 'Home' });
+        } else{
+            this.message = "Invalid Credentials";
+            this.showToast= true;
+        }
     }
   }
 };
