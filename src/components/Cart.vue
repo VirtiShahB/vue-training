@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h3 class="text-left">Shopping Cart</h3><br>
+    <h3 class="text-left">Shopping Cart</h3>
+    <br />
     <b-table-simple>
       <b-thead>
         <b-tr>
@@ -16,26 +17,31 @@
               <b-col class="text-left">
                 <img
                   :src="require('@/assets/images/' + c.image)"
-                  alt="" v-bind="mainProps"
-                  class="d-inline-block img-fluid "
+                  alt=""
+                  v-bind="mainProps"
+                  class="d-inline-block img-fluid"
                 />
                 <span class="cart_book_title d-inline-block">
-                  <router-link :to="{ name: 'ProductDetail', params: {id:c.id,item:c}}">{{ c.title }}</router-link>
+                  <router-link
+                    :to="{
+                      name: 'ProductDetail',
+                      params: { id: c.id, item: c },
+                    }"
+                    >{{ c.title }}</router-link
+                  >
                 </span>
               </b-col>
             </b-row>
           </b-td>
           <b-td>{{ c.qty ? c.qty : 0 }}</b-td>
           <b-td>
-            <span class="item_price ">{{
-              "₹ " + c.price * c.qty
-            }}</span></b-td
+            <span class="item_price">{{ "₹ " + c.price * c.qty }}</span></b-td
           >
         </b-tr>
         <b-tr>
           <b-td></b-td>
           <b-td>
-            <p class="text-center" v-if="! total">No item in your cart</p>
+            <p class="text-center" v-if="!total">No item in your cart</p>
           </b-td>
           <b-td>
             <strong v-if="total">Total: {{ "₹ " + total }}</strong>
@@ -44,7 +50,7 @@
       </b-tbody>
     </b-table-simple>
     <div class="text-right">
-      <b-button variant="primary" class="mr-5 " size="lg"> 
+      <b-button variant="primary" class="mr-5" size="lg">
         <router-link class="checkout_btn" to="/checkout">Checkout</router-link>
       </b-button>
     </div>
@@ -56,7 +62,7 @@ export default {
   name: "Cart",
   data() {
     return {
-      mainProps: { blank: true, width: 75, height: 75, class: 'm1' },
+      mainProps: { blank: true, width: 75, height: 75, class: "m1" },
       cart: [],
     };
   },
@@ -88,7 +94,7 @@ export default {
   font-weight: 700;
   vertical-align: top;
 }
-.checkout_btn{
+.checkout_btn {
   color: #fff;
   text-decoration: none;
 }

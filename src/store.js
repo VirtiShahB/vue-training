@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    wishList:[],
+    wishList: [],
   },
   mutations: {
-    addWishlist(state,{item,wishListItemId}){
+    addWishlist(state, { item, wishListItemId }) {
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
@@ -26,27 +26,27 @@ export default new Vuex.Store({
       }
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
-    removeFromWishlist(state,{item,wishListItemId}){
+    removeFromWishlist(state, { item, wishListItemId }) {
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
       const wishListItems = JSON.parse(localStorage.getItem("wishList"));
       const wishListItemsId = wishListItemId;
-     
-      if(wishListItems.length>0){
-        for(var i = 0; i<wishListItems.length;i++){
-          if(item.id === wishListItems[i].id){
+
+      if (wishListItems.length > 0) {
+        for (var i = 0; i < wishListItems.length; i++) {
+          if (item.id === wishListItems[i].id) {
             wishListItems.splice(i, 1);
             localStorage.setItem("wishList", JSON.stringify(wishListItems));
             this.wishList = JSON.parse(localStorage.getItem("wishList"));
             const index = wishListItemsId.indexOf(item.id);
             if (index > -1) {
-              wishListItemsId.splice(index,1); 
+              wishListItemsId.splice(index, 1);
               this.wishListItemId = wishListItemsId;
             }
           }
         }
       }
-    }
-  }
-})
+    },
+  },
+});
