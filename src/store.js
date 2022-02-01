@@ -39,6 +39,9 @@ export const mutations = {
   addLoggedIn(state, payload) {
     state.loggedInUser = payload;
   },
+  addSearchParam(state, payload) {
+    state.searchParam = payload;
+  },
 };
 
 const actions = {
@@ -54,6 +57,9 @@ const actions = {
   addLoggedIn(context, payload) {
     context.commit("addLoggedIn", payload);
   },
+  addSearchParam(context, payload) {
+    context.commit("addSearchParam", payload);
+  },
 };
 
 export default new Vuex.Store({
@@ -62,6 +68,8 @@ export default new Vuex.Store({
     cart: [],
     wishList: [],
     loggedInUser: [],
+    filteredData: [],
+    searchParam: "",
   },
   getters,
   mutations,

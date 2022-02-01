@@ -1,14 +1,5 @@
 <template>
   <div class="p-4">
-    <Header />
-    <div class="row">
-      <b-button class="mr-3" variant="outline-primary" @click="openCart()"
-        >Cart</b-button
-      >
-      <b-button class="mr-3" variant="outline-primary" @click="openWishlist()"
-        >Wishlist</b-button
-      >
-    </div>
     <div class="row">
       <span
         ><strong>{{ name }}</strong></span
@@ -87,7 +78,7 @@
         <b-icon icon="printer" class="rounded-circle p-2 mr-2"></b-icon>
 
         <b-icon
-          v-bind:icon="isLiked ? 'heart-fill' : 'heart'"
+          v-bind:icon="isInWishList(id) ? 'heart-fill' : 'heart'"
           @click="addToWishList(id)"
           class="rounded-circle p-2"
         ></b-icon>
@@ -114,13 +105,9 @@
   </div>
 </template>
 <script>
-import Header from "./Header.vue";
-
 export default {
   name: "ProductDetails",
-  components: {
-    Header,
-  },
+  components: {},
   data() {
     return {
       qty: 1,
@@ -150,7 +137,7 @@ export default {
       this.qty++;
     },
     decrementQty() {
-      if (this.qty > 0) {
+      if (this.qty > 1) {
         this.qty--;
       }
     },
@@ -169,6 +156,13 @@ export default {
         name: "wishlist",
         params: { wishList: this.$store.state.wishList },
       });
+    },
+    isInWishList(id) {
+      const isPresent = this.$store.state.wishList.find((item) => {
+        return item.id === id;
+      });
+
+      return (this.isLiked = isPresent ? true : false);
     },
   },
 };

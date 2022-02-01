@@ -11,7 +11,6 @@ import store from "@/store";
 Vue.use(Router);
 function guardMyroute(to, from, next) {
   //Check whether loggedIn user is
-  console.log();
   var isLoggedInUser = false;
   isLoggedInUser = store.state.loggedInUser.email=='ripal.darji@bacancy.com' ? true : false;
   if (isLoggedInUser) {
