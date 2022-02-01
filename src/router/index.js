@@ -7,6 +7,11 @@ import WishListItems from '@/components/Products/WishListItems'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(Router)
 
 export default new Router({
