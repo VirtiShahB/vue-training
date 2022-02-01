@@ -13,35 +13,57 @@ const routes = [
   {
     path: '/',
     name:'ProductList',
-    component: ProductList
+    component: ProductList,
+    meta: {title: 'ProductList'}
   },
   {
     path: '/product/detail/:id',
     name:'ProductDetail',
-    component: ProductDetail
+    component: ProductDetail,
+    meta: {title: 'ProductDetail'}
   },
   {
     path: '/checkout',
     name:'Checkout',
-    component: Checkout
+    component: Checkout,
+    meta: {title: 'Checkout'}
   },
   {
     path: '/product/wishlist',
     name:'WishList',
-    component: WishList
+    component: WishList,
+    meta: { title: 'WishList' },
+    beforeEnter: guadMyRoute
   },
   {
     path: '/login',
     name:'Login',
-    component: Login
+    component: Login,
+    meta: {title: 'Login'}
   },
   {
     path: '/Signup',
     name:'Signup',
-    component: Signup
+    component: Signup,
+    meta: {title: 'Signup'}
   },
 ]
 
+function guadMyRoute(to, from, next) {
+  var isAuthenticated = false;
+  if (localStorage.getItem('loginnedUser')) {
+    isAuthenticated = true;
+  } else {
+    isAuthenticated = false;
+  }
+
+  if(isAuthenticated) {
+      next();
+  } else{
+      next('/login');
+  }
+  
+}
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

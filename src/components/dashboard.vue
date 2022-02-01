@@ -93,6 +93,7 @@ export default {
       if(localStorage.getItem('loginnedUser') !== null){
           localStorage.setItem('loginnedUser','');
           this.isAuthenticated = false;
+          this.$router.push('/login');
       }
     }
   },

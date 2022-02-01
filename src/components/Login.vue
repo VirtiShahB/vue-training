@@ -79,6 +79,7 @@ export default {
         if(typeof userInfo == 'object'){
           this.arrLoginnedUser.push(userInfo);
           localStorage.setItem('loginnedUser',JSON.stringify(this.arrLoginnedUser));
+          this.$router.push('/dashboard');
         } else {
           alert("Invalid Credentials");
         }
