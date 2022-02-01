@@ -5,6 +5,17 @@
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
     />
+    <section class="hero is-dark">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Welcome to the Ecommerce App</h1>
+          <h2 class="subtitle">
+            Make sure you check out our upcoming products below
+          </h2>
+          
+        </div>
+      </div>
+    </section>
     <section class="pv-wrapper">
     
     <main class="pv-container">
@@ -31,12 +42,14 @@
         </div>
     </main>
   </section>
+  <footer-page />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
+import FooterPage from '@/components/Footer.vue';
 import ProductList from '@/components/ProductList.vue';
 import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
@@ -47,6 +60,7 @@ export default {
     MainHeader,
     ProductList,
     Toast,
+    FooterPage,
   },
   data() {
     return {
@@ -121,4 +135,22 @@ export default {
 .prod-card-wrapper{
   padding: 20px;
 }
+ .hero {
+    text-align: center;
+    background-image: url('https://cdn.shopify.com/s/files/1/0067/6901/6943/files/home3-slider2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+  }
+  .hero-body .title {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
+    padding: 40px 0 20px 0;
+    font-size: 60px;
+  }
+  .subtitle {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+  }
+  
 </style>

@@ -18,12 +18,14 @@
         :products="selectedProducts"
       />
     </b-container>
+    <footer-page />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
+import FooterPage from '@/components/Footer.vue';
 import ProductCard from '@/components/ProductCard.vue';
 import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
@@ -34,6 +36,7 @@ export default {
     MainHeader,
     ProductCard,
     Toast,
+    FooterPage
   },
   data() {
     return {

@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="overflow-hidden product-card pink-background"
+    class="col-md-12 overflow-hidden product-card pink-background"
     style="margin: 1rem"
     :class="product.color === 'pink' ? 'pink-background' : 'blue-background'"
   >

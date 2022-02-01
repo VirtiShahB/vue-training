@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="overflow-hidden product-card pink-background"
+    class="col-md-12 overflow-hidden product-card pink-background"
     style="margin: 1rem"
     :class="product.color === 'pink' ? 'pink-background' : 'blue-background'"
   >
@@ -130,7 +130,7 @@ export default {
       this.selectedCount = 1;
       this.selectedSize = this.product.sizes[0].value;
     },
-    
+
    },
  
 };

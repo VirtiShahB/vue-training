@@ -6,7 +6,8 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/css/colors/colors.css";
 import "./assets/css/main.css";
 import router from './router'
-
+import Swal from 'vue-sweetalert'
+Vue.use(Swal);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 

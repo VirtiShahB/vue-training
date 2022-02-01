@@ -7,24 +7,28 @@
     />
     <b-container>
       <b-row>
-        <product-card
-          v-for="(product, i) in allProducts"
-          :key="i"
-          :product="product"
-          @add-to-chart="addToChard"
-        />
+        
+          <product-card class="col-md-12"
+            v-for="(product, i) in allProducts"
+            :key="i"
+            :product="product"
+            @add-to-chart="addToChard"
+          />
+        
       </b-row>
       <products-dialog
         :isActive="isProductsDialogActive"
         :products="selectedProducts"
       />
     </b-container>
+    <footer-page />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import MainHeader from '@/components/MainHeader.vue';
+import FooterPage from '@/components/Footer.vue';
 import ProductCard from '@/components/ProductCard.vue';
 import Toast from '@/components/Toast.vue';
 import products from '@/data/products.js';
@@ -34,7 +38,8 @@ export default {
   components: {
     MainHeader,
     ProductCard,
-    Toast
+    Toast,
+    FooterPage
   },
   data() {
     return {

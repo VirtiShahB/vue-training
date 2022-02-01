@@ -1,135 +1,115 @@
 <template>
-  <section class="up-wrapper">
-    <form action="#">
-      <h4 class="title">Signup</h4>
-      <label for="userName" class="userName">Username</label>
-      <input type="text" name="userName" id="userName">
-      <label for="password" class="password">Password</label>
-      <input type="text" name="password" id="password">
-      <button class="btn">Signup</button>
-      <div class="changeType">
-        <p class="text">
-          Or Login
-          <a href="#" class="text" @click="changeType">here.</a>
-        </p>
-      </div>
-    </form>
-  </section>
+    <div class="register">
+        <div class="light-color">
+            <div class="row">
+                <div class="col-12 text-center pt-3 py-3">
+                    <router-link :to="{ name: 'Home' }">
+                    <img id="logo" src="../assets/images/icon.png" />
+                    </router-link>
+                </div>
+            </div>
+        </div>
+        <div class="container">          
+            <div class="row">
+            <div class="col-12 justify-content-center d-flex flex-row pt-5">
+                <div id="signin-div" class="flex-item border">
+                <h2 class="pt-4 pl-4">Sign-In</h2>
+                <form @submit="signin" class="pt-4 pl-4 pr-4">
+                    <div class="form-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        v-model="email"
+                        required
+                    />
+                    </div>
+                    <div class="form-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        v-model="password"
+                        required
+                    />
+                    </div>
+                    <small class="form-text text-muted"
+                    >By continuing, you agree to Simplecoding's Conditions of Use and
+                    Privacy Notice.</small
+                    >
+                    <button type="submit" class="btn btn-primary mt-2 py-0">
+                    Continue
+                    <div
+                        v-if="loading"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                    >
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </button>
+                </form>
+                <hr />
+                <small class="form-text text-muted pt-2 pl-4 text-center"
+                    >New to Simplecoding?</small
+                >
+                <p class="text-center">
+                    <router-link
+                    :to="{ name: 'Signup' }"
+                    class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
+                    >Create Your Simplecoding Account</router-link
+                    >
+                </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-
 export default {
-  name: "RegisterPage",
+  name: "Signin",
+  props: ["baseURL"],
   data() {
-    return {};
+    return {
+      email: null,
+      password: null,
+      loading: null,
+    };
   },
   methods: {
-    changeType() {
-      this.$router.push({ name: "Login" });
-    }
-  }
+    
+  },
+  
 };
 </script>
 
-<style>
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+<style scoped>
+.btn-dark {
+  background-color: #e7e9ec;
+  color: #000;
+  font-size: smaller;
+  border-radius: 0;
+  border-color: #adb1b8 #a2a6ac #a2a6ac;
 }
-body {
-  padding: 0.5rem;
+
+.btn-primary {
+  background-color: #f0c14b;
+  color: black;
+  border-color: #a88734 #9c7e31 #846a29;
+  border-radius: 0;
 }
-.up-wrapper {
-  margin: 0 auto;
-  max-width: 40rem;
-  height: 60vh;
-  padding: 1rem;
+
+#logo {
+  width: 150px;
 }
-form {
-  margin: 0 auto;
-  width: 80%;
-  min-height: 100%;
-  padding: 0 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #aaa;
-  border-radius: 0.3rem;
-  box-shadow: 3px 10px 20px -4px rgba(0, 0, 0, 0.75);
-}
-.title {
-  font-family: "Raleway";
-  font-size: 2rem;
-  margin-top: -2rem;
-  margin-bottom: 2rem;
-}
-#userName,
-#password {
-  width: 100%;
-  height: 2rem;
-  outline: none;
-  border: 1px solid #aaa;
-  border-bottom: 2px solid #5cbcea;
-  border-radius: 0.3rem;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  padding-left: 0.3rem;
-}
-label {
-  align-self: flex-start;
-  font-family: "Raleway";
-  color: #aaa;
-}
-#password {
-  margin-bottom: 1rem;
-}
-.btn {
-  padding: 0.5rem 1rem;
-  width: 5rem;
-  height: 2.5rem;
-  text-align: center;
-  border: none;
-  outline: none;
-  background: #5c75ea;
-  color: #eee;
-  border-radius: 0.3rem;
-  text-decoration: none;
-  font-family: "Raleway";
-  font-size: 0.8rem;
-  margin-bottom: 1.2rem;
-  transition: all 0.3s ease-in-out;
-}
-.btn:hover {
-  box-shadow: 0px 6px 16px -5px rgba(0, 0, 0, 0.75);
-  cursor: pointer;
-}
-.text {
-  font-family: "Raleway";
-  font-size: 0.7rem;
-}
-.text > a:link {
-  color: #5c75ea;
-}
-.text > a:visited {
-  color: #e84855;
-}
-@media screen and (max-width: 550px) {
-  form {
-    width: 100%;
-    padding: 2rem 1rem;
+
+@media only screen and (min-width: 992px) {
+  #signin-div {
+    width: 40%;
   }
-  label {
-    font-size: 0.7rem;
-  }
-  #userName,
-  #email,
-  #password {
-    font-size: 1.2rem;
-  }
+}
+.light-color{
+      border-bottom: 1px solid #d7d3d3;
 }
 </style>
