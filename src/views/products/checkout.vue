@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container class="bv-example-row mt-2">
-      <b-row v-if="!this.$store.state.isEmptyCart">
+      <b-row v-if="!this.$store.state.products.isEmptyCart">
         <b-col sm="7">
           <b-card class="mt-2" header="Billing Details">
             <pre class="m-0"></pre>
@@ -199,11 +199,11 @@
                 </li>
                 <li
                   class="list-group-item"
-                  v-for="product in this.$store.state.cart"
+                  v-for="product in this.$store.state.products.cart"
                   :key="product.id"
                 >
                   <label
-                    >{{ product.title
+                    >{{ product.name
                     }}<span class="badge bg-info m-1">
                       {{ product.price }} * {{ product.qty }}
                     </span>
@@ -361,15 +361,15 @@ export default {
         return;
       }
       this.makeToast("success", "Success!", "Order Placed Successfully!");
-      this.$store.dispatch("emptyTheCart");
+      this.$store.dispatch("products/emptyTheCart");
       this.$router.push({ name: "Dashboard" });
     },
   },
   computed: {
     cartTotal() {
       var totalAount = 0;
-      if (this.$store.state.cart.length > 0) {
-        this.$store.state.cart.map((product) => {
+      if (this.$store.state.products.cart.length > 0) {
+        this.$store.state.products.cart.map((product) => {
           totalAount += product.qty * parseInt(product.price);
         });
       }

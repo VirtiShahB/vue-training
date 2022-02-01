@@ -2,9 +2,7 @@
   <b-container class="bv-example-row mt-3">
     <div class="row d-flex flex-row-reverse">
       <b-col sm="12" style="margin-right: 18px">
-        <router-link
-          class="btn btn-outline-primary float-right"
-          :to="'/'"
+        <router-link class="btn btn-outline-primary float-right" :to="'/'"
           >Back</router-link
         >
       </b-col>
@@ -21,7 +19,7 @@
               ></b-card-img>
             </b-col>
             <b-col md="8">
-              <b-card-body :title="getProductById['title']">
+              <b-card-body :title="getProductById['name']">
                 <hr class="secondary" />
                 <b-row class="mt-2">
                   <b-col sm="12">
@@ -115,14 +113,14 @@ export default {
     addToCart(productId = {}) {
       var IsAlreadyAdded = false;
       if (this.quanity && this.quanity > 0) {
-        this.$store.state.cart.forEach((product) => {
+        this.$store.state.products.cart.forEach((product) => {
           if (productId === product.id) {
             this.makeToast("danger", "Error!", "It is already Added!");
             IsAlreadyAdded = true;
           }
         });
         if (!IsAlreadyAdded) {
-          this.$store.dispatch("addToCart", {
+          this.$store.dispatch("products/addToCart", {
             id: this.$route.params.id,
             qty: this.quanity,
           });
@@ -138,9 +136,12 @@ export default {
       }
     },
   },
+
   computed: {
     getProductById() {
-      return this.$store.getters.getProductById(this.$route.params.id);
+      return this.$store.getters["products/getProductById"](
+        this.$route.params.id
+      );
     },
   },
 };

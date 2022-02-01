@@ -12,20 +12,20 @@
             Ecom. Site
           </b-navbar-brand>
         </b-navbar>
-        <b-navbar-nav v-if="this.$store.state.isLogin">
+        <b-navbar-nav v-if="this.$store.state.auth.isLogin">
           <b-nav-item href="#"
             ><router-link to="/dashboard">Products</router-link></b-nav-item
           >
-          <b-nav-item v-if="!this.$store.state.isEmptyCart" href="#"
+          <b-nav-item v-if="!this.$store.state.products.isEmptyCart" href="#"
             ><router-link to="/checkout">Checkout</router-link></b-nav-item
           >
           <b-nav-item-dropdown
-            v-if="this.$store.state.wishlist.length"
+            v-if="this.$store.state.products.wishlist.length"
             text="Wishlist"
             right
           >
             <b-dropdown-item
-              v-for="product in this.$store.state.wishlist"
+              v-for="product in this.$store.state.products.wishlist"
               :key="'wishlist-' + product.id"
               disabled
               href="#"

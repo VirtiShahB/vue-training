@@ -66,7 +66,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let roles = localStorage.getItem('roles')
-  let isLoggedIn = store.state.isLogin
+  let isLoggedIn = store.state.auth.isLogin
   if (roles != null) {
     roles = roles.split(',')
   }

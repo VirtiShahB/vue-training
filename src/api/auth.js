@@ -22,7 +22,7 @@ export default () => ({
         return false
       })
     if (authData) {
-      store.dispatch('login', {
+      store.dispatch('auth/login', {
         authData,
       })
       toastMixins.methods.makeToast(
@@ -66,12 +66,12 @@ export default () => ({
     let errorMsg = ''
     let config = {
       headers: {
-        Authorization: 'Bearer ' + store.state.authToken,
+        Authorization: 'Bearer ' + store.state.auth.authToken,
       },
     }
     const logoutData = await axios
       .get(
-        Vue.prototype.$apihost + 'logout?token=' + store.state.authToken,
+        Vue.prototype.$apihost + 'logout?token=' + store.state.auth.authToken,
         config,
       )
       .then((response) => {
@@ -87,8 +87,7 @@ export default () => ({
         return false
       })
     if (logoutData) {
-      console.log(logoutData)
-      store.dispatch('logout')
+      store.dispatch('auth/logout')
       toastMixins.methods.makeToast('success', 'Success!', logoutData.message)
       router.push({ name: 'Login' })
     } else {
