@@ -114,7 +114,6 @@ const items = [
 ];
 
 export default {
-  name: "Store",
   data() {
     return {
       items,

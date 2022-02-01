@@ -13,11 +13,12 @@ const routes = [
     path: '/login', 
     component: Login,
     name: 'login',
+    beforeEnter: checkUserLogin,
   },
   { 
     path: '/sign-up', 
     component: SignUp,
-    name:'sing-up'
+    name:'sing-up',
   },
   { 
     path: '/products', 
@@ -40,11 +41,18 @@ const routes = [
       {
         path: 'overview',
         name: 'Overview',
-        component: Overview
+        component: Overview,
       },
     ]
   }
 ]
 
+function checkUserLogin(to, from, next) {
+    if (localStorage.activeUser) {
+      next({ path: '/admin/overview' });
+    } else {
+      next({ path: '/login' });
+    }
+}
 
 export default routes

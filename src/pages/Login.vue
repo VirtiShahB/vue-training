@@ -1,43 +1,65 @@
 <template>
-    <main class="form-signin">
+    <main class="form-signin mt-5">
         <div class="card">
-               <div class="card-body">
-                    <form>
-                        <h2 class="h3 mb-3 fw-normal text-center">Please sign in</h2>
-
-                        <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control form-control-lg" placeholder="Email address" />
-                        </div>
-
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control form-control-lg" placeholder="Password"/>
-                        </div>
-
-                        <div class="checkbox mb-3">
-                             <label><input type="checkbox" value="remember-me"> Remember me</label>
-                        </div>
-
-                        <router-link class="w-100 btn btn-lg btn-primary" type="submit" to="/signup">Sign in</router-link>
-                    </form>
-                    <p class="forgot-password text-right">
-                        Don't have an account yet?
-                        <router-link :to="{name: 'sing-up'}">Sign Up</router-link>
-                    </p>
-                </div>
+            <div class="card-body">
+                <form>
+                    <h2 class="h3 mb-3 fw-normal text-center">Please sign in</h2>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" v-model="email" class="form-control form-control-lg" placeholder="Email address" />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" v-model="password" class="form-control form-control-lg" placeholder="Password"/>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label><input type="checkbox" value="remember-me"> Remember me</label>
+                    </div>
+                    <button type="submit" class="w-100 btn btn-lg btn-primary" v-on:click="submit">Login</button>
+                </form>
+                <p class="forgot-password text-right">Don't have an account yet?
+                    <router-link :to="{name: 'sing-up'}">Sign Up</router-link>
+                </p>
+            </div>
         </div>  
-        <p class="mt-3 mb-3 text-muted text-center">© 2021–2022</p>
     </main>      
 </template>
 
 <script>
     export default {
         data() {
-            return {}
+            return {
+                email:"",
+                password:"",
+            }
         },
         methods: {
-            
+            submit : function(){
+                let credentials = {
+                    email    : this.email,
+                    password : this.password,
+                };
+                let lsUsers = JSON.parse(localStorage.users);
+                let userIndex = lsUsers.findIndex(
+                    (user) => user.email === credentials.email
+                );
+                if (userIndex > -1) {
+                    let passwordIndex = lsUsers.findIndex(
+                        (user) => user.password === credentials.password);
+                    if (passwordIndex > -1) {
+                        let activeUser = lsUsers.find(
+                        (user) => user.email === credentials.email);
+                        localStorage.setItem("activeUser", JSON.stringify(activeUser));
+                        this.$router.push("/admin/overview");
+                    }
+                    else {
+                        alert("Password does not match!")
+                    }
+                }
+                else {
+                    alert("Username does not exist!");
+                }
+            }
         }
     }
 </script>

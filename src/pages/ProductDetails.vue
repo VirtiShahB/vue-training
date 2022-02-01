@@ -1,6 +1,6 @@
 <template>
   <body>
-     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="/admin/overview" to="/admin/overview">
@@ -22,7 +22,7 @@
             <img class="img-fluid" :src="bannerImage" alt="" />
             <div class="product-thumbnails">
               <ul>
-                <li v-for="(image, index) in this.ProductDetails.productImages"
+                <li v-for="(image, index) in this.productDetails.productImages"
                   :class="[activeClass == index ? 'thumbnail-active' : '']"
                   :key="index">
                   <img@click="currentThumnail(image.imageUrl, index)"
@@ -32,12 +32,12 @@
             </div>
           </div>
           <div class="col-md-4">
-            <h3 class="my-4">{{ this.ProductDetails.About }}</h3>
+            <h3 class="my-4">{{ this.productDetails.About }}</h3>
             <h3 class="my-3">Details</h3>
-            <ul v-for="detail in this.ProductDetails.productChecks">
+            <ul v-for="detail in this.productDetails.productChecks" :key="detail.id">
               <li>{{ detail }}</li>
             </ul>
-            <h4>Price : ${{this.ProductDetails.price}}</h4>
+            <h4>Price : ${{this.productDetails.price}}</h4>
             <h4>Total : ${{totalPrice() }}</h4>
             <form>
               <div class="value-button" @click="removeToCart" id="decrease" 
@@ -160,7 +160,7 @@ body {
 <script>
 export default {
   products      :"",
-  ProductDetails: "",
+  productDetails: "",
   bannerImage   : "",
   data() {
     return {
@@ -174,13 +174,13 @@ export default {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      cartItems.push(this.ProductDetails);
+      cartItems.push(this.productDetails);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
       console.log(this.cart );
     },
     totalPrice: function () {
-      return this.cart.length * this.ProductDetails.price;
+      return this.cart.length * this.productDetails.price;
     },
     removeToCart: function () {
       if (this.cart > 1) {
@@ -195,11 +195,11 @@ export default {
   beforeMount(){
     if (localStorage.getItem("items")) {
         this.products       = JSON.parse(localStorage.getItem("items"));
-        this.ProductDetails = this.products.find(product => product.id == this.$route.params.id);
-        this.bannerImage    = this.ProductDetails.imageUrl;
-        this.cart = JSON.parse(localStorage.getItem("cart"));
-        // alert(this.ProductDetails.imageUrl);
-        // console.log(this.ProductDetails.productImages);
+        this.productDetails = this.products.find(product => product.id == this.$route.params.id);
+        this.bannerImage    = this.productDetails.imageUrl;
+        this.cart           = JSON.parse(localStorage.getItem("cart"));
+        // alert(this.productDetails.imageUrl);
+        // console.log(this.productDetails.productImages);
     }
   },
 };
