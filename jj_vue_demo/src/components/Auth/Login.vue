@@ -65,6 +65,7 @@ export default {
         this.email == this.user.email &&
         this.password == this.user.password
       ) {
+        this.$store.state.isLoggedIn = true;
         this.$router.push({
           name: "dashboard",
         });

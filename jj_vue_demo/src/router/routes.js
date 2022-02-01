@@ -4,17 +4,42 @@ import productDetail from "../components/Dashboard/ProductDetail.vue";
 import wishlisht from "../components/Wishlisht.vue";
 import login from "../components/Auth/Login.vue";
 import signUp from "../components/Auth/SignUp.vue";
+import store from "../store";
+import Vue from "vue";
+import Router from "vue-router";
 
-export default [
-  { name: "dashboard", path: "/", component: dashboard },
-  {
-    name: "productDetail",
-    path: "/productDetail",
-    component: productDetail,
-    params: true,
-  },
-  { path: "/checkout", component: checkout },
-  { path: "/wishlist", component: wishlisht },
-  { name: "login", path: "/login", component: login },
-  { path: "/signUp", component: signUp },
-];
+Vue.use(Router);
+
+const router = new Router({
+  routes: [
+    { name: "dashboard", path: "/", component: dashboard },
+    {
+      name: "productDetail",
+      path: "/productDetail",
+      component: productDetail,
+      params: true,
+    },
+    { path: "/checkout", component: checkout },
+    { path: "/wishlist", component: wishlisht },
+    { name: "login", path: "/login", component: login },
+    { path: "/signUp", component: signUp },
+  ],
+});
+
+router.beforeEach((to, from, next) => {
+  console.log(to.path);
+  if (
+    to.path != "/signUp" &&
+    to.path != "/login" &&
+    store.state.isLoggedIn == false
+  ) {
+    console.log("if");
+    next("/signUp");
+  } else {
+    console.log("else");
+    next();
+  }
+  next();
+});
+
+export default router;
