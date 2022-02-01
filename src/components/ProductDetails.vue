@@ -251,6 +251,7 @@
 
     <div class="container my-0 my-md-4">
       <div class="row align-items-center justify-content-between">
+        <!-- Details left side -->
         <div class="col-12 col-md-5 p-0 p-md-2">
           <div class="d-flex flex-column">
             <div class="col-12 px-md-2 d-none d-md-block">
@@ -265,7 +266,9 @@
             </div>
           </div>
         </div>
+        <!-- Details left side end -->
 
+        <!-- Details right side -->
         <div class="col-12 col-md-6 text-left my-3">
           <div class="container">
             <div class="mt-2 mb-4">
@@ -341,6 +344,7 @@
             </div>
           </div>
         </div>
+        <!-- Detais right side end -->
       </div>
     </div>
   </div>

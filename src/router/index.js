@@ -11,20 +11,20 @@ Vue.use(VueRouter);
 
 function guest(to, from, next) {
   if (localStorage.activeUser) {
-    next({ name: "" });
+    next({ name: "dashboard" });
   } else next();
 }
 
 function guard(to, from, next) {
   if (localStorage.activeUser) {
     next();
-  } else next({ name: "Login" });
+  } else next({ name: "signin" });
 }
 
 const routes = [
   {
     path: "",
-    name: "",
+    name: "dashboard",
     component: Dashboard,
     beforeEnter: guest,
   },

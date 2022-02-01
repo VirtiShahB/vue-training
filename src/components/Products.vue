@@ -1,10 +1,23 @@
 <template>
   <div class="offset-md-1 col-md-10 mt-5 mb-5">
-    <h2 class="text-bold"><b>Products List</b></h2>
+    <div class="row">
+      <div class="col-md-8 pl-0">
+        <h2 class="text-bold"><b>Products List</b></h2>
+      </div>
+      <div class="col-md-4 pl-0 flot-right">
+        <b-form-input
+          id="input-1"
+          v-model.lazy="search"
+          type="text"
+          placeholder="Search Product By Name"
+          required
+        ></b-form-input>
+      </div>
+    </div>
     <hr />
     <b-card-group deck class="mt-4">
       <b-card
-        v-for="product in products"
+        v-for="product in filteredProducts"
         :key="product.id"
         :img-src="product.image"
         :title="product.title"
@@ -70,9 +83,25 @@ export default {
   name: "Products",
   data() {
     return {
-      products: JSON.parse(localStorage.getItem("products_list")),
+      products: [],
+      search: "",
     };
   },
+  created() {
+    this.products = JSON.parse(localStorage.getItem("products_list"));
+  },
+  computed: {
+    filteredProducts() {
+      return this.products.filter((product) => {
+        return product.title.match(this.search);
+      });
+    },
+  },
+  // filters: {
+  //   capitalize: function (value) {
+  //     return value.toUpperCase();
+  //   },
+  // },
 };
 </script>
 
