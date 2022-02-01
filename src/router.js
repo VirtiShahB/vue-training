@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store.js";
 import Product from "./components/Product.vue";
 import Checkout from "./components/Checkout.vue";
 import AllProduct from "./components/AllProduct.vue";
@@ -9,7 +10,7 @@ import Signup from "./components/Signup";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/product-info",
@@ -43,3 +44,18 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  console.log(to.path);
+  if (
+    to.path != "/signin" &&
+    to.path != "/signup" &&
+    store.state.loginUser == false
+  ) {
+    next("/signin");
+  } else {
+    next();
+  }
+});
+
+export default router;

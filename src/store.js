@@ -60,7 +60,7 @@ export default new Vuex.Store({
       {
         firstName: "",
         lastName: "",
-        email: "jash",
+        email: "",
         password: "",
       },
     ],
