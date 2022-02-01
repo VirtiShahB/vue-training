@@ -102,6 +102,22 @@ export default {
   },
   methods: {
     addToCart(qty, price, size, color, product) {
+
+      /** Check if user is logged in or not */
+
+      if(!this.$loggedIn){
+
+         this.$bvToast.toast("Please login to continue !", {
+          title: "Login Required !",
+          variant: "danger",
+          toaster:  'b-toaster-bottom-center',
+          solid: true
+          
+        });
+
+        return false;
+      }
+
       /** Fetch existing cart from storage */
 
       let cart = JSON.parse(localStorage.getItem("cartStorage"));

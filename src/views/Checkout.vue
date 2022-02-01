@@ -6,7 +6,7 @@
         <div class="col-md-6">
           <h4>Billing Details</h4>
 
-          <form id="billingForm" action="" method="POST">
+          <form id="billingForm" @submit.prevent="checkOut()" method="POST">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -19,6 +19,8 @@
                     class="form-control"
                     required
                     placeholder="Enter first name"
+                    v-model="checkOutData.firstName"
+                    autofocus
                   />
                 </div>
               </div>
@@ -31,6 +33,7 @@
                     class="form-control"
                     placeholder="Enter first name"
                     required
+                    v-model="checkOutData.lastName"
                   />
                 </div>
               </div>
@@ -44,6 +47,7 @@
                     class="form-control"
                     placeholder="Enter phone"
                     required
+                    v-model="checkOutData.phone"
                   />
                 </div>
               </div>
@@ -56,6 +60,7 @@
                     type="email"
                     class="form-control"
                     placeholder="Enter email address"
+                    v-model="checkOutData.email"
                   />
                 </div>
               </div>
@@ -66,7 +71,11 @@
                     Select Country: <span class="text-danger">*</span>
                   </label>
 
-                  <select required class="form-control">
+                  <select
+                    v-model="checkOutData.country"
+                    required
+                    class="form-control"
+                  >
                     <option value="">Please select country</option>
                     <option
                       v-for="country in countries"
@@ -88,6 +97,7 @@
                     type="text"
                     class="form-control"
                     placeholder="Enter address"
+                    v-model="checkOutData.address"
                   />
                 </div>
               </div>
@@ -101,6 +111,7 @@
                     class="form-control"
                     placeholder="Enter town or city"
                     required
+                    v-model="checkOutData.city"
                   />
                 </div>
               </div>
@@ -116,6 +127,7 @@
                     class="form-control"
                     placeholder="Enter state or country"
                     required
+                    v-model="checkOutData.state"
                   />
                 </div>
               </div>
@@ -132,14 +144,9 @@
                     placeholder="Enter postel code"
                     pattern="[0-9]+"
                     required
+                    v-model="checkOutData.pincode"
                   />
                 </div>
-              </div>
-
-              <div class="mb-3 col-md-12">
-                <a class="text-warning font-weight-bold" href="">
-                  Create Account ?
-                </a>
               </div>
             </div>
           </form>
@@ -166,7 +173,7 @@
                   cart.color
                 }})
               </div>
-              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="font-weight-bold col-xs-6 col-sm-6 col-md-3">
                 ${{ cart.price.toFixed(2) }}
               </div>
             </div>
@@ -185,12 +192,26 @@
               </div>
               <div class="p-2 border-bottom mt-3 col-xs-6 col-sm-6 col-md-4">
                 <label>
-                  <input type="checkbox" name="shipping" id="free_Shipping" />
+                  <input
+                    v-model="checkOutData.shipping"
+                    required
+                    form="billingForm"
+                    type="radio"
+                    value="free_Shipping"
+                    id="free_Shipping"
+                  />
                   Free Shipping
                 </label>
                 <br />
                 <label>
-                  <input type="checkbox" name="shipping" id="local_Pickup" />
+                  <input
+                    v-model="checkOutData.shipping"
+                    required
+                    form="billingForm"
+                    type="radio"
+                    value="local_Pickup"
+                    id="local_Pickup"
+                  />
                   Local Pickup
                 </label>
               </div>
@@ -208,7 +229,7 @@
                   <input
                     form="billingForm"
                     type="radio"
-                    name="payment"
+                    v-model="checkOutData.paymentMethod"
                     id="stripe_Payment"
                     value="stripe"
                     required
@@ -220,7 +241,7 @@
                   <input
                     form="billingForm"
                     type="radio"
-                    name="payment"
+                    v-model="checkOutData.paymentMethod"
                     id="paypal_Payment"
                     value="paypal"
                     required
@@ -243,6 +264,7 @@
                   type="submit"
                   form="billingForm"
                   class="float-right btn btn-md btn-danger"
+                  :disabled="process"
                 >
                   Place Order
                 </button>
@@ -271,30 +293,61 @@ export default {
   data() {
     return {
       grandTotal: 0,
+      process: false,
+      checkOutData: {
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        country: "",
+        address: "",
+        city: "",
+        state: "",
+        pincode: "",
+        shipping: "",
+        paymentMethod: "",
+        userid: this.$loggedUser.id,
+      },
       countries: [
         {
           name: "India",
-          id: 1,
+          id: "India",
         },
         {
           name: "South Africa",
-          id: 2,
+          id: "South Africa",
         },
         {
           name: "United Arab Emirates",
-          id: 3,
+          id: "United Arab Emirates",
         },
         {
           name: "USA",
-          id: 4,
+          id: "USA",
         },
         {
           name: "Australia",
-          id: 5,
+          id: "Australia",
         },
       ],
       carts: JSON.parse(localStorage.getItem("cartStorage")),
     };
+  },
+  methods: {
+    checkOut() {
+      this.process = true;
+
+      /** Submit order into local storage */
+        let orders = JSON.parse(localStorage.getItem("myOrders"));
+        orders = orders != null ? orders : [];
+        orders.push(this.checkOutData);
+        localStorage.setItem("myOrders", JSON.stringify(orders));
+      /** Done */
+
+      localStorage.removeItem("cartStorage");
+      this.$router.push({name : 'my.orders'}).catch(() => {});
+
+    },
   },
   mounted() {
     if (this.carts != null && this.carts.length > 0) {

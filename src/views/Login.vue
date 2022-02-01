@@ -2,14 +2,27 @@
   <div class="bg-light shadow-sm vh-50 mt-5 container">
     <div class="row">
       <div class="col-md-6 mt-5 py-5">
+        <router-link :to="{ name: 'home' }">
+          <img
+            width="50px"
+            src="https://logo.clearbit.com/ecommerceceo.com"
+            alt="Kitten"
+          />
+        </router-link>
         <h1 class="display-3">Login to get existing offers and discounts</h1>
       </div>
       <div class="col-md-6 mt-5 py-5">
         <form @submit.prevent="login">
           <div class="form-group">
             <label>Email: <span class="text-danger">*</span> </label>
-            <input autofocus v-model="email" type="email" required class="form-control" />
-             <small :class="errorClass">
+            <input
+              autofocus
+              v-model="email"
+              type="email"
+              required
+              class="form-control"
+            />
+            <small :class="errorClass">
               {{ errors.email }}
             </small>
           </div>
@@ -56,54 +69,49 @@ export default {
   },
   methods: {
     login() {
-
       this.proccess = true;
 
       let status = this.validation();
 
-      if(status == true){
+      if (status == true) {
         this.$loggedIn = true;
-        this.$router.push({name : 'home'});
-      }
 
+        this.$router.push({
+          name: "home",
+          query: { login: true },
+        });
+      }
     },
     validation() {
       let users = JSON.parse(localStorage.getItem("registerUsers"));
 
       if (users != null && users.length > 0) {
+        let findUser = users.findIndex(
+          (user) => user.email == this.email && this.password == user.password
+        );
 
-        let findUser = users.findIndex((user) => user.email == this.email && this.password == user.password);
-
-        if(findUser == -1){
+        if (findUser == -1) {
           this.errorClass = "text-danger";
-          this.errors.email = 'Email or password is invalid !';
+          this.errors.email = "Email or password is invalid !";
           this.proccess = false;
           return false;
-        }else{
-
-
-
-          var user = users.find(user => {
-              return  user.email === this.email;
+        } else {
+          var user = users.find((user) => {
+            return user.email === this.email;
           });
 
           localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-          
-
-          this.errors.email = '';
+          this.errors.email = "";
           return true;
         }
-
       }
 
       this.errorClass = "text-danger";
-      this.errors.email = 'Email or password is invalid !';
+      this.errors.email = "Email or password is invalid !";
       this.proccess = false;
       return false;
-
     },
   },
 };
 </script>
-

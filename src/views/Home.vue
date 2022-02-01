@@ -71,14 +71,15 @@ export default {
 
           /** get item wishlist and check if item is in wishlist*/
 
-          let in_wishList = fetchWishList != null && fetchWishList.length > 0
+          let in_wishList =
+            fetchWishList != null && fetchWishList.length > 0
               ? fetchWishList.findIndex((wish) => wish.id == item.id)
               : null;
 
-          item["in_wishlist"] = in_wishList != null && in_wishList !== -1 ? true : false;
+          item["in_wishlist"] =
+            in_wishList != null && in_wishList !== -1 ? true : false;
 
           return item;
-
         });
 
         this.loading = false;
@@ -86,6 +87,6 @@ export default {
       .catch((err) => {
         console.log("error : " + err);
       });
-  }
+  },
 };
 </script>

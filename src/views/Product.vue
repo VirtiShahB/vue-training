@@ -89,7 +89,7 @@
                 @click.prevent="inCrement()"
                 class="btn btn-md btn-secondary"
               >
-                +
+                <b-icon-plus></b-icon-plus>
               </button>
             </div>
 
@@ -98,37 +98,37 @@
                 @click.prevent="deCrement()"
                 class="btn btn-md btn-secondary"
               >
-                -
+                <b-icon-dash></b-icon-dash>
               </button>
             </div>
 
-            <div class="col-4">
+            <div class="ml-2 col-4">
               <button
                 @click.prevent="addToCart()"
                 class="btn btn-md btn-danger"
               >
-                <i class="fa fa-cart-plus"></i> ADD TO CART
+                <b-icon-cart-plus></b-icon-cart-plus> ADD TO CART
               </button>
             </div>
           </div>
 
           <div class="mt-3 d-flex">
             <button class="btn btn-secondary">
-              <i class="text-white fa fa-envelope"></i>
+              <b-icon-envelope></b-icon-envelope>
             </button>
 
             <button class="ml-8 btn btn-secondary">
-              <i class="text-white fa fa-print"></i>
+              <b-icon-printer></b-icon-printer>
             </button>
 
-            <span class="ml-8">
+            <span class="ml-8" v-if="$loggedIn">
               <button
                 v-if="!in_wishList"
                 title="Add to wishList"
                 @click.prevent="addToWishList(product)"
                 class="btn btn-secondary"
               >
-                <i class="text-white fa fa-heart-o"></i>
+                <b-icon-heart></b-icon-heart>
               </button>
               <button
                 v-else
@@ -136,7 +136,7 @@
                 @click.prevent="removeFromWishList(product)"
                 class="btn btn-secondary"
               >
-                <i class="text-white fa fa-heart"></i>
+                <b-icon-heart-fill></b-icon-heart-fill>
               </button>
             </span>
           </div>
@@ -204,9 +204,9 @@
             <b-skeleton animation="throb" height="30px"></b-skeleton>
             <br />
             <div class="clearfix">
-              <b-skeleton class="pull-left" type="avatar"></b-skeleton>
-              <b-skeleton class="ml-2 pull-left" type="avatar"></b-skeleton>
-              <b-skeleton class="ml-2 pull-left" type="avatar"></b-skeleton>
+              <b-skeleton class="float-left" type="avatar"></b-skeleton>
+              <b-skeleton class="ml-2 float-left" type="avatar"></b-skeleton>
+              <b-skeleton v-if="$loggedIn" class="ml-2 float-left" type="avatar"></b-skeleton>
             </div>
 
             <p class="mt-3">
@@ -263,6 +263,18 @@ export default {
       this.quantity = customqty != 0 ? customqty : 1;
     },
     addToCart() {
+
+      if(!this.$loggedIn){
+         this.$bvToast.toast("Please login to continue !", {
+          title: "Login Required !",
+          variant: "danger",
+          toaster:  'b-toaster-bottom-center',
+          solid: true
+        });
+
+        return false;
+      }
+
       if (this.size == "") {
         this.$bvToast.toast("Please select size !", {
           title: "Oops !",

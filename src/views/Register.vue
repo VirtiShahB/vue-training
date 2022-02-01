@@ -2,6 +2,13 @@
   <div class="bg-light shadow-sm vh-50 mt-5 container">
     <div class="row">
       <div class="col-md-6 mt-5 py-5">
+        <router-link :to="{ name: 'home' }">
+          <img
+            width="50px"
+            src="https://logo.clearbit.com/ecommerceceo.com"
+            alt="Kitten"
+          />
+        </router-link>
         <h1 class="display-3">
           Register with us and get existing offers - vcart
         </h1>
@@ -82,31 +89,28 @@ export default {
       let status = this.validation();
 
       if (status !== false) {
-
         /** Get all users  */
 
         let users = JSON.parse(localStorage.getItem("registerUsers"));
 
-        if(users != null && users.length > 0) {
-
+        if (users != null && users.length > 0) {
           let index = users.findIndex((user) => user.email == this.email);
 
-          if(index !== -1){
+          if (index !== -1) {
             this.errorClass = "text-danger";
-            this.error.email = 'Email is already taken !';
+            this.error.email = "Email is already taken !";
             this.proccess = false;
             return false;
-          }else{
-            this.error.email = '';
+          } else {
+            this.error.email = "";
             this.proccess = true;
           }
-
         }
 
         let data = users != null && users.length > 0 ? users : [];
 
         data.push({
-          id : this.$uuid.v1(),
+          id: this.$uuid.v1(),
           name: this.name,
           email: this.email,
           password: this.password,

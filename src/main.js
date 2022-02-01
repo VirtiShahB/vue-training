@@ -30,27 +30,51 @@ if (fetchUsers != null) {
 }
 
 
-console.log(loggedIn);
 
 Vue.prototype.$loggedUser = fetchUsers;
 Vue.prototype.$loggedIn = loggedIn;
 
+
+
+// router.beforeEach((to, from, next) => {
+//   if (to.name == 'checkout' && !loggedIn) next({ name: 'login' })
+//   else next()
+
+//   if (to.name == 'wishlist' && !loggedIn) next({ name: 'login' })
+//   else next()
+
+//   if (to.name == 'login' && loggedIn) next({ name: 'home' })
+//   else next()
+
+//   if (to.name == 'register' && loggedIn) next({ name: 'home' })
+//   else next()
+// })
+
 router.beforeEach((to, from, next) => {
-  if (to.name == 'checkout' && !loggedIn) next({ name: 'login' })
-  else next()
 
-  if (to.name == 'wishlist' && !loggedIn) next({ name: 'login' })
-  else next()
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['login', 'register','home','404','view.product'];
+  const authRequired = !publicPages.includes(to.name);
+  const login = loggedIn;
 
-  if (to.name == 'login' && loggedIn) next({ name: 'home' })
-  else next()
+  if (authRequired && !login) {
+    return next('/login');
+  }
 
-  if (to.name == 'register' && loggedIn) next({ name: 'home' })
-  else next()
+  if (to.name == 'login' && login) {
+    return next('/');
+  }
+
+  if (to.name == 'register' && login) {
+    return next('/');
+  }
+
+  next();
 })
 
 new Vue({
   router,
+  loggedIn,
   render: (h) => h(App),
 }).$mount("#app");
 
