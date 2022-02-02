@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <Navbar />
+    <NavBar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Navbar from "./components/NavBar";
+import NavBar from "@/components/NavBar.vue";
+
 export default {
+  name: "App",
   components: {
-    Navbar,
+    NavBar,
   },
 };
 </script>
+
 <style>
 #app {
   font-family: Kumbh Sans, Helvetica, Arial, sans-serif;

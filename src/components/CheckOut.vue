@@ -115,13 +115,13 @@
               label="Enter Address:"
               label-for="input-1"
             >
-            <b-form-textarea
-              id="textarea"
-              v-model="address"
-              placeholder="Enter Address"
-              rows="3"
-              max-rows="6"
-            ></b-form-textarea>
+              <b-form-textarea
+                id="textarea"
+                v-model="address"
+                placeholder="Enter Address"
+                rows="3"
+                max-rows="6"
+              ></b-form-textarea>
             </b-form-group>
           </div>
 

@@ -83,12 +83,9 @@ export default {
   name: "Products",
   data() {
     return {
-      products: [],
+      products: JSON.parse(localStorage.getItem("products_list")),
       search: "",
     };
-  },
-  created() {
-    this.products = JSON.parse(localStorage.getItem("products_list"));
   },
   computed: {
     filteredProducts() {

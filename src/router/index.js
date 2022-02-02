@@ -9,54 +9,44 @@ import Dashboard from "../components/Dashboard.vue";
 
 Vue.use(VueRouter);
 
-function guest(to, from, next) {
-  if (localStorage.activeUser) {
-    next({ name: "dashboard" });
-  } else next();
-}
-
-function guard(to, from, next) {
-  if (localStorage.activeUser) {
-    next();
-  } else next({ name: "signin" });
-}
-
 const routes = [
   {
-    path: "",
+    path: "/",
     name: "dashboard",
     component: Dashboard,
-    beforeEnter: guest,
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
   },
   {
     path: "/products",
     name: "products",
     component: Products,
-    beforeEnter: guard,
+    meta: { requiresAuth: true },
   },
   {
     path: "/signin",
     name: "signin",
     component: Signin,
-    beforeEnter: guest,
   },
   {
     path: "/signup",
     name: "signup",
     component: Signup,
-    beforeEnter: guest,
   },
   {
     path: "/product-details/:prod_id",
     name: "product-details",
     component: ProductDetails,
-    beforeEnter: guard,
+    meta: { requiresAuth: true },
   },
   {
     path: "/checkout",
     name: "checkout",
     component: CheckOut,
-    beforeEnter: guard,
+    meta: { requiresAuth: true },
   },
 ];
 
@@ -66,4 +56,15 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!localStorage.activeUser) {
+      next({ name: "signin" });
+    } else {
+      next(); // go to wherever I'm going
+    }
+  } else {
+    next(); // does not require auth, make sure to always call next()!
+  }
+});
 export default router;
