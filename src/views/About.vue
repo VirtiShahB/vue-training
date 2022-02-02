@@ -5,19 +5,21 @@
       :productCount="productCount"
       :is-products-dialog-active.sync="isProductsDialogActive"
     />
-    <b-container>
-      <b-row>
-        <product-card
-          v-for="(product, i) in getData($route.params.id)" :key="i"
-          :product="product"
-          @add-to-chart="addToChard"
+    
+      <b-container fluid>
+       
+          <product-card
+            v-for="(product, i) in getData($route.params.id)" :key="i"
+            :product="product"
+            @add-to-chart="addToChard"
+          />
+        
+        <products-dialog
+          :isActive="isProductsDialogActive"
+          :products="selectedProducts"
         />
-      </b-row>
-      <products-dialog
-        :isActive="isProductsDialogActive"
-        :products="selectedProducts"
-      />
-    </b-container>
+      </b-container>
+    
     <footer-page />
   </div>
 </template>

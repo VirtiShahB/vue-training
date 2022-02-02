@@ -59,7 +59,7 @@
                 <router-link to="/checkout">
                   <transition name="move" appear>
                     <div style="margin-right: 20px" >
-                      <b-icon-cart-4 v-if="show" class="chart" />
+                      <b-icon-heart v-if="show" class="chart" />
                       <b-badge v-if="productCount > 0" variant="light">{{ productCount }}</b-badge>
                     </div>
                   </transition> 
@@ -101,67 +101,4 @@ export default {
 
 <style scoped>
 
-.chart {
-  font-size: 30px;
-}
-
-.move-enter-active {
-  animation: move-chart 2s;
-}
-@keyframes move-chart {
-  0% {
-    transform: translateX(-600px);
-  }
-  100% {
-    transform: translateX(0px) rotate(45deg);
-  }
-}
-#logo {
-  width: 150px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-.input-group-text {
-    display: flex;
-    align-items: center;
-    padding: 0.375rem 0.75rem;
-    margin-bottom: 0;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.5;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-}
-
-#search-button-navbar {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-
-#cart {
-  position: relative;
-}
-.light-color{
-      border-bottom: 1px solid #d7d3d3;
-}
-
- a {
-    font-weight: bold;
-    color: #2c3e50;
-      color: #17a2b8;
-    
-  }
-  .nav-link {
-    
-    color: #343a40!important;
-}
-.nav-item{
-  padding-left:15px;
-}
 </style>

@@ -1,5 +1,5 @@
 html,body{
-  font-family: 'Montserrat', sans-serif!important;
+  font-family: 'Roboto'!important;
 
 }
 .btn-add {
@@ -25,3 +25,269 @@ html,body{
     margin-top: 10px;
   }
 }
+.cards-main {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-radius: 6px;
+
+  grid-gap: 1px;
+ 
+  justify-items: center;
+
+  overflow: auto;
+  padding: 40px;
+  
+}
+
+.card-main-title {
+  margin-bottom: 5px;
+}
+
+.prod-card-wrapper {
+  height: fit-content;
+  max-width: 280px;
+  min-height: 240px;
+  max-height: 520px;
+  margin: 5px;
+  border: 1px solid #b8b8b8;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(5, 20, 191, 0.2);
+}
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid #ebe5e5;
+}
+
+.img-wrapper {
+  height: auto;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+}
+
+.card-info-wrapper {
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  width: 100%;
+  min-height: 60px;
+}
+
+.card-header {
+  margin-bottom: 6px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.card-info {
+  color: #545454;
+  overflow: hidden;
+}
+
+.btn {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  height: 38px;
+  width: 50%;
+  font-weight: bold;
+  font-size: 1em;
+  border-radius: 6px!important;
+}
+
+.btn:hover {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    cursor: pointer;
+    color: #201f1f;
+    border: 1px solid #b5b2b2;
+}
+.btn:active {
+  background: #063587;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.add-to-favorites {
+  color: red;
+  cursor: pointer;
+  width: fit-content;
+      background: #fff;
+    display: block;
+    line-height: 1rem;
+}
+
+.add-to-favorites:hover {
+  color: #fff;
+  background:red
+}
+
+.add-to-favorites:active {
+  color: #7c002c;
+}
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.chart {
+  font-size: 30px;
+}
+
+.move-enter-active {
+  animation: move-chart 2s;
+}
+@keyframes move-chart {
+  0% {
+    transform: translateX(-600px);
+  }
+  100% {
+    transform: translateX(0px) rotate(45deg);
+  }
+}
+#logo {
+  width: 150px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+#search-button-navbar {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+#cart {
+  position: relative;
+}
+.light-color{
+      border-bottom: 1px solid #d7d3d3;
+}
+
+ a {
+    font-weight: bold;
+    color: #2c3e50;
+      color: #17a2b8;
+    
+  }
+  .nav-link {
+    
+    color: #343a40!important;
+}
+.nav-item{
+  padding-left:15px;
+}
+.prod-card-wrapper{
+  padding: 20px;
+}
+ .hero {
+    text-align: center;
+    background-image: url('https://cdn.shopify.com/s/files/1/0067/6901/6943/files/home3-slider2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+  }
+  .hero-body .title {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
+    padding: 40px 0 20px 0;
+    font-size: 60px;
+  }
+  .subtitle {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+  }
+  .product-card {
+    padding: 1rem;
+    border: 1px solid #888888 !important;
+    box-shadow: 0px 0px 5px #888888;
+  }
+
+  .product-img:hover {
+    transform: scale(1.1);
+  }
+
+  .select-count {
+    margin-left: 5px;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+
+  .general {
+    position: relative;
+    gap: 5px;
+  }
+
+  .general label {
+    background: transparent;
+    color: black;
+  }
+
+  .general label input {
+    visibility: hidden !important;
+    position: absolute !important;
+  }
+  .card-title {
+    margin-bottom: 0.5rem;
+    
+}
+  .card-text {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #0e0e0e;
+    
+}
+  .btn-group, .btn-group-vertical {
+      position: relative;
+      display: inline-flex;
+      vertical-align: middle;
+      margin-top: 15px;
+      border: 1px solid #d1cccc;
+      border-radius: 6px;
+  }
+  .b-form-spinbutton {
+      text-align: center;
+      overflow: hidden;
+      background-image: none;
+      padding: 5px 0px 5px 0px!important;
+  }
+  .header{
+    border-bottom: 1px solid #d3c9c9;
+  }

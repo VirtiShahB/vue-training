@@ -24,9 +24,7 @@
            
           </div>
           <div class="cards-main">
-            <div
-              class="prod-card-wrapper"              
-            >
+            
             <b-row>
               <product-list 
                 v-for="(product, i) in allProducts"
@@ -36,7 +34,7 @@
                 @add-to-whislist="addToWhislist"
               />
             </b-row>
-            </div>
+            
           </div>
 
         </div>
@@ -132,25 +130,5 @@ export default {
 }
 </script>
 <style scoped>
-.prod-card-wrapper{
-  padding: 20px;
-}
- .hero {
-    text-align: center;
-    background-image: url('https://cdn.shopify.com/s/files/1/0067/6901/6943/files/home3-slider2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 400px;
-  }
-  .hero-body .title {
-    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
-    padding: 40px 0 20px 0;
-    font-size: 60px;
-  }
-  .subtitle {
-    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.7);
-    font-size: 30px;
-  }
-  
+
 </style>

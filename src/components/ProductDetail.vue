@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="col-md-12 overflow-hidden product-card pink-background"
+    class="overflow-hidden product-card pink-background"
     style="margin: 1rem"
     :class="product.color === 'pink' ? 'pink-background' : 'blue-background'"
   >
@@ -141,57 +141,5 @@ export default {
 </script>
 
 <style>
-  .product-card {
-    padding: 1rem;
-    border: 1px solid #888888 !important;
-    box-shadow: 0px 0px 5px #888888;
-  }
-
-  .product-img:hover {
-    transform: scale(1.1);
-  }
-
-  .select-count {
-    margin-left: 5px;
-    border: none;
-    outline: none;
-    background: transparent;
-  }
-
-  .general {
-    position: relative;
-    gap: 5px;
-  }
-
-  .general label {
-    background: transparent;
-    color: black;
-  }
-
-  .general label input {
-    visibility: hidden !important;
-    position: absolute !important;
-  }
-  .card-title {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-  }
-  .card-text{
-      margin-bottom: 0;
-     
-      font-size: 13px;
-      color: #5a5858;
-  }
-  .btn-group, .btn-group-vertical {
-      position: relative;
-      display: inline-flex;
-      vertical-align: middle;
-      margin-top: 15px;
-  }
-  .b-form-spinbutton {
-      text-align: center;
-      overflow: hidden;
-      background-image: none;
-      padding: 5px 0px 5px 0px!important;
-  }
+  
 </style>

@@ -6,8 +6,7 @@ export default [
     price: 200,
     image: require("../assets/images/shoe1.jpg"),
     color: "pink",
-    description:
-      "The Nike Epic React Flyknit is The best running shoe in the world. You have to try.",
+    description:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
     category: "Woman Running Shoe",
     rating: 4,
     sizes: [
@@ -26,8 +25,7 @@ export default [
     price: 2000,
     image: require("../assets/images/shoe2.jpg"),
     color: "blue",
-    description:
-      "The Nike Epic React Flyknit is The best running shoe in the world. You have to try.",
+    description:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
     category: "Woman Running Shoe",
     rating: 4,
     sizes: [
@@ -46,8 +44,7 @@ export default [
     price: 2500,
     image: require("../assets/images/shoe2.jpg"),
     color: "blue",
-    description:
-      "The Nike Epic Vue Flyknit is The best running shoe in the world. You have to try.",
+    description:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
     category: "Woman Running Shoe",
     rating: 3,
     sizes: [
@@ -66,8 +63,7 @@ export default [
     price: 1200,
     image: require("../assets/images/shoe1.jpg"),
     color: "pink",
-    description:
-      "The Nike Epic Vue Flyknit is The best running shoe in the world. You have to try.",
+    description:"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.",
     category: "Running Shoe",
     rating: 5,
     sizes: [

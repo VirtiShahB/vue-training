@@ -1,9 +1,9 @@
 <template>
   <b-card
     no-body
-    class="col-md-12 overflow-hidden product-card pink-background"
+    class="overflow-hidden product-card"
     style="margin: 1rem"
-    :class="product.color === 'pink' ? 'pink-background' : 'blue-background'"
+    
   >
     <b-row no-gutters>
       <b-col md="6" class="d-flex align-items-center">
@@ -23,11 +23,11 @@
                   class="rating"
                   :class="[
                     product.color === 'yellow' ? 'pink-background' : 'blue-background',
-                    product.color === 'yellow' ? 'yellow-color' : 'blue-color',
+                    product.color === 'yellow' ? 'yellow-color' : 'yellow-color',
                   ]"
               ></b-form-rating>
             </b-col>
-            <b-col md="9" style="font-weight: 600;">
+            <b-col md="9" style="line-height: 2.5rem;">
               Write a review
             </b-col>
           </b-row>
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     product: {
@@ -139,55 +140,8 @@ export default {
 <style>
   .product-card {
     padding: 1rem;
-    border: 1px solid #888888 !important;
-    box-shadow: 0px 0px 5px #888888;
-  }
-
-  .product-img:hover {
-    transform: scale(1.1);
-  }
-
-  .select-count {
-    margin-left: 5px;
-    border: none;
-    outline: none;
-    background: transparent;
-  }
-
-  .general {
-    position: relative;
-    gap: 5px;
-  }
-
-  .general label {
-    background: transparent;
-    color: black;
-  }
-
-  .general label input {
-    visibility: hidden !important;
-    position: absolute !important;
-  }
-  .card-title {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-  }
-  .card-text{
-      margin-bottom: 0;
-     
-      font-size: 13px;
-      color: #5a5858;
-  }
-  .btn-group, .btn-group-vertical {
-      position: relative;
-      display: inline-flex;
-      vertical-align: middle;
-      margin-top: 15px;
-  }
-  .b-form-spinbutton {
-      text-align: center;
-      overflow: hidden;
-      background-image: none;
-      padding: 5px 0px 5px 0px!important;
-  }
+    border: 1px solid #e5e0e0 !important;
+    box-shadow: none;
+  
+}
 </style>
