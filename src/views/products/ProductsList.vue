@@ -68,16 +68,32 @@
           class="mb-2"
         >
           <h5>
-            {{ product.name
-            }}<b-link
+            {{ product.name }}
+
+            <b-link
+              :class="'float-right add-to-wishlist-' + product.id"
+              @click="likeProduct(product.id)"
+            >
+              <img
+                v-if="likeProducts.includes(product.id)"
+                src="../../assets/icons/hand-thumbs-up-fill.svg"
+                class="ml-1"
+              />
+              <img
+                v-else
+                src="../../assets/icons/hand-thumbs-up.svg"
+                class="ml-1"
+              />
+            </b-link>
+            <b-link
               :class="'float-right add-to-wishlist-' + product.id"
               @click="addToWishlist(product.id)"
             >
               <img
                 v-if="wishListProducts.includes(product.id)"
-                src="../../assets/heart-fill.svg"
+                src="../../assets/icons/heart-fill.svg"
               />
-              <img v-else src="../../assets/heart.svg" />
+              <img v-else src="../../assets/icons/heart.svg" />
             </b-link>
           </h5>
           <b-card-text>
@@ -173,10 +189,18 @@ export default {
       this.$refs.myFilterSidebar.hide();
       this.$api.products.getProducts(this.filterPrams);
     },
+    likeProduct(productId = null) {
+      this.$api.products.likeProduct(productId);
+    },
   },
   computed: {
     wishListProducts() {
       return this.$store.state.products.wishlist.map(function (value) {
+        return value.id;
+      });
+    },
+    likeProducts() {
+      return this.$store.state.products.likeProducts.map(function (value) {
         return value.id;
       });
     },

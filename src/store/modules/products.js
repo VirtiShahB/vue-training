@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 const state = {
   cart: [],
+  likeProducts: [],
   wishlist: [],
   isEmptyCart: true,
   isEmptyWishlist: true,
@@ -75,6 +76,17 @@ const mutations = {
     state.cart = []
     state.isEmptyCart = true
   },
+  LIKEPRODUCTS(state, payload) {
+    state.likeProducts.push(payload)
+  },
+  UNLIKEPRODUCTS(state, payload) {
+    var removeIndex = state.likeProducts
+      .map(function (product) {
+        return product.id
+      })
+      .indexOf(payload.id)
+    state.likeProducts.splice(removeIndex, 1)
+  },
 }
 
 const getters = {
@@ -104,6 +116,14 @@ const actions = {
   },
   emptyTheCart({ commit }) {
     commit('EMPTYTHECART')
+  },
+  manageLikeProducts({ commit }, payload) {
+    var product = state.likeProducts.find((p) => p.id === parseInt(payload.id))
+    if (product) {
+      commit('UNLIKEPRODUCTS', payload)
+    } else {
+      commit('LIKEPRODUCTS', payload)
+    }
   },
 }
 
