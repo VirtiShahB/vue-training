@@ -8,6 +8,7 @@
             <div class="input-group">
               <input
                 type="text"
+                v-model="search"
                 class="form-control"
                 placeholder="Search products"
                 aria-label="Recipient's username"
@@ -23,7 +24,7 @@
 
           <div class="mt-2 col-4">
             <b-icon-funnel title="Filter" class="mr-2"></b-icon-funnel>
-            <select class="d-inline" v-model="sort" @change="filter">
+            <select v-model="sort" @change="filter">
               <option value="a-z">A-Z</option>
               <option value="z-a">Z-A</option>
               <option value="desc">Latest</option>
@@ -84,6 +85,7 @@ export default {
       products: [],
       loading: true,
       sort: "desc",
+      search : '',
     };
   },
   methods: {
