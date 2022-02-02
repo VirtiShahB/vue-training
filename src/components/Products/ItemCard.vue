@@ -9,7 +9,7 @@
       class="mb-2"
     >
       <b-link @click="itemDetail(product.id)" style="text-decoration: none"
-        ><h4>{{ product.name }}</h4></b-link
+        ><h4>{{ product.name | capitalize }}</h4></b-link
       >
       <b-card-text>
         {{ product.description }}
@@ -17,7 +17,7 @@
       <b-row>
         <b-col md="6"
           ><b-card-text>
-            <h3>${{ product.price && product.price.toFixed(2) }}</h3>
+            <h3>{{ product.price | toFixed(2) | toUSD }}</h3>
           </b-card-text></b-col
         >
         <b-col v-show="!fromWishlist" md="3"

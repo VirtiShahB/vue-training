@@ -12,7 +12,7 @@
         <b-col md="6">
           <b-card-body>
             <b-card-title
-              ><h2>{{ product.name }}</h2></b-card-title
+              ><h2>{{ product.name | capitalize }}</h2></b-card-title
             >
             <b-row no-gutters>
               <b-card-text>
@@ -21,7 +21,7 @@
             </b-row>
             <b-row no-gutters>
               <b
-                ><h3>${{ product.price && product.price.toFixed(2) }}</h3></b
+                ><h3>{{ product.price | toFixed(2) | toUSD }}</h3></b
               ></b-row
             >
             <hr />
