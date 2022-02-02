@@ -45,7 +45,7 @@
         ></b-col>
         <b-col v-show="!fromWishlist && checkFavItem" md="3"
           ><b-icon
-            @click="addToWishList(product.id)"
+            @click="deleteFromWishList(product.id)"
             icon="heart-fill"
             class="p-2"
             font-scale="2 "
@@ -90,7 +90,7 @@ export default {
   computed: {
     checkFavItem () {
       if (this.wishListItems && this.wishListItems.length > 0) {
-        if (this.wishListItems.indexOf(this.product.id)) {
+        if (this.wishListItems.indexOf(this.product.id) > 0) {
           return true
         }
       }
@@ -119,6 +119,7 @@ export default {
       this.wishListItems = JSON.parse(localStorage.getItem('userFavItems'))
     },
     deleteFromWishList (productId) {
+      this.wishListItems.splice(productId, 1)
       this.$emit('refreshWishList', productId)
     }
   }
