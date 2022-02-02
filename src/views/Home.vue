@@ -2,7 +2,38 @@
   <Main>
     <template #breadcrumbItems> Products </template>
     <template #content>
+      <div class="float-right">
+        <div class="form-row">
+          <div class="col-8">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search products"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">
+                  <b-icon-search></b-icon-search>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 col-4">
+            <b-icon-funnel title="Filter" class="mr-2"></b-icon-funnel>
+            <select class="d-inline" v-model="sort" @change="filter">
+              <option value="a-z">A-Z</option>
+              <option value="z-a">Z-A</option>
+              <option value="desc">Latest</option>
+              <option value="asc">Oldest</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <h1>All Products</h1>
+
       <hr />
       <div v-if="!loading" class="row">
         <div
@@ -52,7 +83,75 @@ export default {
     return {
       products: [],
       loading: true,
+      sort: "desc",
     };
+  },
+  methods: {
+    filter() {
+      // sort by title a-z order
+
+      if (this.sort == "a-z") {
+        this.products = this.products.sort((a, b) => {
+          let fa = a.title.toLowerCase(),
+            fb = b.title.toLowerCase();
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      // sort by title z-a order
+
+      if (this.sort == "z-a") {
+        this.products = this.products.sort((a, b) => {
+          let fa = a.title.toLowerCase(),
+            fb = b.title.toLowerCase();
+          if (fa > fb) {
+            return -1;
+          }
+          if (fa < fb) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      // sort by ID desc order
+
+      if (this.sort == "desc") {
+        this.products = this.products.sort((a, b) => {
+          let fa = a.id,
+            fb = b.id;
+          if (fa > fb) {
+            return -1;
+          }
+          if (fa < fb) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      // sort by ID asc order
+
+      if (this.sort == "asc") {
+        this.products = this.products.sort((a, b) => {
+          let fa = a.id,
+            fb = b.id;
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    },
   },
   async created() {
     /** Get Product From API */
@@ -61,6 +160,18 @@ export default {
       .get("https://fakestoreapi.com/products")
       .then((res) => {
         this.products = res.data;
+
+        this.products = this.products.sort((a, b) => {
+          let fa = a.id,
+            fb = b.id;
+          if (fa > fb) {
+            return -1;
+          }
+          if (fa < fb) {
+            return 1;
+          }
+          return 0;
+        });
 
         let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
 
