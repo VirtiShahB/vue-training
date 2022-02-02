@@ -92,8 +92,8 @@ export default {
         confirm_password: this.confirm_password,
       };
 
-      if (localStorage.users) {
-        this.user = JSON.parse(localStorage.users);
+      if (localStorage.getItem("users")) {
+        this.user = JSON.parse(localStorage.getItem("users"));
       }
       this.users.push(user);
       localStorage.setItem("users", JSON.stringify(this.users));

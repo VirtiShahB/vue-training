@@ -52,19 +52,9 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
+  linkActiveClass: "is-active",
   base: process.env.BASE_URL,
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!localStorage.activeUser) {
-      next({ name: "signin" });
-    } else {
-      next(); // go to wherever I'm going
-    }
-  } else {
-    next(); // does not require auth, make sure to always call next()!
-  }
-});
 export default router;

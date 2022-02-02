@@ -51,7 +51,10 @@ export default {
         password: this.password,
       };
 
-      let users = JSON.parse(localStorage.users);
+      let users =
+        JSON.parse(localStorage.getItem("users")) != null
+          ? JSON.parse(localStorage.getItem("users"))
+          : [];
       let userindex = users.findIndex(
         (user) => user.user_name === credentials.user_name
       );
@@ -70,7 +73,12 @@ export default {
           alert("Password does not match!");
         }
       } else {
-        alert("Username does not exist!");
+        alert(
+          "Username does not exist, Please singup with username " +
+            credentials.user_name +
+            " to signin"
+        );
+        this.$router.push("/signup");
       }
     },
   },

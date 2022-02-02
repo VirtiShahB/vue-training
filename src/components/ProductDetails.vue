@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <div class="container my-0 my-md-4">
       <div class="row align-items-center justify-content-between">
         <!-- Details left side -->
@@ -103,6 +102,8 @@
 </template>
 
 <script>
+import { bus } from "@/eventBus";
+
 var one_product = JSON.parse(localStorage.getItem("products_list"));
 
 export default {
@@ -142,11 +143,11 @@ export default {
           image: this.product.image,
           description: this.product.description,
         };
-        localStorage.setItem("latestItem", JSON.stringify(entry));
         ItemData.push(entry);
       }
       localStorage.setItem("myCart", JSON.stringify(ItemData));
       this.cartItems = JSON.parse(localStorage.getItem("myCart"));
+      bus.$emit("cartItems");
     },
     addToWishList() {
       var wishListData = JSON.parse(localStorage.getItem("wishListItems"));
@@ -169,6 +170,7 @@ export default {
         wishListData.push(wishList);
         localStorage.setItem("wishListItems", JSON.stringify(wishListData));
         this.wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
+        bus.$emit("wishListItems");
       } else {
         alert(this.product.title + " already wishlisted!");
       }

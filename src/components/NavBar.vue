@@ -13,7 +13,7 @@
             </span>
           </b-navbar-brand>
 
-          <b-collapse id="nav-collapse" is-nav v-if="user">
+          <b-collapse id="nav-collapse" is-nav v-if="this.$loggedIn">
             <b-navbar-nav>
               <b-nav-item
                 class="py-4 category"
@@ -27,7 +27,7 @@
           </b-collapse>
 
           <b-navbar-nav class="ml-auto d-flex flex-row align-items-center">
-            <b-nav-item v-if="user">
+            <b-nav-item v-if="this.$loggedIn">
               <b-dropdown
                 size="xl"
                 variant="link"
@@ -37,7 +37,7 @@
               >
                 <template #button-content>
                   <b-img
-                    v-if="wishListItemsCount > 0"
+                    v-if="wishListItems.length > 0"
                     src="/assets/heart.png"
                     class="wishlist-icon"
                     alt="WishList"
@@ -49,7 +49,11 @@
                     alt="WishList"
                   ></b-img>
                   <span class="cart-count">
-                    {{ wishListItemsCount }}
+                    {{
+                      wishListItems && wishListItems.length > 0
+                        ? wishListItems.length
+                        : 0
+                    }}
                   </span>
                 </template>
                 <!-- <b-dropdown-item href="#"> -->
@@ -116,7 +120,7 @@
               </b-dropdown>
             </b-nav-item>
 
-            <b-nav-item v-if="user">
+            <b-nav-item v-if="this.$loggedIn">
               <b-dropdown
                 size="xl"
                 variant="link"
@@ -127,7 +131,9 @@
                 <template #button-content>
                   <b-img src="/assets/icon-cart.svg" alt=""></b-img>
                   <span class="cart-count">
-                    {{ cartItemsCount }}
+                    {{
+                      cartItems && cartItems.length > 0 ? cartItems.length : 0
+                    }}
                   </span>
                 </template>
                 <!-- <b-dropdown-item href="#"> -->
@@ -219,7 +225,11 @@
               </b-dropdown>
             </b-nav-item>
 
-            <b-nav-item-dropdown :text="user.user_name" right v-if="user">
+            <b-nav-item-dropdown
+              :text="this.$loggedUser.user_name"
+              right
+              v-if="this.$loggedIn"
+            >
               <b-dropdown-item href="#" @click.prevent="signoutUser"
                 >Signout</b-dropdown-item
               >
@@ -245,6 +255,7 @@
 </template>
 
 <script>
+import { bus } from "@/eventBus";
 export default {
   name: "NavBar",
   data() {
@@ -261,33 +272,22 @@ export default {
       ],
       cartItems: [],
       wishListItems: [],
-      user: "",
     };
   },
-  mounted() {
-    const items = JSON.parse(localStorage.getItem("myCart"));
-    const wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
-    this.cartItems = items;
-    this.wishListItems = wishListItems;
-
-    if (localStorage.activeUser) {
-      let activeUser = JSON.parse(localStorage.activeUser);
-      this.user = activeUser;
-    }
+  created() {
+    this.cartItems = JSON.parse(localStorage.getItem("myCart"));
+    this.wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
   },
-  computed: {
-    cartItemsCount() {
-      if (this.cartItems && this.cartItems.length > 0) {
-        return this.cartItems.length;
-      }
-      return 0;
-    },
-    wishListItemsCount() {
-      if (this.wishListItems && this.wishListItems.length > 0) {
-        return this.wishListItems.length;
-      }
-      return 0;
-    },
+  mounted() {
+    bus.$on("cartItems", () => {
+      let items = JSON.parse(localStorage.getItem("myCart"));
+      this.cartItems = items;
+    });
+
+    bus.$on("wishListItems", () => {
+      let wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
+      this.wishListItems = wishListItems;
+    });
   },
   methods: {
     calcPrice(item) {
