@@ -27,16 +27,13 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to.path);
   if (
     to.path != "/signUp" &&
     to.path != "/login" &&
     store.state.isLoggedIn == false
   ) {
-    console.log("if");
     next("/signUp");
   } else {
-    console.log("else");
     next();
   }
   next();

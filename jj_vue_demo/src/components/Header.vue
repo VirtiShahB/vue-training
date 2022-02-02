@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-light bg-danger bg-gradient p-3">
+    <nav class="navbar navbar-light bg-danger bg-gradient p-3" >
       <router-link to="/">
         <h3>
           <b>
