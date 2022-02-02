@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import Dashboard from '@/components/dashboard.vue'
+import Dashboard from "@/components/Dashboard.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Dashboard
-  }
-}
+    Dashboard,
+  },
+};
 </script>
 <style lang="scss">
 @import "~@/assets/scss/vendors/bootstrap-vue/index";
@@ -23,17 +23,16 @@ export default {
   color: #2c3e50;
 }
 
-body { 
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h1{
+h1 {
   font-size: 1.5rem;
 }
-p{
-    text-align: unset;
-    padding: 1px;
+p {
+  text-align: unset;
+  padding: 1px;
 }
-
 </style>
