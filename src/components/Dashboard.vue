@@ -125,7 +125,7 @@ export default {
     var localWishListProducts = JSON.parse(
       localStorage.getItem("wish-products")
     );
-    console.log(localWishListProducts);
+    
     if (localWishListProducts) {
       var favItemArray = localWishListProducts.map(function (a) {
         return a.id;
@@ -134,7 +134,6 @@ export default {
         this.products[productId - 1].isFavorite = 1;
       });
     }
-    console.log(this.favItem);
   },
   computed: {
     computedProducts: function () {

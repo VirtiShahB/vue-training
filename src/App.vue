@@ -42,8 +42,10 @@
   </div>
 </template>
 <script>
+import mixinData from "@/mixins/commonMixins"; 
 export default {
   name: "app",
+  mixins:[mixinData],
   data() {
     return {
       isCartProduct: false,
@@ -53,11 +55,6 @@ export default {
   },
   mounted() {
     this.cartProducts = JSON.parse(localStorage.getItem("product-cart")) || [];
-    var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
-
-    if (localIsLogin == true) {
-      this.already_login = true;
-    }
   },
   computed: {
     totalCartItem() {
@@ -68,17 +65,7 @@ export default {
         });
       }
       return totalCartItem;
-    },
-    displayHeader() {
-      var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
-      return localIsLogin == true ? true : false;
-    },
-  },
-  methods: {
-    signOut() {
-      localStorage.removeItem("is_login");
-      this.$router.push({ name: "Login" });
-    },
-  },
+    }
+  }
 };
 </script>

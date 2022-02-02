@@ -103,6 +103,7 @@ export default {
     },
     methods:{
         checkLoginForm(e){
+          
             this.errors = [];
             if (!this.form.email) {
                 this.errors.push("Email id is required");                
@@ -113,13 +114,15 @@ export default {
             if (this.errors.length > 0) {
                 e.preventDefault();
             }
-            if(this.form.email == "nirav.mistri@bacancy.com" && this.form.password=="123456") {
+            if(this.form.email == 'nirav.mistri@bacancy.com' && this.form.password=='123456') {
                 localStorage.setItem(
                   "is_login",
                   JSON.stringify(true)
                 );
                 alert("Login success successfully!")
                 this.$router.push({ name: "Dashboard" });
+            }else{
+              alert("call sss");
             }
         } 
     }
