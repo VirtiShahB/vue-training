@@ -12,7 +12,7 @@ export default new Vuex.Store({
         img: require("@/assets/1.jpg"),
         title: "Sofa ",
         price: 100,
-        color: "yellow",
+        color: "white",
         type: "sofa",
       },
       {
@@ -28,7 +28,7 @@ export default new Vuex.Store({
         img: require("@/assets/3.jpg"),
         title: "Fotal",
         price: 200,
-        color: "yellow",
+        color: "blue",
         type: "chair",
       },
       {
@@ -36,7 +36,7 @@ export default new Vuex.Store({
         img: require("@/assets/4.jpg"),
         title: "Fotal ",
         price: 250,
-        color: "red",
+        color: "black",
         type: "chair",
       },
       {
@@ -44,7 +44,7 @@ export default new Vuex.Store({
         img: require("@/assets/5.jpg"),
         title: "Sofa",
         price: 300,
-        color: "white",
+        color: "black",
         type: "sofa",
       },
       {

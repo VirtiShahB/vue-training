@@ -1,7 +1,57 @@
 <template>
   <div class="container grid">
-    <div v-if="showInfoComp == false" class="row justify-content-around">
+    <div class="row justify-content-around">
+      <div class="col col-xl-3 col-lg-3 d-none d-lg-block d-xl-block">
+        <div class="card-selector">
+          <div class="card-body p-5">
+            <div class="search-title">
+              <h4 class="search-title">Filter by +</h4>
+
+              <br />
+              <h6 @click="sortI('table')">Tables</h6>
+              <h6 @click="sortI('lamp')">Lamps</h6>
+              <h6 @click="sortI('chair')">Chairs</h6>
+              <h6 @click="sortI('sofa')">Sofas</h6>
+              <hr />
+              <br />
+              <div class="co">
+                <h5>Color</h5>
+                <span
+                  class="circle"
+                  style="background-color: yellow"
+                  @click="sortI('yellow')"
+                ></span>
+                <span
+                  class="circle"
+                  style="background-color: blue"
+                  @click="sortI('blue')"
+                ></span>
+                <span
+                  class="circle"
+                  style="background-color: white"
+                  @click="sortI('white')"
+                ></span>
+                <span
+                  class="circle"
+                  style="background-color: black"
+                  @click="sortI('black')"
+                ></span>
+              </div>
+              <br />
+              <button
+                v-if="showRestButton"
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                @click="resetFilter()"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
+        v-if="showInfoComp == false"
         class="row col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 text-center"
       >
         <div
@@ -62,6 +112,8 @@ export default {
       showInfoComp: false,
       wishlist: [],
       wishlistId: [],
+      allProduct: [],
+      showRestButton: false,
     };
   },
   components: {
@@ -81,15 +133,28 @@ export default {
     getWishlistItemId() {
       this.wishlistId = this.$store.state.wishlistId;
     },
+    sortI(value) {
+      this.showRestButton = true;
+      this.CardArray = this.allProduct.filter(
+        (item) =>
+          item.type.toLowerCase().match(value) ||
+          item.color.toLowerCase().match(value)
+      );
+    },
+    resetFilter() {
+      this.CardArray = this.allProduct;
+      this.showRestButton = false;
+    },
   },
   mounted() {
     this.showInfoComp = false;
     this.getWishlistItemId();
   },
   created() {
-    this.CardArray = this.$store.state.items;
+    this.allProduct = this.$store.state.items;
     this.itemCount = this.$store.state.items.length;
     this.wishlist = this.$store.state.wishlist;
+    this.CardArray = this.allProduct;
   },
 };
 </script>
@@ -139,5 +204,55 @@ export default {
 .card:active {
   transform: scaleY(1.1) scaleX(1.06);
   box-shadow: 0 14px 98px rgba(0, 0, 0, 0.25), 0 0px 60px rgba(0, 0, 0, 0.22);
+}
+
+.container.grid {
+  min-height: 60rem;
+}
+
+.container.grid a {
+  cursor: pointer !important;
+}
+
+.btn-light {
+  color: black !important;
+  background: white;
+  border-radius: 0 !important;
+  border: 1px solid grey !important;
+}
+.dropdown-menu {
+  background-color: #eee;
+  color: #2c3539;
+}
+
+.dropdown-menu > a:hover {
+  background-color: #dae0e5;
+}
+
+.btn-outline-secondary {
+  border-radius: 0 !important;
+}
+
+/*search options*/
+
+.card-selector {
+  color: #dcdcdc;
+  height: 40rem;
+  background: #2c3539 !important;
+  box-shadow: 0 8px 6px 0 rgba(0, 0, 0, 0.1), 0 26px 70px 0 rgba(0, 0, 0, 0.69);
+}
+
+.search-title h6 {
+  cursor: pointer;
+}
+
+.circle {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  border: 0.7px solid #2c3539;
+  display: inline-block;
+  margin-left: 6px;
+  cursor: pointer;
 }
 </style>
