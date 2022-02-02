@@ -45,7 +45,7 @@
               >Countinue Shopping</b-button
             >
           </b-col>
-          <b-col class="md-4 text-center" v-show="this.cartSummary.length > 0">
+          <b-col class="md-4 text-center" v-show="this.cartCount > 0">
             <b-button variant="warning" @click="placeOrder"
               >Place Order</b-button
             >
@@ -59,21 +59,22 @@
 <script>
 import { mapGetters } from 'vuex'
 import ShippingDetails from './ShippingDetails'
-import ShowAlert from './UI/ShowAlert'
+import ShowAlert from '../UI/ShowAlert'
+import CartServices from '../../services/CartServices'
+const cartService = new CartServices()
+
 export default {
   name: 'Checkout',
   components: { ShippingDetails, ShowAlert },
   mounted () {
-    this.getCartData()
+    this.cartSummary = cartService.getCartData(this.productsData)
   },
   computed: {
     ...mapGetters({
       productsData: 'productsData'
     }),
-    totalCartItems () {
-      return window.localStorage.getItem('totalCartItems')
-        ? JSON.parse(window.localStorage.getItem('totalCartItems'))
-        : []
+    cartCount () {
+      return this.cartSummary.length
     },
     getSubtotal () {
       if (this.cartSummary.length > 0) {
@@ -87,37 +88,18 @@ export default {
   data () {
     return {
       cartSummary: [],
-      form: {
-        email: '',
-        name: ''
-      },
       show: true,
       error: {}
     }
   },
   methods: {
-    onSubmit (event) {
-      event.preventDefault()
-    },
-    onReset (event) {
-      event.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
-    },
-    getCartData () {
-      const totalCartItems = this.totalCartItems
-      this.cartSummary = this.productsData.filter(function (o1) {
-        return totalCartItems.some(function (o2) {
-          o1.qty = o2.qty
-          return o1.id === o2.id
-        })
-      })
+    refreshCart () {
+      this.cartSummary = []
     },
     placeOrder () {
-      localStorage.removeItem('totalCartItems')
-      this.cartSummary = []
-      this.error = ['success', 'Horray Order Placed , Continue shopping']
+      cartService.flushCart()
+      this.refreshCart()
+      this.error = ['success', 'Horray !! Order Placed , Continue shopping']
     }
   }
 }

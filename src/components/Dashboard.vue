@@ -8,10 +8,6 @@
 import ProductList from './Products/ProductList'
 export default {
   name: 'Dashboard',
-  components: { ProductList },
-  mounted () {
-    // localStorage.removeItem('totalCartItems')
-    // localStorage.removeItem('cartCount')
-  }
+  components: { ProductList }
 }
 </script>

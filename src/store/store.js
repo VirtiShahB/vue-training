@@ -5,6 +5,7 @@ import productsData from '../components/Products/productsData.json'
 let totalCartItems = window.localStorage.getItem('totalCartItems') ? JSON.parse(window.localStorage.getItem('totalCartItems')) : []
 Vue.use(Vuex)
 const state = {
+  cartUpdate: 0,
   totalCartItems: totalCartItems || []
 }
 const mutations = {
@@ -15,11 +16,17 @@ const mutations = {
     } else {
       state.totalCartItems.push(item)
     }
-    this.commit('saveCart')
+    window.localStorage.setItem('totalCartItems', JSON.stringify(state.totalCartItems))
+    state.cartUpdate++
   },
   saveCart (state) {
-    window.localStorage.setItem('totalCartItems', JSON.stringify(state.totalCartItems))
+
+  },
+  flushCart (state) {
+    state.cartUpdate = 0
   }
+}
+const actions = {
 }
 const getters = {
   productsData: state => productsData
@@ -27,5 +34,6 @@ const getters = {
 export default new Vuex.Store({
   state,
   mutations,
-  getters
+  getters,
+  actions
 })

@@ -26,7 +26,7 @@
         </b-collapse>
 
         <b-navbar-nav class="ml-auto d-flex flex-row align-items-center">
-          <b-nav-item class="col-4">
+          <b-nav-item class="col-4" v-show="this.$route.name != 'Checkout'">
             <Cart />
           </b-nav-item>
           <b-nav-item v-show="this.$route.name != 'WishList'" class="col-4"

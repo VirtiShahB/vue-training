@@ -58,6 +58,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import CartServices from '../../services/CartServices'
+const cartService = new CartServices()
+
 export default {
   name: 'ItemDetail',
   components: {},
@@ -83,8 +86,7 @@ export default {
       }
     },
     addToCart (productId) {
-      const selectedProducts = { id: productId, qty: this.itemCount }
-      this.$store.commit('addToCart', selectedProducts)
+      cartService.addToCart(productId, this.itemCount)
     },
     getProductData () {
       const productId = this.$route.params.productId

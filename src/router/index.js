@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
-import Checkout from '@/components/Checkout'
+import Checkout from '@/components/Products/Checkout'
 import ItemDetail from '@/components/Products/ItemDetail'
 import WishListItems from '@/components/Products/WishListItems'
 import Login from '@/components/Login'
@@ -18,7 +18,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SignUp',
+      name: '/',
       component: SignUp
     },
     {

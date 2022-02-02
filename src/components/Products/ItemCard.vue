@@ -12,6 +12,7 @@
         ><h4>{{ product.name | capitalize }}</h4></b-link
       >
       <b-card-text>
+        {{ checkFavItem }}
         {{ product.description }}
       </b-card-text>
       <b-row>
@@ -31,7 +32,7 @@
             title="Add to cart"
           ></b-icon
         ></b-col>
-        <b-col v-show="!fromWishlist && !favFlag" md="3"
+        <b-col v-show="!fromWishlist && !checkFavItem" md="3"
           ><b-icon
             @click="addToWishList(product.id)"
             icon="heart"
@@ -42,7 +43,7 @@
             title="WishList"
           ></b-icon
         ></b-col>
-        <b-col v-show="!fromWishlist && favFlag" md="3"
+        <b-col v-show="!fromWishlist && checkFavItem" md="3"
           ><b-icon
             @click="addToWishList(product.id)"
             icon="heart-fill"
@@ -70,25 +71,27 @@
 </template>
 
 <script>
+import CartServices from '../../services/CartServices'
+const cartService = new CartServices()
 export default {
   name: 'ItemCard',
   components: {},
   props: ['product', 'fromWishlist'],
   data () {
     return {
-      favFlag: false,
-      selfavFlag: false,
-      favItems: []
+      wishListItems: []
+    }
+  },
+  mounted () {
+    if (localStorage.getItem('userFavItems')) {
+      this.wishListItems = JSON.parse(localStorage.getItem('userFavItems'))
     }
   },
   computed: {
     checkFavItem () {
-      if (localStorage.getItem('userFavItems')) {
-        const wishListItems = JSON.parse(localStorage.getItem('userFavItems'))
-        if (wishListItems.length > 0) {
-          if (wishListItems.indexOf(this.product.id)) {
-            return true
-          }
+      if (this.wishListItems && this.wishListItems.length > 0) {
+        if (this.wishListItems.indexOf(this.product.id)) {
+          return true
         }
       }
       return false
@@ -96,8 +99,7 @@ export default {
   },
   methods: {
     addToCart (productId) {
-      const selectedProducts = { id: productId, qty: 1 }
-      this.$store.commit('addToCart', selectedProducts)
+      cartService.addToCart(productId, 1)
     },
     itemDetail (productId) {
       this.$router.push({
@@ -108,12 +110,13 @@ export default {
       })
     },
     addToWishList (productId) {
+      var favItems = []
       if (localStorage.getItem('userFavItems')) {
-        this.favItems = JSON.parse(localStorage.getItem('userFavItems'))
+        favItems = JSON.parse(localStorage.getItem('userFavItems'))
       }
-      this.favItems.push(productId)
-      localStorage.setItem('userFavItems', JSON.stringify(this.favItems))
-      this.favFlag = this.checkFavItem
+      favItems.push(productId)
+      localStorage.setItem('userFavItems', JSON.stringify(favItems))
+      this.wishListItems = JSON.parse(localStorage.getItem('userFavItems'))
     },
     deleteFromWishList (productId) {
       this.$emit('refreshWishList', productId)

@@ -24,7 +24,7 @@
             </b-form-group>
             <b-form-group id="input-group-1" label="Email:" label-for="input-1">
               <b-form-input
-                id="input-1"
+                id="input-2"
                 v-model="form.email"
                 type="email"
                 placeholder="Enter email"
@@ -33,12 +33,12 @@
             </b-form-group>
 
             <b-form-group
-              id="input-group-2"
+              id="input-group-3"
               label="Password:"
-              label-for="input-2"
+              label-for="input-3"
             >
               <b-form-input
-                id="input-2"
+                id="input-3"
                 type="password"
                 v-model="form.password"
                 placeholder="Enter Password"

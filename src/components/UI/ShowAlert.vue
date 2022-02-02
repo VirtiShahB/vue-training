@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'ShowAlert',
   props: ['error'],
   watch: {
     error (newval) {

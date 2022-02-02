@@ -9,7 +9,7 @@
     >
       <template #button-content>
         <b-img :src="require('@/assets/icon-cart.svg')" alt=""></b-img>
-        <span class="cart-count"> {{ totalCartValue }} </span>
+        <span class="cart-count"> {{ cartCount }} </span>
       </template>
 
       <!-- <b-dropdown-item href="#"> -->
@@ -19,7 +19,7 @@
             <span style="font-weight: 700"> Cart </span>
           </div>
           <div class="col-12" style="max-height: 200px; overflow: auto">
-            <div v-if="totalCartItems && totalCartItems.length > 0">
+            <div v-if="cartSummary && cartCount > 0">
               <div
                 v-for="(item, index) in cartSummary"
                 :key="index"
@@ -74,41 +74,37 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import CartServices from '../../services/CartServices'
+const cartService = new CartServices()
 export default {
   name: 'Cart',
-  mounted () {
-    this.getCartData()
-  },
-  computed: {
-    ...mapGetters({
-      productsData: 'productsData'
-    }),
-    totalCartValue () {
-      return this.totalCartItems.length
-    },
-    totalCartItems () {
-      return window.localStorage.getItem('totalCartItems')
-        ? JSON.parse(window.localStorage.getItem('totalCartItems'))
-        : []
+  watch: {
+    '$store.state.cartUpdate': function () {
+      this.refreshCart()
     }
+  },
+  mounted () {
+    this.refreshCart()
   },
   data () {
     return {
       cartSummary: []
     }
   },
+  computed: {
+    ...mapGetters({
+      productsData: 'productsData'
+    }),
+    cartCount () {
+      return this.cartSummary.length
+    }
+  },
   methods: {
-    getCartData () {
-      const totalCartItems = this.totalCartItems
-      this.cartSummary = this.productsData.filter(function (o1) {
-        return totalCartItems.some(function (o2) {
-          o1.qty = o2.qty
-          return o1.id === o2.id
-        })
-      })
+    refreshCart () {
+      this.cartSummary = cartService.getCartData(this.productsData)
     },
     buyNow () {
-      if (this.totalCartItems.length === 0) {
+      if (this.cartCount === 0) {
         this.$emit('errorListener', 'danger', 'Your cart is empty!!')
       } else {
         this.$router.push({

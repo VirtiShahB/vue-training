@@ -30,14 +30,7 @@ export default {
   components: { ItemCard },
   computed: mapGetters(['productsData']),
   mounted () {
-    const items = JSON.parse(localStorage.getItem('userFavItems'))
-    if (items.length > 0) {
-      this.products = this.productsData.filter(function (o1) {
-        return items.some(function (o2) {
-          return o1.id === o2
-        })
-      })
-    }
+    this.getWishList()
   },
   data () {
     return {
@@ -45,6 +38,18 @@ export default {
     }
   },
   methods: {
+    getWishList () {
+      if (localStorage.getItem('userFavItems')) {
+        const items = JSON.parse(localStorage.getItem('userFavItems'))
+        if (items.length > 0) {
+          this.products = this.productsData.filter(function (o1) {
+            return items.some(function (o2) {
+              return o1.id === o2
+            })
+          })
+        }
+      }
+    },
     refreshWishList (productId) {
       if (this.products.length > 0) {
         localStorage.setItem(
