@@ -106,7 +106,7 @@ const actions = {
     commit('SET_INITAL_PRODUCTS', payload)
   },
   setInitialLikeProducts({ commit }, payload) {
-    console.log(payload.productsData);
+    console.log(payload.productsData)
     commit('SET_INITAL_LIKE_PRODUCTS', payload)
   },
   addToCart({ commit }, payload) {
