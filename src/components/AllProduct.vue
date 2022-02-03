@@ -102,8 +102,12 @@
 
 <script>
 // import Product from "./Product.vue";
+import addTowishlistMixin from "../mixin.js";
+
 export default {
   name: "AllProduct",
+  mixins: [addTowishlistMixin],
+
   data() {
     return {
       CardArray: [],
@@ -125,13 +129,6 @@ export default {
       this.infoItem = [];
       this.$store.state.infoItem = item;
       this.showInfoComp = true;
-    },
-    addTowishlist(item) {
-      this.$store.commit("inWishlist", item);
-      this.getWishlistItemId();
-    },
-    getWishlistItemId() {
-      this.wishlistId = this.$store.state.wishlistId;
     },
     sortI(value) {
       this.showRestButton = true;

@@ -72,9 +72,12 @@
 
 <script>
 import Cart from "./Cart.vue";
+import addTowishlistMixin from "../mixin.js";
 
 export default {
   name: "Product",
+  mixins: [addTowishlistMixin],
+
   data() {
     return {
       productQty: 1,
@@ -120,13 +123,6 @@ export default {
     },
     openCartbox() {
       this.showCart = true;
-    },
-    addTowishlist(item) {
-      this.$store.commit("inWishlist", item);
-      this.getWishlistItemId();
-    },
-    getWishlistItemId() {
-      this.wishlistId = this.$store.state.wishlistId;
     },
   },
   mounted() {
