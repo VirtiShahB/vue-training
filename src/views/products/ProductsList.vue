@@ -69,31 +69,7 @@
         >
           <h5>
             {{ product.name }}
-            <b-link
-              :class="'float-right add-to-wishlist-' + product.id"
-              @click="likeProduct(product.id)"
-            >
-              <img
-                v-if="likeProducts.includes(product.id)"
-                src="../../assets/icons/hand-thumbs-up-fill.svg"
-                class="ml-1"
-              />
-              <img
-                v-else
-                src="../../assets/icons/hand-thumbs-up.svg"
-                class="ml-1"
-              />
-            </b-link>
-            <b-link
-              :class="'float-right add-to-wishlist-' + product.id"
-              @click="addToWishlist(product.id)"
-            >
-              <img
-                v-if="wishListProducts.includes(product.id)"
-                src="../../assets/icons/heart-fill.svg"
-              />
-              <img v-else src="../../assets/icons/heart.svg" />
-            </b-link>
+            <LikeAndWishListIcons :productId="product.id" />
           </h5>
           <b-card-text>
             Price:
@@ -124,10 +100,15 @@
   </b-container>
 </template>
 <script>
+import { helperMixins } from "../../mixins/helperMixins";
 import { toastMixins } from "../../mixins/toastMixins";
+import LikeAndWishListIcons from "./LikeAndWishListIcons.vue";
 export default {
-  mixins: [toastMixins],
+  mixins: [toastMixins, helperMixins],
   name: "ProductsList",
+  components: {
+    LikeAndWishListIcons,
+  },
   data() {
     return {
       priceList: [
@@ -160,43 +141,20 @@ export default {
         this.$router.push({ name: "Checkout" });
       }
     },
-    addToWishlist(productId) {
-      var product = this.$store.state.products.wishlist.find(
-        (p) => p.id === parseInt(productId)
-      );
-      if (product) {
-        this.$store.dispatch("products/removeToWishlist", {
-          id: productId,
-        });
-        this.makeToast(
-          "success",
-          "Sucess!",
-          "Removed product from wishlist successfully!"
-        );
-      } else {
-        this.$store.dispatch("products/addToWishlist", {
-          id: productId,
-        });
-        this.makeToast(
-          "success",
-          "Sucess!",
-          "Added in your wishlist successfully!"
-        );
-      }
-    },
     onSubmit() {
       this.$refs.myFilterSidebar.hide();
       this.$api.products.getProducts(this.filterPrams);
     },
+    addToWishlist(productId) {
+      this.addToProductInWishlist(productId);
+    },
     likeProduct(productId = null) {
-      this.$api.products.likeProduct(productId);
+      this.setLikeProduct(productId);
     },
   },
   computed: {
     wishListProducts() {
-      return this.$store.state.products.wishlist.map(function (value) {
-        return value.id;
-      });
+      return this.getWishListProducts();
     },
     likeProducts() {
       return this.chkLikeProduct();

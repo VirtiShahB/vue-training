@@ -19,12 +19,28 @@
               ></b-card-img>
             </b-col>
             <b-col md="8">
-              <b-card-body :title="getProductById['name']">
+              <b-card-body>
+                <b-card-text>
+                  <h3>
+                    {{ getProductById["name"] }}
+                    <LikeAndWishListIcons :productId="getProductById['id']" />
+                  </h3>
+                </b-card-text>
                 <hr class="secondary" />
                 <b-row class="mt-2">
                   <b-col sm="12">
                     <b-card-text>
                       {{ getProductById["description"] }}
+                    </b-card-text>
+                    <b-card-text v-if="getProductById['tags'] != null">
+                      <b-badge
+                        v-for="tag in tags"
+                        :key="tag"
+                        pill
+                        variant="primary"
+                        class="mr-1"
+                        >{{ tag }}</b-badge
+                      >
                     </b-card-text>
                   </b-col>
                 </b-row>
@@ -96,13 +112,16 @@
 </template>
 
 <script>
+import { helperMixins } from "../../mixins/helperMixins";
 import { toastMixins } from "../../mixins/toastMixins";
 import RecommendedProducts from "./RecommendedProducts.vue";
+import LikeAndWishListIcons from "./LikeAndWishListIcons.vue";
 export default {
-  mixins: [toastMixins],
+  mixins: [toastMixins, helperMixins],
   name: "ProductDetail",
   components: {
     RecommendedProducts,
+    LikeAndWishListIcons,
   },
   data() {
     return {
@@ -150,8 +169,18 @@ export default {
         this.$route.params.id
       );
     },
+    wishListProducts() {
+      return this.getWishListProducts();
+    },
     likeProducts() {
       return this.chkLikeProduct();
+    },
+    tags() {
+      if (this.getProductById["tags"]) {
+        var tagsStr = this.getProductById["tags"];
+        return tagsStr.split(",");
+      }
+      return false;
     },
   },
 };
