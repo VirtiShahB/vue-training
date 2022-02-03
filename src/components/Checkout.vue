@@ -134,7 +134,10 @@
 </template>
 
 <script>
+import { mixin } from "../mixin";
+
 export default {
+  mixins: [mixin],
   data() {
     return {
       cart: [],
@@ -161,12 +164,6 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       JSON.stringify(this.form);
-    },
-    getCart() {
-      if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", JSON.stringify([]));
-      }
-      this.cart = JSON.parse(localStorage.getItem("cart"));
     },
   },
   beforeMount() {

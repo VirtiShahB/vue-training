@@ -58,7 +58,10 @@
 </template>
 
 <script>
+import { mixin } from "../mixin";
+
 export default {
+  mixins: [mixin],
   name: "Cart",
   data() {
     return {
@@ -69,14 +72,6 @@ export default {
   computed: {
     total() {
       return this.cart.reduce((acc, c) => acc + c.price * c.qty, 0);
-    },
-  },
-  methods: {
-    getCart() {
-      if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", JSON.stringify([]));
-      }
-      this.cart = JSON.parse(localStorage.getItem("cart"));
     },
   },
   beforeMount() {

@@ -113,9 +113,10 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { mixin } from "../mixin";
 
 export default {
-  mixins: [validationMixin],
+  mixins: [validationMixin, mixin],
   data() {
     return {
       submitted: false,
@@ -143,10 +144,6 @@ export default {
     },
   },
   methods: {
-    validateState(name) {
-      const { $dirty, $error } = this.$v.form[name];
-      return $dirty ? !$error : null;
-    },
     onSubmit() {
       this.submitted = true;
       this.$v.$touch();

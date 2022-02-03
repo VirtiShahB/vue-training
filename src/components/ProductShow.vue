@@ -53,13 +53,11 @@ export default {
   methods: {
     addToCart(item) {
       item.qty = document.getElementById("qty").value;
-
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       var cartDataPush = 1;
-
       if (cartItems.length > 0) {
         for (let i = 0; i < cartItems.length; i++) {
           if (item.id === cartItems[i].id) {

@@ -3,7 +3,7 @@
     <b-container class="bv-example-row">
       <h1 class="text-left">Products Listing</h1>
       <b-row>
-        <b-col cols="8">
+        <b-col cols="9">
           <b-row>
             <b-col
               cols="3"
@@ -59,7 +59,7 @@
             </b-col>
           </b-row>
         </b-col>
-        <b-col cols="4">
+        <b-col cols="3">
           <b-card class="filter text-left">
             <div>
               <label><strong>Author</strong></label>
@@ -88,7 +88,10 @@
 </template>
 
 <script>
+import { mixin } from "../mixin";
+
 export default {
+  mixins: [mixin],
   name: "Dashboard",
   data() {
     return {
@@ -190,22 +193,8 @@ export default {
     addWishlist(item, wishListItemId) {
       this.$store.commit("addWishlist", { item, wishListItemId });
     },
-    removeFromWishlist(item, wishListItemId) {
-      this.$store.commit("removeFromWishlist", { item, wishListItemId });
-    },
     isWishlisted(itemId) {
       return !this.wishListItemId.includes(itemId);
-    },
-    getWishList() {
-      this.$store.commit("getWishList");
-      var wishListArray = this.$store.wishList;
-      if (wishListArray.length > 0) {
-        for (var i = 0; i < wishListArray.length; i++) {
-          if (!wishListArray.includes(wishListArray[i].id)) {
-            this.wishListItemId[i] = wishListArray[i].id;
-          }
-        }
-      }
     },
   },
   beforeMount() {

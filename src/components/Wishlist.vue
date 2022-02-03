@@ -45,7 +45,9 @@
 </template>
 
 <script>
+import { mixin } from "../mixin";
 export default {
+  mixins: [mixin],
   name: "WishList",
   data() {
     return {
@@ -53,23 +55,6 @@ export default {
       wishList: [],
       wishListItemId: [],
     };
-  },
-  methods: {
-    removeFromWishlist(item, wishListItemId) {
-      this.$store.commit("removeFromWishlist", { item, wishListItemId });
-      this.wishList = this.$store.wishList;
-    },
-    getWishList() {
-      this.$store.commit("getWishList");
-      this.wishList = this.$store.wishList;
-      if (this.wishList.length > 0) {
-        for (var i = 0; i < this.wishList.length; i++) {
-          if (!this.wishList.includes(this.wishList[i].id)) {
-            this.wishListItemId[i] = this.wishList[i].id;
-          }
-        }
-      }
-    },
   },
   beforeMount() {
     this.getWishList();
