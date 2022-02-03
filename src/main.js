@@ -11,7 +11,11 @@ Vue.use(VueSweetAlert)
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
-
+// Vue.mixin({
+//   mounted() {
+//     console.log('hello from mixin!')
+//   }
+// })
 new Vue({
   router,
   render: (h) => h(App)

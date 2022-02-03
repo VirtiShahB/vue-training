@@ -11,9 +11,15 @@ const routes = [
     component: Home
   },
   {
-    path: '/product-page',
-    name: 'ProductPage',
-    component: import('../views/ProductPage.vue')
+    path: '/airport-details',
+    name: 'AirportPage',
+    component: () => import('../views/Airport.vue')
+  },
+  
+  {
+    path: '/airport',
+    name: 'AirportDetail',
+    component: () => import('../views/AirportDetail.vue')
   },
   {
     path : '/product-detail/:id',

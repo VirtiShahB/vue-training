@@ -21,7 +21,7 @@
                   <div class="price">$ {{ price }}.00</div>
                   
                   <br>
-                  <div class="card-info"> {{ product.description }}</div>
+                  <div class="card-info"> {{ product.description | str_limit(8) }}</div>
                 </div>
                 <div class="footer">
                   <button type="button" class="btn add-to-card" @click="addToChart">

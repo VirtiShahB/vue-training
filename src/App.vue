@@ -1,9 +1,21 @@
 <template>
   <div id="app">
-   
+    <test msg="Hello i m in mixins" />
+    <modal />
     <router-view/>
   </div>
 </template>
+<script>
+import Test from "./components/Test.vue";
+import Modal from "./components/Modal.vue";
+export default {
+  name: "app",
+  components: {
+    Test,
+    Modal
+  }
+};
+</script>
 
 <style>
 #app {

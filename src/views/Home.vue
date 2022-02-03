@@ -40,6 +40,7 @@
         </div>
     </main>
   </section>
+  
   <footer-page />
   </div>
 </template>
@@ -128,6 +129,7 @@ export default {
     
   },
 }
+
 </script>
 <style scoped>
 
