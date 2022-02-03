@@ -102,12 +102,13 @@
 </template>
 
 <script>
-import { bus } from "@/eventBus";
-
+import { bus } from "../eventBus";
+import toastMixin from "../mixins/toastMixin";
 var one_product = JSON.parse(localStorage.getItem("products_list"));
 
 export default {
   name: "ProductPage",
+  mixins: [toastMixin],
   data() {
     return {
       product: one_product[this.$route.params.prod_id - 1],
@@ -148,6 +149,10 @@ export default {
       localStorage.setItem("myCart", JSON.stringify(ItemData));
       this.cartItems = JSON.parse(localStorage.getItem("myCart"));
       bus.$emit("cartItems");
+      this.fireToastNotification(
+        "success",
+        this.product.title + " successfully added to cart!"
+      );
     },
     addToWishList() {
       var wishListData = JSON.parse(localStorage.getItem("wishListItems"));
@@ -171,8 +176,15 @@ export default {
         localStorage.setItem("wishListItems", JSON.stringify(wishListData));
         this.wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
         bus.$emit("wishListItems");
+        this.fireToastNotification(
+          "success",
+          this.product.title + " successfully added to wishlist!"
+        );
       } else {
-        alert(this.product.title + " already wishlisted!");
+        this.fireToastNotification(
+          "danger",
+          this.product.title + " already wishlisted!"
+        );
       }
     },
   },

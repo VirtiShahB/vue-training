@@ -73,7 +73,10 @@
 </template>
 
 <script>
+import toastMixin from "../mixins/toastMixin";
+
 export default {
+  mixins: [toastMixin],
   data() {
     return {
       user_name: "",
@@ -93,14 +96,18 @@ export default {
       };
 
       if (localStorage.getItem("users")) {
-        this.user = JSON.parse(localStorage.getItem("users"));
+        var lsusers = JSON.parse(localStorage.getItem("users"));
       }
-      this.users.push(user);
-      localStorage.setItem("users", JSON.stringify(this.users));
+      lsusers.push(user);
+      localStorage.setItem("users", JSON.stringify(lsusers));
       this.user_name = "";
       this.email = "";
       this.password = "";
       this.confirm_password = "";
+      this.fireToastNotification(
+        "success",
+        "Signup successfully, please signin!"
+      );
       this.$router.push("/signin");
     },
   },

@@ -37,7 +37,9 @@
 </template>
 
 <script>
+import toastMixin from "../mixins/toastMixin";
 export default {
+  mixins: [toastMixin],
   data() {
     return {
       user_name: "",
@@ -69,15 +71,12 @@ export default {
           );
           localStorage.setItem("activeUser", JSON.stringify(activeUser));
           this.$router.push("/products");
+          this.fireToastNotification("success", "Signin successfully!");
         } else {
-          alert("Password does not match!");
+          this.fireToastNotification("danger", "Password does not match!");
         }
       } else {
-        alert(
-          "Username does not exist, Please singup with username " +
-            credentials.user_name +
-            " to signin"
-        );
+        this.fireToastNotification("danger", "Username does not exist!");
         this.$router.push("/signup");
       }
     },

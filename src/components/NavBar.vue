@@ -255,8 +255,11 @@
 </template>
 
 <script>
-import { bus } from "@/eventBus";
+import { bus } from "../eventBus";
+import toastMixin from "../mixins/toastMixin";
+
 export default {
+  mixins: [toastMixin],
   name: "NavBar",
   data() {
     return {
@@ -298,14 +301,23 @@ export default {
     deleteItem(item, index) {
       this.cartItems.splice(index, 1);
       localStorage.setItem("myCart", JSON.stringify(this.cartItems));
+      this.fireToastNotification(
+        "success",
+        item.title + " successfully removed from cart!"
+      );
     },
     deleteWishListItem(item, index) {
       this.wishListItems.splice(index, 1);
       localStorage.setItem("wishListItems", JSON.stringify(this.wishListItems));
+      this.fireToastNotification(
+        "success",
+        item.title + " successfully removed from wishlist!"
+      );
     },
     signoutUser() {
       localStorage.removeItem("activeUser");
       this.$router.push("/signin");
+      this.fireToastNotification("success", "User signedout successfully!");
     },
   },
 };
