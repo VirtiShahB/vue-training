@@ -91,8 +91,10 @@
   </b-card>
 </template>
 <script>
+import toastMessage from "../mixins/ToastMessage";
 export default {
   name: "ProductDetail",
+  mixins: [toastMessage],
   data() {
     return {
       ProductName: "",
@@ -117,28 +119,23 @@ export default {
     addToCart(quantity, action) {
       this.show = true;
       if (quantity == 0) {
-        this.variant = "danger";
-        this.showmsg = "Please select at least 1 quantity.";
+        this.makeToastMessage("Please select at least 1 quantity.", "danger");
       } else if (this.selected == null) {
-        this.variant = "danger";
-        this.showmsg = "Please select any size.";
+        this.makeToastMessage("Please select any size.", "danger");
       } else {
         localStorage.setItem("ProductName", this.ProductName);
         localStorage.setItem("Price", this.Price);
         localStorage.setItem("Quantity", this.Quantity);
         localStorage.setItem("Size", this.selected);
-        this.variant = "success";
 
         if (action == "cart") {
-          this.showmsg = "Product added in cart successfully.";
-        } else {
-          this.showmsg = "Continue to be checkout (Next page in progress).";
+          this.makeToastMessage(
+            "Product added in cart successfully.",
+            "success"
+          );
         }
         this.$router.push("/checkout");
       }
-      setTimeout(() => {
-        this.show = false;
-      }, 3000);
     },
   },
   watch: {

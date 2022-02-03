@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row product-list">
       <h2>
-        <p><strong>Wishlist Products</strong></p>
+        <p><strong>Recommended Products</strong></p>
       </h2>
       <div class="col-sm-4" v-for="(item, index) in items" :key="index">
         <b-img
@@ -24,15 +24,15 @@
 </template>
 <script>
 export default {
-  name: "WishList",
+  name: "RecommendedProduct",
   data() {
     return {
       items: [],
     };
   },
   created() {
-    var WishListItems = localStorage.getItem("WishListitems");
-    this.items = JSON.parse(WishListItems);
+    var recommendedProduct = localStorage.getItem("recommendedProduct");
+    this.items = JSON.parse(recommendedProduct);
   },
 };
 </script>

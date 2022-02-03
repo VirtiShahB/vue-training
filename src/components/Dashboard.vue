@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div class="header">
-      <router-link to="/dashboard">Dashboard</router-link>
+      <span v-if="this.isAuthenticated">
+        <router-link to="/dashboard">Dashboard</router-link></span
+      >
       <div class="header-right">
         <router-link to="/">Products</router-link>
         <router-link to="/product/wishlist">Wishlist</router-link>
@@ -95,10 +97,12 @@ export default {
       }
     },
   },
-  created() {
-    if (localStorage.getItem("loginnedUser")) {
-      this.isAuthenticated = true;
-    }
+  watch: {
+    $route() {
+      if (localStorage.getItem("loginnedUser") !== "") {
+        this.isAuthenticated = true;
+      }
+    },
   },
 };
 </script>
