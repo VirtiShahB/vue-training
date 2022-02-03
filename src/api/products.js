@@ -44,15 +44,14 @@ export default () => ({
         }
       })
       .catch((error) => {
-        errorMsg = error.response.data.message
+        errorMsg = 'Network connection error!'
+        if (error.response) {
+          errorMsg = error.response.data.message
+        }
         return false
       })
     if (response) {
-      toastMixins.methods.makeToast(
-        'success',
-        'Success!',
-        response.message,
-      )
+      toastMixins.methods.makeToast('success', 'Success!', response.message)
       store.dispatch('products/manageLikeProducts', {
         id: productId,
       })
@@ -60,23 +59,34 @@ export default () => ({
       toastMixins.methods.makeToast('danger', 'Error!', errorMsg)
     }
   },
+  async getRecommendedProducts(productId = 0) {
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + store.state.auth.authToken,
+      },
+    }
+    var productsData = await axios
+      .get(Vue.prototype.$apihost + 'recommended-products/' + productId, config)
+      .then((response) => response.data)
+      .catch(() => {
+        return false
+      })
+    return productsData
+  },
   async getLikeProducts() {
     let config = {
       headers: {
         Authorization: 'Bearer ' + store.state.auth.authToken,
       },
     }
-    await axios
+    var productsData = await axios
       .get(Vue.prototype.$apihost + 'like-products', config)
-      .then((response) => {
-        if (response.data.success) {
-          return response.data
-        } else {
-          return false
-        }
-      })
+      .then((response) => response.data)
       .catch(() => {
         return false
       })
+    store.dispatch('products/setInitialLikeProducts', {
+      productsData,
+    })
   },
 })

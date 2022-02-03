@@ -3,6 +3,7 @@ import axios from 'axios'
 import store from '../store/index'
 import router from '../router'
 import { toastMixins } from '../mixins/toastMixins'
+import { app } from '@/main'
 
 export default () => ({
   async login(loginData) {
@@ -18,7 +19,10 @@ export default () => ({
         }
       })
       .catch((error) => {
-        errorMsg = error.response.data.message
+        errorMsg = 'Network connection error!'
+        if (error.response) {
+          errorMsg = error.response.data.message
+        }
         return false
       })
     if (authData) {
@@ -30,6 +34,7 @@ export default () => ({
         'Success!',
         'Login Successfully!',
       )
+      app.$api.products.getLikeProducts()
       router.push({ name: 'Dashboard' })
     } else {
       toastMixins.methods.makeToast('danger', 'Error!', errorMsg)
@@ -48,7 +53,10 @@ export default () => ({
         }
       })
       .catch((error) => {
-        errorMsg = error.response.data.message
+        errorMsg = 'Network connection error!'
+        if (error.response) {
+          errorMsg = error.response.data.message
+        }
         return false
       })
     if (registerData) {
@@ -83,12 +91,19 @@ export default () => ({
         }
       })
       .catch((error) => {
-        errorMsg = error.response.data.message
+        errorMsg = 'Network connection error!'
+        if (error.response) {
+          errorMsg = error.response.data.message
+        }
         return false
       })
     if (logoutData) {
       store.dispatch('auth/logout')
       toastMixins.methods.makeToast('success', 'Success!', logoutData.message)
+      store.replaceState({
+        auth: {},
+        products: {},
+      })
       router.push({ name: 'Login' })
     } else {
       toastMixins.methods.makeToast('danger', 'Error!', errorMsg)

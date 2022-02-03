@@ -69,7 +69,6 @@
         >
           <h5>
             {{ product.name }}
-
             <b-link
               :class="'float-right add-to-wishlist-' + product.id"
               @click="likeProduct(product.id)"
@@ -128,7 +127,7 @@
 import { toastMixins } from "../../mixins/toastMixins";
 export default {
   mixins: [toastMixins],
-  name: "Products",
+  name: "ProductsList",
   data() {
     return {
       priceList: [
@@ -200,9 +199,7 @@ export default {
       });
     },
     likeProducts() {
-      return this.$store.state.products.likeProducts.map(function (value) {
-        return value.id;
-      });
+      return this.chkLikeProduct();
     },
   },
   mounted() {

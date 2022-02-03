@@ -56,6 +56,9 @@ const mutations = {
   SET_INITAL_PRODUCTS(state, payload) {
     state.products = payload.productsData
   },
+  SET_INITAL_LIKE_PRODUCTS(state, payload) {
+    state.likeProducts = payload.productsData
+  },
   ADDTOCART(state, payload) {
     state.cart.push(payload)
     state.isEmptyCart = false
@@ -101,6 +104,10 @@ const getters = {
 const actions = {
   setInitialProducts({ commit }, payload) {
     commit('SET_INITAL_PRODUCTS', payload)
+  },
+  setInitialLikeProducts({ commit }, payload) {
+    console.log(payload.productsData);
+    commit('SET_INITAL_LIKE_PRODUCTS', payload)
   },
   addToCart({ commit }, payload) {
     var product = state.products.find((p) => p.id === parseInt(payload.id))
