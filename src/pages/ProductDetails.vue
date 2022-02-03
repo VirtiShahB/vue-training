@@ -177,7 +177,6 @@ export default {
       cartItems.push(this.productDetails);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
-      console.log(this.cart );
     },
     totalPrice: function () {
       return this.cart.length * this.productDetails.price;
@@ -198,8 +197,6 @@ export default {
         this.productDetails = this.products.find(product => product.id == this.$route.params.id);
         this.bannerImage    = this.productDetails.imageUrl;
         this.cart           = JSON.parse(localStorage.getItem("cart"));
-        // alert(this.productDetails.imageUrl);
-        // console.log(this.productDetails.productImages);
     }
   },
 };

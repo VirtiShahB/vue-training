@@ -40,7 +40,15 @@ const router = new VueRouter({
     }
   }
 })
-
+Vue.mixin({
+  methods: {
+    logout() {
+      localStorage.removeItem("activeUser");
+      this.$router.push("/login");
+      window.location.reload();
+    },
+  }
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

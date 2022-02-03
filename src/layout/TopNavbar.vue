@@ -55,8 +55,8 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              Log out
+            <a href="" @click.prevent="logout" class="nav-link">
+              Logout
             </a>
           </li>
         </ul>
@@ -78,6 +78,7 @@
       }
     },
     methods: {
+      
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
