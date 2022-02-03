@@ -144,12 +144,22 @@
           <!-- Cart -->
           <ul class="list-group mb-3 z-depth-1">
             <li
-              class="list-group-item d-flex justify-content-between lh-condensed"
+              class="
+                list-group-item
+                d-flex
+                justify-content-between
+                lh-condensed
+              "
             >
               <h5>Products</h5>
             </li>
             <li
-              class="list-group-item d-flex justify-content-between lh-condensed"
+              class="
+                list-group-item
+                d-flex
+                justify-content-between
+                lh-condensed
+              "
             >
               <div style="display: flex">
                 <img :src="pimage" alt="" style="width: 50px" />

@@ -79,13 +79,13 @@
 </template>
 
 <script>
+import { formFieldMixin } from '../mixins/formFieldMixin.js';
 export default {
+  mixins: [formFieldMixin],
   name: "ProductList",
   data() {
     return {
-      CartPro: 0,
       WishPro: 0,
-      cartProduct: [],
       wishList: JSON.parse(localStorage.getItem("wishProduct"))
         ? JSON.parse(localStorage.getItem("wishProduct"))
         : "0",
@@ -100,11 +100,6 @@ export default {
           id: id,
         },
       });
-    },
-    AddTOCart(pid) {
-      this.CartPro += 1;
-      this.cartProduct.push(pid);
-      localStorage.setItem("cartProduct", JSON.stringify(this.cartProduct));
     },
     Back() {
       this.$router.push("/");

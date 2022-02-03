@@ -1,20 +1,24 @@
 <template>
   <div class="product">
     <div class="container">
-      <div class="col-lg-8 border p-3 main-section bg-white"  v-for="pdetails in productDetails"
-          :key="pdetails.PID"
-          :id="pdetails.PID">
+      <div
+        class="col-lg-8 border p-3 main-section bg-white"
+        v-for="pdetails in productDetails"
+        :key="pdetails.PID"
+        :id="pdetails.PID"
+      >
         <div
-          class="d-flex align-items-center justify-content-end px-sm-3 pt-3 px-1"
+          class="
+            d-flex
+            align-items-center
+            justify-content-end
+            px-sm-3
+            pt-3
+            px-1
+          "
         ></div>
-        <div
-          class="row m-0"
-         v-if="pdetails.PID == id"
-        >
-          <div
-            class="col-lg-4 left-side-product-box pb-3"
-            
-          >
+        <div class="row m-0" v-if="pdetails.PID == id">
+          <div class="col-lg-4 left-side-product-box pb-3">
             <img :src="pdetails.PIMAGE" class="border p-3" />
             <div class="var-img">
               <span
@@ -57,7 +61,7 @@
                     >
                   </p>
                 </div>
-                 <div class="col-lg-12">
+                <div class="col-lg-12">
                   <p class="tag-section">
                     <strong>Sizes : </strong>
                     <a
@@ -114,7 +118,9 @@
 </template>
 
 <script>
+import { productListMixin } from "../mixins/productListMixin.js";
 export default {
+  mixins: [productListMixin],
   name: "ProductDetail",
   data() {
     return {
@@ -122,9 +128,8 @@ export default {
       productDetails: [],
       pro: localStorage.getItem("PROLIST"),
       count: localStorage.getItem("cartProduct"),
-      
+
       cart: 1,
-      
     };
   },
   methods: {
@@ -145,12 +150,6 @@ export default {
     addToCart() {
       this.$router.push({
         path: "/addtocart",
-        query: {
-          pname: this.product,
-          pprice: this.price,
-          pcart: this.cart,
-          pimage: this.mainimage,
-        },
       });
     },
     checkout() {
@@ -165,21 +164,14 @@ export default {
       });
     },
   },
-  created: function () {
-   
-    this.productDetails = JSON.parse(localStorage.getItem("PROLIST"));
-    this.productDetails.forEach(function (element) {
-      console.log(element);
-    });
-  },
 };
 </script>
 <style scoped>
-.count{
+.count {
   background-color: #cbcfd4 !important;
   width: 10% !important;
 }
-.pt-2{
+.pt-2 {
   padding-top: 0px !important;
 }
 </style>

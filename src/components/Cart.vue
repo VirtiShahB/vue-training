@@ -10,12 +10,20 @@
             >
           </p>
 
-          <div class="card mb-4">
-            <div class="card-body p-4">
-              <div class="row align-items-center">
+          <div class="card mb-4" v-if="cartProducts.length > 0">
+            <div
+              class="card-body p-4"
+              v-for="products in productDetails"
+              :key="products.PID"
+              :id="products.PID"
+            >
+              <div
+                class="row align-items-center"
+                v-if="cartProducts.includes(products.PID)"
+              >
                 <div class="col-md-2">
                   <img
-                    :src="image"
+                    :src="products.PIMAGE"
                     class="img-fluid"
                     alt="Generic placeholder image"
                   />
@@ -24,7 +32,7 @@
                   <div>
                     <p class="small text-muted mb-4 pb-2">Name</p>
                     <p class="lead fw-normal mb-0">
-                      {{ this.$route.query.pname }}
+                      {{ products.PNAME }}
                     </p>
                   </div>
                 </div>
@@ -33,30 +41,33 @@
                     <p class="small text-muted mb-4 pb-2">Size</p>
                     <p class="lead fw-normal mb-0">
                       <i class="fas fa-circle me-2" style="color: #fdd8d2"></i>
-                      M
+                      {{ products.SIZE[0] }}
                     </p>
                   </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
-                    <p class="small text-muted mb-4 pb-2">Quantity</p>
+                    <p class="small text-muted mb-4 pb-2">Color</p>
                     <p class="lead fw-normal mb-0">
-                      {{ this.$route.query.pcart }}
+                      {{ products.COLOR[0] }}
                     </p>
                   </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
                     <p class="small text-muted mb-4 pb-2">Price</p>
-                    <p class="lead fw-normal mb-0">
-                      ${{ this.$route.query.pprice }}
-                    </p>
+                    <p class="lead fw-normal mb-0">${{ products.PPRICE }}</p>
                   </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
                     <p class="small text-muted mb-4 pb-2">Total</p>
-                    <p class="lead fw-normal mb-0">${{ ptotal }}</p>
+                    <input
+                      type="hidden"
+                      name="total"
+                      v-model="products.PPRICE"
+                    />
+                    <p class="lead fw-normal mb-0">${{ products.PPRICE }}</p>
                   </div>
                 </div>
               </div>
@@ -68,7 +79,7 @@
               <div class="float-end">
                 <p class="mb-0 me-5 d-flex align-items-center">
                   <span class="small text-muted me-2">Order total:</span>
-                  <span class="lead fw-normal">${{ ptotal }}</span>
+                  <span class="lead fw-normal"></span>
                 </p>
               </div>
             </div>
@@ -96,12 +107,14 @@
   </section>
 </template>
 <script>
+import { productListMixin } from "../mixins/productListMixin.js";
 export default {
+  mixins: [productListMixin],
   name: "Cart",
   data() {
     return {
-      ptotal: this.$route.query.pprice * this.$route.query.pcart,
-      image: this.$route.query.pimage,
+      cartProducts: [],
+      totalAmt: "",
     };
   },
   methods: {
@@ -111,14 +124,11 @@ export default {
     checkout() {
       this.$router.push({
         path: "/checkout",
-        query: {
-          name: this.$route.query.pname,
-          price: this.$route.query.pprice,
-          cart: this.$route.query.pcart,
-          mainimage: this.image,
-        },
       });
     },
+  },
+  created() {
+    this.cartProducts = JSON.parse(localStorage.getItem("cartProduct"));
   },
 };
 </script>
