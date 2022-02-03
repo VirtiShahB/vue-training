@@ -34,13 +34,20 @@
       <h1>All Products</h1>
 
       <hr />
-      <div v-if="!loading" class="row">
-        <div
-          v-for="product in products"
-          :key="product.id"
-          class="mb-3 col-md-4"
-        >
-          <Product :product="product"></Product>
+      <div v-if="!loading">
+        <div v-if="tempProducts.length > 0" class="row">
+          <div
+            v-for="product in tempProducts"
+            :key="product.id"
+            class="mb-3 col-md-4"
+          >
+            <Product :product="product"></Product>
+          </div>
+        </div>
+        <div v-else>
+          <h4 class="text-center">
+            No matching products found !
+          </h4>
         </div>
       </div>
       <div v-else>
@@ -81,6 +88,7 @@ export default {
   data() {
     return {
       products: [],
+      tempProducts: [],
       loading: true,
       sort: "desc",
       searchTerm: "",
@@ -88,13 +96,18 @@ export default {
   },
   watch: {
     searchTerm: _.debounce(function (val) {
+
+      this.loading = true;
+      
       if (val != "") {
-        this.products = this.products.filter(
-          (el) => el.title.toLowerCase().indexOf(val) > -1
+        this.tempProducts = this.products.filter(
+          (el) => el.title.match(val) //el.title.toLowerCase().indexOf(val) > -1
         );
       } else {
-        this.loadProducts();
+        this.tempProducts = this.products;
       }
+
+      this.loading = false;
     }, 1500),
   },
   methods: {
@@ -102,7 +115,7 @@ export default {
       // sort by title a-z order
 
       if (this.sort == "a-z") {
-        this.products = this.products.sort((a, b) => {
+        this.tempProducts = this.tempProducts.sort((a, b) => {
           let fa = a.title.toLowerCase(),
             fb = b.title.toLowerCase();
           if (fa < fb) {
@@ -118,7 +131,7 @@ export default {
       // sort by title z-a order
 
       if (this.sort == "z-a") {
-        this.products = this.products.sort((a, b) => {
+        this.tempProducts = this.tempProducts.sort((a, b) => {
           let fa = a.title.toLowerCase(),
             fb = b.title.toLowerCase();
           if (fa > fb) {
@@ -134,7 +147,7 @@ export default {
       // sort by ID desc order
 
       if (this.sort == "desc") {
-        this.products = this.products.sort((a, b) => {
+        this.tempProducts = this.tempProducts.sort((a, b) => {
           let fa = a.id,
             fb = b.id;
           if (fa > fb) {
@@ -150,7 +163,7 @@ export default {
       // sort by ID asc order
 
       if (this.sort == "asc") {
-        this.products = this.products.sort((a, b) => {
+        this.tempProducts = this.tempProducts.sort((a, b) => {
           let fa = a.id,
             fb = b.id;
           if (fa < fb) {
@@ -165,14 +178,12 @@ export default {
     },
     async loadProducts() {
 
-      this.loading = true;
-
       await this.$axios
         .get("https://fakestoreapi.com/products")
         .then((res) => {
+          this.tempProducts = res.data;
           this.products = res.data;
-
-          this.products = this.products.sort((a, b) => {
+          this.tempProducts = this.tempProducts.sort((a, b) => {
             let fa = a.id,
               fb = b.id;
             if (fa > fb) {
@@ -184,9 +195,11 @@ export default {
             return 0;
           });
 
+          console.log(this.products);
+
           let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
 
-          this.products = this.products.map(function (item) {
+          this.tempProducts = this.tempProducts.map(function (item) {
             /** covert rating into percentage */
 
             item["rating"]["width"] = (item.rating.rate / 5) * 100;
