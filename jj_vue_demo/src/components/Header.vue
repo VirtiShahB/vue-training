@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nav class="navbar navbar-light bg-danger bg-gradient p-3" >
+    <nav
+      class="navbar navbar-light bg-danger bg-gradient p-3"
+      v-if="isUserLoggedIn"
+    >
       <router-link to="/">
         <h3>
           <b>
@@ -23,10 +26,16 @@
         <a href="#" @click="logout()">Logout</a>
       </div>
     </nav>
+    <nav class="navbar navbar-light bg-danger bg-gradient p-3" v-else>
+      <h3>
+        <b> Products </b>
+      </h3>
+    </nav>
   </div>
 </template>
 
 <script>
+import logoutMixins from "../mixins/logout";
 export default {
   data() {
     return {
@@ -39,13 +48,12 @@ export default {
       this.cart += quantity;
     });
   },
-  methods: {
-    logout() {
-      this.$store.state.isLoggedIn = false;
-      localStorage.clear();
-      this.$router.push({ name: "login" });
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.state.isLoggedIn;
     },
   },
+  mixins: [logoutMixins],
 };
 </script>
 

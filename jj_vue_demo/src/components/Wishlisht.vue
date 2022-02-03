@@ -5,7 +5,7 @@
         <b-card
           v-for="wishlisht in wishlishts"
           :key="wishlisht.id"
-          img-src="https://placekitten.com/300/300"
+          :img-src="wishlisht.img"
           img-alt="Card image"
           img-left
           class="mb-3 mt-4"
