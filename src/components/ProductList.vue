@@ -60,10 +60,13 @@ export default {
     AddToFavorite(item, index) {
       this.items[index].Favorite = 1;
       this.ArrWishList.push(item);
+
       const parsedObject = JSON.parse(localStorage.getItem("items"));
       parsedObject[index].Favorite = 1;
+
       const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
       localStorage.setItem("items", modifiedndstrigifiedForStorage);
+
       localStorage.setItem("WishListitems", JSON.stringify(this.ArrWishList));
       this.makeToastMessage("Product added in Wishlist.", "success");
       // Recommended product
@@ -83,18 +86,23 @@ export default {
     RemoveFromFavorite(item, index) {
       var WishedList = JSON.parse(localStorage.getItem("WishListitems"));
       this.items[index].Favorite = 0;
+
       WishedList.splice(index, 1);
       localStorage.setItem("WishListitems", JSON.stringify(WishedList));
       const parsedObject = JSON.parse(localStorage.getItem("items"));
+
       parsedObject[index].Favorite = 0;
       const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
       localStorage.setItem("items", modifiedndstrigifiedForStorage);
+
       this.makeToastMessage("Product removed from wishlist.", "primary");
+
       // Removed recommended product
-      if (this.recommendedProduct.length > 0) {
-        const relatedProducts = this.recommendedProduct.filter(function (
-          product
-        ) {
+      const recommendedProduct = JSON.parse(
+        localStorage.getItem("recommendedProduct")
+      );
+      if (recommendedProduct.length > 0) {
+        const relatedProducts = recommendedProduct.filter(function (product) {
           return product.Tag !== item.Tag;
         });
         this.recommendedProduct = relatedProducts;
