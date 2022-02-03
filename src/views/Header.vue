@@ -91,8 +91,7 @@ import { bus } from "@/eventBus";
 export default {
   data() {
     return {
-      wishList: [],
-      key: "a",
+      wishList: []
     };
   },
   methods: {
@@ -103,6 +102,7 @@ export default {
       localStorage.removeItem("loggedInUser");
       this.$loggedIn = false;
       this.$router.push({ path: "/", query: { logout: true } });
+      this.$router.push({ path: "/"});
     },
   },
   created() {

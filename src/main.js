@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import UUID from "vue-uuid";
-
+import 'lodash';
 import axios from "axios";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
@@ -22,6 +22,7 @@ Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.use(UUID);
+
 
 new Vue({
   router,

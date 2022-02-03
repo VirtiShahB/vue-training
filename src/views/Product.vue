@@ -6,27 +6,27 @@
         <div class="col-md-6">
           <center>
             <b-carousel
-            id="productSlider"
-            :interval="4000"
-            controls
-            indicators
-            img-width="300"
-            img-height="100"
-            style="text-shadow: 1px 1px 2px #333"
-          >
-            <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-            <b-carousel-slide>
-              <template #img>
-                <img
-                  class="d-block"
-                  width="480"
-                  height="600"
-                  :src="product.image"
-                  alt="image slot"
-                />
-              </template>
-            </b-carousel-slide>
-          </b-carousel>
+              id="productSlider"
+              :interval="4000"
+              controls
+              indicators
+              img-width="300"
+              img-height="100"
+              style="text-shadow: 1px 1px 2px #333"
+            >
+              <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+              <b-carousel-slide>
+                <template #img>
+                  <img
+                    class="d-block"
+                    width="480"
+                    height="600"
+                    :src="product.image"
+                    alt="image slot"
+                  />
+                </template>
+              </b-carousel-slide>
+            </b-carousel>
           </center>
         </div>
 
@@ -206,7 +206,11 @@
             <div class="clearfix">
               <b-skeleton class="float-left" type="avatar"></b-skeleton>
               <b-skeleton class="ml-2 float-left" type="avatar"></b-skeleton>
-              <b-skeleton v-if="$loggedIn" class="ml-2 float-left" type="avatar"></b-skeleton>
+              <b-skeleton
+                v-if="$loggedIn"
+                class="ml-2 float-left"
+                type="avatar"
+              ></b-skeleton>
             </div>
 
             <p class="mt-3">
@@ -222,11 +226,12 @@
 
 <script>
 import Main from "@/views/Header.vue";
-import { bus } from "@/eventBus";
+import wishlist from '@/mixin/wishlist';
 export default {
   components: {
     Main,
   },
+  mixins : [wishlist],
   data() {
     return {
       product: {},
@@ -263,13 +268,12 @@ export default {
       this.quantity = customqty != 0 ? customqty : 1;
     },
     addToCart() {
-
-      if(!this.$loggedIn){
-         this.$bvToast.toast("Please login to continue !", {
+      if (!this.$loggedIn) {
+        this.$bvToast.toast("Please login to continue !", {
           title: "Login Required !",
           variant: "danger",
-          toaster:  'b-toaster-bottom-center',
-          solid: true
+          toaster: "b-toaster-bottom-center",
+          solid: true,
         });
 
         return false;
@@ -325,68 +329,7 @@ export default {
     chooseColor(id, value) {
       this.color = value;
       this.active = id;
-    },
-    addToWishList(product) {
-      let wishList = JSON.parse(localStorage.getItem("wishList"));
-
-      wishList = wishList != null ? wishList : [];
-
-      /** Check if wishList has already have this product */
-
-      let index = wishList.findIndex((c) => c.id == product.id);
-
-      /** if has then remove it  */
-
-      if (index !== -1) {
-        wishList.splice(index, 1);
-      }
-
-      /** Push the item in wishList array */
-
-      wishList.push(product);
-
-      /** Push cart in localstorage */
-
-      localStorage.setItem("wishList", JSON.stringify(wishList));
-
-      this.in_wishList = true;
-
-      this.$bvToast.toast("Item is added to wishList !", {
-        title: "Added !",
-        variant: "success",
-        toaster: "b-toaster-bottom-center",
-        solid: true,
-      });
-
-      bus.$emit("wishList");
-    },
-    removeFromWishList(product) {
-      let wishList = JSON.parse(localStorage.getItem("wishList"));
-
-      /** check if wishList is not empty or not null */
-
-      if (wishList != null && wishList.length > 0) {
-        /** Check if wishList has already have this product */
-
-        let index = wishList.findIndex((c) => c.id == product.id);
-
-        /** if has then remove it  */
-
-        if (index !== -1) {
-          wishList.splice(index, 1);
-          localStorage.setItem("wishList", JSON.stringify(wishList));
-          this.in_wishList = false;
-          this.$bvToast.toast("Item is removed from wishList !", {
-            title: "Removed !",
-            variant: "success",
-            toaster: "b-toaster-bottom-center",
-            solid: true,
-          });
-        }
-
-        bus.$emit("wishList");
-      }
-    },
+    }
   },
   async mounted() {
     await this.$axios

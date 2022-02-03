@@ -8,11 +8,9 @@
             <div class="input-group">
               <input
                 type="text"
-                v-model="search"
+                v-model="searchTerm"
                 class="form-control"
                 placeholder="Search products"
-                aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
               />
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">
@@ -85,8 +83,19 @@ export default {
       products: [],
       loading: true,
       sort: "desc",
-      search : '',
+      searchTerm: "",
     };
+  },
+  watch: {
+    searchTerm: _.debounce(function (val) {
+      if (val != "") {
+        this.products = this.products.filter(
+          (el) => el.title.toLowerCase().indexOf(val) > -1
+        );
+      } else {
+        this.loadProducts();
+      }
+    }, 1500),
   },
   methods: {
     filter() {
@@ -154,52 +163,58 @@ export default {
         });
       }
     },
+    async loadProducts() {
+
+      this.loading = true;
+
+      await this.$axios
+        .get("https://fakestoreapi.com/products")
+        .then((res) => {
+          this.products = res.data;
+
+          this.products = this.products.sort((a, b) => {
+            let fa = a.id,
+              fb = b.id;
+            if (fa > fb) {
+              return -1;
+            }
+            if (fa < fb) {
+              return 1;
+            }
+            return 0;
+          });
+
+          let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
+
+          this.products = this.products.map(function (item) {
+            /** covert rating into percentage */
+
+            item["rating"]["width"] = (item.rating.rate / 5) * 100;
+
+            /** get item wishlist and check if item is in wishlist*/
+
+            let in_wishList =
+              fetchWishList != null && fetchWishList.length > 0
+                ? fetchWishList.findIndex((wish) => wish.id == item.id)
+                : null;
+
+            item["in_wishlist"] =
+              in_wishList != null && in_wishList !== -1 ? true : false;
+
+            return item;
+          });
+
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.log("error : " + err);
+        });
+    },
   },
   async created() {
     /** Get Product From API */
 
-    await this.$axios
-      .get("https://fakestoreapi.com/products")
-      .then((res) => {
-        this.products = res.data;
-
-        this.products = this.products.sort((a, b) => {
-          let fa = a.id,
-            fb = b.id;
-          if (fa > fb) {
-            return -1;
-          }
-          if (fa < fb) {
-            return 1;
-          }
-          return 0;
-        });
-
-        let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
-
-        this.products = this.products.map(function (item) {
-          /** covert rating into percentage */
-
-          item["rating"]["width"] = (item.rating.rate / 5) * 100;
-
-          /** get item wishlist and check if item is in wishlist*/
-
-          let in_wishList =
-            fetchWishList != null && fetchWishList.length > 0
-              ? fetchWishList.findIndex((wish) => wish.id == item.id)
-              : null;
-
-          item["in_wishlist"] =
-            in_wishList != null && in_wishList !== -1 ? true : false;
-
-          return item;
-        });
-
-        this.loading = false;
-      })
-      .catch((err) => {
-        console.log("error : " + err);
-      });
+    this.loadProducts();
   },
 };
 </script>
