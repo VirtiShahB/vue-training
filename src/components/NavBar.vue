@@ -61,7 +61,6 @@
                   style="
                     min-width: 350px;
                     box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 15px !important;
                   "
                 >
                   <div class="d-flex flex-column">
@@ -141,7 +140,6 @@
                   style="
                     min-width: 350px;
                     box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 15px !important;
                   "
                 >
                   <div class="d-flex flex-column">
@@ -272,6 +270,10 @@ export default {
           title: "Products",
           path_name: "/products",
         },
+        {
+          title: "Recommended",
+          path_name: "/recommended",
+        }
       ],
       cartItems: [],
       wishListItems: [],

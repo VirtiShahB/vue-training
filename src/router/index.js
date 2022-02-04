@@ -6,6 +6,7 @@ import Products from "../components/Products.vue";
 import Signin from "../components/Signin.vue";
 import Signup from "../components/Signup.vue";
 import Dashboard from "../components/Dashboard.vue";
+import Recommended from "../components/Recommended.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,12 @@ const routes = [
     path: "/checkout",
     name: "checkout",
     component: CheckOut,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/recommended",
+    name: "Recommended",
+    component: Recommended,
     meta: { requiresAuth: true },
   },
 ];

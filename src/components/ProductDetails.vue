@@ -52,7 +52,7 @@
             </div>
 
             <div class="my-3 row">
-              <div class="col-12 col-md-4 text-center px-md-0 mt-3">
+              <div class="col-12 col-md-6 text-center px-md-0 mt-3">
                 <div
                   class="bg-quantity d-flex flex-row justify-content-between"
                   style="font-weight: 700"
@@ -67,8 +67,19 @@
                     <i class="fas fa-plus" @click="increment()"></i>
                   </div>
                 </div>
+                <b-button
+                  class="bg-add-cart border-0 mt-1"
+                  :disabled="this.count == 0"
+                  style="width: 100%"
+                  @click="likeProduct"
+                >
+                  <span class="mx-3">
+                    <i class="fas fa-thumbs-up text-white"></i>
+                  </span>
+                  <span style="font-weight: 700"> Like </span>
+                </b-button>
               </div>
-              <div class="col-12 col-md-8 text-center mt-3">
+              <div class="col-12 col-md-6 text-center mt-3">
                 <b-button
                   class="bg-add-cart border-0"
                   :disabled="this.count == 0"
@@ -184,6 +195,38 @@ export default {
         this.fireToastNotification(
           "danger",
           this.product.title + " already wishlisted!"
+        );
+      }
+    },
+    likeProduct() {
+      var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
+      if (likeProduct == null) likeProduct = [];
+      //Find index of specific object using findIndex method.
+      var objIndex = likeProduct.findIndex((obj) => obj.id == this.product.id);
+
+      if (
+        likeProduct[objIndex] === "undefined" ||
+        likeProduct[objIndex] == null
+      ) {
+        var like = {
+          id: this.product.id,
+          title: this.product.title,
+          price: this.product.price,
+          quantity: this.count,
+          image: this.product.image,
+          tag: this.product.tag,
+          description: this.product.description,
+        };
+        likeProduct.push(like);
+        localStorage.setItem("likeProduct", JSON.stringify(likeProduct));
+        this.fireToastNotification(
+          "success",
+          "You like the " + this.product.title + "!"
+        );
+      } else {
+        this.fireToastNotification(
+          "danger",
+          "You already liked the " + this.product.title + "!"
         );
       }
     },

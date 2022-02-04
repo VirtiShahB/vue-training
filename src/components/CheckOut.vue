@@ -117,7 +117,7 @@
             >
               <b-form-textarea
                 id="textarea"
-                v-model="address"
+                v-model="form.address"
                 placeholder="Enter Address"
                 rows="3"
                 max-rows="6"
@@ -163,26 +163,21 @@
                     style="object-fit: cover; border-radius: 10px"
                   />
                 </div>
-                <div class="col-8 px-1 d-flex flex-column">
+                <div class="col-9 px-1 d-flex flex-column">
                   <div>
                     <span style="font-size: 14px" class="text-muted">
                       {{ item.title }}
                     </span>
                   </div>
-                  <div>
+                  <div style="font-weight: 500"> 
                     <span style="font-size: 15px" class="text-muted">
                       ${{ parseFloat(item.price).toFixed(2) }} X
                       {{ item.quantity }}
                     </span>
-                    <span style="font-weight: 700">
-                      <!-- ${{ calcPrice(item) }} -->
+                    <span>
+                      = ${{ calcPrice(item) }}
                     </span>
                   </div>
-                </div>
-                <div class="col-1 px-1">
-                  <span @click="deleteItem(item, index)">
-                    <img src="/assets/icon-delete.svg" alt="" />
-                  </span>
                 </div>
               </div>
             </div>
@@ -222,6 +217,11 @@ export default {
     };
   },
   methods: {
+    calcPrice(item) {
+      return parseFloat(
+        parseFloat(item.price).toFixed(2) * item.quantity
+      ).toFixed(2);
+    },
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));

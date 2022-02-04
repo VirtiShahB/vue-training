@@ -2,7 +2,7 @@
   <div class="container mt-5 mb-5">
     <b-row>
       <b-col md="8">
-        <h2 class="text-bold"><b>Products List</b></h2>
+        <h2 class="text-bold"><b>Recommended Products List</b></h2>
       </b-col>
       <b-col md="4">
         <b-form-input
@@ -59,27 +59,35 @@
 </template>
 
 <script>
-import products from "../products.json";
-
-localStorage.setItem("products_list", JSON.stringify(products));
+import productsData from "../products.json";
 
 export default {
   name: "Products",
   data() {
     return {
-      products: JSON.parse(localStorage.getItem("products_list")),
+      products: "",
       search: "",
     };
   },
   computed: {
     filteredProducts() {
-      return this.products.filter((product) => {
-        return (
-          product.title.toLowerCase().match(this.search) ||
-          product.description.toLowerCase().match(this.search) ||
-          product.price.match(this.search)
-        );
-      });
+      var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
+      var results = productsData.filter(
+        (o1) =>
+          likeProduct.some((o2) => o1.tag === o2.tag) ||
+          likeProduct.some((o2) => o2.title === this.search)
+      );
+      if (this.search) {
+        results = likeProduct.filter((product) => {
+          return (
+            product.title.toLowerCase().match(this.search) ||
+            product.description.toLowerCase().match(this.search) ||
+            product.price.match(this.search)
+          );
+        });
+      }
+
+      return results;
     },
   },
   // filters: {

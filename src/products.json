@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "Loafer Shoes",
+    "description": "Loafer Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "1200.00",
+    "tag": "fancy",
+    "image": "../assets/shoes/loafers.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Sports Shoes",
+    "description": "Sports Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "1500.00",
+    "tag": "sports",
+    "image": "../assets/shoes/sports.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Party Wear Shoes",
+    "description": "Party Wear Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "2200.00",
+    "tag": "formal",
+    "image": "../assets/shoes/party.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Sneakers Shoes",
+    "description": "Sneakers Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "1800.00",
+    "tag": "fancy",
+    "image": "../assets/shoes/sneakers.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Bata Shoes",
+    "description": "Bata Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "2200.00",
+    "tag": "routine",
+    "image": "../assets/shoes/bata.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "Puma Shoes",
+    "description": "Puma Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "2500.00",
+    "tag": "branded",
+    "image": "../assets/shoes/puma.jpeg"
+  },
+  {
+    "id": 7,
+    "title": "Adidas Shoes",
+    "description": "Adidas Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    "price": "1700.00",
+    "tag": "branded",
+    "image": "../assets/shoes/adidas.jpeg"
+  },
+  {
+    "id": 8,
+    "title": "Red Chief Shoes",
+    "description": "Red Cheif Shoes Description. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+    "price": "3000.00",
+    "tag": "branded",
+    "image": "../assets/shoes/redchief.jpeg"
+  }
+]
