@@ -92,10 +92,10 @@
 
 <script>
 import { bus } from "@/eventBus";
-import cart from '@/mixin/cart';
+import cart from "@/mixin/cart";
 export default {
   props: ["product"],
-  mixins : [cart],
+  mixins: [cart],
   data() {
     return {
       tempWishList: [],
@@ -104,13 +104,14 @@ export default {
   },
   methods: {
     addToWishList(product) {
+
       let wishList = JSON.parse(localStorage.getItem("wishList"));
 
       wishList = wishList != null ? wishList : [];
 
       /** Check if wishList has already have this product */
 
-      let index = wishList.findIndex((c) => c.id == product.id);
+      let index = wishList.findIndex((c) => c.id == product.id && c.userid == this.$loggedUser.id);
 
       /** if has then remove it  */
 
@@ -119,6 +120,8 @@ export default {
       }
 
       /** Push the item in wishList array */
+
+      product.userid = this.$loggedUser.id;
 
       wishList.push(product);
 
@@ -138,9 +141,6 @@ export default {
       bus.$emit("wishList");
     },
     removeFromWishList(product) {
-      if (this.$route.name == "wishList") {
-        this.block[product.id] = "d-none";
-      }
 
       let wishList = JSON.parse(localStorage.getItem("wishList"));
 
@@ -149,7 +149,7 @@ export default {
       if (wishList != null && wishList.length > 0) {
         /** Check if wishList has already have this product */
 
-        let index = wishList.findIndex((c) => c.id == product.id);
+        let index = wishList.findIndex((c) => c.id == product.id && c.userid == this.$loggedUser.id);
 
         /** if has then remove it  */
 
@@ -168,11 +168,13 @@ export default {
       }
 
       if (this.tempWishList != null && this.tempWishList.length > 0) {
+
         let index = this.tempWishList.findIndex((w) => w == product.id);
 
         if (index !== -1) {
           this.tempWishList.splice(index, 1);
         }
+
       }
 
       bus.$emit("wishList");
@@ -181,7 +183,9 @@ export default {
 
   mounted() {
     if (this.product.in_wishlist == true) {
+
       this.tempWishList.push(this.product.id);
+
     }
   },
 };

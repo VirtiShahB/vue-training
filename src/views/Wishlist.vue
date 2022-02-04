@@ -48,12 +48,13 @@ export default {
       loading: true,
     };
   },
-  methods: { 
+  methods: {
     fetchWishList() {
       var getWishList = JSON.parse(localStorage.getItem("wishList"));
 
-      if (getWishList != null && getWishList.length > 0) {
+      getWishList = getWishList.filter((w) => w.userid == this.$loggedUser.id);
 
+      if (getWishList != null && getWishList.length > 0) {
         this.products = getWishList.map(function (item) {
           /** covert rating into percentage */
 
@@ -70,15 +71,11 @@ export default {
             in_wishList != null && in_wishList !== -1 ? true : false;
 
           return item;
-
         });
 
         this.loading = false;
-        
       } else {
-
         this.products = [];
-
       }
     },
   },

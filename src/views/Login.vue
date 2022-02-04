@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import {bus} from '@/eventBus';
+import { bus } from "@/eventBus";
 export default {
   data() {
     return {
@@ -75,11 +75,9 @@ export default {
       let status = this.validation();
 
       if (status == true) {
-        
-        bus.$emit('authEvent');
+        bus.$emit("authEvent");
 
-        this.$router.push({ name: 'home' })
-
+        this.$router.push({ name: "home" });
       }
     },
     validation() {

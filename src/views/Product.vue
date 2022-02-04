@@ -226,12 +226,12 @@
 
 <script>
 import Main from "@/views/Header.vue";
-import wishlist from '@/mixin/wishlist';
+import wishlist from "@/mixin/wishlist";
 export default {
   components: {
     Main,
   },
-  mixins : [wishlist],
+  mixins: [wishlist],
   data() {
     return {
       product: {},
@@ -307,7 +307,8 @@ export default {
         (c) =>
           c.product == this.product.title &&
           c.size == this.size &&
-          c.color == this.color
+          c.color == this.color &&
+          c.userid == this.$loggedUser.id
       );
 
       if (index !== -1) {
@@ -320,6 +321,7 @@ export default {
         size: this.size,
         color: this.color,
         product: this.product.title,
+        userid : this.$loggedUser.id
       });
 
       localStorage.setItem("cartStorage", JSON.stringify(cart));
@@ -329,7 +331,7 @@ export default {
     chooseColor(id, value) {
       this.color = value;
       this.active = id;
-    }
+    },
   },
   async mounted() {
     await this.$axios
@@ -346,7 +348,7 @@ export default {
 
         let in_wishList =
           fetchWishList != null && fetchWishList.length > 0
-            ? fetchWishList.findIndex((wish) => wish.id == this.product.id)
+            ? fetchWishList.findIndex((wish) => wish.id == this.product.id && wish.userid == this.$loggedUser.id)
             : null;
 
         this.in_wishList =

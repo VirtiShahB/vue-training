@@ -91,18 +91,21 @@ import { bus } from "@/eventBus";
 export default {
   data() {
     return {
-      wishList: []
+      wishList: [],
     };
   },
   methods: {
     fetchWishlist() {
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
+      if(this.wishList != null && this.wishList.length > 0){
+        this.wishList = this.wishList.filter((w) => w.userid == this.$loggedUser.id);
+      }
     },
     logout() {
       localStorage.removeItem("loggedInUser");
       this.$loggedIn = false;
       this.$router.push({ path: "/", query: { logout: true } });
-      this.$router.push({ path: "/"});
+      this.$router.push({ path: "/" });
     },
   },
   created() {
@@ -110,7 +113,9 @@ export default {
       this.fetchWishlist();
     });
 
-    this.fetchWishlist();
+    if(this.$loggedIn){
+      this.fetchWishlist();
+    }
   },
   mounted() {
     if (Object.keys(this.$route.query).length !== 0) {
@@ -120,7 +125,7 @@ export default {
             query: "",
           })
           .catch(() => {});
-      }, 1000);
+      }, 1500);
     }
   },
 };

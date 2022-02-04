@@ -8,7 +8,7 @@ export default {
 
       /** Check if wishList has already have this product */
 
-      let index = wishList.findIndex((c) => c.id == product.id);
+      let index = wishList.findIndex((c) => c.id == product.id && c.userid == this.$loggedUser.id);
 
       /** if has then remove it  */
 
@@ -17,7 +17,7 @@ export default {
       }
 
       /** Push the item in wishList array */
-
+      product.userid = this.$loggedUser.id;
       wishList.push(product);
 
       /** Push cart in localstorage */
@@ -43,7 +43,7 @@ export default {
       if (wishList != null && wishList.length > 0) {
         /** Check if wishList has already have this product */
 
-        let index = wishList.findIndex((c) => c.id == product.id);
+        let index = wishList.findIndex((c) => c.id == product.id && c.userid == this.$loggedUser.id);
 
         /** if has then remove it  */
 

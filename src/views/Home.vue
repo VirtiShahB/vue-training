@@ -45,9 +45,7 @@
           </div>
         </div>
         <div v-else>
-          <h4 class="text-center">
-            No matching products found !
-          </h4>
+          <h4 class="text-center">No matching products found !</h4>
         </div>
       </div>
       <div v-else>
@@ -96,9 +94,8 @@ export default {
   },
   watch: {
     searchTerm: _.debounce(function (val) {
-
       this.loading = true;
-      
+
       if (val != "") {
         this.tempProducts = this.products.filter(
           (el) => el.title.match(val) //el.title.toLowerCase().indexOf(val) > -1
@@ -177,7 +174,6 @@ export default {
       }
     },
     async loadProducts() {
-
       await this.$axios
         .get("https://fakestoreapi.com/products")
         .then((res) => {
@@ -195,38 +191,39 @@ export default {
             return 0;
           });
 
-          console.log(this.products);
+          if (this.$loggedIn == true) {
+            var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
+            fetchWishList = fetchWishList.filter((el) =>
+              el.userid.match(this.$loggedUser.id)
+            );
+          }
 
-          let fetchWishList = JSON.parse(localStorage.getItem("wishList"));
-
-          this.tempProducts = this.tempProducts.map(function (item) {
+          this.tempProducts = this.tempProducts.map((item) => {
             /** covert rating into percentage */
 
             item["rating"]["width"] = (item.rating.rate / 5) * 100;
-
             /** get item wishlist and check if item is in wishlist*/
 
-            let in_wishList =
-              fetchWishList != null && fetchWishList.length > 0
-                ? fetchWishList.findIndex((wish) => wish.id == item.id)
-                : null;
+            if (this.$loggedIn == true) {
+              let in_wishList =
+                fetchWishList != null && fetchWishList.length > 0
+                  ? fetchWishList.findIndex((wish) => wish.id == item.id)
+                  : null;
 
-            item["in_wishlist"] =
-              in_wishList != null && in_wishList !== -1 ? true : false;
+              item["in_wishlist"] =
+                in_wishList != null && in_wishList !== -1 ? true : false;
+            }
 
             return item;
           });
 
           this.loading = false;
         })
-        .catch((err) => {
-          console.log("error : " + err);
-        });
+        ;
     },
   },
   async created() {
     /** Get Product From API */
-
     this.loadProducts();
   },
 };
