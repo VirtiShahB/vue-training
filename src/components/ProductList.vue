@@ -21,10 +21,10 @@
                   <div class="price">$ {{ price }}.00</div>
                   
                   <br>
-                  <div class="card-info"> {{ product.description | str_limit(8) }}</div>
+                  <div class="card-info"> {{ product.description | truncate() }}</div>
                 </div>
                 <div class="footer">
-                  <button type="button" class="btn add-to-card" @click="addToChart">
+                  <button type="button" class="btn add-to-card" @click="addToCart">
                     Add to Cart
                   </button>
                   <button type="button"
@@ -73,7 +73,7 @@ export default {
   },
    methods: {
     // Emit a new product or updated product.
-    addToChart() {
+    addToCart() {
       let indexOfSize = this.product.sizes
         .map((item) => item.value)
         .indexOf(this.selectedSize);
@@ -133,6 +133,15 @@ export default {
       this.selectedSize = this.product.sizes[0].value;
     },
    },
+  filters: {
+        truncate: function(value) {
+          console.log(value);
+          if (value.length > 100) {
+              value = value.substring(0, 100) + '...';
+          }
+          return value
+        }
+  },
  
 };
 </script>

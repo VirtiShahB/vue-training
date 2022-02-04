@@ -30,7 +30,7 @@
                 v-for="(product, i) in allProducts"
                 :key="i"
                 :product="product"
-                @add-to-chart="addToChard"
+                @add-to-chart="addToCart"
                 @add-to-whislist="addToWhislist"
               />
             </b-row>
@@ -71,11 +71,7 @@ export default {
     };
   },
   methods: {
-    /**
-     * Add products to list
-     * @param {Object} product - Product at selectedProducts array
-     */
-    addToChard(product) {
+    addToCart(product) {
       let sameProduct = this.selectedProducts.find((item) => item.id === product.id);
       if (sameProduct) {
         const findedSize = sameProduct.sizes.find(
