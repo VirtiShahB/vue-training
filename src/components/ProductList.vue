@@ -4,7 +4,7 @@
       <h2>
         <p><strong>Products</strong></p>
       </h2>
-      <div class="col-sm-4" v-for="(item, index) in items" :key="index">
+      <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail
           v-bind:src="'../../images/' + item.Image"
@@ -16,12 +16,16 @@
           <h1>{{ item.ProductName }}</h1>
           <div
             v-if="item.Favorite == 0"
-            class="h2 mb-0"
+            class="h2 mb-0 fav_items"
             @click="AddToFavorite(item, index)"
           >
             <b-icon icon="heart"></b-icon>
           </div>
-          <div v-else class="h2 mb-0" @click="RemoveFromFavorite(item, index)">
+          <div
+            v-else
+            class="h2 mb-0 fav_items"
+            @click="RemoveFromFavorite(item, index)"
+          >
             <b-icon icon="heart-fill"></b-icon>
           </div>
 
@@ -43,7 +47,7 @@ import list from "../assets/js/ProductItems";
 import toastMessage from "../mixins/ToastMessage";
 import RecommendedProduct from "../components/RecommendedProduct.vue";
 
-const items = list.slice(0, 3);
+const items = list.slice(0, 4);
 
 export default {
   name: "ProductList",
@@ -161,5 +165,12 @@ p.cart-btn {
 }
 svg.bi-heart.b-icon.bi {
   cursor: pointer;
+}
+.fav_items {
+  position: absolute;
+  bottom: 0px;
+  top: 5px;
+  right: 15px;
+  left: 215px;
 }
 </style>

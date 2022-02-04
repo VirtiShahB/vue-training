@@ -11,6 +11,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/dashboard',
+    name:'Dashboard',
+    beforeEnter: guadMyRoute
+  },
+  {
     path: '/',
     name:'ProductList',
     component: ProductList,
@@ -39,7 +44,7 @@ const routes = [
     path: '/login',
     name:'Login',
     component: Login,
-    meta: {title: 'Login'}
+    meta: {title: 'Login'},
   },
   {
     path: '/Signup',

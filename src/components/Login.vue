@@ -45,9 +45,11 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
+import toastMessage from "../mixins/ToastMessage";
 
 export default {
   name: "Login",
+  mixins: [toastMessage],
   setup() {
     return { v$: useVuelidate() };
   },
@@ -86,7 +88,7 @@ export default {
         );
         this.$router.push("/dashboard");
       } else {
-        alert("Invalid Credentials");
+        this.makeToastMessage("Invalid Credentials", "danger");
       }
     },
   },

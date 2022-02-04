@@ -104,5 +104,10 @@ export default {
       }
     },
   },
+  created() {
+    if (localStorage.getItem("loginnedUser") !== "") {
+      this.isAuthenticated = true;
+    }
+  },
 };
 </script>

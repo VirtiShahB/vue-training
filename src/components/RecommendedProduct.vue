@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="row product-list">
+    <div class="row product-recommend-list">
       <h2>
         <p><strong>Recommended Products</strong></p>
       </h2>
-      <div class="col-sm-4" v-for="(item, index) in items" :key="index">
+      <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail
           v-bind:src="'../../images/' + item.Image"
@@ -79,5 +79,8 @@ p.cart-btn {
 }
 .product-outline {
   border: 1px outset;
+}
+.product-recommend-list {
+  text-align: center;
 }
 </style>
