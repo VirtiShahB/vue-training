@@ -65,29 +65,30 @@ export default {
   name: "Products",
   data() {
     return {
-      products: "",
+      // products: "",
       search: "",
     };
   },
   computed: {
     filteredProducts() {
       var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
-      var results = productsData.filter(
-        (o1) =>
-          likeProduct.some((o2) => o1.tag === o2.tag) ||
-          likeProduct.some((o2) => o2.title === this.search)
+
+      var data = productsData.filter((o1) =>
+        likeProduct.some((o2) => o1.tag === o2.tag)
       );
-      if (this.search) {
-        results = likeProduct.filter((product) => {
+
+      if (this.search.length > 0) {
+        data = data.filter((product) => {
           return (
-            product.title.toLowerCase().match(this.search) ||
-            product.description.toLowerCase().match(this.search) ||
-            product.price.match(this.search)
+            product.title.toLowerCase().match(this.search.toLowerCase()) ||
+            product.description
+              .toLowerCase()
+              .match(this.search.toLowerCase()) ||
+            product.price.match(this.search.toLowerCase())
           );
         });
       }
-
-      return results;
+      return data;
     },
   },
   // filters: {

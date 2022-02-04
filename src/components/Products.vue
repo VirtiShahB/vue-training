@@ -75,9 +75,9 @@ export default {
     filteredProducts() {
       return this.products.filter((product) => {
         return (
-          product.title.toLowerCase().match(this.search) ||
-          product.description.toLowerCase().match(this.search) ||
-          product.price.match(this.search)
+          product.title.toLowerCase().match(this.search.toLowerCase()) ||
+          product.description.toLowerCase().match(this.search.toLowerCase()) ||
+          product.price.match(this.search.toLowerCase())
         );
       });
     },
