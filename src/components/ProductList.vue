@@ -79,13 +79,19 @@
         </div>
       </div>
     </div>
+    <RecommandProducts />
   </div>
 </template>
+
 <script>
-import { formFieldMixin } from '../mixins/formFieldMixin.js';
+import RecommandProducts from "./RecommandProducts.vue";
+import { formFieldMixin } from "../mixins/formFieldMixin.js";
 export default {
   mixins: [formFieldMixin],
   name: "ProductList",
+  components: {
+    RecommandProducts,
+  },
   data() {
     return {
       WishPro: 0,
@@ -110,6 +116,7 @@ export default {
           DESCRIPTION:
             "Fabric : Reyon DISCLAIMER: The images shown are for representational purposes only. Please note that the colour of the product may slightly vary in comparison to the picture shown on the website due to various reasons which may include different lighting and devices during photo-shoot and also the colour settings and resolution of your own monitor screen. It is also important to note that we thrive to bring you the best, but, there may be a little difference in terms of fabric and colour, Wash Care: The Dry clean is recommended.",
           PFILTER: "rating",
+          PTAGS: "Top",
         },
         {
           PID: 2,
@@ -127,6 +134,7 @@ export default {
           DESCRIPTION:
             "Wash Care : first wash is dry clean after that use machine wash or hand wash,Care Instructions: Dry Clean Only,Fit Type: Regular,Fabric : Polyester,Color : Black",
           PFILTER: "rating",
+          PTAGS: "Printed",
         },
         {
           PID: 3,
@@ -149,6 +157,7 @@ export default {
           DESCRIPTION:
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "popular",
+          PTAGS: "Top",
         },
         {
           PID: 4,
@@ -166,6 +175,7 @@ export default {
           DESCRIPTION:
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "popular",
+          PTAGS: "Printed",
         },
         {
           PID: 5,
@@ -182,6 +192,7 @@ export default {
           DESCRIPTION:
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "featured",
+          PTAGS: "Regular",
         },
         {
           PID: 6,
@@ -198,6 +209,7 @@ export default {
           DESCRIPTION:
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "featured",
+          PTAGS: "Regular",
         },
       ],
     };

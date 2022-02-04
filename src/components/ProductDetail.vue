@@ -114,14 +114,19 @@
         </div>
       </div>
     </div>
+    <RecommandProducts />
   </div>
 </template>
 
 <script>
+import RecommandProducts from "./RecommandProducts.vue";
 import { productListMixin } from "../mixins/productListMixin.js";
 export default {
   mixins: [productListMixin],
   name: "ProductDetail",
+  components: {
+    RecommandProducts,
+  },
   data() {
     return {
       id: this.$route.query.id,
