@@ -3,14 +3,14 @@
     <b-container class="bv-example-row">
       <b-row>
         <b-col>
-          <img
-            :src="require('@/assets/images/' + item.image)"
-            alt=""
-            class="img-fluid w-auto"
-          />
+          <img :src="item.image" alt="" class="img-fluid w-auto" />
         </b-col>
         <b-col class="text-left">
-          <h1>{{ item.title }}</h1>
+          <h3>{{ item.title }}</h3>
+          <p class="item_tag mb-0">
+            <b-icon-chevron-right scale="0.7"></b-icon-chevron-right
+            >{{ item.tag }}
+          </p>
           <hr />
           <p>{{ item.desc }}</p>
           <span class="item_price">{{ "₹ " + item.price }}</span>
@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: "Book",
+  name: "ProductShow",
   created() {
     this.item = this.$route.params.item;
     if (!this.item) {

@@ -73,8 +73,9 @@ ul {
   display: block !important;
   width: 100%;
 }
-.book_title {
+.item_title {
   color: #007185;
+  font-size: 13px;
 }
 .book_author {
   font-size: 12px;

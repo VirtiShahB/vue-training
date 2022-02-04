@@ -8,6 +8,17 @@ export default new Vuex.Store({
     wishList: [],
   },
   mutations: {
+    addLikedItem(state, { itemId, likedItemId }) {
+      if (!localStorage.getItem("likedList")) {
+        localStorage.setItem("likedList", JSON.stringify([]));
+      }
+      const likedItems = JSON.parse(localStorage.getItem("likedList"));
+      const likedItemsId = likedItemId;
+      likedItemsId.push(itemId);
+      this.likedItemId = likedItemsId;
+      likedItems.push(itemId);
+      localStorage.setItem("likedList", JSON.stringify(likedItems));
+    },
     addWishlist(state, { item, wishListItemId }) {
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
@@ -26,6 +37,7 @@ export default new Vuex.Store({
       }
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
+
     removeFromWishlist(state, { item, wishListItemId }) {
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
@@ -43,6 +55,26 @@ export default new Vuex.Store({
             if (index > -1) {
               wishListItemsId.splice(index, 1);
               this.wishListItemId = wishListItemsId;
+            }
+          }
+        }
+      }
+    },
+    dislikedItem(state, { itemId, likedItemId }) {
+      if (!localStorage.getItem("likedList")) {
+        localStorage.setItem("likedList", JSON.stringify([]));
+      }
+      const likedItems = JSON.parse(localStorage.getItem("likedList"));
+      const likedItemsId = likedItemId;
+      if (likedItems.length > 0) {
+        for (var i = 0; i < likedItems.length; i++) {
+          if (itemId === likedItems[i]) {
+            likedItems.splice(i, 1);
+            localStorage.setItem("likedList", JSON.stringify(likedItems));
+            const index = likedItemsId.indexOf(itemId);
+            if (index > -1) {
+              likedItemsId.splice(index, 1);
+              this.likedItemId = likedItemsId;
             }
           }
         }

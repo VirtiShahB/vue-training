@@ -16,12 +16,12 @@
             <b-row>
               <b-col class="text-left">
                 <img
-                  :src="require('@/assets/images/' + c.image)"
+                  :src="c.image"
                   alt=""
                   v-bind="mainProps"
                   class="d-inline-block img-fluid"
                 />
-                <span class="cart_book_title d-inline-block">
+                <span class="cart_item_title d-inline-block">
                   <router-link
                     :to="{
                       name: 'ProductDetail',
@@ -84,7 +84,7 @@ export default {
 .item_price {
   font-size: 20px;
 }
-.cart_book_title {
+.cart_item_title {
   margin-left: 10px;
   font-weight: 700;
   vertical-align: top;

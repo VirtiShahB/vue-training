@@ -12,8 +12,8 @@
           :to="{ name: 'ProductDetail', params: { id: item.id, item: item } }"
         >
           <img
-            :src="require('@/assets/images/' + item.image)"
-            alt="book image"
+            :src="item.image"
+            alt="item image"
             class="img-fluid mb-2"
             v-bind="mainProps"
           />
@@ -27,15 +27,15 @@
             class="wishlist_icon"
           ></b-icon>
         </span>
-        <div class="book_detail_block">
+        <div class="item_detail_block">
           <router-link
             :to="{ name: 'ProductDetail', params: { id: item.id, item: item } }"
           >
-            <p class="mb-0 book_title">{{ item.title }}</p>
+            <p class="mb-0 item_title">{{ item.title }}</p>
           </router-link>
-          <p class="book_author mb-0">
+          <p class="item_tag mb-0">
             <b-icon-chevron-right scale="0.7"></b-icon-chevron-right
-            >{{ item.author }}
+            >{{ item.tag }}
           </p>
           <p class="red mt-2 mb-2">{{ "₹ " + item.price }}</p>
         </div>
@@ -82,7 +82,7 @@ export default {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.item_block .book_detail_block {
+.item_block .item_detail_block {
   height: 100px;
 }
 .wishlist_icon {
