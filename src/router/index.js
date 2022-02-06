@@ -4,6 +4,7 @@ import Dashboard from '@/components/Dashboard'
 import ProductDetail from '@/components/ProductDetail'
 import Cart from '@/components/Cart'
 import FavouriteProduct from '@/components/FavouriteProduct'
+import RecommandedProduct from '@/components/RecommandedProduct'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 
@@ -42,6 +43,12 @@ const routes = [
     path: '/favourite-products',
     name: 'FavouriteProduct',
     component: FavouriteProduct,
+    beforeEnter: guardForRoteHandle,
+  },
+  {
+    path: '/recommanded-products',
+    name: 'recommandedProduct',
+    component: RecommandedProduct,
     beforeEnter: guardForRoteHandle,
   },
   {

@@ -3,18 +3,17 @@
     <b-navbar type="dark" variant="info" v-if="already_login">
       <div class="container">
         <b-navbar-nav>
-          <!--<b-nav-item href="#"
-            ><router-link to="/login">Login</router-link></b-nav-item
-          >
-          <b-nav-item href="#"
-            ><router-link to="/signup">Sign Up</router-link></b-nav-item
-          >--->
           <b-nav-item href="#"
             ><router-link to="/dashboard">Products</router-link></b-nav-item
           >
           <b-nav-item href="#"
             ><router-link to="/favourite-products"
               >Favourite Products</router-link
+            ></b-nav-item
+          >
+          <b-nav-item href="#"
+            ><router-link to="/recommanded-products"
+              >Recommanded Products</router-link
             ></b-nav-item
           >
           <b-nav-item href="#"
@@ -53,8 +52,18 @@ export default {
       already_login: false,
     };
   },
+  created() {
+
+  },
   mounted() {
     this.cartProducts = JSON.parse(localStorage.getItem("product-cart")) || [];
+
+    var localIsLogin = JSON.parse(localStorage.getItem("is_login"));
+			if (localIsLogin == true) {
+				this.already_login = true;
+			}else{
+				this.already_login = false;
+			}
   },
   computed: {
     totalCartItem() {

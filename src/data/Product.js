@@ -11,6 +11,7 @@ export const products = [
   isFavorite:0,
   color:'red',
   brand:'Nokia',
+  tag: 'Nokia',
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ export const products = [
 	otherData:"Redmi Note 10 Lite Glacier White 6GB RAM 128GB ROM | Alexa Built-in",
   isFavorite:0,
   color:'red',
-  brand:'Redmi'
+  brand:'Redmi',
+  tag: 'Redmi',
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ export const products = [
 	otherData:"MOTOROLA G60 (Dynamic Gray, 6GB RAM, 128GB Storage), 6000 mAh Battery, Triple Camera",
   isFavorite:0,
   color:'black',
-  brand:'Motorola'
+  brand:'Motorola',
+  tag: 'Motorola',
   },
   {
     id: 4,
@@ -49,6 +52,148 @@ export const products = [
 	otherData:"Samsung Galaxy M32 5G (Sky Blue, 8GB RAM, 128GB Storage)",
   isFavorite:0,
   color:'yellow',
-  brand:'Samsung'
+  brand:'Samsung',
+  tag: 'Samsung',
+  },
+  {
+    id: 5,
+    image: require("../assets/image/nokia.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Nokia C2", 
+    description:
+      "To survive family life, you need energy. Lots of energy. Luckily, Nokia G10 has what you need, with a battery that goes for days – not hours – between charges. The big screen will captivate your kids for the whole of the journey, and its triple rear camera with enhanced imagery means you’re always ready to catch those special moments, whenever they might happen. Combine that with the latest Android™ 11, two years of software upgrades and three years of security updates and you’ve got a phone that will truly stand the test of time.",
+    price: 300,
+	otherData:"Nokia C2, 5.5” HD+ Screen, 4000 mAh Battery, Triple Camera, 4 + 64GB Memory",
+  isFavorite:0,
+  color:'black',
+  brand:'Nokia',
+  tag: 'Nokia',
+  },
+  {
+    id: 6,
+    image: require("../assets/image/nokia.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Nokia E2", 
+    description:
+      "To survive family life, you need energy. Lots of energy. Luckily, Nokia G10 has what you need, with a battery that goes for days – not hours – between charges. The big screen will captivate your kids for the whole of the journey, and its triple rear camera with enhanced imagery means you’re always ready to catch those special moments, whenever they might happen. Combine that with the latest Android™ 11, two years of software upgrades and three years of security updates and you’ve got a phone that will truly stand the test of time.",
+    price: 200,
+	otherData:"Nokia E2, 5” HD+ Screen, 5000 mAh Battery, Triple Camera, 8 + 128GB Memory",
+  isFavorite:0,
+  color:'red',
+  brand:'Nokia',
+  tag: 'Nokia',
+  },
+  {
+    id: 7,
+    image: require("../assets/image/redmi10.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Redmi Note 8",
+    description:
+      "2.3GHz Qualcomm Snapdragon 720G with 8nm octa core processor,48MP rear camera with 8MP ultra-wide, 2MP super macro, 2MP portrait camera. Night mode, 960fps slowmotion, AI scene recognition, pro color, HDR, pro mode. 16MP front facing camera,16.94 centimeters (6.67-inch) FHD+ full screen dot display LCD multi-touch capacitive touchscreen with 2400 x 1080 pixels resolution,5020mAh lithium-polymer large battery providing talk-time of 29 hours and standby time of 556 hours | 18W fast charger in-box, Memory, Storage & SIM: 6GB RAM | 128GB storage | Dual SIM (nano+nano) + Dedicated SD card slot",
+    price: 400,
+	otherData:"Redmi Note 8 Lite Glacier White 6GB RAM 128GB ROM | Alexa Built-in",
+  isFavorite:0,
+  color:'yellow',
+  brand:'Redmi',
+  tag: 'Redmi',
+  },
+  {
+    id: 8,
+    image: require("../assets/image/redmi10.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Redmi Note 9",
+    description:
+      "2.3GHz Qualcomm Snapdragon 720G with 8nm octa core processor,48MP rear camera with 8MP ultra-wide, 2MP super macro, 2MP portrait camera. Night mode, 960fps slowmotion, AI scene recognition, pro color, HDR, pro mode. 16MP front facing camera,16.94 centimeters (6.67-inch) FHD+ full screen dot display LCD multi-touch capacitive touchscreen with 2400 x 1080 pixels resolution,5020mAh lithium-polymer large battery providing talk-time of 29 hours and standby time of 556 hours | 18W fast charger in-box, Memory, Storage & SIM: 6GB RAM | 128GB storage | Dual SIM (nano+nano) + Dedicated SD card slot",
+    price: 300,
+	otherData:"Redmi Note 9 Lite Glacier White 6GB RAM 128GB ROM | Alexa Built-in",
+  isFavorite:0,
+  color:'black',
+  brand:'Redmi',
+  tag:'Redmi' 
+  },
+  {
+    id: 9,
+    image: require("../assets/image/redmi10.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Redmi Note 11",
+    description:
+      "2.3GHz Qualcomm Snapdragon 720G with 8nm octa core processor,48MP rear camera with 8MP ultra-wide, 2MP super macro, 2MP portrait camera. Night mode, 960fps slowmotion, AI scene recognition, pro color, HDR, pro mode. 16MP front facing camera,16.94 centimeters (6.67-inch) FHD+ full screen dot display LCD multi-touch capacitive touchscreen with 2400 x 1080 pixels resolution,5020mAh lithium-polymer large battery providing talk-time of 29 hours and standby time of 556 hours | 18W fast charger in-box, Memory, Storage & SIM: 6GB RAM | 128GB storage | Dual SIM (nano+nano) + Dedicated SD card slot",
+    price: 800,
+	otherData:"Redmi Note 11 Lite Glacier White 6GB RAM 128GB ROM | Alexa Built-in",
+  isFavorite:0,
+  color:'red',
+  brand:'Redmi',
+  tag: 'Redmi'
+  },
+  {
+    id: 10,
+    image: require("../assets/image/moto_6.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Moto E50",
+    description:
+      "4 GB RAM | 64 GB ROM, Stock Android Experience,17.22 cm (6.78 inch) Full HD+ Display,108MP + 8MP + 2MP | 32MP Front Camera,6000 mAh Battery, 120Hz Refresh Rate",
+    price: 600,
+	otherData:"MOTOROLA E50 (Dynamic Gray, 4GB RAM, 64GB Storage), 6000 mAh Battery, Triple Camera",
+  isFavorite:0,
+  color:'red',
+  brand:'Motorola',
+  tag:'Motorola'
+  },
+  {
+    id: 11,
+    image: require("../assets/image/moto_6.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Moto A1",
+    description:
+      "4 GB RAM | 64 GB ROM, Stock Android Experience,17.22 cm (6.78 inch) Full HD+ Display,108MP + 8MP + 2MP | 32MP Front Camera,6000 mAh Battery, 120Hz Refresh Rate",
+    price: 500,
+	otherData:"MOTOROLA A1 (Dynamic Gray, 4GB RAM, 64GB Storage), 6000 mAh Battery, Triple Camera",
+  isFavorite:0,
+  color:'black',
+  brand:'Motorola',
+  tag:'Motorola'
+  },
+  {
+    id: 12,
+    image: require("../assets/image/samsung_galaxy.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Samsung Galaxy G2",
+    description:
+      "MediaTek | Dimensity 720 Octa Core 2GHz Processor with the widest 12 band support for a True 5G experience,16.55 centimeters (6.5-inch) TFT - Infinity V-cut display, HD+ resolution, 720 X 1600 pixels protected by Gorilla Glass 5,Versatile Quad camera setup-48MP (F 1.8) main camera + 8MP (F2.2) Ultra wide camera+ 5MP (F2.4) depth camera + 2MP (2.4) Macro Camera| 13MP (F2.2) front camera,Monster 5000 mAh Battery | Memory, Storage & SIM: Upto 12GB RAM Plus| 128GB internal memory expandable up to 1TB| SIM 1 + Hybrid (SIM or MicroSD),Latest Android v11.0, One UI 3.1 operating system, available right out of the box",
+    price: 200,
+	otherData:"Samsung Galaxy G2 5G (Sky Blue, 8GB RAM, 128GB Storage)",
+  isFavorite:0,
+  color:'red',
+  brand:'Samsung',
+  tag: 'Samsung'
+  },
+  {
+    id: 13,
+    image: require("../assets/image/samsung_galaxy.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Samsung Guru",
+    description:
+      "MediaTek | Dimensity 720 Octa Core 2GHz Processor with the widest 12 band support for a True 5G experience,16.55 centimeters (6.5-inch) TFT - Infinity V-cut display, HD+ resolution, 720 X 1600 pixels protected by Gorilla Glass 5,Versatile Quad camera setup-48MP (F 1.8) main camera + 8MP (F2.2) Ultra wide camera+ 5MP (F2.4) depth camera + 2MP (2.4) Macro Camera| 13MP (F2.2) front camera,Monster 5000 mAh Battery | Memory, Storage & SIM: Upto 12GB RAM Plus| 128GB internal memory expandable up to 1TB| SIM 1 + Hybrid (SIM or MicroSD),Latest Android v11.0, One UI 3.1 operating system, available right out of the box",
+    price: 500,
+	otherData:"Samsung Guru 5G (Sky Blue, 8GB RAM, 128GB Storage)",
+  isFavorite:0,
+  color:'black',
+  brand:'Samsung',
+  tag:'Samsung'
+  },
+  {
+    id: 14,
+    image: require("../assets/image/samsung_galaxy.png"),
+	bigImage: require("../assets/image/product1.jpeg"),
+    title: "Samsung G15",
+    description:
+      "MediaTek | Dimensity 720 Octa Core 2GHz Processor with the widest 12 band support for a True 5G experience,16.55 centimeters (6.5-inch) TFT - Infinity V-cut display, HD+ resolution, 720 X 1600 pixels protected by Gorilla Glass 5,Versatile Quad camera setup-48MP (F 1.8) main camera + 8MP (F2.2) Ultra wide camera+ 5MP (F2.4) depth camera + 2MP (2.4) Macro Camera| 13MP (F2.2) front camera,Monster 5000 mAh Battery | Memory, Storage & SIM: Upto 12GB RAM Plus| 128GB internal memory expandable up to 1TB| SIM 1 + Hybrid (SIM or MicroSD),Latest Android v11.0, One UI 3.1 operating system, available right out of the box",
+    price: 100,
+	otherData:"Samsung G15 5G (Sky Blue, 8GB RAM, 128GB Storage)",
+  isFavorite:0,
+  color:'yellow',
+  brand:'Samsung',
+  tag:'Samsung'
   },
 ];
+

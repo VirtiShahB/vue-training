@@ -114,7 +114,7 @@ export default {
             if (this.errors.length > 0) {
                 e.preventDefault();
             }
-            if(this.form.email == 'nirav.mistri@bacancy.com' && this.form.password=='123456') {
+            if(this.form.email == 'nirav.bacancy@gmail.com' && this.form.password=='123456') {
                 localStorage.setItem(
                   "is_login",
                   JSON.stringify(true)
@@ -122,7 +122,7 @@ export default {
                 alert("Login success successfully!")
                 this.$router.push({ name: "Dashboard" });
             }else{
-              alert("call sss");
+              alert("Invalid user name password");
             }
         } 
     }
