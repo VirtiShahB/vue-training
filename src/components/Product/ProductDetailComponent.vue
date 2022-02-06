@@ -2,12 +2,13 @@
   <div>
     <b-card no-body class="overflow-hidden">
       <b-row no-gutters>
-        <b-col md="6">
+        <b-col md="6" class="text-center">
           <b-card-img
             :src="product.image"
             alt="Image"
-            class="rounded-0"
-          ></b-card-img>
+            class="rounded-0 my-4"
+            style="width:200px; height:300px;"
+          />
         </b-col>
         <b-col md="6">
           <b-card-body>
@@ -33,7 +34,7 @@
                   v-model="quantity"
                   min="0"
                   max="100"
-                ></b-form-spinbutton>
+                />
               </b-col>
               <b-col>
                 <b-button variant="success" @click="onAddToCart"

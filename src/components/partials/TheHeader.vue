@@ -24,23 +24,21 @@
               wishlist.length
             }}</b-badge>
           </template>
-
           <b-list-group flush v-if="wishlist.length">
             <wishlist-component
               v-for="(item, ind) in wishlist"
               :key="ind"
               :product="item"
-            ></wishlist-component>
+            />
           </b-list-group>
           <p class="mt-3 text-center" v-else>No product found in wishlist.</p>
         </b-nav-item-dropdown>
-
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
             <em>User</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item >Profile</b-dropdown-item>
           <b-dropdown-item button @click="onLogout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -52,7 +50,6 @@ import WishlistComponent from "@/components/Wishlist/WishlistComponent.vue";
 var that;
 export default {
   components: { WishlistComponent },
-  
   created() {
     that = this;
     this.$store.dispatch("wishlist/getWishlist");

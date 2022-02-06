@@ -3,14 +3,14 @@
     <b-container class="my-5">
       <h4 class="font-weight-bold">Product Detail</h4>
       <b-row>
-        <b-col cols="12" :key="product.id">
-          <product-detail-component
+        <b-col cols="12">
+          <div class="text-center " v-if="loading">
+            <b-spinner />
+          </div>
+          <product-detail-component v-else
             :product="product"
             @addToCart="onAddToCart($event)"
-          ></product-detail-component>
-        </b-col>
-        <b-col cols="4">
-          
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -19,25 +19,20 @@
 
 <script>
 import ProductDetailComponent from "@/components/Product/ProductDetailComponent.vue";
-import { products } from "@/services/Product";
 export default {
   name: "App",
   components: {
     ProductDetailComponent,
   },
-  data() {
-    return {
-      products,
-      product: {},
-    };
-  },
   created() {
-    let productInd = products.findIndex(
-      item => item.id == this.$route.params.id
-    );
-
-    if (productInd >= 0) {
-      this.product = this.products[productInd];
+    this.$store.dispatch("product/getProduct", this.$route.params.id);
+  },
+  computed: {
+    product: function() {
+      return this.$store.state.product.product;
+    },
+    loading: function(){
+      return this.$store.getters["product/getLoadingStatus"];
     }
   },
 };
