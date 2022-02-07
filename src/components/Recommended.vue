@@ -65,13 +65,15 @@ export default {
   name: "Products",
   data() {
     return {
-      // products: "",
+      products: "",
       search: "",
     };
   },
   computed: {
     filteredProducts() {
       var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
+
+      if(likeProduct == null) likeProduct = [];
 
       var data = productsData.filter((o1) =>
         likeProduct.some((o2) => o1.tag === o2.tag)
