@@ -3,6 +3,7 @@ import App from "./App.vue";
 import UUID from "vue-uuid";
 import 'lodash';
 import axios from "axios";
+import Vuex from 'vuex';
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
@@ -14,7 +15,7 @@ import "./assets/style.css";
 import router from "./router";
 
 
-
+Vue.use(Vuex);
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin

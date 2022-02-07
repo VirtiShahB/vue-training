@@ -16,7 +16,8 @@
     "vue": "^2.6.14",
     "vue-owl-carousel": "^2.0.3",
     "vue-router": "^3.2.0",
-    "vue-uuid": "^2.0.2"
+    "vue-uuid": "^2.0.2",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -43,7 +44,9 @@
     "rules": {
       "no-mixed-spaces-and-tabs": 0
     },
-    "globals": { "_": true }
+    "globals": {
+      "_": true
+    }
   },
   "browserslist": [
     "> 1%",

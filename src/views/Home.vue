@@ -195,9 +195,12 @@ export default {
 
         if (this.$loggedIn == true) {
           var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
-          fetchWishList = fetchWishList.filter((el) =>
-            el.userid.match(this.$loggedUser.id)
-          );
+          
+          if(fetchWishList != null && fetchWishList.length > 0){
+            fetchWishList = fetchWishList.filter((el) =>
+              el.userid.match(this.$loggedUser.id)
+            );
+          }
         }
 
         this.tempProducts = this.tempProducts.map((item) => {
