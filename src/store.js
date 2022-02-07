@@ -42,6 +42,9 @@ export const mutations = {
   addSearchParam(state, payload) {
     state.searchParam = payload;
   },
+  setProducts(state, payload) {
+    state.products = payload;
+  },
 };
 
 const actions = {
@@ -59,6 +62,9 @@ const actions = {
   },
   addSearchParam(context, payload) {
     context.commit("addSearchParam", payload);
+  },
+  setProducts(context, payload) {
+    context.commit("setProducts", payload);
   },
 };
 

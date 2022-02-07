@@ -141,21 +141,9 @@ export default {
         this.qty--;
       }
     },
-    openCart() {
-      this.$router.push({
-        name: "checkout",
-        params: { cart: this.$store.state.cart },
-      });
-    },
     addToWishList(id) {
       this.isLiked = true;
       this.$store.dispatch("addToWishList", { id });
-    },
-    openWishlist() {
-      this.$router.push({
-        name: "wishlist",
-        params: { wishList: this.$store.state.wishList },
-      });
     },
     isInWishList(id) {
       const isPresent = this.$store.state.wishList.find((item) => {

@@ -23,6 +23,7 @@ export default {
       isLoginPage: this.$route.name == "login" ? true : false,
     };
   },
+  mounted() {},
 };
 </script>
 

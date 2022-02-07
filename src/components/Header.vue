@@ -83,10 +83,12 @@
   </div>
 </template>
 <script>
+import Helper from "../mixins/helper";
 import Sidebar from "./Navbar.vue";
 
 export default {
   name: "Header",
+  mixins: [Helper],
   components: {
     Sidebar,
   },
@@ -123,18 +125,6 @@ export default {
     },
     signOut() {
       console.log("signOut");
-    },
-    openWishlist() {
-      this.$router.push({
-        name: "wishlist",
-        params: { wishList: this.$store.state.wishList },
-      });
-    },
-    openCart() {
-      this.$router.push({
-        name: "checkout",
-        params: { cart: this.$store.state.cart },
-      });
     },
     filterItems() {
       this.$store.dispatch("addSearchParam", this.search);

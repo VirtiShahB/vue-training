@@ -25,7 +25,7 @@
             ></b-img>
 
             <b-card-text>
-              <span> {{ product.name }} </span>
+              <span> {{ product.title }} </span>
               <span class="float-right"> ${{ product.price }} </span>
             </b-card-text>
           </b-card>
@@ -57,7 +57,7 @@ export default {
     products() {
       if (this.$store.state.searchParam) {
         const filter = this.$store.state.products.filter((post) => {
-          return post.name
+          return post.title
             .toLowerCase()
             .includes(this.$store.state.searchParam.toLowerCase());
         });
