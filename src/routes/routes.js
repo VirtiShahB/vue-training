@@ -5,6 +5,7 @@ import Login    from 'src/pages/Login.vue'
 import SignUp   from 'src/pages/SignUp.vue'
 import Overview from 'src/pages/Overview.vue'
 import Products from 'src/pages/Products.vue'
+import Wishlist from 'src/pages/Wishlist.vue'
 import ProductDetails from 'src/pages/ProductDetails.vue'
 import Checkout from 'src/pages/Checkout.vue'
 
@@ -34,6 +35,11 @@ const routes = [
   {
     path: '/checkout',
     component: Checkout
+  },
+  ,
+  {
+    path: '/wishlist',
+    component: Wishlist
   },
   {
     path: '/admin',

@@ -32,11 +32,9 @@
             </div>
           </div>
           <div class="col-md-4">
-            <h3 class="my-4">{{ this.productDetails.About }}</h3>
+            <h3 class="my-4">{{ this.productDetails.title }}</h3>
             <h3 class="my-3">Details</h3>
-            <ul v-for="detail in this.productDetails.productChecks" :key="detail.id">
-              <li>{{ detail }}</li>
-            </ul>
+             {{ this.productDetails.description  }}
             <h4>Price : ${{this.productDetails.price}}</h4>
             <h4>Total : ${{totalPrice() }}</h4>
             <form>
@@ -52,10 +50,37 @@
         </div>
       </div>
     </div>
+    <div class="container mt-2">
+      <div class="row">
+          <div class="row mt-4">
+            <div v-for="product of filterItems(products)" :key="product.id" class="col-12 col-md-6 col-lg-3">
+              <div class="card">
+                <router-link :to="{ name: 'product-details', params: { id: product.id} }">
+                  <img class="card-img-top" :src="product.imageUrl" alt="Card image cap"/>
+                </router-link>
+                <div class="card-body">
+                  <p class="text-danger">$ {{ product.price }}</p>
+                  <h5 class="card-title">
+                    {{ product.title }}
+                  </h5>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </template>
 
 <style scoped>
+.card-img-top {
+  width: 250px;
+  height: 200px;
+}
+.nc-fav-remove {
+  color: rgb(0, 131, 33);
+}
 form {
   width: 500px;
   margin: 0 auto;
@@ -159,7 +184,7 @@ body {
 
 <script>
 export default {
-  products      :"",
+  products      : "",
   productDetails: "",
   bannerImage   : "",
   data() {
@@ -169,6 +194,12 @@ export default {
     };
   },
   methods: {
+    filterItems: function(items) {
+      var type=this.productDetails.type;
+      return items.filter(function(item) {
+        return item.type == type;
+      })
+    },
     addToCart: function () {
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));

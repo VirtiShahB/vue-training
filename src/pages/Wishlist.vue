@@ -3,9 +3,9 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link :to="'/admin'" class="nav-link">
-            <img src="img/vue-logo.png" /><b>Store</b> 
-          </router-link> 
+          <a class="nav-link" href="/admin/overview" to="/admin/overview">
+            <img src="img/vue-logo.png" /><b>Store</b>
+          </a>
         </li>
         <li>
           <router-link :to="'/checkout'">
@@ -27,7 +27,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Products</li>
+                <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
             </ol>
           </nav>
         </div>  
@@ -36,24 +36,20 @@
     <div class="container mt-2">
       <div class="row">
         <div class="col">
-          <select v-model="filter" class="form-control" v-on:change="sortBy">
-              <option disabled value="">Please select filter</option>
-              <option value="1">Low to High(Price)</option>
-              <option value="2">High to Low(Price)</option>
-          </select>
           <div class="row mt-4">
-            <div v-for="product of items" :key="product.id" class="col-12 col-md-6 col-lg-3">
+            <div v-for="product of wishList" :key="product.id" class="col-12 col-md-6 col-lg-3">
               <div class="card">
-                <i class="nc-icon nc-fav-remove mt-2 mb-2 ml-1" v-on:click="removeFromWishList(product.id)" v-if="isInWishList(product.id)"></i>
-                <i class="nc-icon nc-favourite-28 mt-2 mb-2 ml-1" v-on:click="addToWishList(product.id)" v-else></i>
+                <i class="nc-icon nc-fav-remove mt-2 mb-2 ml-1" v-on:click="removeFromWishlist(product.id)" v-if="isInWishlist(product.id)"></i>
+                <i class="nc-icon nc-favourite-28 mt-2 mb-2 ml-1" v-on:click="addToWishlist(product.id)" v-else></i>
                 <router-link :to="{ name: 'product-details', params: { id: product.id} }">
                   <img class="card-img-top" :src="product.imageUrl" alt="Card image cap"/>
                 </router-link>
                 <div class="card-body">
                   <p class="text-danger">$ {{ product.price }}</p>
                   <h5 class="card-title">
-                    {{ product.title }}
+                    {{ product.name }}
                   </h5>
+                  <p class="card-text ">{{ product.About }}</p>
                     <div class="row">
                       <div class="col">
                         <button class="btn btn-success btn-block"  @click="removeFromCart(product.id)" v-if="isInCart(product.id)">Remove</button>
@@ -69,21 +65,18 @@
     </div>
   </div>
 </template>
-
 <script>
-import items    from 'src/pages/Products.json'
 export default {
   data() {
     return {
-      items,
-      filter  : '',
+      items:[],
       cart    : [],
       wishList: []
     };
   },
   methods: {
-    addToWishList: function (itemId) {
-      const item = this.items.find(({ id }) => id === itemId);
+    addToWishlist: function (itemId) {
+      const item = this.wishList.find(({ id }) => id === itemId);
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
@@ -92,29 +85,20 @@ export default {
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
-    removeFromWishList: function (itemId) {
+    removeFromWishlist: function (itemId) {
       const wishListItems = JSON.parse(localStorage.getItem("wishList"));
       const index = wishListItems.findIndex(({ id }) => id === itemId);
       wishListItems.splice(index, 1);
+      this.wishList.splice(index, 1);
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
-    isInWishList: function (itemId) {
+    isInWishlist: function (itemId) {
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
       const wishlistItem = this.wishList.find(({ id }) => id === itemId);
       return Boolean(wishlistItem);
-    },
-    sortBy: function(e) {
-      const sortBy = e.target.value;
-      return this.items.sort((a, b) => {
-        if (sortBy === '2') {
-          return b.price - a.price;
-        } else if (sortBy === '1') {
-          return a.price - b.price;
-        }
-      });
     },
     isInCart(itemId) {
       if (!localStorage.getItem("cart")) {
@@ -124,7 +108,7 @@ export default {
       return Boolean(cartItem);
     },
     addToCart(itemId) {
-      const item = this.items.find(({ id }) => id === itemId);
+      const item = this.wishList.find(({ id }) => id === itemId);
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
       }
@@ -147,9 +131,6 @@ export default {
     }
     if(localStorage.getItem("wishList")) {
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
-    }
-    if(!localStorage.getItem("items")) {
-      localStorage.setItem("items", JSON.stringify(this.items));    
     }
   }
 };

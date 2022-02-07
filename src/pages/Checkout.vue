@@ -75,7 +75,7 @@
                   <b> </b>
                   </span>
                </h4>
-                  <p v-for="item  in cart" :key="item.id" >{{item.name}} 
+                  <p v-for="item  in cart" :key="item.id" >{{item.title}} 
                     <a href="#"></a> <span class="price">$ {{item.price}}</span>
                   </p>
                 <hr>
