@@ -33,8 +33,8 @@
             >
               <div class="card">
                 <img
-                  class="card-img-top"
-                  :src="item.img"
+                  class="card-img-top card-image"
+                  :src="item.image"
                   alt="Card image cap"
                 />
                 <div class="overlay">
@@ -49,7 +49,7 @@
                   >
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{ item.title }}</h5>
+                  <h5 class="card-title">{{ item.title | shortProductName}}</h5>
                   <p class="card-text">${{ item.price }}</p>
                   <button
                     class="btn btn-outline-secondary btn-sm"
@@ -143,6 +143,13 @@ export default {
   filter: blur(4px);
 }
 
+.card-image {
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .card:hover .overlay {
   opacity: 0.8;
 }

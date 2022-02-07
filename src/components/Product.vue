@@ -3,7 +3,7 @@
     <Cart v-if="showCart == true" :showCart="showCart" />
     <div class="row mb-5" v-for="item in product" :key="item.id">
       <div class="col6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-        <img class="img-fluid" :src="item.img" />
+        <img class="img-fluid show-image" :src="item.image" />
       </div>
 
       <div

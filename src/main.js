@@ -16,6 +16,10 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
+Vue.filter('shortProductName', function(value) {
+  return value.slice(0,10) + '...';
+})
+
 new Vue({
   router,
   store,

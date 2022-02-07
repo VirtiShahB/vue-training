@@ -13,6 +13,7 @@
         <router-link class="px-5" to="/">Products</router-link>
         <router-link class="px-5" to="/checkout">Checkout</router-link>
         <router-link class="px-5" to="/wishlist">Wishlist</router-link>
+        <router-link class="px-5" to="/recommended">Recommended</router-link>
         <a
           v-if="this.$store.state.loginUser == true"
           @click.prevent="logout()"

@@ -3,7 +3,7 @@
     <div class="row justify-content-around">
       <div class="col col-xl-3 col-lg-3 d-none d-lg-block d-xl-block">
         <div class="card-selector">
-          <!-- <div class="card-body p-5">
+          <div class="card-body p-5">
             <div class="search-title">
               <h4 class="search-title">Filter by +</h4>
 
@@ -47,7 +47,7 @@
                 Reset
               </button>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
       <div
@@ -55,7 +55,7 @@
         class="row col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 text-center"
       >
         <div
-          v-if="this.CardArray.length == 0"
+          v-if="this.recommendedProduct.length == 0"
           class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
         >
           <h4 style="margin-left: 9rem; margin-right: 9rem">
@@ -65,7 +65,7 @@
 
         <transition-group name="fade" class="row" tag="div">
           <div
-            v-for="item in CardArray"
+            v-for="item in recommendedProduct"
             class="col-6 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-4 pb-3"
             :key="item.id"
           >
@@ -109,7 +109,7 @@
 import addTowishlistMixin from "../mixin.js";
 
 export default {
-  name: "AllProduct",
+  name: "Recommended",
   mixins: [addTowishlistMixin],
 
   data() {
@@ -122,10 +122,19 @@ export default {
       wishlistId: [],
       allProduct: [],
       showRestButton: false,
+      recommendedItem: [],
     };
   },
   components: {
     // Product,
+  },
+  computed: {
+    recommendedProduct() {
+      var prod = this.allProduct;
+      return prod.filter((element) =>
+        this.recommendedItem.includes(element.category)
+      );
+    },
   },
   methods: {
     addtoCart() {},
@@ -160,12 +169,9 @@ export default {
     this.getWishlistItemId();
   },
   created() {
-    this.allProduct = this.$store.state.items;
-    this.itemCount = this.$store.state.items.length;
     this.wishlist = this.$store.state.wishlist;
-    this.CardArray = this.allProduct;
     this.getAPIData();
-    this.$store.getters.getRecommendedCategories;
+    this.recommendedItem = this.$store.getters.getRecommendedCategories;
   },
 };
 </script>

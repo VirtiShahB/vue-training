@@ -7,54 +7,54 @@ export default new Vuex.Store({
   state: {
     count: 0,
     items: [
-      {
-        id: 0,
-        img: require("@/assets/1.jpg"),
-        title: "Sofa ",
-        price: 100,
-        color: "white",
-        type: "sofa",
-      },
-      {
-        id: 1,
-        img: require("@/assets/2.jpg"),
-        title: "Lamp ",
-        price: 150,
-        color: "yellow",
-        type: "lamp",
-      },
-      {
-        id: 2,
-        img: require("@/assets/3.jpg"),
-        title: "Fotal",
-        price: 200,
-        color: "blue",
-        type: "chair",
-      },
-      {
-        id: 3,
-        img: require("@/assets/4.jpg"),
-        title: "Fotal ",
-        price: 250,
-        color: "black",
-        type: "chair",
-      },
-      {
-        id: 4,
-        img: require("@/assets/5.jpg"),
-        title: "Sofa",
-        price: 300,
-        color: "black",
-        type: "sofa",
-      },
-      {
-        id: 5,
-        img: require("@/assets/table-1.jpg"),
-        title: "Table",
-        price: 350,
-        color: "white",
-        type: "table",
-      },
+      // {
+      //   id: 0,
+      //   img: require("@/assets/1.jpg"),
+      //   title: "Sofa ",
+      //   price: 100,
+      //   color: "white",
+      //   type: "sofa",
+      // },
+      // {
+      //   id: 1,
+      //   img: require("@/assets/2.jpg"),
+      //   title: "Lamp ",
+      //   price: 150,
+      //   color: "yellow",
+      //   type: "lamp",
+      // },
+      // {
+      //   id: 2,
+      //   img: require("@/assets/3.jpg"),
+      //   title: "Fotal",
+      //   price: 200,
+      //   color: "blue",
+      //   type: "chair",
+      // },
+      // {
+      //   id: 3,
+      //   img: require("@/assets/4.jpg"),
+      //   title: "Fotal ",
+      //   price: 250,
+      //   color: "black",
+      //   type: "chair",
+      // },
+      // {
+      //   id: 4,
+      //   img: require("@/assets/5.jpg"),
+      //   title: "Sofa",
+      //   price: 300,
+      //   color: "black",
+      //   type: "sofa",
+      // },
+      // {
+      //   id: 5,
+      //   img: require("@/assets/table-1.jpg"),
+      //   title: "Table",
+      //   price: 350,
+      //   color: "white",
+      //   type: "table",
+      // },
     ],
     user: [
       {
@@ -106,6 +106,16 @@ export default new Vuex.Store({
         amount += state.cartItems[i].price;
       }
       return amount;
+    },
+
+    getRecommendedCategories(state) {
+      var categories = [];
+      state.wishlist.forEach((item) => {
+        if(categories.includes(item.category) == false) {
+          categories.push(item.category)
+        }
+      })
+      return categories;
     },
   },
 });
