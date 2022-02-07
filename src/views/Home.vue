@@ -1,7 +1,12 @@
 <template>
   <Main>
     <template #breadcrumbItems> Products </template>
+
     <template #content>
+      <div v-if="$loggedIn" class="mb-3">
+        <SimilarProducts />
+      </div>
+
       <div class="float-right">
         <div class="form-row">
           <div class="col-8">
@@ -31,6 +36,7 @@
           </div>
         </div>
       </div>
+
       <h1>All Products</h1>
 
       <hr />
@@ -81,7 +87,7 @@ import Product from "@/views/ProductCard.vue";
 export default {
   components: {
     Main,
-    Product,
+    Product
   },
   data() {
     return {
@@ -174,52 +180,49 @@ export default {
       }
     },
     async loadProducts() {
-      await this.$axios
-        .get("https://fakestoreapi.com/products")
-        .then((res) => {
-          this.tempProducts = res.data;
-          this.products = res.data;
-          this.tempProducts = this.tempProducts.sort((a, b) => {
-            let fa = a.id,
-              fb = b.id;
-            if (fa > fb) {
-              return -1;
-            }
-            if (fa < fb) {
-              return 1;
-            }
-            return 0;
-          });
+      await this.$axios.get("https://fakestoreapi.com/products").then((res) => {
+        this.tempProducts = res.data;
+        this.products = res.data;
+        this.tempProducts = this.tempProducts.sort((a, b) => {
+          let fa = a.id,
+            fb = b.id;
+          if (fa > fb) {
+            return -1;
+          }
+          if (fa < fb) {
+            return 1;
+          }
+          return 0;
+        });
+
+        if (this.$loggedIn == true) {
+          var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
+          fetchWishList = fetchWishList.filter((el) =>
+            el.userid.match(this.$loggedUser.id)
+          );
+        }
+
+        this.tempProducts = this.tempProducts.map((item) => {
+          /** covert rating into percentage */
+
+          item["rating"]["width"] = (item.rating.rate / 5) * 100;
+          /** get item wishlist and check if item is in wishlist*/
 
           if (this.$loggedIn == true) {
-            var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
-            fetchWishList = fetchWishList.filter((el) =>
-              el.userid.match(this.$loggedUser.id)
-            );
+            let in_wishList =
+              fetchWishList != null && fetchWishList.length > 0
+                ? fetchWishList.findIndex((wish) => wish.id == item.id)
+                : null;
+
+            item["in_wishlist"] =
+              in_wishList != null && in_wishList !== -1 ? true : false;
           }
 
-          this.tempProducts = this.tempProducts.map((item) => {
-            /** covert rating into percentage */
+          return item;
+        });
 
-            item["rating"]["width"] = (item.rating.rate / 5) * 100;
-            /** get item wishlist and check if item is in wishlist*/
-
-            if (this.$loggedIn == true) {
-              let in_wishList =
-                fetchWishList != null && fetchWishList.length > 0
-                  ? fetchWishList.findIndex((wish) => wish.id == item.id)
-                  : null;
-
-              item["in_wishlist"] =
-                in_wishList != null && in_wishList !== -1 ? true : false;
-            }
-
-            return item;
-          });
-
-          this.loading = false;
-        })
-        ;
+        this.loading = false;
+      });
     },
   },
   async created() {

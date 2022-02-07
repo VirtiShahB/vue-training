@@ -220,6 +220,48 @@
           </b-col>
         </b-row>
       </div>
+
+      <div v-if="similarProducts.length > 0" class="row">
+          <div class="mt-5 mb-3 col-md-12">
+            <h4>
+              You may also like this
+            </h4>
+          </div>
+          <div
+            v-for="p in similarProducts"
+            :key="p.id"
+            class="mb-3 col-md-4"
+          >
+            <ProductCard :product="p"></ProductCard>
+          </div>
+      </div>
+      <div v-else>
+        <h4>
+          Loading Similar Products
+        </h4>
+
+         <b-row>
+          <b-col
+            class="mb-3"
+            v-for="(i, index) in 3"
+            :key="index"
+            cols="12"
+            md="4"
+          >
+            <b-card class="h-100" no-body img-top>
+              <b-skeleton-img card-img="top" aspect="3:1"></b-skeleton-img>
+              <b-card-body>
+                <b-skeleton animation="fade" width="85%"></b-skeleton>
+
+                <b-skeleton animation="throb" width="85%"></b-skeleton>
+                <b-skeleton animation="throb" width="55%"></b-skeleton>
+
+                <b-skeleton type="button"></b-skeleton>
+              </b-card-body>
+            </b-card>
+          </b-col>
+        </b-row>
+      </div>
     </template>
   </Main>
 </template>
@@ -227,9 +269,11 @@
 <script>
 import Main from "@/views/Header.vue";
 import wishlist from "@/mixin/wishlist";
+import ProductCard from "@/views/ProductCard.vue";
 export default {
   components: {
     Main,
+    ProductCard
   },
   mixins: [wishlist],
   data() {
@@ -244,6 +288,8 @@ export default {
       width: 0,
       loading: true,
       in_wishList: "",
+      similarProducts: [],
+      similarProductsLoading: true,
     };
   },
   methods: {
@@ -321,7 +367,7 @@ export default {
         size: this.size,
         color: this.color,
         product: this.product.title,
-        userid : this.$loggedUser.id
+        userid: this.$loggedUser.id,
       });
 
       localStorage.setItem("cartStorage", JSON.stringify(cart));
@@ -332,6 +378,57 @@ export default {
       this.color = value;
       this.active = id;
     },
+  },
+  created() {
+    setTimeout(() => {
+      this.$axios.get("https://fakestoreapi.com/products").then((res) => {
+        this.similarProducts = res.data;
+
+        this.similarProducts = this.similarProducts.filter(
+          (p) => p.category == this.product.category && p.id !== this.product.id
+        );
+
+        this.similarProducts = this.similarProducts.sort((a, b) => {
+          let fa = a.id,
+            fb = b.id;
+          if (fa > fb) {
+            return -1;
+          }
+          if (fa < fb) {
+            return 1;
+          }
+          return 0;
+        });
+
+        if (this.$loggedIn == true) {
+          var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
+          fetchWishList = fetchWishList.filter((el) =>
+            el.userid.match(this.$loggedUser.id)
+          );
+        }
+
+        this.similarProducts = this.similarProducts.map((item) => {
+          /** covert rating into percentage */
+
+          item["rating"]["width"] = (item.rating.rate / 5) * 100;
+          /** get item wishlist and check if item is in wishlist*/
+
+          if (this.$loggedIn == true) {
+            let in_wishList =
+              fetchWishList != null && fetchWishList.length > 0
+                ? fetchWishList.findIndex((wish) => wish.id == item.id)
+                : null;
+
+            item["in_wishlist"] =
+              in_wishList != null && in_wishList !== -1 ? true : false;
+          }
+
+          return item;
+        });
+
+        this.similarProductsLoading = false;
+      });
+    }, 2000);
   },
   async mounted() {
     await this.$axios
@@ -348,7 +445,11 @@ export default {
 
         let in_wishList =
           fetchWishList != null && fetchWishList.length > 0
-            ? fetchWishList.findIndex((wish) => wish.id == this.product.id && wish.userid == this.$loggedUser.id)
+            ? fetchWishList.findIndex(
+                (wish) =>
+                  wish.id == this.product.id &&
+                  wish.userid == this.$loggedUser.id
+              )
             : null;
 
         this.in_wishList =

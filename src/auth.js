@@ -3,7 +3,7 @@ import Vue from "vue";
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ["login", "register", "404", "home"];
+  const publicPages = ["login", "register", "404"];
   const authRequired = !publicPages.includes(to.name);
   let fetchUsers = JSON.parse(localStorage.getItem("loggedInUser"));
 
