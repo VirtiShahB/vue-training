@@ -338,9 +338,19 @@ export default {
       this.process = true;
 
       /** Submit order into local storage */
-      let orders = JSON.parse(localStorage.getItem("myOrders"));
+      var orders = JSON.parse(localStorage.getItem("myOrders"));
       orders = orders != null ? orders : [];
-      orders.push(this.checkOutData);
+
+      var today = new Date();
+      today.toISOString().substring(0, 10);
+
+      orders.push({
+        orderID : this.$uuid.v1(),
+        date : today,
+        billingDetails: this.checkOutData,
+        items: this.carts,
+      });
+
       localStorage.setItem("myOrders", JSON.stringify(orders));
       /** Done */
 
@@ -351,18 +361,14 @@ export default {
   mounted() {
     this.carts = JSON.parse(localStorage.getItem("cartStorage"));
 
-    
-
     if (this.carts != null && this.carts.length > 0) {
-
-      this.carts = this.carts.filter(
-        (el) => el.userid.match(this.$loggedUser.id)
+      this.carts = this.carts.filter((el) =>
+        el.userid.match(this.$loggedUser.id)
       );
 
       this.carts.map((element) => {
         this.grandTotal += element.price;
       });
-
     }
   },
 };

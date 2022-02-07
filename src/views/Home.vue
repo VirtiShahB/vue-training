@@ -3,9 +3,7 @@
     <template #breadcrumbItems> Products </template>
 
     <template #content>
-      <div v-if="$loggedIn" class="mb-3">
-        <SimilarProducts />
-      </div>
+      
 
       <div class="float-right">
         <div class="form-row">

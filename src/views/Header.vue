@@ -28,6 +28,15 @@
             <router-link
               class="nav-link"
               active-class="active"
+              :to="{ name: 'my.orders' }"
+              >My Orders</router-link
+            >
+          </b-nav-item>
+
+          <b-nav-item>
+            <router-link
+              class="nav-link"
+              active-class="active"
               :to="{ name: 'checkout' }"
               >Checkout</router-link
             >
