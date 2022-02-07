@@ -50,13 +50,12 @@ export default {
     this.wishlishts = this.$store.state.wishlistProducts;
   },
   methods: {
-      showProduct(wishlist){
-          console.log(wishlist);
-          this.$router.push({
+    showProduct(wishlist) {
+      this.$router.push({
         name: "productDetail",
         params: { data: wishlist },
       });
-      }
-  }
+    },
+  },
 };
 </script>
