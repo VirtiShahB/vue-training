@@ -5,16 +5,19 @@
       :img-alt="product.title"
       img-top
       tag="article"
-      style="max-width: 20rem"
+      style="max-width: 20rem;height: 37rem"
       class="mb-2"
     >
       <b-link @click="itemDetail(product.id)" style="text-decoration: none"
-        ><h4>{{ product.name | capitalize }}</h4></b-link
+        ><h4>{{ product.title | capitalize | readMore(50, '...') }}</h4></b-link
       >
       <b-card-text>
         {{ checkFavItem }}
-        {{ product.description }}
+        {{ product.description | readMore(100) }}<b-link @click="itemDetail(product.id)" style="text-decoration: none"
+        ><h6>...Read More</h6></b-link
+      >
       </b-card-text>
+      <template #footer>
       <b-row>
         <b-col md="6"
           ><b-card-text>
@@ -66,6 +69,7 @@
           ></b-icon
         ></b-col>
       </b-row>
+      </template>
     </b-card>
   </div>
 </template>
@@ -99,6 +103,7 @@ export default {
   },
   methods: {
     addToCart (productId) {
+      console.log(productId)
       cartService.addToCart(productId, 1)
     },
     itemDetail (productId) {

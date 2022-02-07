@@ -20,6 +20,9 @@ import ItemCard from './ItemCard'
 export default {
   name: 'Dashboard',
   components: { ItemCard },
+  created () {
+    this.$store.dispatch('loadProducts')
+  },
   computed: mapGetters(['productsData'])
 }
 </script>

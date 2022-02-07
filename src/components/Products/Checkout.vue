@@ -22,12 +22,12 @@
         >
           <b-col class="md-10">
             <b-row>
-              <b-col class="md-6">{{ product.name }}</b-col>
+              <b-col class="md-6">{{ product.title }}</b-col>
               <b-col class="md-2">Qty: {{ product.qty }}</b-col>
             </b-row>
           </b-col>
           <b-col class="md-2">
-            ${{ (product.qty * product.price).toFixed(2) }}
+            {{ (product.qty * product.price) | toFixed(2) | toUSD }}
           </b-col>
         </b-row>
         <b-row>

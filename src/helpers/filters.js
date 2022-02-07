@@ -16,3 +16,7 @@ Vue.filter('toFixed', function (price, limit) {
 Vue.filter('toUSD', function (price) {
   return `$${price}`
 })
+
+Vue.filter('readMore', function (text, length, suffix) {
+  return text.substring(0, length) + suffix
+})

@@ -1,14 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import productsData from '../components/Products/productsData.json'
+import axios from 'axios'
+// import productsData from '../components/Products/productsData.json'
 
-let totalCartItems = window.localStorage.getItem('totalCartItems') ? JSON.parse(window.localStorage.getItem('totalCartItems')) : []
+// let totalCartItems = window.localStorage.getItem('totalCartItems') ? JSON.parse(window.localStorage.getItem('totalCartItems')) : []
 Vue.use(Vuex)
 const state = {
+  products: [],
   cartUpdate: 0,
-  totalCartItems: totalCartItems || []
+  totalCartItems: []
+}
+const getters = {
+  productsData: state => state.products
 }
 const mutations = {
+  setItems (state, products) {
+    state.products = products
+  },
   addToCart (state, item) {
     const checkExist = state.totalCartItems.find(product => product.id === item.id)
     if (checkExist) {
@@ -19,18 +27,22 @@ const mutations = {
     window.localStorage.setItem('totalCartItems', JSON.stringify(state.totalCartItems))
     state.cartUpdate++
   },
-  saveCart (state) {
-
-  },
   flushCart (state) {
     state.cartUpdate = 0
   }
 }
 const actions = {
+  async loadProducts ({ commit }) {
+    try {
+      const response = await axios.get('https://fakestoreapi.com/products')
+      console.log(response)
+      commit('setItems', response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
-const getters = {
-  productsData: state => productsData
-}
+
 export default new Vuex.Store({
   state,
   mutations,

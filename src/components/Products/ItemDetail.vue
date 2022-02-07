@@ -12,7 +12,7 @@
         <b-col md="6">
           <b-card-body>
             <b-card-title
-              ><h2>{{ product.name | capitalize }}</h2></b-card-title
+              ><h2>{{ product.title | capitalize }}</h2></b-card-title
             >
             <b-row no-gutters>
               <b-card-text>

@@ -29,7 +29,7 @@
                 <div class="d-flex flex-column">
                   <div>
                     <span>
-                      {{ item.name }}
+                      {{ item.title }}
                     </span>
                   </div>
                   <div>
