@@ -1,14 +1,12 @@
 import store from '../store/store'
 export default class CartServices {
   addToCart (id, qty) {
-    console.log(id + '--' + qty)
     store.commit('addToCart', { id: id, qty: qty })
   }
   totalCartValue () {
     return (this.totalCartItems).length
   }
   totalCartItems () {
-    console.log(JSON.parse(window.localStorage.getItem('totalCartItems')))
     return window.localStorage.getItem('totalCartItems')
       ? JSON.parse(window.localStorage.getItem('totalCartItems'))
       : []

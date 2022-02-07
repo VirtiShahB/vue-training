@@ -28,6 +28,8 @@ const mutations = {
     state.cartUpdate++
   },
   flushCart (state) {
+    window.localStorage.removeItem('totalCartItems')
+    state.totalCartItems = []
     state.cartUpdate = 0
   }
 }
@@ -35,7 +37,6 @@ const actions = {
   async loadProducts ({ commit }) {
     try {
       const response = await axios.get('https://fakestoreapi.com/products')
-      console.log(response)
       commit('setItems', response.data)
     } catch (error) {
       console.log(error)

@@ -20,13 +20,8 @@
           </div>
           <div class="col-12" style="max-height: 200px; overflow: auto">
             <div v-if="cartSummary && cartCount > 0">
-              <div
-                v-for="(item, index) in cartSummary"
-                :key="index"
-                class="d-flex flex-row"
-              >
-                <div></div>
-                <div class="d-flex flex-column">
+              <div v-for="(item, index) in cartSummary" :key="index">
+                <div class="border-top mb-3">
                   <div>
                     <span>
                       {{ item.title }}
