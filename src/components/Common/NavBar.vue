@@ -92,6 +92,8 @@ export default {
         return this.loginUser.google.user.name
       } else if (this.loginUser.site) {
         return this.loginUser.site.user.name
+      } else if (this.loginUser.fb) {
+        return this.loginUser.fb.user.name
       }
       return 'Admin'
     },

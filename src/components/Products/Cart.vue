@@ -22,16 +22,19 @@
             <div v-if="cartSummary && cartCount > 0">
               <div v-for="(item, index) in cartSummary" :key="index">
                 <div class="border-top mb-3">
-                  <div>
+                  <div class="mt-3">
                     <span>
-                      {{ item.title }}
+                      <img :src="item.image" height="30" width="30" />
+                    </span>
+                    <span class="ml-5 text-right">
+                      {{ item.title | readMore(20,'..') }}
                     </span>
                   </div>
                   <div>
-                    <span class="text-muted">
+                    <span class="ml-5 text-muted text-right">
                       ${{ item.price.toFixed(2) }} X {{ item.qty }}
                     </span>
-                    <span style="font-weight: 700">
+                    <span class="ml-5 text-right" style="font-weight: 700">
                       ${{ (item.price * item.qty).toFixed(2) }}</span
                     >
                   </div>

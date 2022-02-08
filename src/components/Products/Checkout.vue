@@ -6,7 +6,7 @@
         <ShippingDetails />
       </b-col>
       <b-col :class="[{ summary: true }]">
-        <b-row class="text-center">
+        <b-row class="text-center mt-3 mb-3">
           <b-col colspan="10"
             ><b><h3>Product</h3></b></b-col
           >
@@ -14,25 +14,23 @@
             ><b><h3>Total</h3></b></b-col
           >
         </b-row>
-        <b-row
-          class="border-top mt-3"
-          v-for="product in cartSummary"
-          :key="product.id"
-        >
-          <b-col cols="1"
-            ><img :src="product.image" width="50" height="50"
-          /></b-col>
-          <b-col cols="8" class="ml-3">{{ product.title }}</b-col>
-          <b-col cols="1" class="text-right">{{ product.qty }} X</b-col>
-          <b-col cols="1" class="text-right"
-            >{{ product.price | toFixed(2) | toUSD }}
-          </b-col>
-        </b-row>
+        <div v-for="product in cartSummary" :key="product.id">
+          <b-row class="border-top">
+            <b-col class="mt-3 mb-3" cols="1"
+              ><img :src="product.image" width="50" height="50"
+            /></b-col>
+            <b-col cols="8" class="ml-3 mt-3">{{ product.title }}</b-col>
+            <b-col cols="1" class="text-right mt-3">{{ product.qty }} X</b-col>
+            <b-col cols="1" class="text-right mt-3"
+              >{{ product.price | toFixed(2) | toUSD }}
+            </b-col>
+          </b-row>
+        </div>
         <b-row class="text-center border-top mt-3">
-          <b-col colspan="10"
+          <b-col class="mt-3" colspan="10"
             ><b><h3>Total</h3></b></b-col
           >
-          <b-col colspan="2" class="text-right"
+          <b-col colspan="2" class="mt-3 text-right"
             ><b
               ><h3>{{ getSubtotal | toFixed(2) | toUSD }}</h3></b
             ></b-col
