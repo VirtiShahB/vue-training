@@ -113,8 +113,7 @@ export default {
     logout() {
       localStorage.removeItem("loggedInUser");
       this.$loggedIn = false;
-      this.$router.push({ path: "/", query: { logout: true } });
-      this.$router.push({ path: "/" });
+      this.$router.push({ path: "/login", query: { logout: true } });
     },
   },
   created() {

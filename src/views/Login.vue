@@ -13,13 +13,20 @@
       </div>
       <div class="col-md-6 mt-5 py-5">
         <div class="mb-3 text-left">
-            <div class="row">
-              <div class="col-3" id="google-signin-button"></div>
-              <a class="col-6 btn btn-md btn-primary">
+          <div class="row">
+            <div class="col-md-6">
+              <a @click="onGoogleSignIn" class="ml-3 btn btn-block btn-danger">
+                <b-icon-google></b-icon-google>
+                Sign in with Google
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a class="ml-3 btn btn-block btn-primary">
                 <b-icon-facebook></b-icon-facebook>
                 Sign in with Facebook
               </a>
             </div>
+          </div>
         </div>
         <form @submit.prevent="login">
           <div class="form-group">
@@ -51,7 +58,7 @@
             </button>
           </div>
 
-          <router-link :to="{ name: 'register' }">
+          <router-link :to="{ name: 'register', query: { ref: 'login' } }">
             <p>Not have account ?</p>
           </router-link>
         </form>
@@ -75,8 +82,6 @@ export default {
       },
       errorClass: "",
       proccess: false,
-      googleUser: {},
-      startApp: "",
     };
   },
   methods: {
@@ -121,17 +126,72 @@ export default {
       this.proccess = false;
       return false;
     },
-    onSignIn (user) {
-      const profile = user.getBasicProfile();
-      console.log(profile.getId());
-    }
-  },
-  mounted() {
-    let gapi = window.gapi;
+    onGoogleSignIn() {
+      
+      let gapi = window.gapi;
+      gapi.load("auth2", () => {
+        gapi.auth2.authorize(
+          {
+            client_id:
+              "1052182370984-h9buavtblvgmtai7e71fcm2v9tgi7veq.apps.googleusercontent.com",
+            scope: "email profile openid",
+            response_type: "id_token permission",
+            login_hint: "email",
+            ux_mode: "popup",
+          },
+          (response) => {
+            if (response.error) {
+              // An error happened!
+              return;
+            }
+            this.getUserSignedInUser();
+          }
+        );
+      });
+    },
+    getUserSignedInUser() {
+      let gapi = window.gapi;
 
-    gapi.signin2.render("google-signin-button", {
-      onsuccess: this.onSignIn,
-    });
+      gapi.load("auth2", () => {
+        gapi.auth2.init().then(() => {
+          var auth = gapi.auth2.getAuthInstance();
+          // check login is true
+          if (auth.isSignedIn.get() == true) {
+            var user = auth.currentUser.get();
+            // get user profile
+            var profile = user.getBasicProfile();
+
+            let users = JSON.parse(localStorage.getItem("registerUsers"));
+
+            if (users != null && users.length > 0) {
+              let findUser = users.findIndex(
+                (user) => user.email == profile.getEmail()
+              );
+
+              if (findUser == -1) {
+                this.errorClass = "text-danger";
+                this.errors.email = "No account found with this email !";
+                this.proccess = false;
+                return false;
+              }
+              //Make user sign in
+              var socialUser = users.find((user) => {
+                return user.email === profile.getEmail();
+              });
+              localStorage.setItem("loggedInUser", JSON.stringify(socialUser));
+              this.errors.email = "";
+              this.$router.push({ name: "home" });
+            } else {
+              this.errorClass = "text-danger";
+              this.errors.email = "No account found with this email !";
+              this.proccess = false;
+              return false;
+            }
+          }
+        });
+      });
+    },
   },
+  mounted() {},
 };
 </script>

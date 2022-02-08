@@ -16,11 +16,21 @@
       <div class="col-md-6 mt-5 py-5">
         <div class="mb-3 text-left">
           <div class="row">
-            <div class="col-3" id="google-signin-button"></div>
-            <a class="col-6 btn btn-md btn-primary">
-              <b-icon-facebook></b-icon-facebook>
-              Sign in with Facebook
-            </a>
+            <div class="col-md-6">
+              <a @click="onGoogleSignUp" class="ml-3 btn btn-block btn-danger">
+                <b-icon-google></b-icon-google>
+                Sign up with Google
+              </a>
+            </div>
+            <div class="col-md-6">
+              <a
+                @click="logInWithFacebook"
+                class="ml-3 btn btn-block btn-primary"
+              >
+                <b-icon-facebook></b-icon-facebook>
+                Sign up with Facebook
+              </a>
+            </div>
           </div>
         </div>
         <form @submit.prevent="register">
@@ -66,7 +76,7 @@
             </button>
           </div>
 
-          <router-link :to="{ name: 'login' }">
+          <router-link :to="{ name: 'login', query: { ref: 'register' } }">
             <p>Already have an account ?</p>
           </router-link>
         </form>
@@ -92,13 +102,6 @@ export default {
     };
   },
   methods: {
-    onSignIn(user) {
-      const profile = user.getBasicProfile();
-      if (profile != null) {
-        this.name = profile.getName();
-        this.email = profile.getEmail();
-      }
-    },
     register() {
       this.proccess = true;
 
@@ -156,14 +159,131 @@ export default {
 
       this.error.password = "";
     },
-  },
-  mounted() {
-    let gapi = window.gapi;
+    onGoogleSignUp() {
+      let gapi = window.gapi;
+      gapi.load("auth2", () => {
+        gapi.auth2.authorize(
+          {
+            client_id:
+              "1052182370984-h9buavtblvgmtai7e71fcm2v9tgi7veq.apps.googleusercontent.com",
+            scope: "email profile openid",
+            response_type: "id_token permission",
+            login_hint: "email",
+            ux_mode: "popup",
+          },
+          (response) => {
+            if (response.error) {
+              // An error happened!
+              return;
+            }
+            this.getUserSignedInUser();
+          }
+        );
+      });
+    },
+    getUserSignedInUser() {
+      let gapi = window.gapi;
 
-    gapi.auth2.render("google-signin-button", {
-      onsuccess: this.onSignIn,
-    });
-  },
+      gapi.load("auth2", () => {
+        gapi.auth2.init().then(() => {
+          var auth = gapi.auth2.getAuthInstance();
+          // check login is true
+          if (auth.isSignedIn.get() == true) {
+            var user = auth.currentUser.get();
+            // get user profile
+            var profile = user.getBasicProfile();
+
+            let users = JSON.parse(localStorage.getItem("registerUsers"));
+
+            if (users != null && users.length > 0) {
+              let findUser = users.findIndex(
+                (user) => user.email == profile.getEmail()
+              );
+
+              if (findUser !== -1) {
+                this.errorClass = "text-danger";
+                this.error.email = "Account already present with this email !";
+                this.proccess = false;
+                return false;
+              }
+            }
+
+            let data = users != null && users.length > 0 ? users : [];
+
+            data.push({
+              id: this.$uuid.v1(),
+              name: profile.getName(),
+              email: profile.getEmail(),
+              password: profile.getId(),
+            });
+
+            localStorage.setItem("registerUsers", JSON.stringify(data));
+
+            this.$bvToast.toast("Registration successfully  !", {
+              title: "Registered !",
+              variant: "success",
+              toaster: "b-toaster-top-right",
+              solid: true,
+            });
+
+            setTimeout(() => {
+              this.$router.push({ name: "login" });
+            }, 800);
+
+            //Make user sign in
+            // localStorage.setItem("loggedInUser", JSON.stringify(user));
+          }
+        });
+      });
+    },
+    async logInWithFacebook() {
+      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+      await this.initFacebook();
+      window.FB.login(function(response) {
+        if (response.authResponse) {
+          console.log(response.authResponse);
+
+          
+
+        } else {
+          this.$bvToast.toast(
+            "User cancelled login or did not fully authorize !",
+            {
+              title: "Failed !",
+              variant: "danger",
+              toaster: "b-toaster-top-right",
+              solid: true,
+            }
+          );
+        }
+      });
+      return false;
+    },
+    async initFacebook() {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: "722554155379111", //You will need to change this
+          cookie: true, // This is important, it's not enabled by default
+          version: "v13.0",
+        });
+      };
+    },
+    async loadFacebookSDK(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    },
+    async mounted(){
+        await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+        await this.initFacebook();
+    }
+  }
 };
 </script>
 

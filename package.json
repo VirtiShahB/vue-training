@@ -43,7 +43,9 @@
     },
     "rules": {
       "no-mixed-spaces-and-tabs": 0,
-      "no-unused-vars": "off"
+      "no-unused-vars": "off",
+      "no-unused-labels" : "off",
+      "@typescript-eslint/no-unused-vars": "off"
     },
     "globals": {
       "_": true
