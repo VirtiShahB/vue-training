@@ -38,7 +38,7 @@
           <template #button-content>
             <em>User</em>
           </template>
-          <b-dropdown-item >Profile</b-dropdown-item>
+          <b-dropdown-item>Profile</b-dropdown-item>
           <b-dropdown-item button @click="onLogout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -47,6 +47,7 @@
 </template>
 <script>
 import WishlistComponent from "@/components/Wishlist/WishlistComponent.vue";
+import { initFbsdk, facebookLogin } from "@/utils/facebookAuth";
 var that;
 export default {
   components: { WishlistComponent },
@@ -57,8 +58,12 @@ export default {
   computed: {
     wishlist: () => that.$store.state.wishlist.wishlist,
   },
+  mounted() {
+    initFbsdk();
+  },
   methods: {
     onLogout() {
+      facebookLogin.logout();
       localStorage.removeItem("user");
       this.$router.replace("/login");
     },

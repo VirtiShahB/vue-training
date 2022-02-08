@@ -7,40 +7,60 @@
             <span class="small text-muted"
               >email: admin@gmail.com and password: bacancy</span
             >
-            <b-alert variant="danger" v-if="errors.length" show dismissible>
-              <p v-for="(err, ind) in errors" class="small mb-0" :key="ind">
-                {{ err }}
-              </p>
+            <b-alert variant="danger" v-if="loginError">
+              {{ loginError }}
             </b-alert>
             <b-form-group id="input-group-1" label="Email">
               <b-form-input
                 id="input-1"
                 v-model.trim="loginForm.email"
                 type="email"
+                name="email"
                 trim
                 required
+                v-validate="{ required: true, email: true }"
+                data-vv-name="email"
               ></b-form-input>
+              <span class="text-danger">{{ errors.first("email") }}</span>
             </b-form-group>
             <b-form-group id="input-group-2" label="Password">
               <b-form-input
                 id="input-2"
                 v-model.trim="loginForm.password"
                 type="password"
+                name="password"
                 trim
                 required
+                v-validate="{ required: true }"
+                data-vv-name="password"
               ></b-form-input>
+              <span class="text-danger">{{ errors.first("password") }}</span>
             </b-form-group>
             <b-button type="submit" variant="primary" block>Login</b-button>
             <p class="text-center mt-3">
               Don't have an account? <b-link to="/signup">Signup</b-link>
             </p>
           </b-form>
+          <p class="text-center">OR</p>
+          <b-row>
+            <b-col>
+              <b-button variant="light border" block @click="onGoogleLogin"
+                ><b-icon-google /> Google</b-button
+              >
+            </b-col>
+            <b-col>
+              <b-button variant="light border" block @click="onFacebookLogin"
+                ><b-icon-facebook /> Facebook</b-button
+              >
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
     </b-row>
   </b-container>
 </template>
 <script>
+import { initFbsdk, facebookLogin } from "@/utils/facebookAuth.js";
 export default {
   data() {
     return {
@@ -48,44 +68,55 @@ export default {
         email: null,
         password: null,
       },
-      errors: [],
-      /* eslint-disable */
-      emailRegex:
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      loginError: null,
     };
+  },
+  mounted() {
+    initFbsdk();
   },
   methods: {
     onLogin() {
-      this.errors = [];
-      let user = {
-        email: "admin@gmail.com",
-        password: "bacancy",
-      };
-      if (!this.loginForm.email) {
-        this.errors.push("Email is required.");
-      } else {
-        if (!this.emailRegex.test(this.loginForm.email)) {
-          this.errors.push("Enter valid email.");
-        } else {
-          if (this.loginForm.email !== user.email) {
-            this.errors.push("Email is not in our credentials");
-          }
+      this.$validator.validateAll().then((result) => {
+        if (!result) {
+          return;
         }
-      }
-
-      if (!this.loginForm.password) {
-        this.errors.push("password is required.");
-      } else {
-        if (this.loginForm.password !== user.password) {
-          this.errors.push("Do not match to our credentials");
+        let user = {
+          email: "admin@gmail.com",
+          password: "bacancy",
+        };
+        if (
+          this.loginForm.email !== user.email &&
+          this.loginForm.password !== user.password
+        ) {
+          this.loginError = "Invalid Credentials";
+          return false;
         }
-      }
 
-      if (this.errors.length) {
-        return false;
-      } else {
         localStorage.setItem("user", JSON.stringify(user));
         this.$router.push("/");
+      });
+    },
+    async onGoogleLogin() {
+      try{
+        const googleUser = await this.$gAuth.signIn();
+        let user = {};
+        let userDetail = googleUser.getBasicProfile();
+        user.name = userDetail.getName();
+        user.email = userDetail.getEmail();
+        localStorage.setItem("user", JSON.stringify(user));
+        this.$router.push("/");
+      }catch(err){
+        console.log(err);
+      }
+    },
+    async onFacebookLogin() {
+      try {
+        await facebookLogin.login().then((response) => {
+          localStorage.setItem("user", JSON.stringify(response.user));
+          this.$router.push("/");
+        });
+      } catch (err) {
+        console.log(err);
       }
     },
   },
