@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import productsData from "./data/products";
+// import productsData from "./data/products";
 
 Vue.use(Vuex);
 
@@ -26,6 +26,7 @@ export const mutations = {
     });
     var qty = payload.qty;
     state.cart = [...state.cart, { ...product, qty }]; //spread operator
+    localStorage.setItem("loggedUserCart", JSON.stringify(state.cart));
   },
   removeFromCart(state, payload) {
     state.cart = state.cart.filter((product) => product.id !== payload.id);
@@ -35,6 +36,14 @@ export const mutations = {
       return product.id === payload.id;
     });
     state.wishList = [...state.wishList, { ...product }];
+    localStorage.setItem("loggedUserWishlist", JSON.stringify(state.wishList));
+  },
+  removeFromWishList(state, payload) {
+    const product = state.wishList.filter((product) => {
+      return product.id !== payload.id;
+    });
+    state.wishList = product;
+    localStorage.setItem("loggedUserWishlist", JSON.stringify(product));
   },
   addLoggedIn(state, payload) {
     state.loggedInUser = payload;
@@ -44,6 +53,7 @@ export const mutations = {
   },
   setProducts(state, payload) {
     state.products = payload;
+    localStorage.setItem("productsData", JSON.stringify(state.products));
   },
 };
 
@@ -56,6 +66,9 @@ const actions = {
   },
   addToWishList(context, payload) {
     context.commit("addToWishList", payload);
+  },
+  removeFromWishList(context, payload) {
+    context.commit("removeFromWishList", payload);
   },
   addLoggedIn(context, payload) {
     context.commit("addLoggedIn", payload);
@@ -70,7 +83,7 @@ const actions = {
 
 export default new Vuex.Store({
   state: {
-    products: productsData,
+    products: [],
     cart: [],
     wishList: [],
     loggedInUser: [],

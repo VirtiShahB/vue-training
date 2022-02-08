@@ -15,7 +15,7 @@ export default {
   name: "Cart",
   props: {
     id: Number,
-    name: String,
+    title: String,
     price: Number,
     currency: String,
     image: String,

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <the-header></the-header>
+    </div>
     <h1 class="text-left ml-5">Billing</h1>
 
     <b-form fluid class="bv-example-row">
@@ -129,7 +132,7 @@
             <hr />
             <b-row v-for="cart in cartInfo" :key="cart.id">
               <b-col class="text-left">
-                <label>{{ cart.name }} x {{ cart.qty }}</label>
+                <label>{{ cart.title }} x {{ cart.qty }}</label>
               </b-col>
               <b-col class="text-left">
                 <span class="text-danger">EUR {{ getTotal(cart) }}</span>
@@ -207,7 +210,10 @@
 </template>
 
 <script>
+import TheHeader from "./Header.vue";
+
 export default {
+  components: { TheHeader },
   data() {
     return {
       qty: 1,
@@ -215,14 +221,14 @@ export default {
   },
   props: {
     id: Number,
-    name: String,
+    title: String,
     price: Number,
     currency: String,
     image: String,
   },
   computed: {
     cartInfo() {
-      return this.$store.state.cart;
+      return JSON.parse(localStorage.getItem("loggedUserCart"));
     },
   },
   methods: {
@@ -230,10 +236,12 @@ export default {
       return (cart.price * cart.qty).toFixed(2);
     },
     getSubTotal() {
-      return this.$store.state.cart.reduce((acc, curr) => {
-        const tp = (curr.price * curr.qty)
-        return (acc += tp);
-      }, 0).toFixed(2);
+      return this.$store.state.cart
+        .reduce((acc, curr) => {
+          const tp = curr.price * curr.qty;
+          return (acc += tp);
+        }, 0)
+        .toFixed(2);
     },
   },
 };

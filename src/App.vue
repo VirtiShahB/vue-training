@@ -1,29 +1,18 @@
 <template>
   <div id="app">
-    <!-- <div v-if="!isLoginPage"> -->
-    <Header />
-    <!-- </div> -->
+    <!-- <Header /> -->
     <router-view />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
+// import Header from "./components/Header.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
+    // Header,
   },
-  beforeCreate() {
-    console.log(this.$route.name);
-  },
-  data() {
-    return {
-      isLoginPage: this.$route.name == "login" ? true : false,
-    };
-  },
-  mounted() {},
 };
 </script>
 

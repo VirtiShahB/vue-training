@@ -2,7 +2,7 @@
   <div class="p-4">
     <div class="row">
       <span
-        ><strong>{{ name }}</strong></span
+        ><strong>{{ title }}</strong></span
       >
     </div>
     <div class="row align-items-center">
@@ -21,18 +21,18 @@
       </div>
     </div>
     <div class="row">
-      <span style="color: grey" size="sm">Reference:</span>
+      <span style="color: grey" size="sm">Reference: {{ this.reference }}</span>
     </div>
     <div class="row">
-      <span style="color: grey">Condition:</span>
+      <span style="color: grey">Condition: {{ this.condition }}</span>
     </div>
     <div class="pl-0">
       <hr />
       <div class="row mt-2">
-        <span>{{ name }}</span>
+        <span>{{ title }}</span>
       </div>
       <div class="row mt-2">
-        <span style="color: red">{{ currency }} {{ price }}</span>
+        <span style="color: red"> $ {{ price }}</span>
       </div>
       <hr />
     </div>
@@ -84,24 +84,6 @@
         ></b-icon>
       </div>
     </div>
-    <div class="row align-items-center pl-0">
-      <div class="col-1 pl-0">
-        <span style="color: grey; font-size: 0.9rem">Size:</span>
-      </div>
-      <div class="col-1 pl-0">
-        <b-dropdown
-          split
-          split-variant="outline-seccondary"
-          variant="light"
-          text="S"
-          class="border"
-        >
-          <b-dropdown-item href="#">S</b-dropdown-item>
-          <b-dropdown-item href="#">M</b-dropdown-item>
-          <b-dropdown-item href="#">L</b-dropdown-item>
-        </b-dropdown>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -112,11 +94,13 @@ export default {
     return {
       qty: 1,
       isLiked: false,
+      reference: Math.random().toString(36).substring(2, 10),
+      condition: "New",
     };
   },
   props: {
     id: Number,
-    name: String,
+    title: String,
     price: Number,
     currency: String,
     image: String,
@@ -142,8 +126,16 @@ export default {
       }
     },
     addToWishList(id) {
-      this.isLiked = true;
-      this.$store.dispatch("addToWishList", { id });
+      const isPresent = this.$store.state.wishList.find((item) => {
+        return item.id === id;
+      });
+      if (isPresent) {
+        this.isLiked = false;
+        this.$store.dispatch("removeFromWishList", { id });
+      } else {
+        this.isLiked = true;
+        this.$store.dispatch("addToWishList", { id });
+      }
     },
     isInWishList(id) {
       const isPresent = this.$store.state.wishList.find((item) => {

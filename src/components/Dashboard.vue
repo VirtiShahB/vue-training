@@ -1,5 +1,7 @@
 <template>
-  <div class="">
+  <div id="app">
+    <the-header></the-header>
+    <router-view></router-view>
     <br />
     <div v-if="loading" class="loader"></div>
     <ItemList v-else />
@@ -7,12 +9,14 @@
 </template>
 
 <script>
+import TheHeader from "./Header.vue";
 import axios from "axios";
 import ItemList from "./ItemList.vue";
 
 export default {
   name: "Dashboard",
   components: {
+    TheHeader,
     ItemList,
   },
   data() {
@@ -21,16 +25,21 @@ export default {
     };
   },
   async created() {
-    this.loading = true;
-    try {
-      await axios.get("https://fakestoreapi.com/products").then((response) => {
-        const data = response.data;
-        this.$store.dispatch("setProducts", data);
-      });
-      this.loading = false;
-    } catch (error) {
-      console.log(error);
-      this.loading = false;
+    const products = this.$store.state.products;
+    if (!products || !products.length) {
+      this.loading = true;
+      try {
+        await axios
+          .get("https://fakestoreapi.com/products")
+          .then((response) => {
+            const data = response.data;
+            this.$store.dispatch("setProducts", data);
+          });
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+      }
     }
   },
   computed: {

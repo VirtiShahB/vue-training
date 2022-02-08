@@ -1,7 +1,13 @@
 <template>
   <div>
-    <b-container class="bv-example-row">
+    <the-header></the-header>
+    <br />
+    <div class=" m-2" v-if="!products || !products.length">
+      <b-alert variant="danger" show>No Products added to the wishlist</b-alert>
+    </div>
+    <b-container v-else class="bv-example-row">
       <b-row>
+        <br />
         <div class="col-4" v-for="product in products" :key="product.id">
           <b-card class="text-left" @click="getProductDetails(product)"
             ><b-img
@@ -13,7 +19,7 @@
               :alt="product.image"
             ></b-img>
             <b-card-text>
-              <span> {{ product.name }} </span>
+              <span> {{ product.title }} </span>
               <span class="float-right"> ${{ product.price }} </span>
             </b-card-text>
           </b-card>
@@ -24,11 +30,11 @@
 </template>
 
 <script>
-// import ItemList from "./ItemList.vue";
+import TheHeader from "./Header.vue";
 
 export default {
   name: "Wishlist",
-  components: {},
+  components: { TheHeader },
   props: {
     id: Number,
     name: String,
@@ -38,13 +44,14 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.state.wishList;
+      return JSON.parse(localStorage.getItem("loggedUserWishlist"));
+      // return this.$store.state.wishList;
     },
   },
   methods: {
-      getProductDetails(product) {
-          this.$router.push({name: 'details', params: { product: product }})
-      }
-  }
+    getProductDetails(product) {
+      this.$router.push({ name: "details", params: { product: product } });
+    },
+  },
 };
 </script>
