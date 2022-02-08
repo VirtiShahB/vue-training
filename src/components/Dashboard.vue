@@ -99,13 +99,13 @@ export default {
   },
   watch: {
     $route() {
-      if (localStorage.getItem("loginnedUser") !== "") {
+      if (localStorage.getItem("loginnedUser") !== null) {
         this.isAuthenticated = true;
       }
     },
   },
   created() {
-    if (localStorage.getItem("loginnedUser") !== "") {
+    if (localStorage.getItem("loginnedUser") !== null) {
       this.isAuthenticated = true;
     }
   },

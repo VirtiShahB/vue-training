@@ -39,6 +39,7 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Login</b-button>
+      <SocialLogin />
     </b-form>
   </b-card>
 </template>
@@ -46,9 +47,11 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import toastMessage from "../mixins/ToastMessage";
+import SocialLogin from "@/components/SocialLogin.vue";
 
 export default {
   name: "Login",
+  components: { SocialLogin },
   mixins: [toastMessage],
   setup() {
     return { v$: useVuelidate() };
