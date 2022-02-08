@@ -6,37 +6,27 @@
         <ShippingDetails />
       </b-col>
       <b-col :class="[{ summary: true }]">
-        <b-row>
-          <b-col class="md-10">
-            <h3>Product</h3>
-          </b-col>
-          <b-col class="md-2">
-            <h3>Total</h3>
-          </b-col>
+        <b-row class="text-center">
+          <b-col colspan="10"><b><h3>Product</h3></b></b-col>
+          <b-col colspan="2" class="text-right mr-5"><b><h3>Total</h3></b></b-col>
         </b-row>
-        <hr />
         <b-row
+          class="border-top mt-3"
           v-for="product in cartSummary"
           :key="product.id"
-          class="cart-border"
         >
-          <b-col class="md-10">
-            <b-row>
-              <b-col class="md-6">{{ product.title }}</b-col>
-              <b-col class="md-2">Qty: {{ product.qty }}</b-col>
-            </b-row>
-          </b-col>
-          <b-col class="md-2">
-            {{ (product.qty * product.price) | toFixed(2) | toUSD }}
+          <b-col cols="1"
+            ><img :src="product.image" width="50" height="50"
+          /></b-col>
+          <b-col cols="8" class="ml-3">{{ product.title }}</b-col>
+          <b-col cols="1" class="text-right">{{ product.qty }} X</b-col>
+          <b-col cols="1" class="text-right"
+            >{{ product.price | toFixed(2) | toUSD }}
           </b-col>
         </b-row>
-        <b-row>
-          <b-col class="md-10">
-            <h3>Total</h3>
-          </b-col>
-          <b-col class="md-2">
-            <h3>${{ getSubtotal.toFixed(2) }}</h3>
-          </b-col>
+        <b-row class="text-center border-top mt-3">
+          <b-col colspan="10"><b><h3>Total</h3></b></b-col>
+          <b-col colspan="2" class="text-right"><b><h3>{{ getSubtotal | toFixed(2) | toUSD}}</h3></b></b-col>
         </b-row>
         <hr />
         <b-row>
@@ -89,7 +79,15 @@ export default {
     return {
       cartSummary: [],
       show: true,
-      error: {}
+      error: {},
+      fields: [
+        // A virtual column that doesn't exist in items
+        { key: 'image', label: '' },
+        // A column that needs custom formatting
+        { key: 'title', label: 'Product' },
+        // A virtual column made up from two fields
+        { key: 'total', label: 'Total' }
+      ]
     }
   },
   methods: {

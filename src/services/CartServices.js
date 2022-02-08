@@ -1,4 +1,5 @@
 import store from '../store/store'
+import { getStore } from '../../config/util'
 export default class CartServices {
   addToCart (id, qty) {
     store.commit('addToCart', { id: id, qty: qty })
@@ -7,9 +8,7 @@ export default class CartServices {
     return (this.totalCartItems).length
   }
   totalCartItems () {
-    return window.localStorage.getItem('totalCartItems')
-      ? JSON.parse(window.localStorage.getItem('totalCartItems'))
-      : []
+    return getStore('totalCartItems')
   }
   getCartData (productsData) {
     const totalCartItems = this.totalCartItems()
@@ -22,7 +21,6 @@ export default class CartServices {
     return cartSummary
   }
   flushCart () {
-    localStorage.removeItem('totalCartItems')
     store.commit('flushCart')
   }
 }

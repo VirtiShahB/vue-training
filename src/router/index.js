@@ -19,7 +19,12 @@ export default new Router({
     {
       path: '/',
       name: '/',
-      component: SignUp
+      component: Login
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: Dashboard
     },
     {
       path: '/signup',

@@ -53,17 +53,30 @@
         </b-col>
       </b-row>
     </b-card>
+    <br>
+    <h3>Recommended Products</h3>
+    <b-row>
+      <b-col
+        md="3"
+        class="mt-5"
+        v-for="product in similarProducts"
+        :key="product.id"
+      >
+        <ItemCard :product="product" />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import CartServices from '../../services/CartServices'
+import ItemCard from './ItemCard'
 const cartService = new CartServices()
 
 export default {
   name: 'ItemDetail',
-  components: {},
+  components: { ItemCard },
   mounted () {
     this.getProductData()
   },
@@ -73,7 +86,16 @@ export default {
       product: []
     }
   },
-  computed: mapGetters(['productsData']),
+  computed: {
+    ...mapGetters(['productsData']),
+    similarProducts () {
+      const that = this.product
+      const products = this.productsData.filter(function (o1) {
+        return o1.category === that.category && o1.id !== that.id
+      })
+      return products
+    }
+  },
   methods: {
     addItem () {
       this.itemCount += 1

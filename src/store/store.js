@@ -1,17 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-// import productsData from '../components/Products/productsData.json'
+import { setStore, getStore, removeStore } from '../../config/util'
 
-// let totalCartItems = window.localStorage.getItem('totalCartItems') ? JSON.parse(window.localStorage.getItem('totalCartItems')) : []
+const user = getStore('user')
+const totalCartItems = getStore('totalCartItems')
 Vue.use(Vuex)
 const state = {
   products: [],
   cartUpdate: 0,
-  totalCartItems: []
+  totalCartItems: totalCartItems,
+  loginUser: user,
+  mockAccount: {
+    name: 'Mittal Parmar',
+    email: 'mittal@bacancy.com',
+    password: 'mittal@123'
+  }
 }
 const getters = {
-  productsData: state => state.products
+  productsData: state => state.products,
+  getLoginUserInfo (state) {
+    return state.loginUser
+  }
 }
 const mutations = {
   setItems (state, products) {
@@ -24,13 +34,17 @@ const mutations = {
     } else {
       state.totalCartItems.push(item)
     }
-    window.localStorage.setItem('totalCartItems', JSON.stringify(state.totalCartItems))
+    setStore('totalCartItems', state.totalCartItems)
     state.cartUpdate++
   },
   flushCart (state) {
-    window.localStorage.removeItem('totalCartItems')
+    removeStore('totalCartItems')
     state.totalCartItems = []
     state.cartUpdate = 0
+  },
+  setLoginUser (state, user) {
+    state.loginUser = user
+    setStore('user', user)
   }
 }
 const actions = {

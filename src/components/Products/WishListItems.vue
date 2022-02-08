@@ -23,6 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { setStore, getStore, removeStore } from '../../../config/util'
 import ItemCard from './ItemCard'
 
 export default {
@@ -39,28 +40,26 @@ export default {
   },
   methods: {
     getWishList () {
-      if (localStorage.getItem('userFavItems')) {
-        const items = JSON.parse(localStorage.getItem('userFavItems'))
-        if (items.length > 0) {
-          this.products = this.productsData.filter(function (o1) {
-            return items.some(function (o2) {
-              return o1.id === o2
-            })
+      const items = getStore('userFavItems')
+      if (items.length > 0) {
+        this.products = this.productsData.filter(function (o1) {
+          return items.some(function (o2) {
+            return o1.id === o2
           })
-        }
+        })
       }
     },
     refreshWishList (productId) {
-      if (this.products.length > 0) {
-        localStorage.setItem(
+      const favItems = getStore('userFavItems')
+      if (favItems.length > 0) {
+        setStore(
           'userFavItems',
-          JSON.stringify(
-            this.products.splice(this.products.indexOf(productId), 1)
-          )
+          JSON.stringify(favItems.splice(favItems.indexOf(productId), 1))
         )
       } else {
-        localStorage.removeItem('userFavItems')
+        removeStore('userFavItems')
       }
+      this.getWishList()
     }
   }
 }

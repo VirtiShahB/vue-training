@@ -6,7 +6,7 @@
         v-if="authenticated"
         @logout="logout"
       />
-      <router-view @authenticated="setAuthenticated" />
+      <router-view @authenticated="setAuthenticated" :key="$route.fullPath" />
     </b-container>
   </div>
 </template>
@@ -18,16 +18,15 @@ export default {
   components: { NavBar },
   data () {
     return {
-      authenticated: false,
-      mockAccount: {
-        email: 'mittal@bacancy.com',
-        password: 'mittal@123'
-      }
+      authenticated: false
     }
   },
   mounted () {
+    if (this.$store.state.loginUser) {
+      this.authenticated = true
+    }
     if (!this.authenticated) {
-      this.$router.replace({ name: 'SignUp' })
+      this.$router.replace({ name: 'Login' })
     }
   },
   methods: {
