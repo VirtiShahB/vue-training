@@ -41,6 +41,15 @@
             @click.prevent="login()"
             value="Log In"
           />
+          <br />
+          <GoogleLogin
+            :params="params"
+            :renderParams="renderParams"
+            :onSuccess="onSuccess"
+            :onFailure="onFailure"
+          ></GoogleLogin>
+          <br />
+          <br />
         </form>
 
         <!-- Remind Passowrd -->
@@ -53,17 +62,47 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
 export default {
   name: "signin",
+
   data() {
     return {
       email: null,
       password: null,
       errorMsg: null,
+      params: {
+        client_id:
+          "186882189662-otsgbvtg1mjbgu99vuhndogfubd1gn7q.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
     };
   },
   computed: {},
+  components: {
+    GoogleLogin,
+  },
   methods: {
+    onSuccess(googleUser) {
+      console.log("googleUser");
+      console.log(googleUser);
+      console.log(JSON.stringify(googleUser));
+
+      // This only gets the user information: id, name, imageUrl and email
+      console.log("googleUser.getBasicProfile()");
+      console.log(googleUser.getBasicProfile());
+      console.log(JSON.stringify(googleUser.getBasicProfile()));
+      this.$store.state.loginUser = true;
+      this.$router.push({ path: "/" });
+    },
+    onFailure(googleUser) {
+      console.log("googleUser");
+      console.log(googleUser);
+    },
     login() {
       if (this.$store.state.user[0].email == null) {
         this.errorMsg = "No user found please register";

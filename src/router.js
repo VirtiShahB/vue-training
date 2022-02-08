@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import store from "./store.js";
+import store from "./store.js";
 import Product from "./components/Product.vue";
 import Checkout from "./components/Checkout.vue";
 import AllProduct from "./components/AllProduct.vue";
@@ -45,16 +45,16 @@ const router = new Router({
   ],
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (
-//     to.path != "/signin" &&
-//     to.path != "/signup" &&
-//     store.state.loginUser == false
-//   ) {
-//     next("/signin");
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  if (
+    to.path != "/signin" &&
+    to.path != "/signup" &&
+    store.state.loginUser == false
+  ) {
+    next("/signin");
+  } else {
+    next();
+  }
+});
 
 export default router;
