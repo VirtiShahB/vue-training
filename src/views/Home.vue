@@ -36,12 +36,11 @@
       </div>
 
       <h1>All Products</h1>
-
       <hr />
       <div v-if="!loading">
-        <div v-if="tempProducts.length > 0" class="row">
+        <div v-if="allProducts.length > 0" class="row">
           <div
-            v-for="product in tempProducts"
+            v-for="product in allProducts"
             :key="product.id"
             class="mb-3 col-md-4"
           >
@@ -82,6 +81,7 @@
 <script>
 import Main from "@/views/Header.vue";
 import Product from "@/views/ProductCard.vue";
+import {mapGetters, mapActions} from 'vuex';
 export default {
   components: {
     Main,
@@ -89,9 +89,6 @@ export default {
   },
   data() {
     return {
-      products: [],
-      tempProducts: [],
-      loading: true,
       sort: "desc",
       searchTerm: "",
     };
@@ -111,7 +108,9 @@ export default {
       this.loading = false;
     }, 1500),
   },
+  computed : mapGetters(['allProducts','loading']) ,
   methods: {
+    ...mapActions(["loadProductsVuex"]),
     filter() {
       // sort by title a-z order
 
@@ -176,59 +175,10 @@ export default {
           return 0;
         });
       }
-    },
-    async loadProducts() {
-      await this.$axios.get("https://fakestoreapi.com/products").then((res) => {
-        this.tempProducts = res.data;
-        this.products = res.data;
-        this.tempProducts = this.tempProducts.sort((a, b) => {
-          let fa = a.id,
-            fb = b.id;
-          if (fa > fb) {
-            return -1;
-          }
-          if (fa < fb) {
-            return 1;
-          }
-          return 0;
-        });
-
-        if (this.$loggedIn == true) {
-          var fetchWishList = JSON.parse(localStorage.getItem("wishList"));
-          
-          if(fetchWishList != null && fetchWishList.length > 0){
-            fetchWishList = fetchWishList.filter((el) =>
-              el.userid.match(this.$loggedUser.id)
-            );
-          }
-        }
-
-        this.tempProducts = this.tempProducts.map((item) => {
-          /** covert rating into percentage */
-
-          item["rating"]["width"] = (item.rating.rate / 5) * 100;
-          /** get item wishlist and check if item is in wishlist*/
-
-          if (this.$loggedIn == true) {
-            let in_wishList =
-              fetchWishList != null && fetchWishList.length > 0
-                ? fetchWishList.findIndex((wish) => wish.id == item.id)
-                : null;
-
-            item["in_wishlist"] =
-              in_wishList != null && in_wishList !== -1 ? true : false;
-          }
-
-          return item;
-        });
-
-        this.loading = false;
-      });
-    },
+    }
   },
   async created() {
-    /** Get Product From API */
-    this.loadProducts();
+    this.loadProductsVuex();
   },
 };
 </script>

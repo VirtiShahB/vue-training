@@ -3,7 +3,7 @@ import App from "./App.vue";
 import UUID from "vue-uuid";
 import 'lodash';
 import axios from "axios";
-import Vuex from 'vuex';
+import store from './store';
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
@@ -14,19 +14,17 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/style.css";
 import router from "./router";
 
-
-Vue.use(Vuex);
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
+Vue.prototype.$store = store;
 Vue.use(UUID);
-
-
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");
 

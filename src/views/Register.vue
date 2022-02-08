@@ -14,6 +14,15 @@
         </h1>
       </div>
       <div class="col-md-6 mt-5 py-5">
+        <div class="mb-3 text-left">
+          <div class="row">
+            <div class="col-3" id="google-signin-button"></div>
+            <a class="col-6 btn btn-md btn-primary">
+              <b-icon-facebook></b-icon-facebook>
+              Sign in with Facebook
+            </a>
+          </div>
+        </div>
         <form @submit.prevent="register">
           <div class="form-group">
             <label>Name: <span class="text-danger">*</span> </label>
@@ -83,6 +92,13 @@ export default {
     };
   },
   methods: {
+    onSignIn(user) {
+      const profile = user.getBasicProfile();
+      if (profile != null) {
+        this.name = profile.getName();
+        this.email = profile.getEmail();
+      }
+    },
     register() {
       this.proccess = true;
 
@@ -140,6 +156,13 @@ export default {
 
       this.error.password = "";
     },
+  },
+  mounted() {
+    let gapi = window.gapi;
+
+    gapi.auth2.render("google-signin-button", {
+      onsuccess: this.onSignIn,
+    });
   },
 };
 </script>

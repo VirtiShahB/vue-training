@@ -12,6 +12,15 @@
         <h1 class="display-3">Login to get existing offers and discounts</h1>
       </div>
       <div class="col-md-6 mt-5 py-5">
+        <div class="mb-3 text-left">
+            <div class="row">
+              <div class="col-3" id="google-signin-button"></div>
+              <a class="col-6 btn btn-md btn-primary">
+                <b-icon-facebook></b-icon-facebook>
+                Sign in with Facebook
+              </a>
+            </div>
+        </div>
         <form @submit.prevent="login">
           <div class="form-group">
             <label>Email: <span class="text-danger">*</span> </label>
@@ -66,6 +75,8 @@ export default {
       },
       errorClass: "",
       proccess: false,
+      googleUser: {},
+      startApp: "",
     };
   },
   methods: {
@@ -110,6 +121,17 @@ export default {
       this.proccess = false;
       return false;
     },
+    onSignIn (user) {
+      const profile = user.getBasicProfile();
+      console.log(profile.getId());
+    }
+  },
+  mounted() {
+    let gapi = window.gapi;
+
+    gapi.signin2.render("google-signin-button", {
+      onsuccess: this.onSignIn,
+    });
   },
 };
 </script>
