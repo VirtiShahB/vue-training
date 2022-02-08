@@ -7,7 +7,7 @@
             :src="product.image"
             alt="Image"
             class="rounded-0 my-4"
-            style="width:200px; height:300px;"
+            style="width: 200px; height: 300px"
           />
         </b-col>
         <b-col md="6">

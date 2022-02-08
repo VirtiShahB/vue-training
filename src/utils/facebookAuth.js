@@ -60,8 +60,7 @@ export const facebookLogin = {
     return new Promise(() => {
       window.FB.getLoginStatus(function (response) {
         // Called after the JS SDK has been initialized.
-        if (response.status === "connected")
-          window.FB.logout();
+        if (response.status === "connected") window.FB.logout();
       });
     });
   },

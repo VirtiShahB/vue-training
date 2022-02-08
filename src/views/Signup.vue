@@ -104,12 +104,11 @@ export default {
       if (this.errors.length) {
         return false;
       } else {
-        
-        this.$bvToast.toast('Signup successfull.', {
-        title: "Signup",
-        variant: 'success',
-        solid: true,
-      });
+        this.$bvToast.toast("Signup successfull.", {
+          title: "Signup",
+          variant: "success",
+          solid: true,
+        });
       }
     },
   },

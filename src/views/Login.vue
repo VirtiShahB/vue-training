@@ -97,7 +97,7 @@ export default {
       });
     },
     async onGoogleLogin() {
-      try{
+      try {
         const googleUser = await this.$gAuth.signIn();
         let user = {};
         let userDetail = googleUser.getBasicProfile();
@@ -105,7 +105,7 @@ export default {
         user.email = userDetail.getEmail();
         localStorage.setItem("user", JSON.stringify(user));
         this.$router.push("/");
-      }catch(err){
+      } catch (err) {
         console.log(err);
       }
     },

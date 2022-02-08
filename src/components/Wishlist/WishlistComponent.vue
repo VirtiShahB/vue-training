@@ -20,15 +20,15 @@ export default {
   props: {
     product: Object,
   },
-  methods:{
-    removeFromWishlist(){
-      this.$store.dispatch('wishlist/addToWishlist', this.product)
-      this.$bvToast.toast('Removed from wishlist.', {
+  methods: {
+    removeFromWishlist() {
+      this.$store.dispatch("wishlist/addToWishlist", this.product);
+      this.$bvToast.toast("Removed from wishlist.", {
         title: "Wishlist",
-        variant: 'success',
+        variant: "success",
         solid: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>

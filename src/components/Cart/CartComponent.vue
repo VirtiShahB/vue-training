@@ -5,7 +5,8 @@
         <b-list-group-item class="text-danger" v-if="cart.length == 0">
           Cart is empty
         </b-list-group-item>
-        <cart-item-component v-else
+        <cart-item-component
+          v-else
           v-for="(item, ind) in cart"
           :key="ind"
           :cart="item"
@@ -40,7 +41,7 @@
 <script>
 import CartItemComponent from "./CartItemComponent.vue";
 export default {
-  name:'cart-component',
+  name: "cart-component",
   components: { CartItemComponent },
   props: {
     cart: {

@@ -17,7 +17,9 @@ const wishlist = {
   actions: {
     // add to wishlist
     addToWishlist({ commit }, product) {
-      let wishlist = JSON.parse(localStorage.getItem("wishlist")) ? JSON.parse(localStorage.getItem("wishlist")) :[];
+      let wishlist = JSON.parse(localStorage.getItem("wishlist"))
+        ? JSON.parse(localStorage.getItem("wishlist"))
+        : [];
       let wishlistProductInd = wishlist.findIndex(
         (item) => item.id == product.id
       );
@@ -31,7 +33,9 @@ const wishlist = {
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
     },
     getWishlist({ commit }) {
-      let wishlist = JSON.parse(localStorage.getItem("wishlist")) ? JSON.parse(localStorage.getItem("wishlist")) : []
+      let wishlist = JSON.parse(localStorage.getItem("wishlist"))
+        ? JSON.parse(localStorage.getItem("wishlist"))
+        : [];
       commit("SET_TO_WISHLIST", wishlist);
     },
   },

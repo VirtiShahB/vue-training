@@ -7,7 +7,7 @@ const product = {
     filters: [],
     loadingStatus: false,
     product: {},
-    likeProductCategories:[]
+    likeProductCategories: [],
   },
   mutations: {
     SET_TO_PRODUCTS(state, products) {
@@ -52,13 +52,13 @@ const product = {
     },
     getRecommendedProducts(state) {
       let categories = [];
-      for(let item of state.products){
-        if(item.isLike)
-        categories.push(item.category);             
+      for (let item of state.products) {
+        if (item.isLike) categories.push(item.category);
       }
       categories = [...new Set(categories)];
-      return state.products.filter(item => categories.includes(item.category));
-      
+      return state.products.filter((item) =>
+        categories.includes(item.category)
+      );
     },
     getLoadingStatus(state) {
       return state.loadingStatus;

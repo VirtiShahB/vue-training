@@ -24,15 +24,13 @@
           size="sm"
           class="ml-3"
           @click.prevent.stop="
-            $store.dispatch(
-              'product/likeUnlikeProduct',
-              {
-                id: product.id,
-                isLike: typeof(product.isLike)==undefined ? false : !product.isLike
-              }
-            )
+            $store.dispatch('product/likeUnlikeProduct', {
+              id: product.id,
+              isLike:
+                typeof product.isLike == undefined ? false : !product.isLike,
+            })
           "
-          >{{product.isLike ? 'Unlike' : 'Like'}}</b-button
+          >{{ product.isLike ? "Unlike" : "Like" }}</b-button
         >
       </template>
     </b-card>

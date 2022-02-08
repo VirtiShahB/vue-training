@@ -54,9 +54,13 @@
         <b-col sm="12" md="12" lg="12">
           <h4 class="font-weight-bold">Recommended Products</h4>
           <b-row>
-            <b-col cols="3" v-for="product in recommendedProducts" :key="product.id">
-            <product :product="product" />
-          </b-col>
+            <b-col
+              cols="3"
+              v-for="product in recommendedProducts"
+              :key="product.id"
+            >
+              <product :product="product" />
+            </b-col>
           </b-row>
         </b-col>
       </b-row>

@@ -4,10 +4,11 @@
       <h4 class="font-weight-bold">Product Detail</h4>
       <b-row>
         <b-col cols="12">
-          <div class="text-center " v-if="loading">
+          <div class="text-center" v-if="loading">
             <b-spinner />
           </div>
-          <product-detail-component v-else
+          <product-detail-component
+            v-else
             :product="product"
             @addToCart="onAddToCart($event)"
           />
@@ -28,12 +29,12 @@ export default {
     this.$store.dispatch("product/getProduct", this.$route.params.id);
   },
   computed: {
-    product: function() {
+    product: function () {
       return this.$store.state.product.product;
     },
-    loading: function(){
+    loading: function () {
       return this.$store.getters["product/getLoadingStatus"];
-    }
+    },
   },
 };
 </script>

@@ -25,7 +25,7 @@
                   v-validate="{ required: true }"
                   data-vv-name="firstname"
                 ></b-form-input>
-                <span class="text-danger">{{errors.first('firstname')}}</span>
+                <span class="text-danger">{{ errors.first("firstname") }}</span>
                 <!-- <b-form-invalid-feedback id="input-2-live-feedback">{{ veeErrors.first('firstName') }}</b-form-invalid-feedback> -->
               </b-form-group>
               <b-form-group id="input-group-2" class="col-6" label="Last Name">
@@ -39,7 +39,7 @@
                   v-validate="{ required: true }"
                   data-vv-name="lastname"
                 ></b-form-input>
-                <span class="text-danger">{{errors.first('lastname')}}</span>
+                <span class="text-danger">{{ errors.first("lastname") }}</span>
               </b-form-group>
               <b-form-group id="input-group-3" class="col-6" label="Phone">
                 <b-form-input
@@ -52,7 +52,7 @@
                   v-validate="{ required: true }"
                   data-vv-name="phone"
                 ></b-form-input>
-                <span class="text-danger">{{errors.first('phone')}}</span>
+                <span class="text-danger">{{ errors.first("phone") }}</span>
               </b-form-group>
               <b-form-group id="input-group-4" class="col-6" label="Email">
                 <b-form-input
@@ -62,10 +62,10 @@
                   name="email"
                   trim
                   required
-                  v-validate="{ required: true, email:true }"
+                  v-validate="{ required: true, email: true }"
                   data-vv-name="email"
                 ></b-form-input>
-                <span class="text-danger">{{errors.first('email')}}</span>
+                <span class="text-danger">{{ errors.first("email") }}</span>
               </b-form-group>
             </b-form-row>
 
@@ -77,9 +77,9 @@
                 name="country"
                 required
                 v-validate="{ required: true }"
-                  data-vv-name="country"
+                data-vv-name="country"
               ></b-form-select>
-              <span class="text-danger">{{errors.first('country')}}</span>
+              <span class="text-danger">{{ errors.first("country") }}</span>
             </b-form-group>
             <b-form-group id="input-group-6" label="Address">
               <b-form-input
@@ -90,9 +90,9 @@
                 name="address"
                 required
                 v-validate="{ required: true }"
-                  data-vv-name="address"
+                data-vv-name="address"
               ></b-form-input>
-              <span class="text-danger">{{errors.first('address')}}</span>
+              <span class="text-danger">{{ errors.first("address") }}</span>
             </b-form-group>
             <b-form-group id="input-group-7" label="Town/City">
               <b-form-input
@@ -105,7 +105,7 @@
                 v-validate="{ required: true }"
                 data-vv-name="city"
               ></b-form-input>
-              <span class="text-danger">{{errors.first('city')}}</span>
+              <span class="text-danger">{{ errors.first("city") }}</span>
             </b-form-group>
             <b-form-group id="input-group-8" label="State">
               <b-form-input
@@ -116,9 +116,9 @@
                 trim
                 required
                 v-validate="{ required: true }"
-                  data-vv-name="state"
+                data-vv-name="state"
               ></b-form-input>
-              <span class="text-danger">{{errors.first('state')}}</span>
+              <span class="text-danger">{{ errors.first("state") }}</span>
             </b-form-group>
             <b-form-group id="input-group-9" label="Postal Code">
               <b-form-input
@@ -129,9 +129,9 @@
                 trim
                 required
                 v-validate="{ required: true }"
-                  data-vv-name="postal"
+                data-vv-name="postal"
               ></b-form-input>
-              <span class="text-danger">{{errors.first('postal')}}</span>
+              <span class="text-danger">{{ errors.first("postal") }}</span>
             </b-form-group>
 
             <b-button variant="danger">Create an account</b-button>
@@ -149,7 +149,7 @@
 </template>
 <script>
 import CartComponent from "@/components/Cart/CartComponent.vue";
-import toastMixin from "@/mixins/toastMixins"
+import toastMixin from "@/mixins/toastMixins";
 export default {
   components: { CartComponent },
   data() {
@@ -177,7 +177,7 @@ export default {
       // showError: false,
     };
   },
-  mixins:[toastMixin],
+  mixins: [toastMixin],
   created() {
     let cartItems = JSON.parse(localStorage.getItem("cart"));
     if (cartItems) {
@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (!result) {
           return;
         }
