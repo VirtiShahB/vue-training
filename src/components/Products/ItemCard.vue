@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { setStore, getStore } from '../../../config/util'
+import { getStore } from '../../../config/util'
 import CartServices from '../../services/CartServices'
 const cartService = new CartServices()
 export default {
@@ -95,12 +95,15 @@ export default {
   computed: {},
   methods: {
     checkFavItem () {
+      this.wishListItems = getStore('userFavItems')
       if (this.wishListItems && this.wishListItems.length > 0) {
         if (this.wishListItems.indexOf(this.product.id) >= 0) {
           this.favFlag = true
         } else {
           this.favFlag = false
         }
+      } else {
+        this.favFlag = false
       }
     },
     addToCart (productId) {
@@ -115,16 +118,12 @@ export default {
       })
     },
     addToWishList (productId) {
-      let favItems = []
-      favItems = getStore('userFavItems')
-      favItems.push(productId)
-      setStore('userFavItems', favItems)
-      this.wishListItems = getStore('userFavItems')
+      this.$store.commit('addTowishList', productId)
       this.checkFavItem()
     },
     deleteFromWishList (productId) {
-      this.wishListItems.splice(this.wishListItems.indexOf(productId), 1)
-      this.$emit('refreshWishList', productId)
+      console.log('delete')
+      this.$store.commit('removeFromWishList', productId)
       this.checkFavItem()
     }
   }

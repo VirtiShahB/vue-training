@@ -10,7 +10,7 @@
           <b-col colspan="10"
             ><b><h3>Product</h3></b></b-col
           >
-          <b-col colspan="2" class="text-right mr-5"
+          <b-col colspan="3" class="text-right mr-5"
             ><b><h3>Total</h3></b></b-col
           >
         </b-row>
@@ -19,10 +19,16 @@
             <b-col class="mt-3 mb-3" cols="1"
               ><img :src="product.image" width="50" height="50"
             /></b-col>
-            <b-col cols="8" class="ml-3 mt-3">{{ product.title }}</b-col>
+            <b-col cols="7" class="ml-3 mt-3">{{ product.title }}</b-col>
             <b-col cols="1" class="text-right mt-3">{{ product.qty }} X</b-col>
-            <b-col cols="1" class="text-right mt-3"
+            <b-col cols="1" class="text-center mt-3"
               >{{ product.price | toFixed(2) | toUSD }}
+            </b-col>
+            <b-col cols="1" class="text-right mt-3">
+              <b-icon-trash
+                variant="danger"
+                @click="removeFromCart(product.id)"
+              />
             </b-col>
           </b-row>
         </div>
@@ -30,7 +36,7 @@
           <b-col class="mt-3" colspan="10"
             ><b><h3>Total</h3></b></b-col
           >
-          <b-col colspan="2" class="mt-3 text-right"
+          <b-col colspan="3" class="mt-3 text-right"
             ><b
               ><h3>{{ getSubtotal | toFixed(2) | toUSD }}</h3></b
             ></b-col
@@ -65,7 +71,7 @@ export default {
   name: 'Checkout',
   components: { ShippingDetails, ShowAlert },
   mounted () {
-    this.cartSummary = cartService.getCartData(this.productsData)
+    this.refreshCart()
   },
   computed: {
     ...mapGetters({
@@ -92,12 +98,16 @@ export default {
   },
   methods: {
     refreshCart () {
-      this.cartSummary = []
+      this.cartSummary = cartService.getCartData(this.productsData)
     },
     placeOrder () {
       cartService.flushCart()
-      this.refreshCart()
+      this.cartSummary = []
       this.error = ['success', 'Horray !! Order Placed , Continue shopping']
+    },
+    removeFromCart (productId) {
+      cartService.removeFromCart(productId)
+      this.refreshCart()
     }
   }
 }

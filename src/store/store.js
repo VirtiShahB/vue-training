@@ -8,7 +8,9 @@ Vue.use(Vuex)
 const state = {
   products: [],
   cartUpdate: 0,
+  wishListUpdate: 0,
   totalCartItems: [],
+  wishListItems: [],
   loginUser: user,
   mockAccount: {
     name: 'Mittal Parmar',
@@ -36,10 +38,26 @@ const mutations = {
     setStore('totalCartItems', state.totalCartItems)
     state.cartUpdate++
   },
+  removeFromCart (state, items) {
+    setStore('totalCartItems', items)
+    state.totalCartItems = items
+    state.cartUpdate--
+  },
   flushCart (state) {
     removeStore('totalCartItems')
     state.totalCartItems = []
     state.cartUpdate = 0
+  },
+  addTowishList (state, productId) {
+    state.wishListItems.push(productId)
+    setStore('userFavItems', state.wishListItems)
+    state.wishListUpdate++
+  },
+  removeFromWishList (state, productId) {
+    const result = state.wishListItems.filter(e => e !== productId)
+    state.wishListItems = result
+    setStore('userFavItems', result)
+    state.wishListUpdate--
   },
   setLoginUser (state, user) {
     state.loginUser = user
@@ -48,6 +66,9 @@ const mutations = {
   removeLoginUser (state, user) {
     state.loginUser = ''
     removeStore('user')
+  },
+  removeWishList (state, user) {
+    removeStore('userFavItems')
   }
 }
 const actions = {
@@ -56,7 +77,7 @@ const actions = {
       const response = await axios.get('https://fakestoreapi.com/products')
       commit('setItems', response.data)
     } catch (error) {
-      // console.log(error)
+      console.log(error)
     }
   }
 }

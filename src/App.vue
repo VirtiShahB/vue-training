@@ -31,6 +31,8 @@ export default {
       this.authenticated = status
     },
     logout () {
+      this.$store.commit('flushCart')
+      this.$store.commit('removeWishList')
       this.$store.commit('removeLoginUser')
       this.$gAuth.signOut()
       this.authenticated = false

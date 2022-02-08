@@ -26,4 +26,12 @@ export default class CartServices {
   flushCart () {
     store.commit('flushCart')
   }
+  removeFromCart (productId) {
+    const totalCartItems = getStore('totalCartItems')
+    let cartSummary = []
+    if (totalCartItems) {
+      cartSummary = totalCartItems.filter(e => e.id !== productId)
+    }
+    store.commit('removeFromCart', cartSummary)
+  }
 }
