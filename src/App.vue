@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="container">
     <nav
+      v-if="isAuthenticated"
       class="navbar navbar-expand-lg navbar-light"
       style="background-color: #e3f2fd"
     >
@@ -9,10 +10,12 @@
           <li v-if="isAuthenticated" class="float-left">
             <router-link class="nav-link" to="/home"> Home </router-link>
           </li>
-          <li class="float-right" v-else>
-            <router-link class="nav-link" to="/login">
-              <b-button variant="primary" class="mr-2">Sign in</b-button>
-            </router-link>
+          <li
+            class="float-right logout"
+            v-if="isAuthenticated"
+            @click="logout()"
+          >
+            <b-icon-power></b-icon-power>
           </li>
           <li class="float-right" v-if="isAuthenticated">
             <router-link class="nav-link" to="/cart">
@@ -45,6 +48,14 @@ export default {
         isAuthenticated = false;
       }
       return isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      if (localStorage.getItem("LoggedUser")) {
+        localStorage.removeItem("LoggedUser");
+        window.location = "/";
+      }
     },
   },
 };
@@ -93,5 +104,14 @@ a {
 }
 .collapse li {
   margin: 5px;
+}
+.logout {
+  font-size: 125%;
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+.google-signup svg,
+.facebook-signup svg {
+  margin-right: 7px;
 }
 </style>

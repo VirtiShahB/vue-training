@@ -15,7 +15,14 @@ import ProductShow from "./components/ProductShow.vue";
 import Cart from "./components/Cart.vue";
 import Wishlist from "./components/Wishlist.vue";
 import Checkout from "./components/Checkout.vue";
-
+import GoogleAuth from "@/social.js";
+const gauthOption = {
+  clientId:
+    "795288834287-b2c3iapsh3vrfh5jqq4fs3mcugbvb315.apps.googleusercontent.com",
+  scope: "profile email",
+  prompt: "select_account",
+};
+Vue.use(GoogleAuth, gauthOption);
 Vue.use(VueRouter);
 
 function beforeRouteEnter(to, from, next) {
@@ -28,7 +35,7 @@ function beforeRouteEnter(to, from, next) {
   if (isAuthenticated) {
     next();
   } else {
-    next("/login");
+    next("/");
   }
 }
 
@@ -36,8 +43,8 @@ const router = new VueRouter({
   mode: "history",
   base: __dirname,
   routes: [
-    { path: "/", component: Signup },
-    { path: "/login", component: Signin },
+    { path: "/signup", component: Signup },
+    { path: "/", component: Signin },
     { path: "/home", component: Dashboard, beforeEnter: beforeRouteEnter },
     {
       path: "/product/:id",
