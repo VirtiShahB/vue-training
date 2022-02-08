@@ -5,8 +5,8 @@
       :img-alt="product.title"
       img-top
       tag="article"
-      style="max-width: 20rem; height: 33rem"
-      class="mb-2"
+      style="max-width: 20rem; height: 35rem"
+      class="mb-2 text-left"
     >
       <b-link @click="itemDetail(product.id)" style="text-decoration: none"
         ><h4>{{ product.title | capitalize | readMore(50, "...") }}</h4></b-link

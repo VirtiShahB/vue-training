@@ -4,12 +4,11 @@ import axios from 'axios'
 import { setStore, getStore, removeStore } from '../../config/util'
 
 const user = getStore('user')
-const totalCartItems = getStore('totalCartItems')
 Vue.use(Vuex)
 const state = {
   products: [],
   cartUpdate: 0,
-  totalCartItems: totalCartItems,
+  totalCartItems: [],
   loginUser: user,
   mockAccount: {
     name: 'Mittal Parmar',
@@ -45,6 +44,10 @@ const mutations = {
   setLoginUser (state, user) {
     state.loginUser = user
     setStore('user', user)
+  },
+  removeLoginUser (state, user) {
+    state.loginUser = ''
+    removeStore('user')
   }
 }
 const actions = {
@@ -53,7 +56,7 @@ const actions = {
       const response = await axios.get('https://fakestoreapi.com/products')
       commit('setItems', response.data)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 }

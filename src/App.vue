@@ -22,9 +22,6 @@ export default {
     }
   },
   mounted () {
-    if (this.$store.state.loginUser) {
-      this.authenticated = true
-    }
     if (!this.authenticated) {
       this.$router.replace({ name: 'Login' })
     }
@@ -34,6 +31,8 @@ export default {
       this.authenticated = status
     },
     logout () {
+      this.$store.commit('removeLoginUser')
+      this.$gAuth.signOut()
       this.authenticated = false
     }
   }

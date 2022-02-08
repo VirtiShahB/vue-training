@@ -7,8 +7,12 @@
       </b-col>
       <b-col :class="[{ summary: true }]">
         <b-row class="text-center">
-          <b-col colspan="10"><b><h3>Product</h3></b></b-col>
-          <b-col colspan="2" class="text-right mr-5"><b><h3>Total</h3></b></b-col>
+          <b-col colspan="10"
+            ><b><h3>Product</h3></b></b-col
+          >
+          <b-col colspan="2" class="text-right mr-5"
+            ><b><h3>Total</h3></b></b-col
+          >
         </b-row>
         <b-row
           class="border-top mt-3"
@@ -25,8 +29,14 @@
           </b-col>
         </b-row>
         <b-row class="text-center border-top mt-3">
-          <b-col colspan="10"><b><h3>Total</h3></b></b-col>
-          <b-col colspan="2" class="text-right"><b><h3>{{ getSubtotal | toFixed(2) | toUSD}}</h3></b></b-col>
+          <b-col colspan="10"
+            ><b><h3>Total</h3></b></b-col
+          >
+          <b-col colspan="2" class="text-right"
+            ><b
+              ><h3>{{ getSubtotal | toFixed(2) | toUSD }}</h3></b
+            ></b-col
+          >
         </b-row>
         <hr />
         <b-row>
@@ -79,15 +89,7 @@ export default {
     return {
       cartSummary: [],
       show: true,
-      error: {},
-      fields: [
-        // A virtual column that doesn't exist in items
-        { key: 'image', label: '' },
-        // A column that needs custom formatting
-        { key: 'title', label: 'Product' },
-        // A virtual column made up from two fields
-        { key: 'total', label: 'Total' }
-      ]
+      error: {}
     }
   },
   methods: {
