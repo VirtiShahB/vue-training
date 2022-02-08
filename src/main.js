@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/style.css'
 import '@/helpers/filters'
+import appMixin from './mixins/mixin.js'
 
 import GoogleAuth from '../config/google_oAuth.js'
 const gauthOption = {
@@ -15,11 +16,12 @@ const gauthOption = {
   scope: 'profile email',
   prompt: 'select_account'
 }
+
 Vue.use(GoogleAuth, gauthOption)
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-
+Vue.mixin(appMixin)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

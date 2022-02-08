@@ -108,6 +108,7 @@ export default {
       }
     },
     addToCart (productId) {
+      this.viewToast('Item added to cart!', 'success')
       cartService.addToCart(productId, this.itemCount)
     },
     getProductData () {

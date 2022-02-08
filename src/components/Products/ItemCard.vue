@@ -75,12 +75,12 @@
 </template>
 
 <script>
+// import mixin from '../../mixins/mixin.js'
 import { getStore } from '../../../config/util'
 import CartServices from '../../services/CartServices'
 const cartService = new CartServices()
 export default {
   name: 'ItemCard',
-  components: {},
   props: ['product', 'fromWishlist'],
   data () {
     return {
@@ -92,7 +92,6 @@ export default {
     this.wishListItems = getStore('userFavItems')
     this.checkFavItem()
   },
-  computed: {},
   methods: {
     checkFavItem () {
       this.wishListItems = getStore('userFavItems')
@@ -107,6 +106,7 @@ export default {
       }
     },
     addToCart (productId) {
+      this.viewToast('Item added to cart!', 'success')
       cartService.addToCart(productId, 1)
     },
     itemDetail (productId) {
@@ -122,7 +122,6 @@ export default {
       this.checkFavItem()
     },
     deleteFromWishList (productId) {
-      console.log('delete')
       this.$store.commit('removeFromWishList', productId)
       this.checkFavItem()
     }
