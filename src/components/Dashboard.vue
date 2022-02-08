@@ -17,6 +17,11 @@
       </div>
     </div>
     <router-view></router-view>
+    <div class="container">
+      <div class="main-container wlc-dashboard">
+        <h2 class="heading">Welcome On Dashboard</h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -99,13 +104,19 @@ export default {
   },
   watch: {
     $route() {
-      if (localStorage.getItem("loginnedUser") !== null) {
+      if (
+        localStorage.getItem("loginnedUser") !== null &&
+        localStorage.getItem("loginnedUser") != ""
+      ) {
         this.isAuthenticated = true;
       }
     },
   },
   created() {
-    if (localStorage.getItem("loginnedUser") !== null) {
+    if (
+      localStorage.getItem("loginnedUser") !== null &&
+      localStorage.getItem("loginnedUser") != ""
+    ) {
       this.isAuthenticated = true;
     }
   },

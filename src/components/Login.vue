@@ -1,51 +1,41 @@
 <template>
-  <b-card class="container">
-    <h2>
-      <p :style="'text-align:center'"><strong>Login</strong></p>
-    </h2>
+  <div class="main-container">
     <b-form @submit="onSubmit">
-      <b-form-group
-        id="input-group-1"
-        label="Email Address:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="form.email"
-          type="email"
-          placeholder="Enter email"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label="Password:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.password"
-          placeholder="Password"
-          required
-          :type="'password'"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-        <b-form-checkbox-group
-          v-model="form.checked"
-          id="checkboxes-4"
-          :aria-describedby="ariaDescribedby"
-        >
-          <b-form-checkbox value="me">Remember me</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Login</b-button>
-      <SocialLogin />
+      <div class="box-container">
+        <h2 class="heading">Sign In</h2>
+        <div class="form-fields">
+          <b-form-input
+            id="email"
+            v-model="form.email"
+            type="email"
+            placeholder="Enter email"
+            required
+          ></b-form-input>
+        </div>
+        <div class="form-fields">
+          <b-form-input
+            id="password"
+            v-model="form.password"
+            placeholder="Password"
+            required
+            :type="'password'"
+          ></b-form-input>
+        </div>
+        <div class="form-fields">
+          <b-button type="submit" class="signIn" variant="primary"
+            >Sign In</b-button
+          >
+        </div>
+        <div class="login-choice"><span>or Sign In with</span></div>
+        <SocialLogin />
+      </div>
     </b-form>
-  </b-card>
+    <div class="footer">
+      <p>Don't have an account? <a href="/signup"> Create one now</a></p>
+    </div>
+  </div>
 </template>
 <script>
-import useVuelidate from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
 import toastMessage from "../mixins/ToastMessage";
 import SocialLogin from "@/components/SocialLogin.vue";
 
@@ -53,9 +43,6 @@ export default {
   name: "Login",
   components: { SocialLogin },
   mixins: [toastMessage],
-  setup() {
-    return { v$: useVuelidate() };
-  },
   data() {
     return {
       form: {
@@ -66,30 +53,28 @@ export default {
       arrLoginnedUser: [],
     };
   },
-  validations() {
-    return {
-      email: { required, email }, // Matches this.email
-      password: { required }, // Matches this.password
-    };
-  },
   methods: {
     onSubmit(event) {
       event.preventDefault();
       const email = this.form.email;
       const password = this.form.password;
       const registeredUser = JSON.parse(localStorage.getItem("users"));
-      const userInfo = registeredUser.find(function (user) {
-        if (user.email == email && user.password == password) {
-          return true;
+      if (registeredUser !== null) {
+        const userInfo = registeredUser.find(function (user) {
+          if (user.email == email && user.password == password) {
+            return true;
+          }
+        });
+        if (typeof userInfo == "object") {
+          this.arrLoginnedUser.push(userInfo);
+          localStorage.setItem(
+            "loginnedUser",
+            JSON.stringify(this.arrLoginnedUser)
+          );
+          this.$router.push("/dashboard");
+        } else {
+          this.makeToastMessage("Invalid Credentials", "danger");
         }
-      });
-      if (typeof userInfo == "object") {
-        this.arrLoginnedUser.push(userInfo);
-        localStorage.setItem(
-          "loginnedUser",
-          JSON.stringify(this.arrLoginnedUser)
-        );
-        this.$router.push("/dashboard");
       } else {
         this.makeToastMessage("Invalid Credentials", "danger");
       }
@@ -97,4 +82,3 @@ export default {
   },
 };
 </script>
-<style lang=""></style>

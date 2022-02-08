@@ -1,63 +1,59 @@
 <template>
-  <b-card class="container">
-    <h2>
-      <p :style="'text-align:center'"><strong>Signup</strong></p>
-    </h2>
+  <div class="main-container">
     <b-form @submit="onSubmit">
-      <b-form-group id="input-group-1" label="Full Name:" label-for="input-1">
-        <b-form-input
-          v-model="form.fullName"
-          placeholder="Enter your name"
-          required
-        >
-        </b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="input-group-2"
-        label="Email Address:"
-        label-for="input-2"
-      >
-        <b-form-input
-          id="input-3"
-          v-model="form.email"
-          type="email"
-          placeholder="Enter email"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-4" label="Password:" label-for="input-4">
-        <b-form-input
-          id="input-4"
-          :type="'password'"
-          v-model="form.password"
-          placeholder="Password"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-5"
-        label="Confirm Password:"
-        label-for="input-5"
-      >
-        <b-form-input
-          id="input-5"
-          :type="'password'"
-          placeholder="Confirm password"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Signup</b-button>
+      <div class="box-container">
+        <h2 class="heading">Create Your Account</h2>
+        <div class="form-fields">
+          <b-form-input v-model="form.fullName" placeholder="Fullname" required>
+          </b-form-input>
+        </div>
+        <div class="form-fields">
+          <b-form-input
+            id="email"
+            v-model="form.email"
+            type="email"
+            placeholder="Email"
+            required
+          ></b-form-input>
+        </div>
+        <div class="form-fields">
+          <b-form-input
+            id="password"
+            :type="'password'"
+            v-model="form.password"
+            placeholder="Password"
+            required
+          ></b-form-input>
+        </div>
+        <div class="form-fields">
+          <b-form-input
+            id="confirm_password"
+            :type="'password'"
+            placeholder="Confirm password"
+            required
+          ></b-form-input>
+        </div>
+        <div class="form-fields">
+          <button class="createaccount" name="commit" type="submit">
+            Create your account
+          </button>
+        </div>
+        <div class="login-choice"><span>or sign up with</span></div>
+        <SocialLogin />
+      </div>
     </b-form>
-  </b-card>
+    <div class="footer">
+      <p>Already have an account? <a href="/login"> Sign In</a></p>
+    </div>
+  </div>
 </template>
 <script>
 import toastMessage from "../mixins/ToastMessage.js";
+import SocialLogin from "@/components/SocialLogin.vue";
 
 export default {
   name: "Signup",
+  components: { SocialLogin },
   mixins: [toastMessage],
   data() {
     return {
@@ -80,6 +76,7 @@ export default {
       }
       localStorage.setItem("users", JSON.stringify(this.registeredUser));
       this.makeToastMessage("User signup successfully", "success");
+      this.$router.push("/login");
     },
   },
 };
