@@ -63,35 +63,29 @@
                   </b-form-group>            
                 </b-col>
               </b-row>
-
-              <b-row>
-                <b-col sm="12" class="my-2">
-                    <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-                        <b-form-checkbox-group
-                        v-model="form.remember"
-                        id="checkboxes-4"
-                        :aria-describedby="ariaDescribedby"
-                        >
-                        <b-form-checkbox value="me">Remember me</b-form-checkbox>
-                        </b-form-checkbox-group>
-                    </b-form-group>
-                </b-col>
-              </b-row>            
+          
             <b-button type="submit" variant="primary">Login</b-button>
             &nbsp;
             <b-button type="button" variant="primary" ><router-link to="/signup" >Sign Up</router-link></b-button>
-            
             </b-form>
+            <hr>
+            <b-row>
+              <b-col sm="12" class="my-2">
+                <SocialLogin />
+              </b-col>    
+            </b-row>
           </b-card>
           </b-col>
-          
       </b-row>
     </b-container>
   </div>  
 </template>
 <script>
+
+import SocialLogin from '@/components/SocialLogin'
 export default {
     name:"Login",
+    components: { SocialLogin },
     data() {
         return {
             errors: [],
@@ -118,6 +112,10 @@ export default {
                 localStorage.setItem(
                   "is_login",
                   JSON.stringify(true)
+                );
+                localStorage.setItem(
+                  "loginUser",
+                  JSON.stringify(this.form.email)
                 );
                 alert("Login success successfully!")
                 this.$router.push({ name: "Dashboard" });

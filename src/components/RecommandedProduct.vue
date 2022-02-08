@@ -4,7 +4,7 @@
       <b-col> Recommanded Products </b-col>
     </b-row>
     <b-row>
-      <b-col sm="3" class="mt-1" v-for="product in favItem" :key="product.id">
+      <b-col sm="3" class="mt-1" v-for="product in recommandItems" :key="product.id">
         <b-card
           :img-src="product.image"
           img-alt="Image"
@@ -37,21 +37,24 @@ export default {
   data() {
     return {
       products,
-      favItem: [],
+      recommandItems: [],
       isFavItem: JSON.parse(localStorage.getItem("wish-products"))
         ? false
         : true,
     };
   },
   created() {
+    // get wish list product data
     var localWishListProducts = JSON.parse(
       localStorage.getItem("wish-products")
     );
     var favItemTag = [];
     if (localWishListProducts) {
-      var favItemArray = localWishListProducts.map(function (a) {
-        return a.id;
+      // get the related item id
+      var favItemArray = localWishListProducts.map(function (item) {
+        return item.id;
       });
+      // 
       favItemArray.forEach((productId) => {
         var itemData = this.products.find((p) => p.id === parseInt(productId));
         if (favItemTag.includes(itemData.tag));
@@ -60,8 +63,8 @@ export default {
       var itemArrayData = [];
       favItemTag.forEach((productTag) => {
         itemArrayData = this.products.filter((p) => p.tag == productTag);
-        itemArrayData.forEach((singleElement) => {
-          this.favItem.push(singleElement);
+        itemArrayData.forEach((singleItem) => {
+          this.recommandItems.push(singleItem);
         });
       });
     }

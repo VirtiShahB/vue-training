@@ -28,7 +28,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
             <template #button-content>
-              <em>User</em>
+              <em>{{userAccount}}</em>
             </template>
             <b-dropdown-item href="#" @click="signOut"
               >Sign Out</b-dropdown-item
@@ -50,10 +50,8 @@ export default {
       isCartProduct: false,
       cartProducts: null,
       already_login: false,
+      userAccount: null,
     };
-  },
-  created() {
-
   },
   mounted() {
     this.cartProducts = JSON.parse(localStorage.getItem("product-cart")) || [];
@@ -64,6 +62,8 @@ export default {
 			}else{
 				this.already_login = false;
 			}
+    this.userAccount = JSON.parse(localStorage.getItem("loginUser"));
+
   },
   computed: {
     totalCartItem() {
