@@ -17,7 +17,7 @@
       </div>
     </div>
     <router-view></router-view>
-    <div class="container">
+    <div class="container" v-if="this.isAuthenticated">
       <div class="main-container wlc-dashboard">
         <h2 class="heading">Welcome On Dashboard</h2>
       </div>
