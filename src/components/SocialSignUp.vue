@@ -57,6 +57,11 @@ export default {
   mounted () {
     initFbsdk()
   },
+  data () {
+    return {
+      FB: {}
+    }
+  },
   methods: {
     loginWithGoogle () {
       this.$gAuth
@@ -87,39 +92,39 @@ export default {
           console.log('error', error)
         })
     },
-    loginWithFacebook () {
+    async loginWithFacebook () {
       window.FB.login((response) => {
-        if (response && response.authResponse) {
-          // console.log('response', response)
-          var userInfo = {
-            loginType: 'fb',
-            fb: {
-              auth: response.authResponse
-            }
+        console.log('fb response', JSON.stringify(response))
+        var userInfo = {
+          loginType: 'fb',
+          fb: {
+            auth: response.authResponse
           }
-          this.$store.commit('setLoginUser', userInfo)
-          window.FB.api(
-            `/${response.authResponse.userID}`,
-            (userResponse) => {
-              if (userResponse) {
-                // console.log(userResponse)
-                var userInfo = {
-                  loginType: 'fb',
-                  fb: {
-                    auth: response.authResponse,
-                    user: userResponse
-                  }
-                }
-                this.$store.commit('setLoginUser', userInfo)
-                this.$emit('authenticated', true)
-              }
-            },
-            this.params
-          )
-          this.$emit('authenticated', true)
-          router.push('/home')
         }
+        this.$store.commit('setLoginUser', userInfo)
+        this.getFBUserData(response)
       }, this.params)
+    },
+    async getFBUserData (response) {
+      await window.FB.api(
+        `/${response.authResponse.userID}`,
+        (userResponse) => {
+          if (userResponse) {
+            console.log(userResponse)
+            var userInfo = {
+              loginType: 'fb',
+              fb: {
+                auth: response.authResponse,
+                user: userResponse
+              }
+            }
+            this.$store.commit('setLoginUser', userInfo)
+            this.$emit('authenticated', true)
+            router.push('/home')
+          }
+        },
+        this.params
+      )
     }
   }
 }

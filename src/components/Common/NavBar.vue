@@ -92,7 +92,7 @@ export default {
         return this.loginUser.google.user.name
       } else if (this.loginUser.site) {
         return this.loginUser.site.user.name
-      } else if (this.loginUser.fb) {
+      } else if (this.loginUser.fb && this.loginUser.fb.user) {
         return this.loginUser.fb.user.name
       }
       return 'Admin'
