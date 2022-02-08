@@ -90,7 +90,7 @@ export default {
     loginWithFacebook () {
       window.FB.login((response) => {
         if (response && response.authResponse) {
-          console.log('response', response)
+          // console.log('response', response)
           var userInfo = {
             loginType: 'fb',
             fb: {
@@ -102,7 +102,7 @@ export default {
             `/${response.authResponse.userID}`,
             (userResponse) => {
               if (userResponse) {
-                console.log(userResponse)
+                // console.log(userResponse)
                 var userInfo = {
                   loginType: 'fb',
                   fb: {
@@ -111,10 +111,12 @@ export default {
                   }
                 }
                 this.$store.commit('setLoginUser', userInfo)
+                this.$emit('authenticated', true)
               }
             },
             this.params
           )
+          this.$emit('authenticated', true)
           router.push('/home')
         }
       }, this.params)
