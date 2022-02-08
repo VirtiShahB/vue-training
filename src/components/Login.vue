@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit="onSubmit" @reset="onReset">
+    <form @submit="onSubmit">
       <div class="box-container">
         <h2 class="heading">Sign In</h2>
         <div class="form-fields">
@@ -23,9 +23,20 @@
         </div>
         <div class="form-fields">
           <button class="signIn" name="commit" type="submit">Sign In</button>
+          <p class="forgot-password text-right">
+            <router-link :to="{ name: 'SignUp' }"
+              >Create new one now ?</router-link
+            >
+          </p>
         </div>
         <div class="login-choice"><span>or Sign In with</span></div>
         <SocialLogin @authenticated="$emit('authenticated', true)" />
+        <div>
+          <p class="center">
+            By signing up you agree to the
+            <a href="#">Terms of Service</a>.
+          </p>
+        </div>
       </div>
     </form>
   </div>
@@ -53,7 +64,7 @@ export default {
           this.form.email === this.$store.state.mockAccount.email &&
           this.form.password === this.$store.state.mockAccount.password
         ) {
-          var userInfo = {
+          let userInfo = {
             loginType: 'site',
             site: {
               user: {
@@ -72,11 +83,6 @@ export default {
       } else {
         this.error = 'A username and password must be present'
       }
-    },
-    onReset (event) {
-      event.preventDefault()
-      this.form.email = ''
-      this.form.password = ''
     }
   }
 }
