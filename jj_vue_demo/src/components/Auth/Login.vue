@@ -1,5 +1,9 @@
 <template>
   <b-container>
+    <meta
+      name="google-signin-client_id"
+      content="440417632572-f0eujdgt6vcns217p38t122f3luhhqkk.apps.googleusercontent.com"
+    />
     <b-row class="mt-4">
       <b-col>
         <p class="text-danger" v-if="showMsg">No user found</p>
@@ -41,6 +45,14 @@
             >Login</b-button
           ><br /><br />
           <router-link to="/signUp">Register</router-link>
+          <GoogleLogin
+            :params="params"
+            :renderParams="renderParams"
+            :onSuccess="onSuccess"
+            :onFailure="onFailure"
+          ></GoogleLogin>
+          <facebook-login class="button" appId="474649800932999">
+          </facebook-login>
         </b-form>
       </b-col>
     </b-row>
@@ -48,6 +60,8 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
+import facebookLogin from "facebook-login-vuejs";
 export default {
   name: "Login",
   data() {
@@ -56,9 +70,32 @@ export default {
       password: "",
       user: {},
       showMsg: false,
+      params: {
+        client_id:
+          "440417632572-f0eujdgt6vcns217p38t122f3luhhqkk.apps.googleusercontent.com",
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
     };
   },
+  components: {
+    GoogleLogin,
+    facebookLogin,
+  },
   methods: {
+    onSuccess(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      if (profile.getEmail() != "") {
+        this.$store.state.isLoggedIn = true;
+        this.$router.push({
+          name: "dashboard",
+        });
+      }
+    },
+    onFailure() {},
     login() {
       this.user = JSON.parse(window.localStorage.getItem("user"));
       if (
