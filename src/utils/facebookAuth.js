@@ -31,7 +31,7 @@ export const facebookLogin = {
       window.FB.login(
         (response) => {
           if (response && response.authResponse) {
-            resolve(this.getUserDetails());
+            resolve(facebookLogin.getUserDetails());
           }
         },
         { scope: "public_profile,email" }
