@@ -10,6 +10,7 @@
           />
         </router-link>
         <h1 class="display-3">Login to get existing offers and discounts</h1>
+        <div id="my-signin2"></div>
       </div>
       <div class="col-md-6 mt-5 py-5">
         <div class="mb-3 text-left">
@@ -21,7 +22,10 @@
               </a>
             </div>
             <div class="col-md-6">
-              <a class="ml-3 btn btn-block btn-primary">
+              <a
+                @click="logInWithFacebook"
+                class="ml-3 btn btn-block btn-primary"
+              >
                 <b-icon-facebook></b-icon-facebook>
                 Sign in with Facebook
               </a>
@@ -85,9 +89,75 @@ export default {
       proccess: false,
     };
   },
-  computed: mapGetters(["fetchAllUsers", "loggedInVuex"]),
+  computed: {
+    ...mapGetters(["fetchAllUsers", "loggedInVuex"]),
+  },
   methods: {
     ...mapActions(["getAllUsers", "createLoginUser"]),
+    async logInWithFacebook() {
+      window.FB.login(
+        (response) => {
+          if (response.authResponse) {
+            window.FB.api(
+              "/me",
+              { locale: "en_US", fields: "id,name, email" },
+              (response) => {
+                let users = this.fetchAllUsers;
+
+                if (users != null && users.length > 0) {
+                  let findUser = users.findIndex(
+                    (user) => user.email == response.email
+                  );
+
+                  if (findUser == -1) {
+                    this.errorClass = "text-danger";
+                    this.errors.email = "No account found with this email !";
+                    this.proccess = false;
+                    return false;
+                  } else {
+                    var socialUser = users.find((user) => {
+                      return user.email === response.email;
+                    });
+                    this.createLoginUser(socialUser);
+                    this.errors.email = "";
+                    this.$router.push({ name: "home" });
+                  }
+                } else {
+                  this.errorClass = "text-danger";
+                  this.errors.email = "No account found with this email !";
+                  this.proccess = false;
+                  return false;
+                }
+
+                let newUser = {
+                  id: this.$uuid.v1(),
+                  name: response.name,
+                  email: response.email,
+                  password: response.id,
+                };
+
+                this.registerUser(newUser);
+              }
+            );
+          } else {
+            this.$bvToast.toast(
+              "User cancelled login or did not fully authorize !",
+              {
+                title: "Failed !",
+                variant: "danger",
+                toaster: "b-toaster-top-right",
+                solid: true,
+              }
+            );
+          }
+        },
+        { scope: "email" }
+      );
+      return false;
+    },
+    onSignIn(user) {
+      const profile = user.getBasicProfile();
+    },
     login() {
       this.proccess = true;
 
@@ -129,10 +199,31 @@ export default {
       this.proccess = false;
       return false;
     },
+    async initFacebook() {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: "722554155379111", //You will need to change this
+          cookie: true, // This is important, it's not enabled by default
+          xfbml: true, // parse XFBML
+          oauth: true,
+        });
+      };
+    },
+    async loadFacebookSDK(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    },
     onGoogleSignIn() {
-      let gapi = window.gapi;
+      const gapi = window.gapi;
+
       gapi.load("auth2", () => {
-        console.log('x')
         gapi.auth2.authorize(
           {
             client_id:
@@ -141,11 +232,12 @@ export default {
             response_type: "id_token permission",
             login_hint: "email",
             ux_mode: "popup",
+            prompt: "select_account",
           },
           (response) => {
             if (response.error) {
               // An error happened!
-              return;
+              return "error";
             }
             this.getUserSignedInUser();
           }
@@ -153,7 +245,7 @@ export default {
       });
     },
     getUserSignedInUser() {
-      let gapi = window.gapi;
+      const gapi = window.gapi;
 
       gapi.load("auth2", () => {
         gapi.auth2.init().then(() => {
@@ -194,9 +286,10 @@ export default {
         });
       });
     },
-  },
-  mounted() {
-    this.getAllUsers();
+    async mounted() {
+      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+      await this.initFacebook();
+    },
   },
 };
 </script>

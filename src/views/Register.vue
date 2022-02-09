@@ -245,23 +245,53 @@ export default {
       });
     },
     async logInWithFacebook() {
-      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-      await this.initFacebook();
-      window.FB.login(function (response) {
-        if (response.authResponse) {
-          console.log(response.authResponse);
-        } else {
-          this.$bvToast.toast(
-            "User cancelled login or did not fully authorize !",
-            {
-              title: "Failed !",
-              variant: "danger",
-              toaster: "b-toaster-top-right",
-              solid: true,
-            }
-          );
-        }
-      });
+      window.FB.login(
+        (response) => {
+          if (response.authResponse) {
+            window.FB.api(
+              "/me",
+              { locale: "en_US", fields: "id,name, email" },
+              (response) => {
+                let users = this.fetchAllUsers;
+
+                if (users != null && users.length > 0) {
+                  let findUser = users.findIndex(
+                    (user) => user.email == response.email
+                  );
+
+                  if (findUser !== -1) {
+                    this.errorClass = "text-danger";
+                    this.error.email =
+                      "Account already present with this email !";
+                    this.proccess = false;
+                    return false;
+                  }
+                }
+
+                let newUser = {
+                  id: this.$uuid.v1(),
+                  name: response.name,
+                  email: response.email,
+                  password: response.id,
+                };
+
+                this.registerUser(newUser);
+              }
+            );
+          } else {
+            this.$bvToast.toast(
+              "User cancelled login or did not fully authorize !",
+              {
+                title: "Failed !",
+                variant: "danger",
+                toaster: "b-toaster-top-right",
+                solid: true,
+              }
+            );
+          }
+        },
+        { scope: "email" }
+      );
       return false;
     },
     async initFacebook() {
@@ -269,7 +299,8 @@ export default {
         window.FB.init({
           appId: "722554155379111", //You will need to change this
           cookie: true, // This is important, it's not enabled by default
-          version: "v13.0",
+          xfbml: true, // parse XFBML
+          oauth: true,
         });
       };
     },
@@ -285,8 +316,10 @@ export default {
       fjs.parentNode.insertBefore(js, fjs);
     },
   },
-  mounted() {
+  async mounted() {
     this.getAllUsers();
+    await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+    await this.initFacebook();
   },
 };
 </script>

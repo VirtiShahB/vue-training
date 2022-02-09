@@ -25,9 +25,10 @@ const actions = {
   },
 
   registerUser({ commit, getters }, newUser) {
-    let users = getters.fetchAllUsers;
 
-    users != null && users.length > 0 ? users : [];
+    var users = getters.fetchAllUsers;
+
+    users = users != null && users.length > 0 ? users : [];
 
     users.push(newUser);
 
