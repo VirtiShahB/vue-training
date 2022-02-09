@@ -19,7 +19,6 @@
             style="margin-left: 360px; margin-top: -5px"
           ></b-form-select>
         </b-col>
-        {{ selected }}
       </nav>
       <div
         class="col-md-4 mt-4"
@@ -33,7 +32,7 @@
 </template>
 
 <script>
-import Product from "../Product.vue";
+import Product from "./Product.vue";
 
 export default {
   data() {

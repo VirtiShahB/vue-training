@@ -44,14 +44,18 @@
             @click="login()"
             >Login</b-button
           ><br /><br />
-          <router-link to="/signUp">Register</router-link>
+          <router-link to="/signUp">Register</router-link><br /><br />
           <GoogleLogin
             :params="params"
             :renderParams="renderParams"
-            :onSuccess="onSuccess"
-            :onFailure="onFailure"
-          ></GoogleLogin>
-          <facebook-login class="button" appId="474649800932999">
+            :onSuccess="login"
+          ></GoogleLogin
+          ><br />
+          <facebook-login
+            class="button"
+            appId="1744896345716362"
+            @login="login"
+          >
           </facebook-login>
         </b-form>
       </b-col>
@@ -86,28 +90,27 @@ export default {
     facebookLogin,
   },
   methods: {
-    onSuccess(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      if (profile.getEmail() != "") {
-        this.$store.state.isLoggedIn = true;
-        this.$router.push({
-          name: "dashboard",
-        });
-      }
-    },
-    onFailure() {},
     login() {
-      this.user = JSON.parse(window.localStorage.getItem("user"));
-      if (
-        this.email == this.user.email &&
-        this.password == this.user.password
-      ) {
+      if (window.localStorage.getItem("user")) {
+        this.user = JSON.parse(window.localStorage.getItem("user"));
+        console.log("here if");
+        if (
+          this.email == this.user.email &&
+          this.password == this.user.password
+        ) {
+          this.$store.state.isLoggedIn = true;
+          this.$router.push({
+            name: "dashboard",
+          });
+        } else {
+          this.showMsg = true;
+        }
+      } else {
+        console.log("here 12");
         this.$store.state.isLoggedIn = true;
         this.$router.push({
           name: "dashboard",
         });
-      } else {
-        this.showMsg = true;
       }
     },
   },
