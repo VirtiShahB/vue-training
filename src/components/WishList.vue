@@ -2,26 +2,32 @@
   <div>
     <the-header></the-header>
     <br />
-    <div class=" m-2" v-if="!products || !products.length">
+    <div class="m-2" v-if="!products || !products.length">
       <b-alert variant="danger" show>No Products added to the wishlist</b-alert>
     </div>
     <b-container v-else class="bv-example-row">
       <b-row>
         <br />
         <div class="col-4" v-for="product in products" :key="product.id">
-          <b-card class="text-left" @click="getProductDetails(product)"
+          <b-card
+            class="text-left"
+            style="height: 95%"
+            border-variant="dark"
+            @click="getProductDetails(product)"
             ><b-img
-              thumbnail
               fluid
               width="400"
               height="400"
               :src="product.image"
               :alt="product.image"
             ></b-img>
-            <b-card-text>
-              <span> {{ product.title }} </span>
-              <span class="float-right"> ${{ product.price }} </span>
-            </b-card-text>
+            <template #footer>
+              <small class="text-muted"> {{ product.title }} </small>
+              <br />
+              <small class="text-muted"
+                ><strong> ${{ product.price }} </strong></small
+              >
+            </template>
           </b-card>
         </div>
       </b-row>
@@ -45,12 +51,11 @@ export default {
   computed: {
     products() {
       return JSON.parse(localStorage.getItem("loggedUserWishlist"));
-      // return this.$store.state.wishList;
     },
   },
   methods: {
     getProductDetails(product) {
-      this.$router.push({ name: "details", params: { product: product } });
+      this.$router.push({ name: "details", query: { id: product.id } });
     },
   },
 };
