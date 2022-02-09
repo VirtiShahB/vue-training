@@ -71,7 +71,7 @@ export default {
             "loginnedUser",
             JSON.stringify(this.arrLoginnedUser)
           );
-          this.$router.push("/dashboard");
+          this.$router.push("/");
         } else {
           this.makeToastMessage("Invalid Credentials", "danger");
         }

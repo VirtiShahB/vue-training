@@ -1,18 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Checkout from '@/components/Checkout.vue'
-import Login from '@/components/Login.vue'
-import ProductDetail from '@/components/ProductDetail.vue'
-import ProductList from '@/components/ProductList.vue'
-import Signup from '@/components/Signup.vue'
-import WishList from '@/components/WishList.vue'
+import Checkout from '@/views/Checkout.vue'
+import Login from '@/views/Login.vue'
+import Dashboard from '@/views/Dashboard.vue'
+import ProductDetail from '@/views/ProductDetail.vue'
+import ProductList from '@/views/ProductList.vue'
+import Signup from '@/views/Signup.vue'
+import WishList from '@/views/WishList.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/dashboard',
-    name:'Dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
     beforeEnter: guadMyRoute
   },
   {

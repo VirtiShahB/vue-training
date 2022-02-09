@@ -50,7 +50,6 @@
 
 <script>
 import { initFbsdk } from "@/config/facebook_oAuth.js";
-import router from "../router/index.js";
 export default {
   name: "login_signup_social",
   mounted() {
@@ -61,12 +60,7 @@ export default {
       this.$gAuth
         .signIn()
         .then((GoogleUser) => {
-          // on success do something
-          console.log("GoogleUser", GoogleUser);
-          console.log("getId", GoogleUser.getId());
-          console.log("basicprofile", GoogleUser.getBasicProfile().getName());
-          console.log("getBasicProfile", GoogleUser.getBasicProfile());
-          console.log("getAuthResponse", GoogleUser.getAuthResponse());
+          // on success
           var userInfo = {
             loginType: "google",
             google: {
@@ -79,7 +73,7 @@ export default {
             },
           };
           localStorage.setItem("loginnedUser", JSON.stringify(userInfo));
-          router.push("/dashboard");
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log("error", error);
@@ -88,7 +82,6 @@ export default {
     loginWithFacebook() {
       window.FB.login((response) => {
         if (response && response.authResponse) {
-          console.log("response", response);
           var userInfo = {
             loginType: "fb",
             fb: {
@@ -113,7 +106,7 @@ export default {
             },
             this.params
           );
-          router.push("/dashboard");
+          this.$router.push("/");
         }
       }, this.params);
     },

@@ -1,5 +1,5 @@
 <template>
-  <b-card class="container">
+  <b-card class="container checkout-container">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <div class="row checkout-section">
         <span class="billing-section">

@@ -1,5 +1,5 @@
 <template>
-  <b-card class="container">
+  <b-card class="container prod-details">
     <b-alert :variant="variant" :show="show">{{ showmsg }}</b-alert>
     <div class="card">
       <div class="row">
@@ -119,7 +119,15 @@ export default {
     addToCart(quantity, action) {
       this.show = true;
       if (quantity == 0) {
-        this.makeToastMessage("Please select at least 1 quantity.", "danger");
+        // this.makeToastMessage("Please select at least 1 quantity.", "danger");
+        this.$bvToast.toast("ads", {
+          title: `${"default"}`,
+          variant: "success",
+          solid: true,
+          noHoverPause: true,
+          appendToast: true,
+          noAutoHide: true,
+        });
       } else if (this.selected == null) {
         this.makeToastMessage("Please select any size.", "danger");
       } else {
@@ -145,12 +153,7 @@ export default {
         localStorage.setItem("Price", "");
         localStorage.setItem("Quantity", "");
         localStorage.setItem("Size", "");
-        this.variant = "danger";
-        this.show = true;
-        this.showmsg = "Removed item from cart.";
-        setTimeout(() => {
-          this.show = false;
-        }, 3000);
+        this.makeToastMessage("Removed item from cart.", "success");
       }
       if (newValue <= -1) {
         this.quantity = 0;
@@ -158,19 +161,18 @@ export default {
     },
   },
   created() {
-    var index = this.$route.params.id - 1;
+    var id = this.$route.params.id;
     var items = localStorage.getItem("items"); // From localstorage
     var itemsObject = JSON.parse(items);
-    for (var key in itemsObject) {
-      if (key == index) {
-        this.ProductName = itemsObject[key].ProductName;
-        this.Price = itemsObject[key].Price;
-        this.Description = itemsObject[key].Description;
-        this.Model = itemsObject[key].Model;
-        this.Color = itemsObject[key].Color;
-        this.ImgName = itemsObject[key].Image;
-      }
-    }
+    const productDetails = itemsObject.find(function (value) {
+      if (value.Id == id) return true;
+    });
+    this.ProductName = productDetails.ProductName;
+    this.Price = productDetails.Price;
+    this.Description = productDetails.Description;
+    this.Model = productDetails.Model;
+    this.Color = productDetails.Color;
+    this.ImgName = productDetails.Image;
   },
 };
 </script>
@@ -194,5 +196,8 @@ div img.img-fluid.w-100 {
   object-fit: fill;
   width: 100%;
   height: 100%;
+}
+.prod-details {
+  margin-top: 50px;
 }
 </style>
