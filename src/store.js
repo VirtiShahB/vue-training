@@ -9,6 +9,7 @@ export default new Vuex.Store({
   },
   mutations: {
     addLikedItem(state, { itemId, likedItemId }) {
+      //Like the item
       if (!localStorage.getItem("likedList")) {
         localStorage.setItem("likedList", JSON.stringify([]));
       }
@@ -20,6 +21,7 @@ export default new Vuex.Store({
       localStorage.setItem("likedList", JSON.stringify(likedItems));
     },
     addWishlist(state, { item, wishListItemId }) {
+      //Add item in wishlist
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
@@ -32,13 +34,14 @@ export default new Vuex.Store({
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
     getWishList() {
+      //Get item in wishlist
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
     },
-
     removeFromWishlist(state, { item, wishListItemId }) {
+      //Removed item in wishlist
       if (!localStorage.getItem("wishList")) {
         localStorage.setItem("wishList", JSON.stringify([]));
       }
@@ -61,6 +64,7 @@ export default new Vuex.Store({
       }
     },
     dislikedItem(state, { itemId, likedItemId }) {
+      //Dislike item
       if (!localStorage.getItem("likedList")) {
         localStorage.setItem("likedList", JSON.stringify([]));
       }

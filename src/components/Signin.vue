@@ -146,6 +146,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      //Sign in form submit
       this.submitted = true;
       this.$v.$touch();
       if (this.$v.$invalid) {

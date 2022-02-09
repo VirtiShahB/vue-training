@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     addToCart(item) {
+      //add item in cart
       item.qty = document.getElementById("qty").value;
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));

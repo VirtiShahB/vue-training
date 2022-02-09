@@ -1,14 +1,17 @@
 export const mixin = {
   methods: {
     validateState(name) {
+      //Signup & signin form validation
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
     },
     removeFromWishlist(item, wishListItemId) {
+      //Item removed from wishlist
       this.$store.commit("removeFromWishlist", { item, wishListItemId });
       this.wishList = this.$store.wishList;
     },
     getWishList() {
+      //Get item from wishlist
       this.$store.commit("getWishList");
       this.wishList = this.$store.wishList;
       if (this.wishList.length > 0) {
@@ -20,12 +23,14 @@ export const mixin = {
       }
     },
     getCart() {
+      //Get cart data
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
     loginWithGoogle() {
+      //Google login
       this.$gAuth
         .signIn()
         .then((GoogleUser) => {
@@ -65,6 +70,7 @@ export const mixin = {
         });
     },
     loginWithFacebook() {
+      //Facebook login
       window.FB.login((response) => {
         if (response && response.authResponse) {
           var userInfo = {

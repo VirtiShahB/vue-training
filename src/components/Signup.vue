@@ -198,6 +198,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      //Sign up form submit
       localStorage.removeItem("users");
       this.submitted = true;
       this.$v.$touch();

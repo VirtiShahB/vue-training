@@ -365,24 +365,29 @@ export default {
   },
   methods: {
     addWishlist(item, wishListItemId) {
+      //add to cart(store call)
       this.$store.commit("addWishlist", { item, wishListItemId });
     },
     addLikedItem(itemId, likedItemId) {
+      //add in like(store call)
       this.$store.commit("addLikedItem", { itemId, likedItemId });
     },
     dislikedItem(itemId, likedItemId) {
+      //dislike the item (store call)
       this.$store.commit("dislikedItem", {
         itemId,
         likedItemId,
       });
     },
     isWishlisted(itemId) {
+      //Add in wishlist (store call)
       return !this.wishListItemId.includes(itemId);
     },
     isLikedItem(itemId) {
       return !this.likedItemId.includes(itemId);
     },
     getLikedList() {
+      //Get liked item list
       if (!localStorage.getItem("likedList")) {
         localStorage.setItem("likedList", JSON.stringify([]));
       }
@@ -394,6 +399,7 @@ export default {
       }
     },
     getRecommandProductList() {
+      //remove from recommand
       const getRecomandTags = [];
       if (this.likedItemId.length > 0 && this.items.length > 0) {
         for (var j = 0; j < this.items.length; j++) {

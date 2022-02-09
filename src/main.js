@@ -16,6 +16,7 @@ import Cart from "./components/Cart.vue";
 import Wishlist from "./components/Wishlist.vue";
 import Checkout from "./components/Checkout.vue";
 import GoogleAuth from "@/social.js";
+
 const gauthOption = {
   clientId:
     "795288834287-b2c3iapsh3vrfh5jqq4fs3mcugbvb315.apps.googleusercontent.com",

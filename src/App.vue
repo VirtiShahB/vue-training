@@ -41,6 +41,7 @@ export default {
   name: "App",
   computed: {
     isAuthenticated() {
+      //check authenticated or not
       var isAuthenticated = false;
       if (localStorage.getItem("LoggedUser")) {
         isAuthenticated = true;
@@ -52,6 +53,7 @@ export default {
   },
   methods: {
     logout() {
+      //logout the session
       if (localStorage.getItem("LoggedUser")) {
         localStorage.removeItem("LoggedUser");
         window.location = "/";
