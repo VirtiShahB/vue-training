@@ -132,6 +132,7 @@ export default {
     onGoogleSignIn() {
       let gapi = window.gapi;
       gapi.load("auth2", () => {
+        console.log('x')
         gapi.auth2.authorize(
           {
             client_id:

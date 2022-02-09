@@ -11,9 +11,6 @@ const getters = {
 };
 
 const actions = {
-  setLoggedInStatus({ commit }) {
-    commit("setLoggedInStatus", 20);
-  },
 
   getAllUsers({ commit }) {
     let users = JSON.parse(localStorage.getItem("registerUsers"));
