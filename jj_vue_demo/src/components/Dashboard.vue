@@ -64,7 +64,6 @@ export default {
         });
         filteredArray = this.products.filter((product) => {
           if (product.price == this.selected) {
-            console.log(this.selected);
             return product.price;
           }
         });

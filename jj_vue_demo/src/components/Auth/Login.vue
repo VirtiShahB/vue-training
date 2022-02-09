@@ -93,7 +93,6 @@ export default {
     login() {
       if (window.localStorage.getItem("user")) {
         this.user = JSON.parse(window.localStorage.getItem("user"));
-        console.log("here if");
         if (
           this.email == this.user.email &&
           this.password == this.user.password
@@ -106,7 +105,6 @@ export default {
           this.showMsg = true;
         }
       } else {
-        console.log("here 12");
         this.$store.state.isLoggedIn = true;
         this.$router.push({
           name: "dashboard",
