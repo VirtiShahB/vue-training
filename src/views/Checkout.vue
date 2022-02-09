@@ -2,9 +2,9 @@
   <b-card class="container checkout-container">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <div class="row checkout-section">
-        <span class="billing-section">
+        <div class="col-sm-12">
           <h2>Billing details</h2>
-        </span>
+        </div>
         <div class="col-sm-6">
           <b-form-group
             id="input-group-2"
@@ -275,7 +275,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .cart_section {
   background-color: rgb(247 244 244);
 }
@@ -291,5 +291,8 @@ export default {
 }
 button.router-link-active {
   background-color: #efe36f;
+}
+p {
+  font-size: 16px;
 }
 </style>

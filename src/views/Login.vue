@@ -71,6 +71,7 @@ export default {
             "loginnedUser",
             JSON.stringify(this.arrLoginnedUser)
           );
+          this.makeToastMessage("Login successfully.", "success");
           this.$router.push("/");
         } else {
           this.makeToastMessage("Invalid Credentials", "danger");

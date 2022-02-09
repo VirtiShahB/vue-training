@@ -21,11 +21,6 @@ export default {
   color: #2c3e50;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 h1 {
   font-size: 1.5rem;
 }

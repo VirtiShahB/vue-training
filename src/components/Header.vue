@@ -98,8 +98,10 @@ export default {
 }
 </style>
 <script>
+import toastMessage from "../mixins/ToastMessage";
 export default {
   name: "Header",
+  mixins: { toastMessage },
   data() {
     return {
       isAuthenticated: false,
@@ -110,6 +112,7 @@ export default {
       if (localStorage.getItem("loginnedUser")) {
         localStorage.setItem("loginnedUser", "");
         this.isAuthenticated = false;
+        this.makeToastMessage("Logout successfully.", "success");
         this.$router.push("/login");
       }
     },

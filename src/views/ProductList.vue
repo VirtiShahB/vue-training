@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <div class="row product-list">
-      <h2>
-        <p><strong>Products</strong></p>
-      </h2>
+      <div class="col-sm-12 product-label">
+        <h2>Products</h2>
+      </div>
+
       <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail

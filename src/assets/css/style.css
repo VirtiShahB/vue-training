@@ -187,3 +187,24 @@ input#__BVID__9 {
   margin-top: 5%;
   margin-bottom: 5%;
 }
+.col-sm-12.product-label {
+  margin-bottom: 20px;
+}
+.b-toast-danger.b-toast-solid .toast {
+  line-height: 3em;
+}
+.toast-body {
+  margin-top: -3px;
+}
+strong.mr-2 {
+  margin-left: 11px;
+}
+.toast-body {
+  margin-left: 10px;
+}
+.b-toast-success {
+  line-height: 36px;
+}
+.b-toast-primary {
+  line-height: 36px;
+}

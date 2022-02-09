@@ -5,9 +5,9 @@ var toastMessage = {
                 title: `${variant || "default"}`,
                 variant: variant,
                 solid: true,
+                autoHideDelay: 2000,
                 noHoverPause: true,
                 appendToast: true,
-                noAutoHide:true
             });
         }
     },

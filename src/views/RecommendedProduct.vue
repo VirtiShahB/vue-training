@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="row product-recommend-list">
-      <h2>
-        <p><strong>Recommended Products</strong></p>
-      </h2>
+      <div class="col-sm-12 product-label">
+        <h2>Recommended Products</h2>
+      </div>
       <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail

@@ -119,15 +119,7 @@ export default {
     addToCart(quantity, action) {
       this.show = true;
       if (quantity == 0) {
-        // this.makeToastMessage("Please select at least 1 quantity.", "danger");
-        this.$bvToast.toast("ads", {
-          title: `${"default"}`,
-          variant: "success",
-          solid: true,
-          noHoverPause: true,
-          appendToast: true,
-          noAutoHide: true,
-        });
+        this.makeToastMessage("Please select at least 1 quantity.", "danger");
       } else if (this.selected == null) {
         this.makeToastMessage("Please select any size.", "danger");
       } else {
