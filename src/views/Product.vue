@@ -222,25 +222,17 @@
       </div>
 
       <div v-if="similarProducts.length > 0" class="row">
-          <div class="mt-5 mb-3 col-md-12">
-            <h4>
-              You may also like this
-            </h4>
-          </div>
-          <div
-            v-for="p in similarProducts"
-            :key="p.id"
-            class="mb-3 col-md-4"
-          >
-            <ProductCard :product="p"></ProductCard>
-          </div>
+        <div class="mt-5 mb-3 col-md-12">
+          <h4>You may also like this</h4>
+        </div>
+        <div v-for="p in similarProducts" :key="p.id" class="mb-3 col-md-4">
+          <ProductCard :product="p"></ProductCard>
+        </div>
       </div>
       <div v-else>
-        <h4>
-          Loading Similar Products
-        </h4>
+        <h4>Loading Similar Products</h4>
 
-         <b-row>
+        <b-row>
           <b-col
             class="mb-3"
             v-for="(i, index) in 3"
@@ -273,7 +265,7 @@ import ProductCard from "@/views/ProductCard.vue";
 export default {
   components: {
     Main,
-    ProductCard
+    ProductCard,
   },
   mixins: [wishlist],
   data() {

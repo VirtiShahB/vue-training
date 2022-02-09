@@ -1,9 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 import UUID from "vue-uuid";
-import 'lodash';
+import "lodash";
 import axios from "axios";
-import store from './store';
+import store from "./store";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
@@ -27,4 +27,3 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");
-

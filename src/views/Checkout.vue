@@ -345,8 +345,8 @@ export default {
       today.toISOString().substring(0, 10);
 
       orders.push({
-        orderID : this.$uuid.v1(),
-        date : today,
+        orderID: this.$uuid.v1(),
+        date: today,
         billingDetails: this.checkOutData,
         items: this.carts,
       });

@@ -111,7 +111,9 @@ export default {
       /** Check if wishList has already have this product */
 
       let index = wishList.findIndex(
-        (c) => c.id == product.id && c.userid == this.$store.getters.fetchLoginUser.id
+        (c) =>
+          c.id == product.id &&
+          c.userid == this.$store.getters.fetchLoginUser.id
       );
 
       /** if has then remove it  */
@@ -150,7 +152,9 @@ export default {
         /** Check if wishList has already have this product */
 
         let index = wishList.findIndex(
-          (c) => c.id == product.id && c.userid == this.$store.getters.fetchLoginUser.id
+          (c) =>
+            c.id == product.id &&
+            c.userid == this.$store.getters.fetchLoginUser.id
         );
 
         /** if has then remove it  */

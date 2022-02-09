@@ -85,9 +85,9 @@ export default {
       proccess: false,
     };
   },
-  computed: mapGetters(["fetchAllUsers",'loggedInVuex']),
+  computed: mapGetters(["fetchAllUsers", "loggedInVuex"]),
   methods: {
-    ...mapActions(["getAllUsers","createLoginUser"]),
+    ...mapActions(["getAllUsers", "createLoginUser"]),
     login() {
       this.proccess = true;
 

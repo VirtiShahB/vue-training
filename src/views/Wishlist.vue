@@ -52,7 +52,9 @@ export default {
     fetchWishList() {
       var getWishList = JSON.parse(localStorage.getItem("wishList"));
 
-      getWishList = getWishList.filter((w) => w.userid == this.$store.getters.fetchLoginUser.id);
+      getWishList = getWishList.filter(
+        (w) => w.userid == this.$store.getters.fetchLoginUser.id
+      );
 
       if (getWishList != null && getWishList.length > 0) {
         this.products = getWishList.map(function (item) {

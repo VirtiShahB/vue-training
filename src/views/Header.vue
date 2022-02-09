@@ -103,17 +103,19 @@ export default {
       wishList: [],
     };
   },
-  computed : mapGetters(['loggedInVuex','fetchLoginUser']) ,
+  computed: mapGetters(["loggedInVuex", "fetchLoginUser"]),
   methods: {
     fetchWishlist() {
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
-      if(this.wishList != null && this.wishList.length > 0){
-        this.wishList = this.wishList.filter((w) => w.userid == this.fetchLoginUser.id);
+      if (this.wishList != null && this.wishList.length > 0) {
+        this.wishList = this.wishList.filter(
+          (w) => w.userid == this.fetchLoginUser.id
+        );
       }
     },
     logout() {
       localStorage.removeItem("loggedInUser");
-      this.$store.commit('setLoggedInStatus', false)
+      this.$store.commit("setLoggedInStatus", false);
       this.$router.push({ path: "/login", query: { logout: true } });
     },
   },
@@ -122,7 +124,7 @@ export default {
       this.fetchWishlist();
     });
 
-    if(this.loggedInVuex){
+    if (this.loggedInVuex) {
       this.fetchWishlist();
     }
   },
@@ -135,8 +137,7 @@ export default {
           })
           .catch(() => {});
       }, 1500);
-    }    
-    
+    }
   },
 };
 </script>

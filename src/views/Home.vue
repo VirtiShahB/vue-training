@@ -96,9 +96,7 @@ export default {
       this.loading = true;
 
       if (val != "") {
-        this.tempProducts = this.products.filter(
-          (el) => el.title.match(val)
-        );
+        this.tempProducts = this.products.filter((el) => el.title.match(val));
       } else {
         this.tempProducts = this.products;
       }
