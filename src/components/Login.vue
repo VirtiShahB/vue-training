@@ -72,8 +72,8 @@ export default {
   data() {
     return {
       loginParam: {
-        email: "ripal.darji@bacancy.com",
-        password: "rbacancy",
+        email: "",
+        password: "",
       },
       errors: [],
     };
@@ -190,21 +190,6 @@ export default {
           console.log("error", error);
         });
     },
-    /* openDashboard() {
-      var user = {
-        email: this.email,
-        password: this.password,
-      };
-      this.$store.dispatch("addLoggedIn", user);
-      this.$router.push({
-        name: "dashboard",
-      });
-    },
-    registration() {
-      this.$router.push({
-        name: "register",
-      });
-    }, */
   },
 };
 </script>

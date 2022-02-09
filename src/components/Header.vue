@@ -94,7 +94,7 @@ export default {
     signOut() {
       localStorage.removeItem("loggedUserWishlist");
       localStorage.removeItem("loggedUserCart");
-      localStorage.removeItem("user");
+      localStorage.removeItem("loggedUser");
       localStorage.removeItem("productsData");
       this.$router.replace("/");
     },
