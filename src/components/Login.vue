@@ -4,9 +4,6 @@
       <b-col xs="12" sm="12" md="10" lg="5" xl="4">
         <b-card title="Login">
           <b-form @submit.prevent="doLogin">
-            <!-- <span class="small text-muted"
-              >email: ripal.darji@bacancy.com and password: rbacancy</span
-            > -->
             <b-alert variant="danger" v-if="errors.length" show dismissible>
               <p v-for="(err, ind) in errors" class="small mb-0" :key="ind">
                 {{ err }}
@@ -34,21 +31,6 @@
             </p>
           </b-form>
           <div id="buttonDiv"></div>
-          <!-- <div
-            id="g_id_onload"
-            data-client_id="YOUR_GOOGLE_CLIENT_ID"
-            data-login_uri="https://your.domain/your_login_endpoint"
-            data-auto_prompt="false"
-          ></div>
-          <div
-            class="g_id_signin"
-            data-type="standard"
-            data-size="large"
-            data-theme="outline"
-            data-text="sign_in_with"
-            data-shape="rectangular"
-            data-logo_alignment="left"
-          ></div> -->
           <div class="h2" style="font-size: 2rem">
             <b-icon
               @click="doSocialLogin('facebook')"
@@ -80,31 +62,6 @@ export default {
   },
   props: {
     id: Number,
-  },
-  mounted() {
-    // this.initFbsdk();
-    // let initializeWhenGoogleIsAvailable = () => {
-    //   if (google) {
-    //     // test if google is available
-    //     console.log(google);
-    //     // this.initialize(); // if it is, then initalize
-    //   } else {
-    //     setTimeout(initializeWhenGoogleIsAvailable, 100); // if it isn't, wait a bit and retry
-    //   }
-    // };
-    // initializeWhenGoogleIsAvailable();
-    // window.onload = function () {
-    //   google.accounts.id.initialize({
-    //     client_id:
-    //       "743094537641-mtdhrlhliq6cscue8nfoplovv9fog2e1.apps.googleusercontent.com",
-    //     callback: this.handleCredentialResponse,
-    //   });
-    //   google.accounts.id.renderButton(
-    //     document.getElementById("buttonDiv"),
-    //     { theme: "outline", size: "large" } // customization attributes
-    //   );
-    //   google.accounts.id.prompt(); // also display the One Tap dialog
-    // };
   },
   methods: {
     doLogin() {
