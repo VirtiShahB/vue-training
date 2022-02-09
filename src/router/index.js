@@ -2,67 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
 
+Vue.use(VueRouter)
+
 const Login = () => import('@/views/auth/Login.vue')
 const Register = () => import('@/views/auth/Register.vue')
 const Dashboard = () => import('@/views/products/ProductsList.vue')
 const ProductDetails = () => import('@/views/products/ProductDetail.vue')
 const Checkout = () => import('@/views/products/Checkout.vue')
-
-Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login,
-    meta: {
-      requiredBeforeLoginAccess: true,
-    },
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register,
-    meta: {
-      requiredBeforeLoginAccess: true,
-    },
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
-    meta: {
-      requiresAuthLogin: true,
-    },
-  },
-  {
-    path: '/product/:id',
-    name: 'ProductDetails',
-    component: ProductDetails,
-    meta: {
-      requiresAuthLogin: true,
-    },
-  },
-  {
-    path: '/checkout',
-    name: 'Checkout',
-    component: Checkout,
-    meta: {
-      requiresAuthLogin: true,
-    },
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue'),
-  },
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-})
 
 router.beforeEach((to, from, next) => {
   let roles = localStorage.getItem('roles')
@@ -110,6 +56,55 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+const routes = [
+  {
+    path: '/',
+    name: 'Login',
+    component: Login,
+    meta: {
+      requiredBeforeLoginAccess: true,
+    },
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: {
+      requiredBeforeLoginAccess: true,
+    },
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: {
+      requiresAuthLogin: true,
+    },
+  },
+  {
+    path: '/product/:id',
+    name: 'ProductDetails',
+    component: ProductDetails,
+    meta: {
+      requiresAuthLogin: true,
+    },
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout,
+    meta: {
+      requiresAuthLogin: true,
+    },
+  },
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
 })
 
 export default router
