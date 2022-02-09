@@ -227,7 +227,7 @@ export default {
         gapi.auth2.authorize(
           {
             client_id:
-              "1052182370984-h9buavtblvgmtai7e71fcm2v9tgi7veq.apps.googleusercontent.com",
+              "1052182370984-70uujsc9vlvbephm34tgalcu9tfi25p2.apps.googleusercontent.com",
             scope: "email profile openid",
             response_type: "id_token permission",
             login_hint: "email",
