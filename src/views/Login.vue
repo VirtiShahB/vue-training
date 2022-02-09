@@ -69,6 +69,7 @@
 
 <script>
 import { bus } from "@/eventBus";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -84,7 +85,9 @@ export default {
       proccess: false,
     };
   },
+  computed: mapGetters(["fetchAllUsers",'loggedInVuex']),
   methods: {
+    ...mapActions(["getAllUsers","createLoginUser"]),
     login() {
       this.proccess = true;
 
@@ -97,7 +100,7 @@ export default {
       }
     },
     validation() {
-      let users = JSON.parse(localStorage.getItem("registerUsers"));
+      let users = this.fetchAllUsers;
 
       if (users != null && users.length > 0) {
         let findUser = users.findIndex(
@@ -114,7 +117,7 @@ export default {
             return user.email === this.email;
           });
 
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
+          this.createLoginUser(user);
 
           this.errors.email = "";
           return true;
@@ -127,7 +130,6 @@ export default {
       return false;
     },
     onGoogleSignIn() {
-      
       let gapi = window.gapi;
       gapi.load("auth2", () => {
         gapi.auth2.authorize(
@@ -178,7 +180,7 @@ export default {
               var socialUser = users.find((user) => {
                 return user.email === profile.getEmail();
               });
-              localStorage.setItem("loggedInUser", JSON.stringify(socialUser));
+              this.createLoginUser(socialUser);
               this.errors.email = "";
               this.$router.push({ name: "home" });
             } else {
@@ -192,6 +194,8 @@ export default {
       });
     },
   },
-  mounted() {},
+  mounted() {
+    this.getAllUsers();
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import store from '../store';
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,7 +43,7 @@ const routes = [
     path: "*",
     name: "404",
     component: () => import("@/views/404.vue"),
-  },
+  }
 ];
 
 const router = new VueRouter({
@@ -51,5 +51,28 @@ const router = new VueRouter({
   mode: "history",
   routes,
 });
+
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ["login", "register", "404","login_new"];
+  const authRequired = !publicPages.includes(to.name);
+
+
+  if (authRequired && !store.state.auth.loggedInVuex) {
+    return next("/login");
+  }
+
+  if (to.name == "login" && store.state.auth.loggedInVuex) {
+    return next("/");
+  }
+
+  if (to.name == "register" && store.state.auth.loggedInVuex) {
+    return next("/");
+  }
+
+  next();
+});
+
 
 export default router;

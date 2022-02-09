@@ -36,11 +36,21 @@
         <form @submit.prevent="register">
           <div class="form-group">
             <label>Name: <span class="text-danger">*</span> </label>
-            <input v-model="name" type="text" required class="form-control" />
+            <input
+              v-model="user.name"
+              type="text"
+              required
+              class="form-control"
+            />
           </div>
           <div class="form-group">
             <label>Email: <span class="text-danger">*</span> </label>
-            <input v-model="email" type="email" required class="form-control" />
+            <input
+              v-model="user.email"
+              type="email"
+              required
+              class="form-control"
+            />
 
             <small :class="errorClass">
               {{ error.email }}
@@ -49,7 +59,7 @@
           <div class="form-group">
             <label>Password: <span class="text-danger">*</span> </label>
             <input
-              v-model="password"
+              v-model="user.password"
               type="password"
               required
               class="form-control"
@@ -59,7 +69,7 @@
             <label>Confirm Password: <span class="text-danger">*</span> </label>
             <input
               @change="validation"
-              v-model="confirmPassword"
+              v-model="user.confirmPassword"
               type="password"
               required
               class="form-control"
@@ -86,13 +96,16 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
       error: {
         email: "",
         password: "",
@@ -101,7 +114,11 @@ export default {
       proccess: false,
     };
   },
+  computed: {
+    ...mapGetters(["fetchAllUsers"]),
+  },
   methods: {
+    ...mapActions(["getAllUsers", "registerUser"]),
     register() {
       this.proccess = true;
 
@@ -110,10 +127,10 @@ export default {
       if (status !== false) {
         /** Get all users  */
 
-        let users = JSON.parse(localStorage.getItem("registerUsers"));
+        let users = this.fetchAllUsers;
 
         if (users != null && users.length > 0) {
-          let index = users.findIndex((user) => user.email == this.email);
+          let index = users.findIndex((user) => user.email == this.user.email);
 
           if (index !== -1) {
             this.errorClass = "text-danger";
@@ -126,16 +143,14 @@ export default {
           }
         }
 
-        let data = users != null && users.length > 0 ? users : [];
-
-        data.push({
+        let newUser = {
           id: this.$uuid.v1(),
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        });
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+        };
 
-        localStorage.setItem("registerUsers", JSON.stringify(data));
+        this.registerUser(newUser);
 
         this.$bvToast.toast("Registration successfully  !", {
           title: "Registered !",
@@ -144,13 +159,11 @@ export default {
           solid: true,
         });
 
-        setTimeout(() => {
-          this.$router.push({ name: "login" });
-        }, 800);
+        this.$router.push({ name: "login" });
       }
     },
     validation() {
-      if (this.confirmPassword !== this.password) {
+      if (this.user.confirmPassword !== this.user.password) {
         this.proccess = false;
         this.errorClass = "text-danger";
         this.error.password = "Password is not match";
@@ -193,7 +206,7 @@ export default {
             // get user profile
             var profile = user.getBasicProfile();
 
-            let users = JSON.parse(localStorage.getItem("registerUsers"));
+            let users = this.fetchAllUsers;
 
             if (users != null && users.length > 0) {
               let findUser = users.findIndex(
@@ -208,16 +221,14 @@ export default {
               }
             }
 
-            let data = users != null && users.length > 0 ? users : [];
-
-            data.push({
+            let newUser = {
               id: this.$uuid.v1(),
               name: profile.getName(),
               email: profile.getEmail(),
               password: profile.getId(),
-            });
+            };
 
-            localStorage.setItem("registerUsers", JSON.stringify(data));
+            this.registerUser(newUser);
 
             this.$bvToast.toast("Registration successfully  !", {
               title: "Registered !",
@@ -229,9 +240,6 @@ export default {
             setTimeout(() => {
               this.$router.push({ name: "login" });
             }, 800);
-
-            //Make user sign in
-            // localStorage.setItem("loggedInUser", JSON.stringify(user));
           }
         });
       });
@@ -239,12 +247,9 @@ export default {
     async logInWithFacebook() {
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
-      window.FB.login(function(response) {
+      window.FB.login(function (response) {
         if (response.authResponse) {
           console.log(response.authResponse);
-
-          
-
         } else {
           this.$bvToast.toast(
             "User cancelled login or did not fully authorize !",
@@ -279,11 +284,10 @@ export default {
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     },
-    async mounted(){
-        await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-        await this.initFacebook();
-    }
-  }
+  },
+  mounted() {
+    this.getAllUsers();
+  },
 };
 </script>
 

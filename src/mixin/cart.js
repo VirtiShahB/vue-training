@@ -3,7 +3,7 @@ export default {
     addToCart(qty, price, size, color, product) {
 
       /** Check if user is logged in or not */
-      if (!this.$loggedIn) {
+      if (!this.$store.getters.loggedInVuex) {
         this.$bvToast.toast("Please login to continue !", {
           title: "Login Required !",
           variant: "danger",
@@ -33,7 +33,7 @@ export default {
         size: size,
         color: color,
         product: product,
-        userid : this.$loggedUser.id
+        userid : this.$store.getters.fetchLoginUser.id
       });
 
       /** Push cart in localstorage */

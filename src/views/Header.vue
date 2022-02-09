@@ -44,7 +44,7 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!$loggedIn">
+          <b-nav-item v-if="!loggedInVuex">
             <router-link
               class="nav-link"
               active-class="active"
@@ -53,7 +53,7 @@
             >
           </b-nav-item>
 
-          <b-nav-item v-if="!$loggedIn">
+          <b-nav-item v-if="!loggedInVuex">
             <router-link
               class="nav-link"
               active-class="active"
@@ -61,7 +61,7 @@
               >Register</router-link
             >
           </b-nav-item>
-          <b-nav-item v-if="$loggedIn">
+          <b-nav-item v-if="loggedInVuex">
             <router-link
               class="nav-link"
               active-class="active"
@@ -72,10 +72,10 @@
             >
           </b-nav-item>
 
-          <b-nav-item v-if="$loggedIn">
+          <b-nav-item v-if="loggedInVuex">
             <b-nav-item-dropdown right>
               <template #button-content>
-                Hey {{ $loggedUser.name }} !
+                Hey {{ fetchLoginUser.name }} !
               </template>
               <b-dropdown-item @click.prevent="logout">
                 Sign Out
@@ -96,23 +96,24 @@
 </template>
 <script>
 import { bus } from "@/eventBus";
-
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       wishList: [],
     };
   },
+  computed : mapGetters(['loggedInVuex','fetchLoginUser']) ,
   methods: {
     fetchWishlist() {
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
       if(this.wishList != null && this.wishList.length > 0){
-        this.wishList = this.wishList.filter((w) => w.userid == this.$loggedUser.id);
+        this.wishList = this.wishList.filter((w) => w.userid == this.fetchLoginUser.id);
       }
     },
     logout() {
       localStorage.removeItem("loggedInUser");
-      this.$loggedIn = false;
+      this.$store.commit('setLoggedInStatus', false)
       this.$router.push({ path: "/login", query: { logout: true } });
     },
   },
@@ -121,7 +122,7 @@ export default {
       this.fetchWishlist();
     });
 
-    if(this.$loggedIn){
+    if(this.loggedInVuex){
       this.fetchWishlist();
     }
   },
@@ -134,7 +135,8 @@ export default {
           })
           .catch(() => {});
       }, 1500);
-    }
+    }    
+    
   },
 };
 </script>

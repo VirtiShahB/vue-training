@@ -23,9 +23,8 @@ Vue.prototype.$axios = axios;
 Vue.prototype.$store = store;
 Vue.use(UUID);
 new Vue({
-  router,
   store,
+  router,
   render: (h) => h(App),
 }).$mount("#app");
 
-import "@/auth";

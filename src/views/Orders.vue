@@ -124,7 +124,7 @@ export default {
 
     if (this.myOrders != null && this.myOrders.length > 0) {
       this.myOrders = this.myOrders.filter(
-        (order) => order.billingDetails.userid.match(this.$loggedUser.id)
+        (order) => order.billingDetails.userid.match(this.$store.getters.fetchLoginUser.id)
       );
 
       this.myOrders = this.myOrders.sort((a, b) => {
@@ -141,8 +141,6 @@ export default {
     } else {
       this.myOrders = [];
     }
-
-    console.log(this.myOrders);
   },
 };
 </script>

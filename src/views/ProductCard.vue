@@ -20,7 +20,7 @@
     </div>
     <a
       v-if="tempWishList.findIndex((w) => w == product.id) == -1"
-      v-show="$loggedIn"
+      v-show="$parent.loggedInVuex"
       title="Add to wishlist"
       class="p-3"
       @click.prevent="addToWishList(product)"
@@ -29,7 +29,7 @@
     </a>
     <a
       v-else
-      v-show="$loggedIn"
+      v-show="$parent.loggedInVuex"
       title="Remove from wishlist"
       class="p-3"
       @click.prevent="removeFromWishList(product)"
@@ -111,7 +111,7 @@ export default {
       /** Check if wishList has already have this product */
 
       let index = wishList.findIndex(
-        (c) => c.id == product.id && c.userid == this.$loggedUser.id
+        (c) => c.id == product.id && c.userid == this.$store.getters.fetchLoginUser.id
       );
 
       /** if has then remove it  */
@@ -122,7 +122,7 @@ export default {
 
       /** Push the item in wishList array */
 
-      product.userid = this.$loggedUser.id;
+      product.userid = this.$store.getters.fetchLoginUser.id;
 
       wishList.push(product);
 
@@ -150,7 +150,7 @@ export default {
         /** Check if wishList has already have this product */
 
         let index = wishList.findIndex(
-          (c) => c.id == product.id && c.userid == this.$loggedUser.id
+          (c) => c.id == product.id && c.userid == this.$store.getters.fetchLoginUser.id
         );
 
         /** if has then remove it  */

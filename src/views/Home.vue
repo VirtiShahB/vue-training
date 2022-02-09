@@ -3,8 +3,6 @@
     <template #breadcrumbItems> Products </template>
 
     <template #content>
-      
-
       <div class="float-right">
         <div class="form-row">
           <div class="col-8">
@@ -81,11 +79,11 @@
 <script>
 import Main from "@/views/Header.vue";
 import Product from "@/views/ProductCard.vue";
-import {mapGetters, mapActions} from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     Main,
-    Product
+    Product,
   },
   data() {
     return {
@@ -99,7 +97,7 @@ export default {
 
       if (val != "") {
         this.tempProducts = this.products.filter(
-          (el) => el.title.match(val) //el.title.toLowerCase().indexOf(val) > -1
+          (el) => el.title.match(val)
         );
       } else {
         this.tempProducts = this.products;
@@ -108,7 +106,7 @@ export default {
       this.loading = false;
     }, 1500),
   },
-  computed : mapGetters(['allProducts','loading']) ,
+  computed: mapGetters(["allProducts", "loading", "loggedInVuex"]),
   methods: {
     ...mapActions(["loadProductsVuex"]),
     filter() {
@@ -175,7 +173,7 @@ export default {
           return 0;
         });
       }
-    }
+    },
   },
   async created() {
     this.loadProductsVuex();

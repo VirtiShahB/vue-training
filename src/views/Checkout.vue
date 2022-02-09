@@ -306,7 +306,7 @@ export default {
         pincode: "",
         shipping: "",
         paymentMethod: "",
-        userid: this.$loggedUser.id,
+        userid: this.$store.getters.fetchLoginUser.id,
       },
       countries: [
         {
@@ -363,7 +363,7 @@ export default {
 
     if (this.carts != null && this.carts.length > 0) {
       this.carts = this.carts.filter((el) =>
-        el.userid.match(this.$loggedUser.id)
+        el.userid.match(this.$store.getters.fetchLoginUser.id)
       );
 
       this.carts.map((element) => {
