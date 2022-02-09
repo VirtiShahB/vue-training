@@ -4,7 +4,7 @@
       <b-row no-gutters>
         <b-col md="6">
           <b-card-img
-            style="min-height: 500px"
+            style="position: relative;height: 100%;"
             src="https://preview.colorlib.com/theme/bootstrap/login-form-02/images/xbg_1.jpg.pagespeed.ic.R5QWIA8_nZ.webp"
             alt="Image"
             class="rounded-0"
