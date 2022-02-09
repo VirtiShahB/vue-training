@@ -4,18 +4,21 @@ import '@/api/api.js'
 
 Vue.use(Vuex)
 
-const state = {
-  authToken: null,
-  isLogin: false,
+const getDefaultState = () => {
+  return {
+    authToken: null,
+    isLogin: false,
+  }
 }
+const state = getDefaultState()
+
 const mutations = {
   SUCESS_LOGIN(state, payload) {
     state.authToken = payload.authData.token
     state.isLogin = true
   },
   LOGOUT(state) {
-    state.authToken = null
-    state.isLogin = false
+    Object.assign(state, getDefaultState())
   },
 }
 

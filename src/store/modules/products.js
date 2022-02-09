@@ -4,16 +4,21 @@ import '@/api/api.js'
 
 Vue.use(Vuex)
 
-const state = {
-  cart: [],
-  likeProducts: [],
-  wishlist: [],
-  isEmptyCart: true,
-  isEmptyWishlist: true,
-  authToken: null,
-  isLogin: false,
-  products: [],
+const getDefaultState = () => {
+  return {
+    cart: [],
+    likeProducts: [],
+    wishlist: [],
+    isEmptyCart: true,
+    isEmptyWishlist: true,
+    authToken: null,
+    isLogin: false,
+    products: [],
+  }
 }
+const state = getDefaultState()
+
+// const state = {}
 const mutations = {
   SET_INITAL_PRODUCTS(state, payload) {
     state.products = payload.productsData
@@ -51,6 +56,9 @@ const mutations = {
       })
       .indexOf(payload.id)
     state.likeProducts.splice(removeIndex, 1)
+  },
+  RESET_STATE(state) {
+    Object.assign(state, getDefaultState())
   },
 }
 
@@ -92,6 +100,9 @@ const actions = {
     } else {
       commit('LIKEPRODUCTS', payload)
     }
+  },
+  resetState({ commit }) {
+    commit('RESET_STATE')
   },
 }
 

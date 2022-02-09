@@ -100,10 +100,7 @@ export default () => ({
     if (logoutData) {
       store.dispatch('auth/logout')
       toastMixins.methods.makeToast('success', 'Success!', logoutData.message)
-      store.replaceState({
-        auth: {},
-        products: {},
-      })
+      store.dispatch('products/resetState');
       router.push({ name: 'Login' })
     } else {
       toastMixins.methods.makeToast('danger', 'Error!', errorMsg)
