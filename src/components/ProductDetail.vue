@@ -8,14 +8,7 @@
         :id="pdetails.PID"
       >
         <div
-          class="
-            d-flex
-            align-items-center
-            justify-content-end
-            px-sm-3
-            pt-3
-            px-1
-          "
+          class="d-flex align-items-center justify-content-end px-sm-3 pt-3 px-1"
         ></div>
         <div class="row m-0" v-if="pdetails.PID == id">
           <div class="col-lg-4 left-side-product-box pb-3">

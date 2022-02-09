@@ -31,6 +31,9 @@
         Sign In
       </button>
 
+      <div class="login-choice"><span>or Sign In with</span></div>
+      <SocialLogin />
+
       <p class="forgot-password text-right mt-2 mb-4">
         <router-link to="/forgot-password">Forgot password ?</router-link>
       </p>
@@ -39,7 +42,12 @@
 </template>
 
 <script>
+import SocialLogin from "@/components/SocialLogin";
 export default {
+  name: "login",
+  components: {
+    SocialLogin,
+  },
   data() {
     return {
       email: "",
@@ -58,7 +66,7 @@ export default {
         ) {
           localStorage.setItem("email", JSON.stringify(this.email));
           localStorage.setItem("password", JSON.stringify(this.password));
-          this.$router.push({ name: "Home" });
+          this.$router.push({ path: "/" });
         }
       }
     },

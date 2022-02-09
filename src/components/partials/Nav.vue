@@ -30,7 +30,9 @@
             <span class="cart-num" v-if="WishPro > 0">{{ WishPro }}</span>
           </div>
           <div class="cart-div" v-if="email && password">
-            <a href="javascript:void(0)" @click="addToCart()"><i class="fa fa-shopping-cart"></i></a>
+            <a href="javascript:void(0)" @click="addToCart()"
+              ><i class="fa fa-shopping-cart"></i
+            ></a>
             <span class="cart-num" v-if="CartPro > 0">{{ CartPro }}</span>
           </div>
           <div class="buttons">
@@ -86,8 +88,13 @@ export default {
     },
   },
   created() {
-    this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
-    this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    if (JSON.parse(localStorage.getItem("wishProduct"))) {
+      this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
+    }
+
+    if (JSON.parse(localStorage.getItem("cartProduct"))) {
+      this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    }
   },
 };
 </script>

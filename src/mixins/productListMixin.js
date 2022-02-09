@@ -1,11 +1,11 @@
 export const productListMixin = {
-  data(){
-    return{
-      productDetails:[],
-    }
+  data() {
+    return {
+      productDetails: [],
+    };
   },
   created() {
     this.productDetails = JSON.parse(localStorage.getItem("PROLIST"));
     console.log(this.productDetails);
   },
-}
+};

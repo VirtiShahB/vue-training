@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { formFieldMixin } from '../mixins/formFieldMixin.js';
+import { formFieldMixin } from "../mixins/formFieldMixin.js";
 export default {
   mixins: [formFieldMixin],
   name: "ProductList",

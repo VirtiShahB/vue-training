@@ -5,17 +5,23 @@ import AddtoCart from "../views/AddtoCart.vue";
 import CHECKOUT from "../views/Checkout.vue";
 import ProductList from "@/components/ProductList.vue";
 import WISHLIST from "@/components/WishList.vue";
+import Home from "@/views/Home";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "ProductList",
     component: ProductList,
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/productDetails",
@@ -68,20 +74,20 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
+  linkExactActiveClass: "active",
   base: process.env.BASE_URL,
   routes,
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!localStorage.getItem("email") && !localStorage.getItem("password")) {
-      next({ name: "Login" });
-    } else {
-      next(); // go to wherever I'm going
-    }
-  } else {
-    next(); // does not require auth, make sure to always call next()!
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ["/login", "/signup"];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem("user");
+  if (authRequired && !loggedIn) {
+    return next("/login");
   }
+  next();
 });
 
 export default router;

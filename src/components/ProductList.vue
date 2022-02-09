@@ -24,13 +24,7 @@
       <div
         v-for="products in productList"
         :key="products.PID"
-        class="
-          col-md-4
-          offset-md-0 offset-sm-2 offset-1
-          col-sm-8 col-10
-          offset-sm-2 offset-1
-          mb-3
-        "
+        class="col-md-4 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 offset-sm-2 offset-1 mb-3"
       >
         <div class="card" v-if="filters == products.PFILTER">
           <div class="px-2 red text-uppercase">new</div>
@@ -44,14 +38,7 @@
             <p class="h4">{{ products.PNAME.substring(0, 8) + "..." }}</p>
           </b>
           <div
-            class="
-              d-flex
-              align-items-center
-              justify-content-start
-              rating
-              border-top border-bottom
-              py-2
-            "
+            class="d-flex align-items-center justify-content-start rating border-top border-bottom py-2"
           ></div>
           <div
             class="d-flex align-items-center justify-content-between py-2 px-3"
