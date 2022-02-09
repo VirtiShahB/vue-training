@@ -41,13 +41,19 @@
             @click.prevent="login()"
             value="Log In"
           />
+           
+          <a href="#" class="fb btn" @click.prevent="loginWithFacebook()">
+          <i class="fa fa-facebook fa-fw" ></i> Login with Facebook
+        </a>
           <br />
+          <a href="#" class="btn google">
           <GoogleLogin
             :params="params"
             :renderParams="renderParams"
             :onSuccess="onSuccess"
             :onFailure="onFailure"
           ></GoogleLogin>
+          </a>
           <br />
           <br />
         </form>
@@ -63,8 +69,12 @@
 
 <script>
 import GoogleLogin from "vue-google-login";
+import loginWithFacebook from "../mixin.js";
+import {initFbsdk} from "../facebook.js";
+
 export default {
   name: "signin",
+  mixins: [loginWithFacebook],
 
   data() {
     return {
@@ -88,20 +98,14 @@ export default {
   },
   methods: {
     onSuccess(googleUser) {
-      console.log("googleUser");
-      console.log(googleUser);
-      console.log(JSON.stringify(googleUser));
-
-      // This only gets the user information: id, name, imageUrl and email
-      console.log("googleUser.getBasicProfile()");
-      console.log(googleUser.getBasicProfile());
-      console.log(JSON.stringify(googleUser.getBasicProfile()));
+      googleUser
       this.$store.state.loginUser = true;
       this.$router.push({ path: "/" });
     },
     onFailure(googleUser) {
-      console.log("googleUser");
-      console.log(googleUser);
+      googleUser
+      this.$store.state.loginUser = false;
+
     },
     login() {
       if (this.$store.state.user[0].email == null) {
@@ -126,8 +130,11 @@ export default {
         // this.$store.state.user[0].password;
       }
     },
+    
   },
-  mounted() {},
+  mounted() {
+    initFbsdk();
+  },
   created() {},
 };
 </script>
@@ -148,6 +155,32 @@ a {
   display: inline-block;
   text-decoration: none;
   font-weight: 400;
+}
+.btn {
+  width: 50%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+}
+
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+.google{
+  margin-right: 40px;
+}
+
+/* add appropriate colors to fb, twitter and google buttons */
+.fb {
+  background-color: #3B5998;
+  color: white;
 }
 
 h2 {

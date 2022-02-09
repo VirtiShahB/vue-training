@@ -3,18 +3,18 @@
     <div class="row justify-content-around">
       <div class="col col-xl-3 col-lg-3 d-none d-lg-block d-xl-block">
         <div class="card-selector">
-          <!-- <div class="card-body p-5">
+          <div class="card-body p-5">
             <div class="search-title">
               <h4 class="search-title">Filter by +</h4>
 
               <br />
-              <h6 @click="sortI('table')">Tables</h6>
-              <h6 @click="sortI('lamp')">Lamps</h6>
-              <h6 @click="sortI('chair')">Chairs</h6>
-              <h6 @click="sortI('sofa')">Sofas</h6>
+              <h6 @click="sortI('men')">Men's Were</h6>
+              <h6 @click="sortI('women')">Women's Were</h6>
+              <h6 @click="sortI('electronics')">Electronics</h6>
+              <h6 @click="sortI('jewelery')">Jewelery</h6>
               <hr />
               <br />
-              <div class="co">
+              <!-- <div class="co">
                 <h5>Color</h5>
                 <span
                   class="circle"
@@ -36,7 +36,7 @@
                   style="background-color: black"
                   @click="sortI('black')"
                 ></span>
-              </div>
+              </div> -->
               <br />
               <button
                 v-if="showRestButton"
@@ -47,7 +47,7 @@
                 Reset
               </button>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
       <div
@@ -135,11 +135,15 @@ export default {
       this.showInfoComp = true;
     },
     sortI(value) {
+      if (value == "men") {
+        value = "men's clothing";
+      } else if(value == "women") {
+        value = "women's clothing";
+      }
       this.showRestButton = true;
       this.CardArray = this.allProduct.filter(
         (item) =>
-          item.type.toLowerCase().match(value) ||
-          item.color.toLowerCase().match(value)
+          item.category.toLowerCase().match(value)
       );
     },
     resetFilter() {
