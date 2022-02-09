@@ -88,9 +88,6 @@ export default {
         ? JSON.parse(localStorage.getItem("loggedUser")).email
         : "User";
     },
-    openProfile() {
-      console.log("openProfile");
-    },
     signOut() {
       localStorage.removeItem("loggedUserWishlist");
       localStorage.removeItem("loggedUserCart");

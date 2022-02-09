@@ -110,8 +110,8 @@ export default {
     doLogin() {
       this.errors = [];
       let user = {
-        email: "ripal.darji@bacancy.com",
-        password: "rbacancy",
+        email: this.loginParam.email,
+        password: this.loginParam.password,
       };
       if (!this.loginParam.email) {
         this.errors.push("Email is required.");
@@ -178,12 +178,12 @@ export default {
         .signIn()
         .then((GoogleUser) => {
           // on success do something
-          console.log("GoogleUser", GoogleUser);
-          var userInfo = {
-            loginType: "google",
-            google: GoogleUser,
+          let googleUser = {
+            email: GoogleUser.Du.tv,
+            password: GoogleUser.Du.FW,
           };
-          this.$store.commit("setLoginUser", userInfo);
+          this.$store.commit("addLoggedIn", googleUser);
+          localStorage.setItem("loggedUser", JSON.stringify(googleUser));
           this.$router.push("/dashboard");
         })
         .catch((error) => {
