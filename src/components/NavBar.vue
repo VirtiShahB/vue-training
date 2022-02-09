@@ -19,9 +19,10 @@
                 class="py-4 category"
                 v-for="(category, index) in categories"
                 :key="index"
-                :href="category.path_name"
               >
-                {{ category.title }}
+                <router-link :to="category.path_name">
+                  {{ category.title }}
+                </router-link>
               </b-nav-item>
             </b-navbar-nav>
           </b-collapse>
@@ -37,7 +38,7 @@
               >
                 <template #button-content>
                   <b-img
-                    v-if="wishListItems.length > 0"
+                    v-if="wishListItems && wishListItems.length > 0"
                     src="/assets/heart.png"
                     class="wishlist-icon"
                     alt="WishList"
@@ -56,7 +57,7 @@
                     }}
                   </span>
                 </template>
-                <!-- <b-dropdown-item href="#"> -->
+
                 <div
                   style="
                     min-width: 350px;
@@ -115,7 +116,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- </b-dropdown-item> -->
               </b-dropdown>
             </b-nav-item>
 
@@ -135,7 +135,7 @@
                     }}
                   </span>
                 </template>
-                <!-- <b-dropdown-item href="#"> -->
+
                 <div
                   style="
                     min-width: 350px;
@@ -219,7 +219,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- </b-dropdown-item> -->
               </b-dropdown>
             </b-nav-item>
 
@@ -255,6 +254,7 @@
 <script>
 import { bus } from "../eventBus";
 import toastMixin from "../mixins/toastMixin";
+import { initFbsdk } from "../config/facebookAuth";
 
 export default {
   mixins: [toastMixin],
@@ -273,7 +273,7 @@ export default {
         {
           title: "Recommended",
           path_name: "/recommended",
-        }
+        },
       ],
       cartItems: [],
       wishListItems: [],
@@ -284,6 +284,8 @@ export default {
     this.wishListItems = JSON.parse(localStorage.getItem("wishListItems"));
   },
   mounted() {
+    initFbsdk();
+
     bus.$on("cartItems", () => {
       let items = JSON.parse(localStorage.getItem("myCart"));
       this.cartItems = items;
@@ -316,10 +318,18 @@ export default {
         item.title + " successfully removed from wishlist!"
       );
     },
-    signoutUser() {
+    async signoutUser() {
+      var user = localStorage.getItem("activeUser");
+      if (user && user.loginType === "google") {
+        await this.$gAuth.signOut();
+      }
+
+      if (user && user.loginType === "facebook") {
+        await window.FB.logout();
+      }
       localStorage.removeItem("activeUser");
       this.$router.push("/signin");
-      this.fireToastNotification("success", "User signedout successfully!");
+      this.fireToastNotification("success", "User sign out successfully!");
     },
   },
 };

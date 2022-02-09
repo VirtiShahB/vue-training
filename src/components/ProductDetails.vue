@@ -2,7 +2,6 @@
   <div>
     <div class="container my-0 my-md-4">
       <div class="row align-items-center justify-content-between">
-        <!-- Details left side -->
         <div class="col-12 col-md-5 p-0 p-md-2">
           <div class="d-flex flex-column">
             <div class="col-12 px-md-2 d-none d-md-block">
@@ -17,9 +16,7 @@
             </div>
           </div>
         </div>
-        <!-- Details left side end -->
 
-        <!-- Details right side -->
         <div class="col-12 col-md-6 text-left my-3">
           <div class="container">
             <div class="mt-2 mb-4">
@@ -106,7 +103,6 @@
             </div>
           </div>
         </div>
-        <!-- Detais right side end -->
       </div>
     </div>
   </div>
@@ -140,11 +136,9 @@ export default {
 
       if (ItemData == null) ItemData = [];
 
-      //Find index of specific object using findIndex method.
       var objIndex = ItemData.findIndex((obj) => obj.id == this.product.id);
 
       if (ItemData[objIndex]) {
-        //Update object's name property.
         ItemData[objIndex].quantity = this.count;
       } else {
         var entry = {
@@ -168,7 +162,7 @@ export default {
     addToWishList() {
       var wishListData = JSON.parse(localStorage.getItem("wishListItems"));
       if (wishListData == null) wishListData = [];
-      //Find index of specific object using findIndex method.
+
       var objIndex = wishListData.findIndex((obj) => obj.id == this.product.id);
 
       if (
@@ -201,7 +195,7 @@ export default {
     likeProduct() {
       var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
       if (likeProduct == null) likeProduct = [];
-      //Find index of specific object using findIndex method.
+
       var objIndex = likeProduct.findIndex((obj) => obj.id == this.product.id);
 
       if (

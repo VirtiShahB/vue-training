@@ -73,7 +73,7 @@ export default {
     filteredProducts() {
       var likeProduct = JSON.parse(localStorage.getItem("likeProduct"));
 
-      if(likeProduct == null) likeProduct = [];
+      if (likeProduct == null) likeProduct = [];
 
       var data = productsData.filter((o1) =>
         likeProduct.some((o2) => o1.tag === o2.tag)
@@ -93,11 +93,6 @@ export default {
       return data;
     },
   },
-  // filters: {
-  //   capitalize: function (value) {
-  //     return value.toUpperCase();
-  //   },
-  // },
 };
 </script>
 

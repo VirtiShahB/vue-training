@@ -24,9 +24,27 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" class="btn btn-dark btn-lg btn-block"
+        <b-button type="submit" class="mb-1 btn btn-dark btn-lg btn-block"
           >Sign In</b-button
         >
+
+        <b-button
+          class="google-signup btn btn-dark btn-lg btn-block"
+          @click.prevent="loginWithGoogle"
+        >
+          <img src="../../public/assets/google.png" />
+          Sign In
+        </b-button>
+
+        <b-button
+          class="google-signup btn btn-dark btn-lg btn-block"
+          @click.prevent="loginWithFacebook"
+        >
+          <img src="../../public/assets/facebook.png" />
+          Sign In
+        </b-button>
+
+        <!-- <div id="google-signin-button btn btn-block"></div> -->
 
         <p class="forgot-password text-right mt-2 mb-4">
           <router-link to="/forgot-password">Forgot password ?</router-link>
@@ -38,6 +56,8 @@
 
 <script>
 import toastMixin from "../mixins/toastMixin";
+import { initFbsdk } from "../config/facebookAuth";
+
 export default {
   mixins: [toastMixin],
   data() {
@@ -45,6 +65,9 @@ export default {
       user_name: "",
       password: "",
     };
+  },
+  mounted() {
+    initFbsdk();
   },
   methods: {
     loginUser() {
@@ -69,6 +92,7 @@ export default {
           let activeUser = users.find(
             (user) => user.user_name === credentials.user_name
           );
+          activeUser.loginType = "normal";
           localStorage.setItem("activeUser", JSON.stringify(activeUser));
           this.$router.push("/products");
           this.fireToastNotification("success", "Signin successfully!");
@@ -79,6 +103,47 @@ export default {
         this.fireToastNotification("danger", "Username does not exist!");
         this.$router.push("/signup");
       }
+    },
+    loginWithGoogle() {
+      this.$gAuth
+        .signIn()
+        .then((GoogleUser) => {
+          if (GoogleUser.getId()) {
+            var user = {
+              loginType: "google",
+              user_name: GoogleUser.getBasicProfile().getName(),
+              email: GoogleUser.getBasicProfile().getEmail(),
+            };
+            localStorage.setItem("activeUser", JSON.stringify(user));
+            this.$router.push("/products");
+            this.fireToastNotification("success", "Signin successfully!");
+          }
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
+    loginWithFacebook() {
+      window.FB.login(
+        (loginStatus) => {
+          if (loginStatus.status === "connected") {
+            window.FB.api(
+              "/me",
+              { locale: "en_US", fields: "id,name, email" },
+              (response) => {
+                var user = {
+                  user_name: response.name,
+                  email: response.email,
+                  loginType: "facebook",
+                };
+                localStorage.setItem("activeUser", JSON.stringify(user));
+                this.$router.push("/products");
+              }
+            );
+          }
+        },
+        { scope: "email" }
+      );
     },
   },
 };

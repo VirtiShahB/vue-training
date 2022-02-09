@@ -11,9 +11,9 @@ router.beforeEach((to, from, next) => {
     if (!fetchUsers && !login) {
       next({ name: "signin" });
     } else {
-      next(); // go to wherever I'm going
+      next();
     }
   } else {
-    next(); // does not require auth, make sure to always call next()!
+    next();
   }
 });

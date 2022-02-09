@@ -169,14 +169,12 @@
                       {{ item.title }}
                     </span>
                   </div>
-                  <div style="font-weight: 500"> 
+                  <div style="font-weight: 500">
                     <span style="font-size: 15px" class="text-muted">
                       ${{ parseFloat(item.price).toFixed(2) }} X
                       {{ item.quantity }}
                     </span>
-                    <span>
-                      = ${{ calcPrice(item) }}
-                    </span>
+                    <span> = ${{ calcPrice(item) }} </span>
                   </div>
                 </div>
               </div>

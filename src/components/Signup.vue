@@ -95,8 +95,9 @@ export default {
         confirm_password: this.confirm_password,
       };
 
+      var lsusers = [];
       if (localStorage.getItem("users")) {
-        var lsusers = JSON.parse(localStorage.getItem("users"));
+        lsusers = JSON.parse(localStorage.getItem("users"));
       }
       lsusers.push(user);
       localStorage.setItem("users", JSON.stringify(lsusers));
