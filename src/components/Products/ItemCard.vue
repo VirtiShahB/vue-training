@@ -5,7 +5,7 @@
       :img-alt="product.title"
       img-top
       tag="article"
-      style="max-width: 20rem; height: 35rem"
+      style="max-width: 30rem; height: 35rem"
       class="mb-2 text-left"
     >
       <b-link @click="itemDetail(product.id)" style="text-decoration: none">
