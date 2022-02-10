@@ -1,10 +1,10 @@
 <template>
    <body>
-      <h2> Checkout</h2>
-      <nav aria-label="breadcrumb">
+      <FrontHeader ></FrontHeader>
+      <nav aria-label="breadcrumb" class="mt-3">
          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+         <router-link :to="'/admin'" class="breadcrumb-item">Home</router-link>
+         <router-link :to="'/Products'" class="breadcrumb-item active">Checkout</router-link>
          </ol>
       </nav>
       <div class="row">
@@ -69,12 +69,7 @@
          </div>
          <div class="col-25">
             <div class="container">
-               <h4>Cart 
-                  <span class="price" style="color:black">
-                  <i class="fa fa-shopping-cart"></i>
-                  <b> </b>
-                  </span>
-               </h4>
+               <h4>Cart </h4>
                   <p v-for="item  in cart" :key="item.id" >{{item.title}} 
                     <a href="#"></a> <span class="price">$ {{item.price}}</span>
                   </p>
@@ -90,7 +85,13 @@
    </body>
 </template>
 <script>
+   import FrontHeader from 'src/pages/FrontHeader'
+   import FrontFooter from 'src/pages/FrontFooter'
    export default {
+      components: {
+         'FrontHeader': FrontHeader,
+         'FrontFooter': FrontFooter
+      },
       data() {
          return {
             total: 0,
@@ -100,10 +101,12 @@
       beforeMount(){
          if (localStorage.getItem("cart")) {
             this.cart = JSON.parse(localStorage.getItem("cart"));
-            this.cart.forEach((item, i) => {
-               this.total += item.price * 1;
-         });
        }
+         var total=0;
+         this.cart.map(function(item){
+             total +=item.price*item.quantity;
+         });
+         this.total = total;
      }
    };
 </script>

@@ -1,38 +1,12 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/overview" to="/admin/overview">
-            <img src="img/vue-logo.png" /><b>Store</b>
-          </a>
-        </li>
-        <li>
-          <router-link :to="'/checkout'">
-            <i class="nc-icon nc-cart-simple"></i>
-            <b> {{cart.length}} </b>
-          </router-link>  
-        </li>
-        <li>
-          <router-link :to="'/wishlist'">
-            <i class="nc-icon nc-favourite-28 mt-2 mb-2 ml-1"/>
-              <b> {{wishList.length}} </b>
-          </router-link>  
-        </li>
-      </ul>
+    <FrontHeader ></FrontHeader>
+    <nav aria-label="breadcrumb" class="mt-3">
+      <ol class="breadcrumb">
+        <router-link :to="'/admin'" class="breadcrumb-item">Home</router-link>
+        <li class="breadcrumb-item" aria-current="page">Wishlist</li>
+      </ol>
     </nav>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
-            </ol>
-          </nav>
-        </div>  
-      </div>
-    </div>
     <div class="container mt-2">
       <div class="row">
         <div class="col">
@@ -47,9 +21,8 @@
                 <div class="card-body">
                   <p class="text-danger">$ {{ product.price }}</p>
                   <h5 class="card-title">
-                    {{ product.name }}
+                    {{ product.title }}
                   </h5>
-                  <p class="card-text ">{{ product.About }}</p>
                     <div class="row">
                       <div class="col">
                         <button class="btn btn-success btn-block"  @click="removeFromCart(product.id)" v-if="isInCart(product.id)">Remove</button>
@@ -66,14 +39,20 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      items:[],
-      cart    : [],
-      wishList: []
-    };
-  },
+  import FrontHeader from 'src/pages/FrontHeader'
+  import FrontFooter from 'src/pages/FrontFooter'
+  export default {
+    components: {
+      'FrontHeader': FrontHeader,
+      'FrontFooter': FrontFooter
+    },
+    data() {
+      return {
+        items:[],
+        cart    : [],
+        wishList: []
+      };
+    },
   methods: {
     addToWishlist: function (itemId) {
       const item = this.wishList.find(({ id }) => id === itemId);

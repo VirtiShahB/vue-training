@@ -54,8 +54,8 @@
                 if (localStorage.getItem("users")) {
                     this.users          = JSON.parse(localStorage.getItem("users"));
                     this.productDetails = this.users.find(users => users.email === this.email);
-                    this.$router.push("/login");
                     alert("Already registered");
+                    this.$router.push("/login");
                 }
                 else{
                     this.users.push(user);

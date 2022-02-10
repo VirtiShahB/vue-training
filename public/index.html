@@ -22,12 +22,21 @@
   <title>Light Bootstrap Dashboard Vue</title>
   <!-- Bootstrap core CSS     -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="google-signin-client_id" content="372566041459-9ceugdsv2unkpinfonn2dbfngbf8k1aq.apps.googleusercontent.com">
 
   <!--     Fonts and icons     -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 
-</head>
+</head><script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=1419887251759605&autoLogAppEvents=1" nonce="dc0PxEm4"></script>
+
+<script type="text/javascript">
+  function triggerGoogleLoaded() {
+    window.dispatchEvent(new Event("google-loaded"));
+  }
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded" async defer></script>
+
 <body>
 <div id="app"></div>
 <!-- built files will be auto injected -->

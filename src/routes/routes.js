@@ -15,7 +15,6 @@ const routes = [
     component: Login,
     name: 'login',
     beforeEnter: guest
-
   },
   {
     path: '/sign-up',

@@ -8,7 +8,15 @@
     "height": 600,
     "width": 400,
     "price": 28.1,
-    "rating": 4
+    "rating": 4,
+    "productImages": [
+      {
+        "imageUrl": "https://www.mashed.com/img/gallery/are-brown-eggs-really-worth-the-extra-cost/intro-1597233855.jpg"
+      },
+      {
+        "imageUrl": "https://img1.10bestmedia.com/WebStories/19945/40687.jpg"
+      }
+    ]
   },
   {
     "title": "Sweet fresh stawberry",
@@ -19,7 +27,14 @@
     "height": 450,
     "width": 299,
     "price": 29.45,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Asparagus",
@@ -30,7 +45,14 @@
     "height": 450,
     "width": 299,
     "price": 18.95,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl":"https://www.jessicagavin.com/wp-content/uploads/2019/04/how-to-cook-asparagus-2-600x900.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Green smoothie",
@@ -41,7 +63,14 @@
     "height": 600,
     "width": 399,
     "price": 17.68,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://www.cookingclassy.com/wp-content/uploads/2019/07/green-smoothie-10.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Raw legums",
@@ -52,7 +81,14 @@
     "height": 450,
     "width": 299,
     "price": 17.11,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://images.everydayhealth.com/images/what-are-legumes-types-health-benefits-nutrition-1440x810.jpg?sfvrsn=b9452647_1"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Baking cake",
@@ -63,7 +99,14 @@
     "height": 450,
     "width": 675,
     "price": 11.14,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://static.toiimg.com/thumb/54404412.cms?width=1200&height=900"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Pesto with basil",
@@ -74,7 +117,14 @@
     "height": 450,
     "width": 299,
     "price": 18.19,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://cookieandkate.com/images/2017/06/best-basil-pesto-recipe.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Hazelnut in black ceramic bowl",
@@ -85,7 +135,14 @@
     "height": 450,
     "width": 301,
     "price": 27.35,
-    "rating": 0
+    "rating": 0,
+    "productImages":[
+      {
+        "imageUrl":"https://i.pinimg.com/originals/64/22/1f/64221f82e7e46bbad662d91c8becd75e.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Fresh stawberry",
@@ -96,7 +153,14 @@
     "height": 600,
     "width": 399,
     "price": 28.59,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://cdn.shopify.com/s/files/1/0553/0701/0243/products/fruit_01-600x600_1000x1000.jpg?v=1616429726"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Lemon and salt",
@@ -107,7 +171,14 @@
     "height": 450,
     "width": 299,
     "price": 15.79,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl":"https://images.herzindagi.info/image/2020/Jun/way-to-preserve-lemon-inside_3.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Homemade bread",
@@ -118,18 +189,32 @@
     "height": 450,
     "width": 301,
     "price": 17.48,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl":"https://commonsensehome.com/wp-content/uploads/2020/01/easy-homemade-bread-recipes.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Legums",
     "id":12,
     "type": "vegetable",
     "description": "Cooked legums on the wooden table",
-    "imageUrl": "https://khni.kerry.com/wp-content/uploads/2018/10/Legumes-variety-1024x602.jpg",
+    "imageUrl": "https://images.healthshots.com/healthshots/en/uploads/2021/11/09183807/legumes.jpg",
     "height": 600,
     "width": 399,
     "price": 14.77,
-    "rating": 0
+    "rating": 0,
+    "productImages":[
+      {
+        "imageUrl":"https://images.healthshots.com/healthshots/en/uploads/2021/11/09183807/legumes.jpg"},
+      {
+        "imageUrl":"https://images.healthshots.com/healthshots/en/uploads/2021/11/09183807/legumes.jpg"
+      }
+    ]
   },
   {
     "title": "Fresh tomato",
@@ -140,7 +225,14 @@
     "height": 600,
     "width": 903,
     "price": 16.3,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://image.similarpng.com/very-thumbnail/2020/08/Fresh-tomato-Premium-vector-PNG.png"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Healthy breakfast",
@@ -151,7 +243,14 @@
     "height": 450,
     "width": 350,
     "price": 13.02,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/12/12/0/cc_acai-breakfast-bowl-recipe_s4x3.jpg.rend.hgtvcom.616.462.suffix/1418418212045.jpeg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Green beans",
@@ -163,7 +262,14 @@
     
     "width": 300,
     "price": 28.79,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl":"https://makeitskinnyplease.com/wp-content/uploads/2021/11/air-fryer-green-beans-title-image.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Baked stuffed portabello mushrooms",
@@ -174,7 +280,14 @@
     "height": 600,
     "width": 400,
     "price": 20.31,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl":"https://media.gettyimages.com/photos/creamy-crab-and-shrimp-stuffed-mini-portobello-mushroom-caps-picture-id1057566866?b=1&k=20&m=1057566866&s=170667a&w=0&h=19rVUfpqcBK5INpRdKg0qKFww6dt87vkDFMcD-azyPE="},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Strawberry jelly",
@@ -185,7 +298,15 @@
     "height": 400,
     "width": 600,
     "price": 14.18,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl": "https://www.justgotochef.com/img/1546425599-Brown%20&%20Polson%20Veg%20Strawberry%20Jelly-Front.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Pears juice",
@@ -196,7 +317,15 @@
     "height": 600,
     "width": 398,
     "price": 19.49,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSF-MNb639XTQAbDkcnczVk2uBWM3csWpUIFEW4woWj08_GVFWXlEtNr1Z08cx74LVRxDY&usqp=CAU"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Fresh pears",
@@ -207,7 +336,15 @@
     "height": 600,
     "width": 398,
     "price": 15.12,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl": "https://image.made-in-china.com/202f0j00zbeWcLUGvjuE/Yellow-Fresh-Pears-Big-Size-Golden-Pears-Sweet-Pear-Fruit-Ya-Pear.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Caprese salad",
@@ -218,7 +355,15 @@
     "height": 400,
     "width": 600,
     "price": 16.76,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7uhHlRJRp4m2yPiX5_V3eBjGWtnyO630OiZ_Ezzie2XoO0undQ7M_JURyNzldbJ-ExnU&usqp=CAU"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Oranges",
@@ -229,7 +374,15 @@
     "height": 450,
     "width": 274,
     "price": 21.48,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Oranges_-_whole-halved-segment.jpg/1200px-Oranges_-_whole-halved-segment.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Vegan food",
@@ -238,10 +391,17 @@
     "description": "Concept of vegan food",
     "imageUrl": "https://www.petaindia.com/wp-content/uploads/2021/10/Untitled-design-7.png",
     "height": 450,
-    
     "width": 299,
     "price": 29.66,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://www.petaindia.com/wp-content/uploads/2021/10/Untitled-design-7.png"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Breakfast with muesli",
@@ -253,7 +413,15 @@
     
     "width": 299,
     "price": 22.7,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl": "https://www.petaindia.com/wp-content/uploads/2021/10/Untitled-design-7.png"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Honey",
@@ -264,7 +432,15 @@
     "height": 450,
     "width": 299,
     "price": 17.01,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl": "https://m.media-amazon.com/images/I/81yDZZADoFL._SL1500_.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Breakfast with cottage",
@@ -275,7 +451,15 @@
     "height": 600,
     "width": 398,
     "price": 14.05,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl": "https://www.loveandzest.com/wp-content/uploads/2019/01/Turmeric-Cottage-Cheese-Oats-Web-Ready-4.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Strawberry smoothie",
@@ -286,7 +470,15 @@
     "height": 600,
     "width": 400,
     "price": 28.86,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl": "https://recipefairy.com/wp-content/uploads/2019/12/mcdonalds-strawberry-banana-smoothie-scaled.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Strawberry and mint",
@@ -297,7 +489,15 @@
     "height": 450,
     "width": 299,
     "price": 26.21,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://www.californiastrawberries.com/wp-content/uploads/2015/05/Strawberry-Watermelon-Mint-Mojito.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Ricotta",
@@ -308,7 +508,15 @@
     "height": 600,
     "width": 398,
     "price": 27.81,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl": "https://cdn.shopify.com/s/files/1/0261/9506/6970/products/Artboard_1_9f059baf-d276-4282-80ae-44162a980c71.png?v=1590706301"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Cuban sandwiche",
@@ -319,7 +527,15 @@
     "height": 450,
     "width": 300,
     "price": 18.5,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWXVtMHTivluoUQxKd6ZJs3HJNzddqD4X6m6wYkvs51u-UBYsZx7phgBdsqSgKYdpqhKg&usqp=CAU"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Granola",
@@ -330,7 +546,14 @@
     "height": 450,
     "width": 300,
     "price": 29.97,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Smoothie with chia seeds",
@@ -341,7 +564,14 @@
     "height": 600,
     "width": 900,
     "price": 25.26,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Yogurt",
@@ -352,7 +582,14 @@
     "height": 450,
     "width": 299,
     "price": 27.61,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Sandwich with salad",
@@ -363,7 +600,14 @@
     "height": 600,
     "width": 398,
     "price": 22.48,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Cherry",
@@ -374,7 +618,14 @@
     "height": 600,
     "width": 400,
     "price": 14.35,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Raw asparagus",
@@ -385,7 +636,14 @@
     "height": 600,
     "width": 400,
     "price": 22.97,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Corn",
@@ -396,7 +654,14 @@
     "height": 450,
     "width": 300,
     "price": 13.55,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Vegan",
@@ -407,7 +672,14 @@
     "height": 600,
     "width": 398,
     "price": 28.96,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Fresh blueberries",
@@ -418,7 +690,14 @@
     "height": 450,
     "width": 321,
     "price": 21.01,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Smashed avocado",
@@ -429,7 +708,14 @@
     "height": 450,
     "width": 450,
     "price": 25.88,
-    "rating": 0
+    "rating": 0,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Italian ciabatta",
@@ -440,7 +726,14 @@
     "height": 450,
     "width": 565,
     "price": 15.18,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Rustic breakfast",
@@ -451,7 +744,14 @@
     "height": 450,
     "width": 307,
     "price": 21.32,
-    "rating": 0
+    "rating": 0,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Sliced lemons",
@@ -462,7 +762,14 @@
     "height": 600,
     "width": 900,
     "price": 27.14,
-    "rating": 2
+    "rating": 2,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Plums",
@@ -473,7 +780,14 @@
     "height": 450,
     "width": 299,
     "price": 19.18,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "French fries",
@@ -481,11 +795,18 @@
     "type": "bakery",
     "description": "Homemade oven baked french fries with ketchup",
     "imageUrl": "https://thumbs.dreamstime.com/b/watercolor-illustration-french-fries-title-organic-hand-painted-drawing-117824119.jpg",
-   "height": 600,
+    "height": 600,
     
     "width": 400,
     "price": 18.32,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl":"https://5.imimg.com/data5/NU/LD/MY-36158633/sweet-strawberry-500x500.jpg"},
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Strawberries",
@@ -497,7 +818,15 @@
     
     "width": 352,
     "price": 15.13,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl": "https://thumbs.dreamstime.com/b/red-strawberry-title-isolated-white-background-red-strawberry-title-white-background-120196465.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Ground beef meat burger",
@@ -508,7 +837,15 @@
     "height": 450,
     "width": 675,
     "price": 11.73,
-    "rating": 5
+    "rating": 5,
+    "productImages":[
+      {
+        "imageUrl": "https://c8.alamy.com/comp/2C9NKTB/fresh-raw-meat-burger-cutlet-with-herbs-and-spices-on-the-black-stone-board-top-view-2C9NKTB.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Tomatoes",
@@ -519,7 +856,15 @@
     "height": 450,
     "width": 675,
     "price": 26.03,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Basil",
@@ -531,7 +876,15 @@
     
     "width": 678,
     "price": 15.19,
-    "rating": 4
+    "rating": 4,
+    "productImages":[
+      {
+        "imageUrl": "https://thumbs.dreamstime.com/b/vector-illustration-red-basil-leaves-title-text-isolated-white-background-leafy-vegetables-219093713.jpg"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Fruits bouquet",
@@ -542,7 +895,15 @@
     "height": 600,
     "width": 401,
     "price": 18.18,
-    "rating": 1
+    "rating": 1,
+    "productImages":[
+      {
+        "imageUrl": "https://cdn.shopify.com/s/files/1/1241/0754/products/IMG_5404_700x700.jpg?v=1630495455"
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   },
   {
     "title": "Peaches on branch",
@@ -553,6 +914,14 @@
     "height": 600,
     "width": 400,
     "price": 25.62,
-    "rating": 3
+    "rating": 3,
+    "productImages":[
+      {
+        "imageUrl": "https://media.istockphoto.com/vectors/peach-icon-with-title-vector-id1024964778?k=20&m=1024964778&s=612x612&w=0&h=qfNT4U341j_HgTUdGshoJxnG06K7IDtJ5T_Xi_aJJL0="
+      },
+      {
+        "imageUrl":"https://www.gardeningknowhow.com/wp-content/uploads/2021/07/ripe-and-underripe-strawberries.jpg"
+      }
+    ]
   }
 ]
