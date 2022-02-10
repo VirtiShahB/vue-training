@@ -44,12 +44,26 @@ Vue.mixin({
   methods: {
     logout(type) {
       localStorage.removeItem("activeUser");
-      this.$router.push("/login");
-      window.location.reload();
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(() => {
-        location.reload(true);
-      });
+      switch (type) {
+        case "Facebook":
+          if(FB.getAccessToken() != null) {
+            FB.logout(function (response) {
+              this.$router.push("/login");
+            });
+          }
+          break;
+        case "Google":
+          var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+              window.location.reload();
+            });
+          break;
+        default:
+            localStorage.removeItem("activeUser");
+            this.$router.push("/login");
+            window.location.reload();
+          break;
+      }
     },
   }
 });

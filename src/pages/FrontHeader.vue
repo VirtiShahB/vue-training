@@ -12,7 +12,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li class="nav-item" v-if="user">
-            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="" @click.prevent="logout">Logout</a>
+            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="" @click.prevent="logout(user.type)">Logout</a>
           </li>
           <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="/admin">{{user.firstName}}</router-link>

@@ -1,32 +1,36 @@
 <template>
-    <main class="form-sign-in mt-5">
+   <main class="form-sign-in mt-5">
         <div class="card">
             <div class="card-body">
-                <form>
-                    <h2 class="h3 mb-3 fw-normal text-center">Please sign in</h2>
-                    <div class="form-group">
-                        <label>Email address</label>
-                        <input type="email" v-model="email" class="form-control form-control-lg" placeholder="Email address" />
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" v-model="password" class="form-control form-control-lg" placeholder="Password"/>
-                    </div>
-                    <div class="checkbox mb-3">
-                        <label><input type="checkbox" value="remember-me"> Remember me</label>
-                    </div>
-                    <button type="submit" class="w-100 btn btn-lg btn-primary" v-on:click="submit">Login</button>
-                </form>
-                <p class="forgot-password text-right">Don't have an account yet?
-                    <router-link :to="{name: 'sing-up'}">Sign Up</router-link>
-                </p>
-                <div id="google-signin-btn"></div>
-                <router-view />
-                <button class="button" @click="logInWithFacebook"> Login with Facebook</button>
-            </div>
-        </div>  
-    </main>      
+            <form>
+               <h2 class="h3 mb-3 fw-normal text-center">Please sign in</h2>
+               <div class="form-group">
+                  <label>Email address</label>
+                  <input type="email" v-model="email" class="form-control form-control-lg" placeholder="Email address" />
+               </div>
+               <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" v-model="password" class="form-control form-control-lg" placeholder="Password"/>
+               </div>
+               <div class="checkbox mb-3">
+                  <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+               </div>
+               <button type="submit" class="w-100 btn btn-lg btn-primary" v-on:click="submit">Login</button>
+            </form>
+            <p class="forgot-password text-right">
+               Don't have an account yet?
+               <router-link :to="{name: 'sing-up'}">Sign Up</router-link>
+            </p>
+            <div id="google-signin-btn"></div>
+            <router-view />
+            <button class="button" @click="logInWithFacebook"> Login with Facebook</button>
+         </div>
+      </div>
+   </main>
 </template>
+
 
 <script>
     export default {
@@ -41,44 +45,44 @@
         methods: {
             // Facebook Login
             async logInWithFacebook() {
-            await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-            await this.initFacebook();
-            window.FB.login(function(response) {
-                if (response.authResponse) {
-                    let loginUser = {
-                        firstName: response.authResponse.userId,
-                        lastName : response.authResponse.userId,
-                        email    : response.authResponse.userId,
-                        password : '',
-                        type     : 'Facebook'  
-                    };
-                    localStorage.setItem("activeUser", JSON.stringify(loginUser));
-                    window.location.reload()
-                } else {
-                    alert("User cancelled login or did not fully authorize.");
-                }
-            });
-            return false;
+                await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+                await this.initFacebook();
+                window.FB.login(function(response) {
+                    if (response.authResponse) {
+                        let loginUser = {
+                            firstName: response.name,
+                            lastName : '',
+                            email    : '',
+                            password : '',
+                            type     : 'Facebook'  
+                        };
+                        localStorage.setItem("activeUser", JSON.stringify(loginUser));
+                        window.location.reload()
+                    }else {
+                        alert("User cancelled login or did not fully authorize.");
+                    }
+                });
+                return false;
             },
             async initFacebook() {
-            window.fbAsyncInit = function() {
-                window.FB.init({
-                appId: "1419887251759605", //You will need to change this
-                cookie: true, // This is important, it's not enabled by default
-                version: "v13.0"
-                });
-            };
+                window.fbAsyncInit = function() {
+                    window.FB.init({
+                        appId: "1419887251759605", 
+                        cookie: true, 
+                        version: "v13.0"
+                    });
+                };
             },
             async loadFacebookSDK(d, s, id) {
-            var js,
-                fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
             },
             //Google Sing in
             onSignIn(user) {
@@ -133,9 +137,9 @@
 
 <style scoped>
     .card {
-        margin: 0 auto; /* Added */
-        float: right; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto; 
+        float: right; 
+        margin-bottom: 10px; 
     }
     body {
         display: flex;

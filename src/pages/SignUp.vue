@@ -50,6 +50,7 @@
                     lastName : this.lastName,
                     email    : this.email,
                     password : this.password,
+                    type     : "Direct"
                 };
                 if (localStorage.getItem("users")) {
                     this.users          = JSON.parse(localStorage.getItem("users"));

@@ -55,7 +55,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="" @click.prevent="logout('Google')" class="nav-link">
+            <a href="" @click.prevent="logout" class="nav-link">
               Logout
             </a>
           </li>

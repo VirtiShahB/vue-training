@@ -32,6 +32,9 @@
 
 <script type="text/javascript">
   function triggerGoogleLoaded() {
+    gapi.load('auth2', function () {
+      gapi.auth2.init();
+    });
     window.dispatchEvent(new Event("google-loaded"));
   }
 </script>
