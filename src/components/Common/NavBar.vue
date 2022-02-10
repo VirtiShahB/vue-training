@@ -81,24 +81,30 @@
 
 <script>
 import Cart from '../Products/Cart'
-import { getStore } from '../../../config/util'
 export default {
   name: 'NavBar',
   components: { Cart },
   props: ['authenticated'],
   computed: {
     loginUserName () {
-      if (this.loginUser.google) {
+      if (this.loginUser && this.loginUser.google) {
         return this.loginUser.google.user.name
-      } else if (this.loginUser.site) {
+      } else if (this.loginUser && this.loginUser.site) {
         return this.loginUser.site.user.name
-      } else if (this.loginUser.fb && this.loginUser.fb.user) {
+      } else if (
+        this.loginUser &&
+        this.loginUser.fb &&
+        this.loginUser.fb.user
+      ) {
         return this.loginUser.fb.user.name
       }
       return 'Admin'
     },
     loginUserType () {
-      return this.loginUser.loginType
+      if (this.loginUser) {
+        return this.loginUser.loginType
+      }
+      return ''
     },
     loginUserImage () {
       if (this.loginUserType === 'google') {
@@ -112,7 +118,7 @@ export default {
     return {
       mainCategory: 'Dashboard',
       categories: ['Dashboard'],
-      loginUser: getStore('user')
+      loginUser: this.$helpers.getStore('user')
     }
   },
   methods: {

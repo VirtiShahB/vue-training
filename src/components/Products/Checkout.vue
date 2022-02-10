@@ -64,8 +64,6 @@
 import { mapGetters } from 'vuex'
 import ShippingDetails from './ShippingDetails'
 import ShowAlert from '../UI/ShowAlert'
-import CartServices from '../../services/CartServices'
-const cartService = new CartServices()
 
 export default {
   name: 'Checkout',
@@ -98,15 +96,15 @@ export default {
   },
   methods: {
     refreshCart () {
-      this.cartSummary = cartService.getCartData(this.productsData)
+      this.cartSummary = this.$helpers.getCartData(this.productsData)
     },
     placeOrder () {
-      cartService.flushCart()
+      this.$helpers.flushCart()
       this.cartSummary = []
       this.error = ['success', 'Horray !! Order Placed , Continue shopping']
     },
     removeFromCart (productId) {
-      cartService.removeFromCart(productId)
+      this.$helpers.removeFromCart(productId)
       this.refreshCart()
     }
   }

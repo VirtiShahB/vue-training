@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { setStore, getStore, removeStore } from '../../config/util'
-
-const user = getStore('user')
+import appServices from '../helpers/appServices'
 Vue.use(Vuex)
+const user = appServices.getStore('user')
+
 const state = {
   products: [],
   cartUpdate: 0,
@@ -35,40 +35,40 @@ const mutations = {
     } else {
       state.totalCartItems.push(item)
     }
-    setStore('totalCartItems', state.totalCartItems)
+    appServices.setStore('totalCartItems', state.totalCartItems)
     state.cartUpdate++
   },
   removeFromCart (state, items) {
-    setStore('totalCartItems', items)
+    appServices.setStore('totalCartItems', items)
     state.totalCartItems = items
     state.cartUpdate--
   },
   flushCart (state) {
-    removeStore('totalCartItems')
+    appServices.removeStore('totalCartItems')
     state.totalCartItems = []
     state.cartUpdate = 0
   },
   addTowishList (state, productId) {
     state.wishListItems.push(productId)
-    setStore('userFavItems', state.wishListItems)
+    appServices.setStore('userFavItems', state.wishListItems)
     state.wishListUpdate++
   },
   removeFromWishList (state, productId) {
     const result = state.wishListItems.filter(e => e !== productId)
     state.wishListItems = result
-    setStore('userFavItems', result)
+    appServices.setStore('userFavItems', result)
     state.wishListUpdate--
   },
   setLoginUser (state, user) {
     state.loginUser = user
-    setStore('user', user)
+    appServices.setStore('user', user)
   },
-  removeLoginUser (state, user) {
+  removeLoginUser (state) {
     state.loginUser = ''
-    removeStore('user')
+    appServices.removeStore('user')
   },
-  removeWishList (state, user) {
-    removeStore('userFavItems')
+  removeWishList (state) {
+    appServices.removeStore('userFavItems')
   }
 }
 const actions = {

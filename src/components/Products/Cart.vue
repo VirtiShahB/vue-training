@@ -27,7 +27,7 @@
                       <img :src="item.image" height="30" width="30" />
                     </span>
                     <span class="ml-5 text-right">
-                      {{ item.title | readMore(20,'..') }}
+                      {{ item.title | readMore(20, "..") }}
                     </span>
                   </div>
                   <div>
@@ -39,6 +39,15 @@
                     >
                   </div>
                 </div>
+              </div>
+              <div class="col-12 p-3 border-top">
+                <b-button
+                  class="checkout-btn bg-add-cart border-0"
+                  style="width: 100%"
+                  @click="buyNow"
+                >
+                  <span style="font-weight: 700"> Checkout </span>
+                </b-button>
               </div>
             </div>
             <div v-else>
@@ -53,15 +62,6 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 p-3 border-top">
-              <b-button
-                class="checkout-btn bg-add-cart border-0"
-                style="width: 100%"
-                @click="buyNow"
-              >
-                <span style="font-weight: 700"> Checkout </span>
-              </b-button>
-            </div>
           </div>
         </div>
       </div>
@@ -72,8 +72,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CartServices from '../../services/CartServices'
-const cartService = new CartServices()
 export default {
   name: 'Cart',
   watch: {
@@ -99,7 +97,7 @@ export default {
   },
   methods: {
     refreshCart () {
-      this.cartSummary = cartService.getCartData(this.productsData)
+      this.cartSummary = this.$helpers.getCartData(this.productsData)
     },
     buyNow () {
       if (this.cartCount === 0) {

@@ -8,14 +8,14 @@
       style="max-width: 20rem; height: 35rem"
       class="mb-2 text-left"
     >
-      <b-link @click="itemDetail(product.id)" style="text-decoration: none"
-        ><h4>{{ product.title | capitalize | readMore(50, "...") }}</h4></b-link
-      >
+      <b-link @click="itemDetail(product.id)" style="text-decoration: none">
+        <h4>{{ product.title | capitalize | readMore(50, "...") }}</h4>
+      </b-link>
       <b-card-text>
-        {{ product.description | readMore(100)
-        }}<b-link @click="itemDetail(product.id)" style="text-decoration: none"
-          ><h6>...Read More</h6></b-link
-        >
+        {{ product.description | readMore(100) }}
+        <b-link @click="itemDetail(product.id)" style="text-decoration: none">
+          <h6>...Read More</h6>
+        </b-link>
       </b-card-text>
       <template #footer>
         <b-row>
@@ -75,10 +75,7 @@
 </template>
 
 <script>
-// import mixin from '../../mixins/mixin.js'
-import { getStore } from '../../../config/util'
-import CartServices from '../../services/CartServices'
-const cartService = new CartServices()
+
 export default {
   name: 'ItemCard',
   props: ['product', 'fromWishlist'],
@@ -89,12 +86,12 @@ export default {
     }
   },
   mounted () {
-    this.wishListItems = getStore('userFavItems')
+    this.wishListItems = this.$helpers.getStore('userFavItems')
     this.checkFavItem()
   },
   methods: {
     checkFavItem () {
-      this.wishListItems = getStore('userFavItems')
+      this.wishListItems = this.$helpers.getStore('userFavItems')
       if (this.wishListItems && this.wishListItems.length > 0) {
         if (this.wishListItems.indexOf(this.product.id) >= 0) {
           this.favFlag = true
@@ -107,7 +104,7 @@ export default {
     },
     addToCart (productId) {
       this.viewToast('Item added to cart!', 'success')
-      cartService.addToCart(productId, 1)
+      this.$helpers.addToCart(productId, 1)
     },
     itemDetail (productId) {
       this.$router.push({
@@ -118,11 +115,11 @@ export default {
       })
     },
     addToWishList (productId) {
-      this.$store.commit('addTowishList', productId)
+      this.$helpers.addToWishList(productId)
       this.checkFavItem()
     },
     deleteFromWishList (productId) {
-      this.$store.commit('removeFromWishList', productId)
+      this.$helpers.deleteFromWishList(productId)
       this.checkFavItem()
     }
   }

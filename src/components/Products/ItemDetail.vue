@@ -53,7 +53,7 @@
         </b-col>
       </b-row>
     </b-card>
-    <br>
+    <br />
     <h3>Recommended Products</h3>
     <b-row>
       <b-col
@@ -70,9 +70,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CartServices from '../../services/CartServices'
 import ItemCard from './ItemCard'
-const cartService = new CartServices()
 
 export default {
   name: 'ItemDetail',
@@ -109,7 +107,7 @@ export default {
     },
     addToCart (productId) {
       this.viewToast('Item added to cart!', 'success')
-      cartService.addToCart(productId, this.itemCount)
+      this.$helpers.addToCart(productId, this.itemCount)
     },
     getProductData () {
       const productId = this.$route.params.productId

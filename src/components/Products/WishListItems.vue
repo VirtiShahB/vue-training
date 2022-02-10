@@ -19,7 +19,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getStore, removeStore } from '../../../config/util'
 import ItemCard from './ItemCard'
 
 export default {
@@ -41,7 +40,7 @@ export default {
   },
   methods: {
     getWishList () {
-      const items = getStore('userFavItems')
+      const items = this.$helpers.getStore('userFavItems')
       if (items.length > 0) {
         this.products = this.productsData.filter(function (o1) {
           return items.some(function (o2) {
@@ -53,9 +52,9 @@ export default {
       }
     },
     refreshWishList (productId) {
-      const favItems = getStore('userFavItems')
+      const favItems = this.$helpers.getStore('userFavItems')
       if (favItems.length === 0) {
-        removeStore('userFavItems')
+        this.$helpers.removeStore('userFavItems')
       }
       this.getWishList()
     }

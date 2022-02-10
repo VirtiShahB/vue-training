@@ -7,17 +7,25 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/style.css'
-import '@/helpers/filters'
-import appMixin from './mixins/mixin.js'
+import './helpers/filters'
+import appMixin from './mixins/mixin'
+import GoogleAuth from '../config/google_oAuth'
+import appServices from './helpers/appServices'
 
-import GoogleAuth from '../config/google_oAuth.js'
+Vue.use({
+  install () {
+    Vue.helpers = appServices
+    Vue.prototype.$helpers = appServices
+  }
+})
+
 const gauthOption = {
   clientId: '213296601731-n3ihcob4kpctn2t3mrc5e0h3dost3kd0.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }
-
 Vue.use(GoogleAuth, gauthOption)
+
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
