@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row product-list">
       <div class="col-sm-12 product-label">
-        <h2>Wishlist Products</h2>
+        <h2>Searched Products</h2>
       </div>
+
       <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail
@@ -29,15 +30,20 @@
 </template>
 <script>
 export default {
-  name: "WishList",
+  name: "ProductSearch",
+  props: {
+    searchedItems: String,
+  },
   data() {
     return {
+      recommendedProduct: [],
       items: [],
     };
   },
   created() {
-    var WishListItems = localStorage.getItem("WishListitems");
-    this.items = JSON.parse(WishListItems);
+    if (this.$route.params.searchedItems) {
+      this.items = JSON.parse(this.$route.params.searchedItems);
+    }
   },
 };
 </script>
@@ -84,5 +90,15 @@ p.cart-btn {
 }
 .product-outline {
   border: 1px outset;
+}
+svg.bi-heart.b-icon.bi {
+  cursor: pointer;
+}
+.fav_items {
+  position: absolute;
+  bottom: 0px;
+  top: 5px;
+  right: 15px;
+  left: 215px;
 }
 </style>

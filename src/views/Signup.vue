@@ -26,14 +26,6 @@
           ></b-form-input>
         </div>
         <div class="form-fields">
-          <b-form-input
-            id="confirm_password"
-            :type="'password'"
-            placeholder="Confirm password"
-            required
-          ></b-form-input>
-        </div>
-        <div class="form-fields">
           <button class="createaccount" name="commit" type="submit">
             Create your account
           </button>

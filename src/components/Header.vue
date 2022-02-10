@@ -15,25 +15,87 @@
           <router-link to="/signup">Signup</router-link>
         </span>
       </div>
-      <!-- <b-navbar-nav>
-        <b-nav-form action="/search">
-          <b-input-group>
-            <b-form-input size="sm" placeholder="Search" name="query" />
+      <b-navbar-nav>
+        <b-form @submit="onSearch">
+          <b-input-group class="search-input">
+            <b-form-input placeholder="Search" v-model="form.search" />
             <b-input-group-append>
               <b-button size="sm" type="submit"
                 >Search <b-icon-search
               /></b-button>
             </b-input-group-append>
           </b-input-group>
-        </b-nav-form>
-      </b-navbar-nav> -->
+        </b-form>
+      </b-navbar-nav>
     </div>
+
+    <ProductSearch v-bind:searched-items="this.searcheditems" v-if="show" />
   </div>
 </template>
-
 <script>
+import ProductSearch from "../views/ProductSearch.vue";
 export default {
   name: "Header",
+  components: { ProductSearch },
+  data() {
+    return {
+      isAuthenticated: false,
+      form: {
+        search: "",
+      },
+      searcheditems: [],
+      show: false,
+    };
+  },
+  methods: {
+    signOut() {
+      if (localStorage.getItem("loginnedUser")) {
+        localStorage.setItem("loginnedUser", "");
+        this.isAuthenticated = false;
+        this.$router.push("/login");
+      }
+    },
+    onSearch(event) {
+      event.preventDefault();
+      const searchString = this.form.search;
+      const parsedObject = JSON.parse(localStorage.getItem("items"));
+      const searchedItems = parsedObject.filter((params) => {
+        if (params.ProductName == searchString) {
+          return true;
+        }
+      });
+      this.searcheditems = searchedItems;
+      this.$router
+        .push({
+          name: "ProductSearch",
+          params: { searchedItems: JSON.stringify(this.searcheditems) },
+        })
+        .catch(() => {
+          this.$router.push("/");
+        });
+    },
+  },
+  watch: {
+    $route() {
+      if (
+        localStorage.getItem("loginnedUser") !== null &&
+        localStorage.getItem("loginnedUser") != ""
+      ) {
+        this.isAuthenticated = true;
+      }
+      if (this.$route.name != "ProductSearch") {
+        this.form.search = "";
+      }
+    },
+  },
+  created() {
+    if (
+      localStorage.getItem("loginnedUser") !== null &&
+      localStorage.getItem("loginnedUser") != ""
+    ) {
+      this.isAuthenticated = true;
+    }
+  },
 };
 </script>
 <style scoped>
@@ -78,8 +140,9 @@ export default {
 .form-inline {
   display: block;
 }
-.input-group {
+.search-input {
   margin-right: 12%;
+  margin-left: -154px;
 }
 
 @media screen and (max-width: 500px) {
@@ -97,43 +160,3 @@ export default {
   margin-top: 150px;
 }
 </style>
-<script>
-import toastMessage from "../mixins/ToastMessage";
-export default {
-  name: "Header",
-  mixins: { toastMessage },
-  data() {
-    return {
-      isAuthenticated: false,
-    };
-  },
-  methods: {
-    signOut() {
-      if (localStorage.getItem("loginnedUser")) {
-        localStorage.setItem("loginnedUser", "");
-        this.isAuthenticated = false;
-        this.makeToastMessage("Logout successfully.", "success");
-        this.$router.push("/login");
-      }
-    },
-  },
-  watch: {
-    $route() {
-      if (
-        localStorage.getItem("loginnedUser") !== null &&
-        localStorage.getItem("loginnedUser") != ""
-      ) {
-        this.isAuthenticated = true;
-      }
-    },
-  },
-  created() {
-    if (
-      localStorage.getItem("loginnedUser") !== null &&
-      localStorage.getItem("loginnedUser") != ""
-    ) {
-      this.isAuthenticated = true;
-    }
-  },
-};
-</script>

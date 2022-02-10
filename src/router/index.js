@@ -7,6 +7,7 @@ import ProductDetail from '@/views/ProductDetail.vue'
 import ProductList from '@/views/ProductList.vue'
 import Signup from '@/views/Signup.vue'
 import WishList from '@/views/WishList.vue'
+import ProductSearch from '@/views/ProductSearch.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,13 @@ const routes = [
     name:'ProductDetail',
     component: ProductDetail,
     meta: {title: 'ProductDetail'}
+  },
+  {
+    path: '/product/search',
+    name:'ProductSearch',
+    component: ProductSearch,
+    props: true,
+    meta: {title: 'ProductSearch'}
   },
   {
     path: '/checkout',

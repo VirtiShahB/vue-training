@@ -79,7 +79,7 @@ export default {
         localStorage.setItem("WishListitems", JSON.stringify(this.ArrWishList));
         this.makeToastMessage("Product added in Wishlist.", "success");
         // Recommended product
-        const relatedProducts = parsedObject.filter(function (product) {
+        const relatedProducts = parsedObject.filter((product) => {
           if (item.Tag == product.Tag) {
             return true;
           }
@@ -116,7 +116,7 @@ export default {
           localStorage.getItem("recommendedProduct")
         );
         if (recommendedProduct.length > 0) {
-          const relatedProducts = recommendedProduct.filter(function (product) {
+          const relatedProducts = recommendedProduct.filter((product) => {
             return product.Tag !== item.Tag;
           });
           this.recommendedProduct = relatedProducts;
