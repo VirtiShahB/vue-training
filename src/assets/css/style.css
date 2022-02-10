@@ -180,9 +180,6 @@ body {
   text-align: center;
   color: #fff;
 }
-input#__BVID__9 {
-  margin-left: 42%;
-}
 .checkout-container {
   margin-top: 5%;
   margin-bottom: 5%;
@@ -207,4 +204,8 @@ strong.mr-2 {
 }
 .b-toast-primary {
   line-height: 36px;
+}
+.search-middle {
+  width: 50%;
+  margin: auto;
 }

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="header">
-      <span v-if="this.isAuthenticated">
+      <div v-if="this.isAuthenticated">
         <router-link to="/dashboard">Dashboard</router-link>
-      </span>
+      </div>
       <div class="header-right">
         <router-link to="/">Products</router-link>
         <router-link to="/product/wishlist">Wishlist</router-link>
@@ -15,10 +15,13 @@
           <router-link to="/signup">Signup</router-link>
         </span>
       </div>
-      <b-navbar-nav>
+      <div class="search-middle">
         <b-form @submit="onSearch">
           <b-input-group class="search-input">
-            <b-form-input placeholder="Search" v-model="form.search" />
+            <b-form-input
+              placeholder="Search by product name"
+              v-model="form.search"
+            />
             <b-input-group-append>
               <b-button size="sm" type="submit"
                 >Search <b-icon-search
@@ -26,7 +29,7 @@
             </b-input-group-append>
           </b-input-group>
         </b-form>
-      </b-navbar-nav>
+      </div>
     </div>
 
     <ProductSearch v-bind:searched-items="this.searcheditems" v-if="show" />
@@ -98,7 +101,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 .header {
   overflow: hidden;
   background-color: #a7bfe2;
@@ -140,11 +143,6 @@ export default {
 .form-inline {
   display: block;
 }
-.search-input {
-  margin-right: 12%;
-  margin-left: -154px;
-}
-
 @media screen and (max-width: 500px) {
   .header a {
     float: none;

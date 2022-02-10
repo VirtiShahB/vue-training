@@ -1,6 +1,6 @@
 <template>
   <b-card class="container checkout-container">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" v-if="show">
       <div class="row checkout-section">
         <div class="col-sm-12">
           <h2>Billing details</h2>
@@ -13,9 +13,9 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-2"
+              id="firstName"
               placeholder="First name"
-              required
+              v-model="form.firstName"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -25,9 +25,9 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-3"
+              id="lastName"
               placeholder="Last name"
-              required
+              v-model="form.lastName"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -37,10 +37,10 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-1"
+              id="email"
               type="email"
               placeholder="Enter email"
-              required
+              v-model="form.email"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -49,11 +49,7 @@
             label-for="input-3"
             class="mb-4"
           >
-            <b-form-select
-              id="input-3"
-              :options="countries"
-              required
-            ></b-form-select>
+            <b-form-select id="input-3" :options="countries"></b-form-select>
           </b-form-group>
           <b-form-group
             id="input-group-2"
@@ -62,9 +58,9 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-2"
+              id="phone"
               placeholder="Phone"
-              required
+              v-model="form.phone"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -74,9 +70,9 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-2"
+              id="address"
               placeholder="Address"
-              required
+              v-model="form.address"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -86,9 +82,9 @@
             class="mb-4"
           >
             <b-form-input
-              id="input-2"
+              id="city"
               placeholder="Town/City"
-              required
+              v-model="form.city"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -97,9 +93,9 @@
             label-for="input-2"
           >
             <b-form-input
-              id="input-2"
-              placeholder="State/Country"
-              required
+              id="state"
+              placeholder="State"
+              v-model="form.state"
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -108,9 +104,9 @@
             label-for="input-3"
           >
             <b-form-input
-              id="input-3"
+              id="postalCode"
               placeholder="Postal Code"
-              required
+              v-model="form.postalCode"
             ></b-form-input>
           </b-form-group>
         </div>
@@ -176,14 +172,14 @@
               <div class="col-sm-6">
                 <b-form-group v-slot="{ ariaDescribedby }">
                   <b-form-radio
-                    v-model="selected"
+                    v-model="form.selected"
                     :aria-describedby="ariaDescribedby"
                     name="payment_type"
                     value="Stripe"
                     >Stripe</b-form-radio
                   >
                   <b-form-radio
-                    v-model="selected"
+                    v-model="form.selected"
                     :aria-describedby="ariaDescribedby"
                     name="payment_type"
                     value="Paypal"
@@ -225,8 +221,10 @@
   </b-card>
 </template>
 <script>
+import toastMessage from "../mixins/ToastMessage";
 export default {
   name: "Checkoout",
+  mixins: [toastMessage],
   data() {
     return {
       ProductName: localStorage.getItem("ProductName"),
@@ -236,9 +234,19 @@ export default {
       selected: null,
       form: {
         email: "",
-        name: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        city: "",
+        state: "",
+        postalCode: "",
         country: null,
+        selected: "",
         checked: [],
+        price: localStorage.getItem("Price"),
+        quantity: localStorage.getItem("Quantity"),
+        size: localStorage.getItem("Size").toUpperCase(),
       },
       countries: [
         { text: "Select One", value: null },
@@ -253,7 +261,18 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      if (
+        localStorage.getItem("loginnedUser") !== null &&
+        localStorage.getItem("loginnedUser") != ""
+      ) {
+        localStorage.setItem("placedOrder", JSON.stringify(this.form));
+        this.makeToastMessage("Thank you for placed order.", "success");
+      } else {
+        this.makeToastMessage(
+          "Your account should be login. Please login.",
+          "danger"
+        );
+      }
     },
     onReset(event) {
       event.preventDefault();
@@ -294,5 +313,9 @@ button.router-link-active {
 }
 p {
   font-size: 16px;
+}
+a.btn {
+  background-color: darkgrey;
+  font-size: large;
 }
 </style>

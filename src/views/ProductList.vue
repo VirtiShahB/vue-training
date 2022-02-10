@@ -68,7 +68,15 @@ export default {
         localStorage.getItem("loginnedUser") != ""
       ) {
         this.items[index].Favorite = 1;
-        this.ArrWishList.push(item);
+        if (
+          localStorage.getItem("WishListitems") !== null &&
+          localStorage.getItem("WishListitems") != ""
+        ) {
+          this.ArrWishList = JSON.parse(localStorage.getItem("WishListitems"));
+          this.ArrWishList.push(item);
+        } else {
+          this.ArrWishList.push(item);
+        }
 
         const parsedObject = JSON.parse(localStorage.getItem("items"));
         parsedObject[index].Favorite = 1;
@@ -78,7 +86,7 @@ export default {
 
         localStorage.setItem("WishListitems", JSON.stringify(this.ArrWishList));
         this.makeToastMessage("Product added in Wishlist.", "success");
-        // Recommended product
+        // Recommended product logic
         const relatedProducts = parsedObject.filter((product) => {
           if (item.Tag == product.Tag) {
             return true;
@@ -100,10 +108,17 @@ export default {
         localStorage.getItem("loginnedUser") !== null &&
         localStorage.getItem("loginnedUser") != ""
       ) {
-        var WishedList = JSON.parse(localStorage.getItem("WishListitems"));
         this.items[index].Favorite = 0;
-        WishedList.splice(index, 1);
-        localStorage.setItem("WishListitems", JSON.stringify(WishedList));
+        this.ArrWishList = JSON.parse(localStorage.getItem("WishListitems"));
+        if (this.ArrWishList !== null && this.ArrWishList.length > 0) {
+          const removedWishedList = this.ArrWishList.filter((params) => {
+            return params.Id !== item.Id;
+          });
+          localStorage.setItem(
+            "WishListitems",
+            JSON.stringify(removedWishedList)
+          );
+        }
         const parsedObject = JSON.parse(localStorage.getItem("items"));
 
         parsedObject[index].Favorite = 0;
@@ -111,7 +126,7 @@ export default {
         localStorage.setItem("items", modifiedndstrigifiedForStorage);
 
         this.makeToastMessage("Product removed from wishlist.", "primary");
-        // Removed recommended product
+        // Removed recommended product logic
         const recommendedProduct = JSON.parse(
           localStorage.getItem("recommendedProduct")
         );

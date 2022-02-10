@@ -67,8 +67,13 @@ export default {
         this.registeredUser.push(this.form);
       }
       localStorage.setItem("users", JSON.stringify(this.registeredUser));
-      this.makeToastMessage("User signup successfully", "success");
-      this.$router.push("/login");
+      this.makeToastMessage(
+        "User signup successfully. Please login ",
+        "success"
+      );
+      this.form.fullName = "";
+      this.form.email = "";
+      this.form.password = "";
     },
   },
 };
