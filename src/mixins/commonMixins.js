@@ -2,6 +2,7 @@ var mixinData = {
 	methods:{
 		signOut() {
 			localStorage.removeItem("is_login");
+			localStorage.removeItem("loginUser");
 			this.$router.push({ name: "Login" });
 		}
 	},
@@ -13,6 +14,7 @@ var mixinData = {
 			}else{
 				this.already_login = false;
 			}
+			this.userAccount = JSON.parse(localStorage.getItem("loginUser"));
         }
     }
 }

@@ -62,8 +62,6 @@ export default {
 			}else{
 				this.already_login = false;
 			}
-    this.userAccount = JSON.parse(localStorage.getItem("loginUser"));
-
   },
   computed: {
     totalCartItem() {

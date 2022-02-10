@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import GoogleAuth from '../src/authConfig/googleOAuth.js'
 const gauthOption = {
-  clientId: '682799868995-kmfb0duvcea9p8qhujorni7s2r5okdg0.apps.googleusercontent.com',
+  clientId: '682799868995-ri7ike1t3dcuqfcl65u1nk1ik33pk4fg.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }

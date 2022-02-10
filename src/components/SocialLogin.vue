@@ -84,15 +84,6 @@ export default {
     loginWithFacebook() {
       window.FB.login((response) => {
         if (response && response.authResponse) {
-          console.log("response", response);
-          var userInfo = {
-            loginType: "fb",
-            fb: {
-              auth: response.authResponse,
-            },
-          };
-          localStorage.setItem("is_login", JSON.stringify(true));
-          localStorage.setItem("loginUser", JSON.stringify(userInfo.fb));
           window.FB.api(
             `/${response.authResponse.userID}`,
             (userResponse) => {
@@ -107,11 +98,11 @@ export default {
                 };
                 localStorage.setItem("is_login", JSON.stringify(true));
                 localStorage.setItem("loginUser", JSON.stringify(userInfo.fb.user.name));
+                this.$router.push({ name: "Dashboard" });
               }
             },
             this.params
           );
-          this.$router.push({ name: "Dashboard" });
         }
       }, this.params);
     },

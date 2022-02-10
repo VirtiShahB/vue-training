@@ -71,6 +71,10 @@
                 Price:
                 <span class="text-danger">${{ product.price }}</span>
               </b-card-text>
+              <b-card-text>
+                Color:
+                <span class="text-danger">${{ product.color }}</span>
+              </b-card-text>
               <router-link
                 class="btn btn-outline-primary"
                 :to="'/product/' + product.id"
