@@ -4,108 +4,72 @@
       <h2 class="my-8 h2">Checkout form</h2>
       <div class="row">
         <div class="col-md-8 mb-4">
-          <!--Card-->
           <div class="card">
-            <!--Card content-->
-            <form class="card-body">
-              <!--Grid row-->
+            <form class="card-body" @submit.stop.prevent>
               <div class="row">
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--firstName-->
                   <div class="md-form">
                     <label for="firstName" class="">First name</label>
-                    <input type="text" id="firstName" class="form-control" />
+                    <input type="text" id="firstName" class="form-control" v-model="firstname" name="firstname"/>
                   </div>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--lastName-->
                   <div class="md-form">
                     <label for="lastName" class="">Last name</label>
-                    <input type="text" id="lastName" class="form-control" />
+                    <input type="text" id="lastName" class="form-control" v-model="lastname" name="lstname"/>
                   </div>
                 </div>
-
-                <!--Grid column-->
               </div>
-              <!--Grid row-->
 
               <div class="row">
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--firstName-->
                   <div class="md-form">
                     <label for="phone" class="">Phone</label>
-                    <input type="text" id="phone" class="form-control" />
+                    <input type="number" id="phone" class="form-control" v-model="phone" name="phone"/>
                   </div>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--lastName-->
                   <div class="md-form">
                     <label for="email" class="">Email</label>
-                    <input type="text" id="email" class="form-control" />
+                    <input type="text" id="email" class="form-control" v-model="email" name="email"/>
                   </div>
                 </div>
-
-                <!--Grid column-->
               </div>
-              <!--Grid row-->
 
               <div class="row">
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--firstName-->
                   <div class="md-form">
                     <label for="country" class="">Country</label>
-                    <input type="text" id="country" class="form-control" />
+                    <input type="text" id="country" class="form-control" v-model="country" name="country"/>
                   </div>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--lastName-->
                   <div class="md-form">
                     <label for="state" class="">State</label>
-                    <input type="text" id="state" class="form-control" />
+                    <input type="text" id="state" class="form-control" v-model="state" name="state"/>
                   </div>
                 </div>
-
-                <!--Grid column-->
               </div>
-              <!--Grid row-->
 
               <div class="row">
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--firstName-->
                   <div class="md-form">
                     <label for="city" class="">City</label>
-                    <input type="text" id="city" class="form-control" />
+                    <input type="text" id="city" class="form-control" v-model="city" name="city"/>
                   </div>
                 </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
                 <div class="col-md-6 mb-2">
-                  <!--lastName-->
                   <div class="md-form">
                     <label for="zipcode" class="">Zipcode</label>
-                    <input type="text" id="zipcode" class="form-control" />
+                    <input type="text" id="zipcode" class="form-control" v-model="zipcode" name="zipcode"/>
                   </div>
                 </div>
-
-                <!--Grid column-->
               </div>
-              <!--Grid row-->
 
-              <!--address-->
               <div class="md-form mb-5">
                 <label for="address" class="">Address</label>
                 <input
@@ -113,10 +77,10 @@
                   id="address"
                   class="form-control"
                   placeholder="1234 Main St"
+                  v-model="address" name="address"
                 />
               </div>
 
-              <!--address-2-->
               <div class="md-form mb-5">
                 <label for="address-2" class="">Shipping Address</label>
                 <input
@@ -124,51 +88,62 @@
                   id="address-2"
                   class="form-control"
                   placeholder="Apartment or suite"
+                  v-model="shippingaddress" name="shippingaddress"
                 />
               </div>
 
               <hr class="mb-4" />
-              <button class="btn btn-primary btn-lg btn-block" type="submit">
+              <button class="btn btn-primary btn-lg btn-block" type="submit" @click="Submit">
                 Continue to checkout
               </button>
+
+               <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors" :key="error">{{ error }}</li>
+                </ul>
+              </p>
             </form>
           </div>
-          <!--/.Card-->
         </div>
-        <!--Grid column-->
 
-        <!--Grid column-->
         <div class="col-md-4 mb-4">
-          <!-- Heading -->
-
-          <!-- Cart -->
           <ul class="list-group mb-3 z-depth-1">
             <li
-              class="list-group-item d-flex justify-content-between lh-condensed"
+              class="
+                list-group-item
+                d-flex
+                justify-content-between
+                lh-condensed
+              "
             >
               <h5>Products</h5>
             </li>
             <li
-              class="list-group-item d-flex justify-content-between lh-condensed"
+              class="
+                list-group-item
+                d-flex
+                justify-content-between
+                lh-condensed
+              "
+              v-for="products in ProdcutList"
+              :key="products.PID"
+              :id="products.PID"
             >
               <div style="display: flex">
-                <img :src="pimage" alt="" style="width: 50px" />
+                <img :src="products.PIMAGE" alt="" style="width: 50px" />
                 <ul style="list-style: none">
                   <li>
-                    <small class="text-muted">{{
-                      this.$route.query.name
-                    }}</small>
+                    <small class="text-muted">{{ products.PNAME }}</small>
                   </li>
                   <li>
                     <small class="text-muted p-price"
-                      >{{ this.$route.query.price }}X{{
-                        this.$route.query.cart
-                      }}</small
+                      >{{ products.PPRICE }}X1</small
                     >
                   </li>
                 </ul>
               </div>
-              <span class="text-muted">${{ ptotal }}</span>
+              <span class="text-muted">${{ products.PPRICE }}</span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
@@ -182,9 +157,7 @@
               <strong>${{ maintotal }}</strong>
             </li>
           </ul>
-          <!-- Cart -->
 
-          <!-- Promo code -->
           <form class="card p-2">
             <div class="input-group">
               <input
@@ -204,7 +177,6 @@
               </div>
             </div>
           </form>
-          <!-- Promo code -->
 
           <div class="card mb-4 mb-lg-0">
             <div class="card-body">
@@ -236,23 +208,120 @@
             </div>
           </div>
         </div>
-        <!--Grid column-->
       </div>
-      <!--Grid row-->
     </div>
   </main>
-  <!--Main layout-->
 </template>
 <script>
 export default {
   name: "CheckoutDetail",
   data() {
     return {
-      ptotal: this.$route.query.price * this.$route.query.cart,
-      pimage: this.$route.query.mainimage,
       promocode: 5,
-      maintotal: this.$route.query.price * this.$route.query.cart - 5,
+      maintotal: 0,
+      ProdcutList: [],
+      errors: [],
+      firstname: null,
+      lastname: null,
+      phone: null,
+      email:null,
+      country:null,
+      state:null,
+      city:null,
+      zipcode:null,
+      address:null,
+      shippingaddress:null,
+      products:[],
+      Orders:[],
     };
   },
+  created() {
+    this.ProdcutList = JSON.parse(localStorage.getItem("SelectedProducts"));
+    var total = 0;
+    this.ProdcutList.forEach((element) => {
+      total += element.PPRICE;
+      this.products.push(element.PID)
+    });
+    this.maintotal = total - this.promocode;
+  },
+  methods:{
+    Submit() {
+       this.submitted = true;
+       this.errors = [];
+
+      if (!this.firstname) {
+        this.errors.push("First Name required.");
+      }
+      if (!this.lastname) {
+        this.errors.push("Last Name required.");
+      }
+      if (!this.phone) {
+        this.errors.push("Phone required.");
+      }
+      if (!this.email) {
+        this.errors.push('Email required.');
+      } else if (!this.validEmail(this.email)) {
+        this.errors.push('Valid email required.');
+      }
+      if (!this.country) {
+        this.errors.push("Country required.");
+      }
+      if (!this.state) {
+        this.errors.push("State required.");
+      }
+      if (!this.city) {
+        this.errors.push("City required.");
+      }
+      if (!this.zipcode) {
+        this.errors.push("Zipcode required.");
+      }
+      if (!this.address) {
+        this.errors.push("Address required.");
+      }
+      if (!this.shippingaddress) {
+        this.errors.push("Shipping Address required.");
+      }
+
+      if (!this.errors.length) {
+        var OrderDetails = {}
+        OrderDetails['orderId'] =  Math.random()*100;
+        OrderDetails['firstName'] = this.firstname;
+        OrderDetails['lastName'] = this.lastname;
+        OrderDetails['email'] = this.email
+        OrderDetails['phone'] = this.phone
+        OrderDetails['country'] = this.country
+        OrderDetails['state'] = this.state
+        OrderDetails['city'] = this.city
+        OrderDetails['zipcode'] = this.zipcode
+        OrderDetails['address'] = this.address
+        OrderDetails['shippingAddress'] = this.shippingaddress
+        OrderDetails['total'] = this.maintotal
+        OrderDetails['products'] = this.products
+        this.Orders.push(OrderDetails);
+        localStorage.setItem("OrderDetails", JSON.stringify(this.Orders));
+        localStorage.removeItem("cartProduct");
+        this.$router.push({ path: "/thankYou" });
+        return true;
+      }
+
+      
+    },
+    validEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    },
 };
 </script>
+<style scoped>
+img {
+  width: 50px;
+  height: unset;
+  display: unset;
+}
+ul li{
+  list-style: none;
+  color: red;
+}
+</style>

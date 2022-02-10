@@ -19,7 +19,9 @@
     <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
         <router-link to="/" class="navbar-item">Home</router-link>
-        <router-link to="/about" class="navbar-item">About</router-link>
+        <router-link to="/orders" class="navbar-item" v-if="Orders != ''"
+          >My Orders</router-link
+        >
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
@@ -64,6 +66,7 @@ export default {
     return {
       CartPro: 0,
       WishPro: 0,
+      Orders: [],
       email: JSON.parse(localStorage.getItem("email"))
         ? JSON.parse(localStorage.getItem("wishProduct"))
         : "",
@@ -76,6 +79,7 @@ export default {
     Logout() {
       localStorage.removeItem("email");
       localStorage.removeItem("password");
+      localStorage.removeItem("OrderDetails");
       this.$router.push({ name: "Login" });
     },
     GoToWishList() {
@@ -94,6 +98,10 @@ export default {
 
     if (JSON.parse(localStorage.getItem("cartProduct"))) {
       this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    }
+
+    if (JSON.parse(localStorage.getItem("OrderDetails")).length > 0) {
+      this.Orders = JSON.parse(localStorage.getItem("OrderDetails"));
     }
   },
 };

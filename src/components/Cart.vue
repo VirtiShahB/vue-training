@@ -13,14 +13,11 @@
           <div class="card mb-4" v-if="cartProducts.length > 0">
             <div
               class="card-body p-4"
-              v-for="products in productDetails"
+              v-for="products in cartProducts"
               :key="products.PID"
               :id="products.PID"
             >
-              <div
-                class="row align-items-center"
-                v-if="cartProducts.includes(products.PID)"
-              >
+              <div class="row align-items-center">
                 <div class="col-md-2">
                   <img
                     :src="products.PIMAGE"
@@ -38,18 +35,21 @@
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
-                    <p class="small text-muted mb-4 pb-2">Size</p>
+                    <p class="small text-muted mb-4 pb-2">Color</p>
                     <p class="lead fw-normal mb-0">
-                      <i class="fas fa-circle me-2" style="color: #fdd8d2"></i>
-                      {{ products.SIZE[0] }}
+                      <i
+                        class="fas fa-circle me-2"
+                        :style="{ color: products.PCOLOR }"
+                      ></i>
+                      {{ products.PCOLOR }}
                     </p>
                   </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
-                    <p class="small text-muted mb-4 pb-2">Color</p>
+                    <p class="small text-muted mb-4 pb-2">Size</p>
                     <p class="lead fw-normal mb-0">
-                      {{ products.COLOR[0] }}
+                      {{ products.SIZE }}
                     </p>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
               <div class="float-end">
                 <p class="mb-0 me-5 d-flex align-items-center">
                   <span class="small text-muted me-2">Order total:</span>
-                  <span class="lead fw-normal"></span>
+                  <span class="lead fw-normal">${{ totalAmt }}</span>
                 </p>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default {
   data() {
     return {
       cartProducts: [],
-      totalAmt: "",
+      totalAmt: 0,
     };
   },
   methods: {
@@ -128,7 +128,24 @@ export default {
     },
   },
   created() {
-    this.cartProducts = JSON.parse(localStorage.getItem("cartProduct"));
+    var Likedproduct = JSON.parse(localStorage.getItem("cartProduct"));
+    var ProdcutList = JSON.parse(localStorage.getItem("PROLIST"));
+    var total = 0;
+    ProdcutList.forEach((element) => {
+      if (Likedproduct.includes(element.PID)) {
+        var objects = {};
+        objects["PID"] = element.PID;
+        objects["PNAME"] = element.PNAME;
+        objects["PIMAGE"] = element.PIMAGE;
+        objects["PPRICE"] = element.PPRICE;
+        objects["PCOLOR"] = element.COLOR[3];
+        objects["SIZE"] = element.SIZE[0];
+        this.cartProducts.push(objects);
+        total += element.PPRICE;
+      }
+    });
+    this.totalAmt = total;
+    localStorage.setItem("SelectedProducts", JSON.stringify(this.cartProducts));
   },
 };
 </script>

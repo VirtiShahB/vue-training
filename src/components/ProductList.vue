@@ -98,7 +98,7 @@ export default {
             "./assets/images/81xC+090X+L._UL1500_.jpg",
             "./assets/images/815wroENzxL._UL1500_.jpg",
           ],
-          COLOR: ["White", "Green", "Black"],
+          COLOR: ["White", "Green", "Black", "Blue"],
           SIZE: ["XS", "S", "M", "L", "XL"],
           DESCRIPTION:
             "Fabric : Reyon DISCLAIMER: The images shown are for representational purposes only. Please note that the colour of the product may slightly vary in comparison to the picture shown on the website due to various reasons which may include different lighting and devices during photo-shoot and also the colour settings and resolution of your own monitor screen. It is also important to note that we thrive to bring you the best, but, there may be a little difference in terms of fabric and colour, Wash Care: The Dry clean is recommended.",
@@ -224,8 +224,12 @@ export default {
     },
   },
   created: function () {
-    this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
-    this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    if (JSON.parse(localStorage.getItem("wishProduct"))) {
+      this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
+    }
+    if (JSON.parse(localStorage.getItem("cartProduct"))) {
+      this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    }
   },
 };
 </script>

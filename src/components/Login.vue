@@ -66,6 +66,7 @@ export default {
         ) {
           localStorage.setItem("email", JSON.stringify(this.email));
           localStorage.setItem("password", JSON.stringify(this.password));
+          this.$store.commit("setLoginUser", users);
           this.$router.push({ path: "/" });
         }
       }

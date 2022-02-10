@@ -70,6 +70,16 @@ const routes = [
     name: "forgot-password",
     component: () => import("../components/ForgotPassword.vue"),
   },
+  {
+    path: "/thankYou",
+    name: "Thank You",
+    component: () => import("../components/ThankYou.vue"),
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../components/Orders.vue"),
+  },
 ];
 
 const router = new VueRouter({

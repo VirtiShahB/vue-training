@@ -6,6 +6,5 @@ export const productListMixin = {
   },
   created() {
     this.productDetails = JSON.parse(localStorage.getItem("PROLIST"));
-    console.log(this.productDetails);
   },
 };
