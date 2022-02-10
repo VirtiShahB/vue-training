@@ -14,29 +14,15 @@
               <h6 @click="sortI('jewelery')">Jewelery</h6>
               <hr />
               <br />
-              <!-- <div class="co">
-                <h5>Color</h5>
-                <span
-                  class="circle"
-                  style="background-color: yellow"
-                  @click="sortI('yellow')"
-                ></span>
-                <span
-                  class="circle"
-                  style="background-color: blue"
-                  @click="sortI('blue')"
-                ></span>
-                <span
-                  class="circle"
-                  style="background-color: white"
-                  @click="sortI('white')"
-                ></span>
-                <span
-                  class="circle"
-                  style="background-color: black"
-                  @click="sortI('black')"
-                ></span>
-              </div> -->
+              <h4 class="search-title">Price Range</h4>
+
+              <br />
+              <h6 @click="priceFilter('less-50')">Less then $50</h6>
+              <h6 @click="priceFilter('50-100')">$50 t0 $100</h6>
+              <h6 @click="priceFilter('100-200')">$100 to $200</h6>
+              <h6 @click="priceFilter('more-200')">More than $200</h6>
+              <hr />
+              <br />
               <br />
               <button
                 v-if="showRestButton"
@@ -137,14 +123,39 @@ export default {
     sortI(value) {
       if (value == "men") {
         value = "men's clothing";
-      } else if(value == "women") {
+      } else if (value == "women") {
         value = "women's clothing";
       }
       this.showRestButton = true;
       this.CardArray = this.allProduct.filter(
-        (item) =>
-          item.category.toLowerCase().match(value)
+        (item) => item.category.toLowerCase() == value
       );
+    },
+    priceFilter(value) {
+      this.CardArray = this.CardArray.filter(item => {
+        if (value == "less-50") {
+          if (item.price < 50)
+            return item;
+        }
+
+        if (value == "50-100") {
+          if (item.price > 50 && item.price < 100)
+            return item;
+        }
+
+        if (value == "more-200") {
+          if (item.price > 200 )
+            return item;
+        }
+
+        if (value == "100-200") {
+          if (item.price > 100 && item.price < 200)
+            return item;
+        }
+        
+        
+
+      });
     },
     resetFilter() {
       this.CardArray = this.allProduct;
