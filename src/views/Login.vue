@@ -33,6 +33,9 @@
     <div class="footer">
       <p>Don't have an account? <a href="/signup"> Create one now</a></p>
     </div>
+    <div class="text-center" v-if="loading">
+      <b-spinner label="Spinning"></b-spinner>
+    </div>
   </div>
 </template>
 <script>
@@ -50,6 +53,7 @@ export default {
         password: "",
       },
       show: true,
+      loading: false,
       arrLoginnedUser: [],
     };
   },
@@ -71,8 +75,9 @@ export default {
             "loginnedUser",
             JSON.stringify(this.arrLoginnedUser)
           );
+          this.loading = true;
           this.makeToastMessage("Login successfully.", "success");
-          this.$router.push("/");
+          setTimeout(() => this.$router.push({ path: "/" }), 1000);
         } else {
           this.makeToastMessage("Invalid Credentials", "danger");
         }
