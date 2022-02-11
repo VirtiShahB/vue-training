@@ -53,9 +53,25 @@ export default {
   methods: {
     signOut() {
       if (localStorage.getItem("loginnedUser")) {
-        localStorage.setItem("loginnedUser", "");
-        this.isAuthenticated = false;
-        this.$router.push("/login");
+        this.$bvModal
+          .msgBoxConfirm("Are you sure you want to signout?", {
+            title: "Please Confirm",
+            size: "sm",
+            buttonSize: "sm",
+            okVariant: "danger",
+            okTitle: "YES",
+            cancelTitle: "NO",
+            footerClass: "p-2",
+            hideHeaderClose: false,
+            centered: true,
+          })
+          .then((value) => {
+            if (value) {
+              localStorage.setItem("loginnedUser", "");
+              this.isAuthenticated = false;
+              this.$router.push("/login");
+            }
+          });
       }
     },
     onSearch(event) {
