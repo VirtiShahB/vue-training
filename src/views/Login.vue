@@ -32,6 +32,25 @@
                   <button type="submit" class="btn btn-primary text-center">Login</button>
                 </div>
               </form>
+              <div class="clearfix"></div><br />
+
+              <div class="row">
+                <div class="col-auto offset-2">
+                  <a @click="onGoogleSignIn" class="btn btn-block btn-danger">
+                    <b-icon-google></b-icon-google>
+                    Sign in with Google
+                  </a>
+
+                  <a
+                    @click="logInWithFacebook"
+                    class="ml-15 btn btn-block btn-primary"
+                  >
+                    <b-icon-facebook></b-icon-facebook>
+                    Sign in with Facebook
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -88,7 +107,146 @@ export default {
       }else{
         alert("We does't find any user with this email in our records.");
       }
-    }
+    },
+    async logInWithFacebook() {
+      window.FB.login(
+        (response) => {
+          if (response.authResponse) {
+            window.FB.api(
+              "/me",
+              { locale: "en_US", fields: "id,name, email" },
+              (response) => {
+                let users = JSON.parse(localStorage.getItem("register_users"));
+
+                if (users != null && users.length > 0) {
+                  let findUser = users.findIndex(
+                    (user) => user.email == response.email
+                  );
+
+                  if (findUser == -1) {
+                    alert('Error! No any user found with this email.');
+                    return false;
+                  } else {
+                    var socialUser = users.find((user) => {
+                      return user.email === response.email;
+                    });
+                    this.createLoginUser(socialUser);
+                    this.errors.email = "";
+                    this.$router.push({ name: "home" });
+                  }
+                } else {
+                  alert('Error! No any user found with this email.');
+                  return false;
+                }
+
+                let newUser = {
+                  id: this.$uuid.v1(),
+                  name: response.name,
+                  email: response.email,
+                  password: response.id,
+                };
+
+                this.registerUser(newUser);
+              }
+            );
+          } else {
+            alert('Error! User cancelled login or did not fully authorize.');
+            return false;
+          }
+        },
+        { scope: "email" }
+      );
+      return false;
+    },
+    onSignIn(user) {
+      const profile = user.getBasicProfile();
+    },
+    async initFacebook() {
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: "729711241341340", //You will need to change this
+          cookie: true, // This is important, it's not enabled by default
+          xfbml: true, // parse XFBML
+          oauth: true,
+        });
+      };
+    },
+    async loadFacebookSDK(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    },
+    onGoogleSignIn() {
+      const gapi = window.gapi;
+
+      gapi.load("auth2", () => {
+        gapi.auth2.authorize(
+          {
+            client_id:
+              "715709340166-ga646gel28qdsk8uqckt349jfl3h6qm1.apps.googleusercontent.com",
+            scope: "email profile openid",
+            response_type: "id_token permission",
+            login_hint: "email",
+            ux_mode: "popup",
+            prompt: "select_account",
+          },
+          (response) => {
+            if (response.error) {
+              // An error happened!
+              return "error";
+            }
+            this.getLoggedInUser();
+          }
+        );
+      });
+    },
+    getLoggedInUser() {
+      const gapi = window.gapi;
+
+      gapi.load("auth2", () => {
+        gapi.auth2.init().then(() => {
+          var auth = gapi.auth2.getAuthInstance();
+          // check login is true
+          if (auth.isSignedIn.get() == true) {
+            var user = auth.currentUser.get();
+            // get user profile
+            var profile = user.getBasicProfile();
+
+            let users = JSON.parse(localStorage.getItem("register_users"));
+
+            if (users != null && users.length > 0) {
+              let findUser = users.findIndex(
+                (user) => user.email == profile.getEmail()
+              );
+
+              if (findUser == -1) {
+                alert('Error! No any user found with this email.');
+                return false;
+              }
+
+              //Make user sign in
+              var socialUser = users.find((user) => {
+                return user.email === profile.getEmail();
+              });
+              
+              this.$router.push({ name: "home" });
+            } else {
+              alert('Error! No any user found with this email.');
+            }
+          }
+        });
+      });
+    },
+    async mounted() {
+      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+      await this.initFacebook();
+    },
   },
 }
 </script>
@@ -109,6 +267,10 @@ export default {
 
 .form-control {
     border-radius: 1px;
+}
+
+.ml-15 {
+    margin-left: 15px;
 }
 
 </style>

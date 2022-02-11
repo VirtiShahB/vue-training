@@ -54,17 +54,17 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.name);
   const login = true;
 
-  if (authRequired && !login) {
-    return next("/login");
-  }
+  // if (authRequired && !login) {
+  //   return next("/login");
+  // }
 
-  if (to.name == "Login" && login) {
-    return next("/");
-  }
+  // if (to.name == "Login" && login) {
+  //   return next("/");
+  // }
 
-  if (to.name == "Register" && login) {
-    return next("/");
-  }
+  // if (to.name == "Register" && login) {
+  //   return next("/");
+  // }
 
   next();
 });
