@@ -11,7 +11,7 @@
       <div class="copyright text-center">
         &copy; Coded with
         <i class="fa fa-heart heart"></i> by
-        <a href="#" target="_blank">kayyum khan</a>. Designed by
+        <a href="#" target="_blank">Kayyum khan</a>. Designed by
         <a href="https://www.bacancytechnology.com" target="_blank"
           >Bacancy Team</a
         >.

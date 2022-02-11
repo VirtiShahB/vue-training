@@ -55,7 +55,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="" @click.prevent="logout" class="nav-link">
+            <a href="" @click.prevent="logout(user.type)" class="nav-link">
               Logout
             </a>
           </li>
@@ -65,7 +65,9 @@
   </nav>
 </template>
 <script>
+import User from '../mixins/User'
   export default {
+    mixins: [User],
     computed: {
       routeName () {
         const {name} = this.$route
