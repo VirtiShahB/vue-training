@@ -139,14 +139,7 @@ export default {
                   return false;
                 }
 
-                let newUser = {
-                  id: this.$uuid.v1(),
-                  name: response.name,
-                  email: response.email,
-                  password: response.id,
-                };
-
-                this.registerUser(newUser);
+                // Login Code
               }
             );
           } else {
