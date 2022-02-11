@@ -5,48 +5,48 @@
       <div class="row">
         <div class="col-sm-4">
           <b-img
-            v-bind:src="'../../images/' + ImgName"
+            v-bind:src="'../../images/' + imgName"
             alt="Earphone"
             fluid-grow
           ></b-img>
         </div>
         <div class="col-sm-7">
           <div class="card-body p-5">
-            <h3 class="title mb-3">{{ ProductName }}</h3>
+            <h3 class="title mb-3">{{ productName }}</h3>
             <p class="price-detail-wrap">
               <span class="price h3 text-warning">
-                <span class="price">${{ Price }}</span>
+                <span class="Price">${{ price }}</span>
               </span>
             </p>
             <dl>
               <dt>Description</dt>
               <dd>
-                <p>{{ Description }}</p>
+                <p>{{ description }}</p>
               </dd>
             </dl>
             <dl>
               <dt>Model#</dt>
-              <dd>{{ Model }}</dd>
+              <dd>{{ model }}</dd>
             </dl>
             <dl>
               <dt>Color</dt>
-              <dd>{{ Color }}</dd>
+              <dd>{{ color }}</dd>
             </dl>
             <hr />
             <div class="row">
               <div class="col-sm-5">
                 <b-input-group>
                   <b-input-group-prepend>
-                    <b-btn variant="outline-info" @click="Quantity--">-</b-btn>
+                    <b-btn variant="outline-info" @click="quantity--">-</b-btn>
                   </b-input-group-prepend>
                   <b-form-input
                     type="number"
                     min="0.00"
-                    v-model="Quantity"
+                    v-model="quantity"
                     class="cart-quantity"
                   ></b-form-input>
                   <b-input-group-append>
-                    <b-btn variant="outline-secondary" @click="Quantity++"
+                    <b-btn variant="outline-secondary" @click="quantity++"
                       >+</b-btn
                     >
                   </b-input-group-append>
@@ -73,13 +73,13 @@
             <b-button
               class="buy-now text-uppercase"
               variant="primary"
-              @click="addToCart(Quantity, 'buy')"
+              @click="addToCart(quantity, 'buy')"
             >
               Buy now
             </b-button>
             <b-button
               class="text-uppercase"
-              @click="addToCart(Quantity, 'cart')"
+              @click="addToCart(quantity, 'cart')"
               variant="success"
             >
               <b-icon icon="cart"></b-icon> Add to cart
@@ -97,13 +97,13 @@ export default {
   mixins: [toastMessage],
   data() {
     return {
-      ProductName: "",
-      Price: "",
-      Description: "",
-      Quantity: 0,
-      Model: "",
-      Color: "",
-      ImgName: "",
+      productName: "",
+      price: "",
+      description: "",
+      quantity: 0,
+      model: "",
+      color: "",
+      imgName: "",
       selected: null,
       options: [
         { value: "sm", text: "SM" },
@@ -123,10 +123,10 @@ export default {
       } else if (this.selected == null) {
         this.makeToastMessage("Please select any size.", "danger");
       } else {
-        localStorage.setItem("ProductName", this.ProductName);
-        localStorage.setItem("Price", this.Price);
-        localStorage.setItem("Quantity", this.Quantity);
-        localStorage.setItem("Size", this.selected);
+        localStorage.setItem("productName", this.productName);
+        localStorage.setItem("price", this.price);
+        localStorage.setItem("quantity", this.quantity);
+        localStorage.setItem("size", this.selected);
 
         if (action == "cart") {
           this.makeToastMessage(
@@ -141,10 +141,10 @@ export default {
   watch: {
     quantity(newValue) {
       if (this.quantity == 0) {
-        localStorage.setItem("ProductName", "");
-        localStorage.setItem("Price", "");
-        localStorage.setItem("Quantity", "");
-        localStorage.setItem("Size", "");
+        localStorage.setItem("productName", "");
+        localStorage.setItem("price", "");
+        localStorage.setItem("quantity", "");
+        localStorage.setItem("size", "");
         this.makeToastMessage("Removed item from cart.", "success");
       }
       if (newValue <= -1) {
@@ -157,14 +157,14 @@ export default {
     var items = localStorage.getItem("items"); // From localstorage
     var itemsObject = JSON.parse(items);
     const productDetails = itemsObject.find(function (value) {
-      if (value.Id == id) return true;
+      if (value.id == id) return true;
     });
-    this.ProductName = productDetails.ProductName;
-    this.Price = productDetails.Price;
-    this.Description = productDetails.Description;
-    this.Model = productDetails.Model;
-    this.Color = productDetails.Color;
-    this.ImgName = productDetails.Image;
+    this.productName = productDetails.productName;
+    this.price = productDetails.price;
+    this.description = productDetails.description;
+    this.model = productDetails.model;
+    this.color = productDetails.color;
+    this.imgName = productDetails.image;
   },
 };
 </script>

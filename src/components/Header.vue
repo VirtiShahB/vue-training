@@ -79,7 +79,7 @@ export default {
       const searchString = this.form.search;
       const parsedObject = JSON.parse(localStorage.getItem("items"));
       const searchedItems = parsedObject.filter((params) => {
-        if (params.ProductName == searchString) {
+        if (params.productName == searchString) {
           return true;
         }
       });

@@ -16,6 +16,7 @@
               id="firstName"
               placeholder="First name"
               v-model="form.firstName"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -28,6 +29,7 @@
               id="lastName"
               placeholder="Last name"
               v-model="form.lastName"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -41,6 +43,7 @@
               type="email"
               placeholder="Enter email"
               v-model="form.email"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -49,7 +52,11 @@
             label-for="input-3"
             class="mb-4"
           >
-            <b-form-select id="input-3" :options="countries"></b-form-select>
+            <b-form-select
+              id="input-3"
+              :options="countries"
+              required
+            ></b-form-select>
           </b-form-group>
           <b-form-group
             id="input-group-2"
@@ -61,6 +68,7 @@
               id="phone"
               placeholder="Phone"
               v-model="form.phone"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -73,6 +81,7 @@
               id="address"
               placeholder="Address"
               v-model="form.address"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -85,6 +94,7 @@
               id="city"
               placeholder="Town/City"
               v-model="form.city"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -96,6 +106,7 @@
               id="state"
               placeholder="State"
               v-model="form.state"
+              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -107,6 +118,7 @@
               id="postalCode"
               placeholder="Postal Code"
               v-model="form.postalCode"
+              required
             ></b-form-input>
           </b-form-group>
         </div>
@@ -116,18 +128,18 @@
               <div class="col-sm-6">
                 <strong>Product</strong>
                 <hr />
-                <p>{{ ProductName }} ({{ Quantity }} x {{ Price }})</p>
+                <p>{{ productName }} ({{ quantity }} x {{ price }})</p>
               </div>
               <div class="col-sm-6">
                 <strong>Total</strong>
                 <hr />
-                <p>${{ Price }}</p>
+                <p>${{ price }}</p>
               </div>
             </div>
 
             <div class="row">
               <div class="col-sm-6">
-                <p>Size ( {{ Size }} )</p>
+                <p>Size ( {{ size }} )</p>
               </div>
             </div>
 
@@ -138,7 +150,7 @@
                 <p><strong>Shipping</strong></p>
               </div>
               <div class="col-sm-6">
-                <p :style="{ color: 'red' }">${{ Quantity * Price }}</p>
+                <p :style="{ color: 'red' }">${{ quantity * price }}</p>
                 <p>
                   <b-form-checkbox
                     id="checkbox-1"
@@ -163,7 +175,7 @@
                 <strong>Total</strong>
               </div>
               <div class="col-sm-6">
-                <p :style="{ color: 'red' }">${{ Quantity * Price }}</p>
+                <p :style="{ color: 'red' }">${{ quantity * price }}</p>
               </div>
             </div>
             <hr />
@@ -227,10 +239,10 @@ export default {
   mixins: [toastMessage],
   data() {
     return {
-      ProductName: localStorage.getItem("ProductName"),
-      Price: localStorage.getItem("Price"),
-      Quantity: localStorage.getItem("Quantity"),
-      Size: localStorage.getItem("Size").toUpperCase(),
+      productName: localStorage.getItem("productName"),
+      price: localStorage.getItem("price"),
+      quantity: localStorage.getItem("quantity"),
+      size: localStorage.getItem("size").toUpperCase(),
       selected: null,
       form: {
         email: "",
@@ -244,9 +256,9 @@ export default {
         country: null,
         selected: "",
         checked: [],
-        price: localStorage.getItem("Price"),
-        quantity: localStorage.getItem("Quantity"),
-        size: localStorage.getItem("Size").toUpperCase(),
+        price: localStorage.getItem("price"),
+        quantity: localStorage.getItem("quantity"),
+        size: localStorage.getItem("size").toUpperCase(),
       },
       countries: [
         { text: "Select One", value: null },

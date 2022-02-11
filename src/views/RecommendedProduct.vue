@@ -7,16 +7,16 @@
       <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail
-          v-bind:src="'../../images/' + item.Image"
+          v-bind:src="'../../images/' + item.image"
           alt="Earphone"
           fluid
           class="img-section"
         ></b-img>
         <div class="product-outline">
-          <h1>{{ item.ProductName }}</h1>
+          <h1>{{ item.productName }}</h1>
 
-          <p class="price">${{ item.Price }}</p>
-          <p>{{ item.Description }}</p>
+          <p class="price">${{ item.price }}</p>
+          <p>{{ item.description }}</p>
         </div>
       </div>
     </div>

@@ -8,15 +8,15 @@
       <div class="col-sm-3" v-for="(item, index) in items" :key="index">
         <b-img
           thumbnail
-          v-bind:src="'../../images/' + item.Image"
+          v-bind:src="'../../images/' + item.image"
           alt="Earphone"
           fluid
           class="img-section"
         ></b-img>
         <div class="product-outline">
-          <h1>{{ item.ProductName }}</h1>
+          <h1>{{ item.productName }}</h1>
           <div
-            v-if="item.Favorite == 0"
+            v-if="item.favorite == 0"
             class="h2 mb-0 fav_items"
             @click="AddToFavorite(item, index)"
           >
@@ -30,9 +30,9 @@
             <b-icon icon="heart-fill"></b-icon>
           </div>
 
-          <p class="price">${{ item.Price }}</p>
-          <p>{{ item.Description }}</p>
-          <router-link :to="'product/detail/' + item.Id">
+          <p class="price">${{ item.price }}</p>
+          <p>{{ item.description }}</p>
+          <router-link :to="'product/detail/' + item.id">
             <p class="view-button">
               <b-button class="form-control">View</b-button>
             </p>
@@ -67,7 +67,7 @@ export default {
         localStorage.getItem("loginnedUser") !== null &&
         localStorage.getItem("loginnedUser") != ""
       ) {
-        this.items[index].Favorite = 1;
+        this.items[index].favorite = 1;
         if (
           localStorage.getItem("WishListitems") !== null &&
           localStorage.getItem("WishListitems") != ""
@@ -79,7 +79,7 @@ export default {
         }
 
         const parsedObject = JSON.parse(localStorage.getItem("items"));
-        parsedObject[index].Favorite = 1;
+        parsedObject[index].favorite = 1;
 
         const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
         localStorage.setItem("items", modifiedndstrigifiedForStorage);
@@ -88,7 +88,7 @@ export default {
         this.makeToastMessage("Product added in Wishlist.", "success");
         // Recommended product logic
         const relatedProducts = parsedObject.filter((product) => {
-          if (item.Tag == product.Tag) {
+          if (item.tag == product.tag) {
             return true;
           }
         });
@@ -108,11 +108,11 @@ export default {
         localStorage.getItem("loginnedUser") !== null &&
         localStorage.getItem("loginnedUser") != ""
       ) {
-        this.items[index].Favorite = 0;
+        this.items[index].favorite = 0;
         this.ArrWishList = JSON.parse(localStorage.getItem("WishListitems"));
         if (this.ArrWishList !== null && this.ArrWishList.length > 0) {
           const removedWishedList = this.ArrWishList.filter((params) => {
-            return params.Id !== item.Id;
+            return params.id !== item.id;
           });
           localStorage.setItem(
             "WishListitems",
@@ -121,7 +121,7 @@ export default {
         }
         const parsedObject = JSON.parse(localStorage.getItem("items"));
 
-        parsedObject[index].Favorite = 0;
+        parsedObject[index].favorite = 0;
         const modifiedndstrigifiedForStorage = JSON.stringify(parsedObject);
         localStorage.setItem("items", modifiedndstrigifiedForStorage);
 
@@ -132,7 +132,7 @@ export default {
         );
         if (recommendedProduct.length > 0) {
           const relatedProducts = recommendedProduct.filter((product) => {
-            return product.Tag !== item.Tag;
+            return product.tag !== item.tag;
           });
           this.recommendedProduct = relatedProducts;
           localStorage.setItem(
