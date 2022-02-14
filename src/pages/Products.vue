@@ -77,6 +77,7 @@ export default {
       wishListItems.push(item);
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
+      this.$toast.top('Product added successfully to wishlist');
     },
     removeFromWishList: function (itemId) {
       const wishListItems = JSON.parse(localStorage.getItem("wishList"));
@@ -84,6 +85,7 @@ export default {
       wishListItems.splice(index, 1);
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
+      this.$toast.top('Product removed successfully from wishlist');
     },
     isInWishList: function (itemId) {
       if (!localStorage.getItem("wishList")) {
@@ -119,6 +121,7 @@ export default {
       cartItems.push(item);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      this.$toast.top('Product added successfully to cart');
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
@@ -126,6 +129,7 @@ export default {
       cartItems.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      this.$toast.top('Product removed successfully from cart');
     },
   },
   beforeMount(){

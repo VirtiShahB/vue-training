@@ -8810,6 +8810,11 @@
     "babel-runtime" "^5.8.0"
     "marker-clusterer-plus" "^2.1.4"
 
+"vue2-toast@^2.1.0":
+  "integrity" "sha512-nBqf3kM7tXTbz+dBjQkFxQDFWzcxWBbuH32YG9jS0APPQnEOwdYVU5wVXh0Y0w+vb+RE/OAZ2zb0PPM94BGk5Q=="
+  "resolved" "https://registry.npmjs.org/vue2-toast/-/vue2-toast-2.1.0.tgz"
+  "version" "2.1.0"
+
 "watchpack-chokidar2@^2.0.1":
   "integrity" "sha512-nCFfBIPKr5Sh61s4LPpy1Wtfi0HE8isJ3d2Yb5/Ppw2P2B/3eVSEBjKfN0fmHJSK14+31KwMKmcrzs2GM4P0Ww=="
   "resolved" "https://registry.npmjs.org/watchpack-chokidar2/-/watchpack-chokidar2-2.0.1.tgz"

@@ -4,21 +4,12 @@
       <router-link :to="'/admin'" class="navbar-brand">
         <img src="img/vue-logo.png" width="35" height="35" alt="Logo">
       </router-link>
-        <ul class="nav justify-content-center nav nav-pills text-capitalize">
-          <li class="nav-item" v-if="!user">
-            <router-link class="nav-link" to="/sign-up">Register</router-link>
-          </li>
-          <li class="nav-item" v-if="!user">
-            <router-link class="nav-link" to="/login">Login</router-link>
-          </li>
-          <li class="nav-item" v-if="user">
-            <a class="nav-link btn btn-outline-success my-2 my-sm-0" href="" @click.prevent="logout(user.type)">Logout</a>
-          </li>
-          <li class="nav-item" v-if="user">
-            <router-link class="nav-link" to="/admin">{{user.firstName}}</router-link>
-          </li>
-        </ul>
-      <span> 
+       
+      <span>
+        <router-link v-if="!user" to="/sign-up"> Sign up</router-link>
+        <router-link v-if="!user" to="/login"> Login </router-link>
+        <router-link v-if="user" to="/admin"> {{user.firstName}} </router-link>
+        <a  v-if="user" href="" @click.prevent="logout(user.type)"> Logout </a>
         <router-link :to="'/checkout'">
           <i class="nc-icon nc-cart-simple"></i>
           <b> {{totalItem}} </b>
@@ -32,28 +23,27 @@
   </div>
 </template>
 <script>
+    import UserActivity from '../mixins/UserActivity'
     export default {
+      name: 'FrontHeader',
+      mixins: [UserActivity],
       data() {
         return {
-          user: "",
-          cart: [],
+          cart    : [],
           wishList: [],
         };
       },
       computed: {
-        totalItem() {
+        totalItem : function() {
           let totalQuantity = 0;
           this.cart.forEach((item, i) => {
             totalQuantity =  parseFloat(totalQuantity) + parseFloat(item.quantity)
           });
           return totalQuantity;
-        }
+          
+        },
       },
       mounted() {
-      if (localStorage.activeUser) {
-        let activeUser = localStorage.activeUser;
-        this.user = JSON.parse(activeUser);
-      }
       if (localStorage.getItem("cart")) {
       this.cart = JSON.parse(localStorage.getItem("cart"));
       }

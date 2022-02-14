@@ -30,8 +30,6 @@
       </div>
    </main>
 </template>
-
-
 <script>
     export default {
         name:"facebookLogin",

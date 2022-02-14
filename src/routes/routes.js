@@ -1,6 +1,5 @@
 import DashboardLayout from '../layout/DashboardLayout.vue'
-import NotFound from '../pages/NotFoundPage.vue'
-
+import NotFoundPage from '../pages/NotFoundPage.vue'
 import Login    from 'src/pages/Login.vue'
 import SignUp   from 'src/pages/SignUp.vue'
 import Overview from 'src/pages/Overview.vue'
@@ -15,6 +14,12 @@ const routes = [
     component: Login,
     name: 'login',
     beforeEnter: guest
+  },
+  { 
+    path: '/',
+    redirect: {
+      name: 'login' 
+    } 
   },
   {
     path: '/sign-up',
@@ -53,7 +58,12 @@ const routes = [
         component: Overview,
       },
     ]
-  }
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFoundPage,
+  },
 ]
 function guest(to, from, next) {
   if (localStorage.activeUser) {

@@ -71,7 +71,7 @@
             <div class="container">
                <h4>Cart </h4>
                   <p v-for="item  in cart" :key="item.id" >{{item.title}} 
-                    <a href="#"></a> <span class="price">$ {{item.price}}</span>
+                      <span class="price" >$ {{item.price}} <b class="text-primary">*</b> {{item.quantity}}</span>
                   </p>
                 <hr>
                <p>Total 

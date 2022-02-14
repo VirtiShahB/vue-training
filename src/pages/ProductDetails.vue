@@ -30,7 +30,7 @@
              {{ this.productDetails.description  }}
             <h4>Price : ${{this.productDetails.price}}</h4>
             <form>
-              <input type='number'  :value="this.productDetails.quantity ? this.productDetails.quantity : 1" id="quantity" />
+              <input type='number'  class="form-control" :min="1" :value="this.productDetails.quantity ? this.productDetails.quantity : 1" id="quantity" />
               <button type="submit" class="btn btn-success btn-block" @click="addToCart()">Add to cart</button>
             </form>
           </div>
@@ -72,9 +72,10 @@
     quantity      : 0,
     data() {
       return {
-        cart: [],
-        activeClass: 0,
-        wishList: []
+        cart        : [],
+        activeClass : 0,
+        wishList    : [],
+        oldQuantity : 0
       };
     },
     methods: {
@@ -91,18 +92,15 @@
         const cartItems = JSON.parse(localStorage.getItem("cart"));
         const index     = cartItems.findIndex(({ id }) => id === this.productDetails.id);
         if (index > -1) {
+          this.oldQuantity = cartItems[index].quantity;
           cartItems.splice(index, 1);
         }
         var quantity    = document.getElementById("quantity").value; 
-        this.productDetails.quantity=quantity; 
+        this.productDetails.quantity=parseInt(this.oldQuantity)+parseInt(quantity); 
         cartItems.push(this.productDetails);
         localStorage.setItem("cart", JSON.stringify(cartItems));
         this.cart       = JSON.parse(localStorage.getItem("cart"));
-      },
-      removeToCart: function () {
-        if (this.cart > 1) {
-          this.cart = this.cart - 1;
-        }
+        this.$toast.top('Product added successfully to wishlist');
       },
       currentThumbnail: function (image, index) {
         this.bannerImage = image;

@@ -63,6 +63,7 @@
       wishListItems.push(item);
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
+      this.$toast.top('Product add successfully to wishlist');
     },
     removeFromWishlist: function (itemId) {
       const wishListItems = JSON.parse(localStorage.getItem("wishList"));
@@ -71,6 +72,7 @@
       this.wishList.splice(index, 1);
       localStorage.setItem("wishList", JSON.stringify(wishListItems));
       this.wishList = JSON.parse(localStorage.getItem("wishList"));
+      this.$toast.top('Product removed successfully from cart');
     },
     isInWishlist: function (itemId) {
       if (!localStorage.getItem("wishList")) {
@@ -95,6 +97,7 @@
       cartItems.push(item);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      this.$toast.top('Product added successfully to cart');
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
@@ -102,6 +105,7 @@
       cartItems.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      this.$toast.top('Product removed successfully from cart');
     },
   },
   beforeMount(){

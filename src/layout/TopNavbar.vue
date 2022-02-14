@@ -65,9 +65,9 @@
   </nav>
 </template>
 <script>
-import User from '../mixins/User'
+import UserActivity from '../mixins/UserActivity'
   export default {
-    mixins: [User],
+    mixins: [UserActivity],
     computed: {
       routeName () {
         const {name} = this.$route
