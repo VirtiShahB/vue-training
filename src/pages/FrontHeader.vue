@@ -8,15 +8,15 @@
       <span>
         <router-link v-if="!user" to="/sign-up"> Sign up</router-link>
         <router-link v-if="!user" to="/login"> Login </router-link>
+        <b class="text-primary"  v-if="user" @click.prevent="logout(user.type)"> Logout </b>
         <router-link v-if="user" to="/admin"> {{user.firstName}} </router-link>
-        <a  v-if="user" href="" @click.prevent="logout(user.type)"> Logout </a>
         <router-link :to="'/checkout'">
           <i class="nc-icon nc-cart-simple"></i>
-          <b> {{totalItem}} </b>
+          <b class="text-warning"> {{totalItem}} </b>
         </router-link>
         <router-link :to="'/wishlist'">
           <i class="nc-icon nc-favourite-28 mt-2 mb-2 ml-1"/>
-          <b> {{wishList.length}} </b>
+          <b class="text-warning"> {{wishList.length}} </b>
         </router-link>
       </span>  
     </nav>
@@ -34,13 +34,12 @@
         };
       },
       computed: {
-        totalItem : function() {
+          totalItem : function() {
           let totalQuantity = 0;
-          this.cart.forEach((item, i) => {
-            totalQuantity =  parseFloat(totalQuantity) + parseFloat(item.quantity)
-          });
-          return totalQuantity;
-          
+          totalQuantity = this.cart.reduce( (qyt, item) => {
+            return qyt + (item.quantity)
+          }, 0)
+          return totalQuantity;          
         },
       },
       mounted() {

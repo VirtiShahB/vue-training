@@ -30,8 +30,16 @@
              {{ this.productDetails.description  }}
             <h4>Price : ${{this.productDetails.price}}</h4>
             <form>
-              <input type='number'  class="form-control" :min="1" :value="this.productDetails.quantity ? this.productDetails.quantity : 1" id="quantity" />
-              <button type="submit" class="btn btn-success btn-block" @click="addToCart()">Add to cart</button>
+              <div class="form-row">
+                <div class="col">
+                  <input type='number'  class="form-control" :min="1" :value="this.productDetails.quantity ? this.productDetails.quantity : 1" id="quantity" />
+                </div>
+                <div class="col">
+                  <button type="submit" class="form-control" @click="addToCart()">
+                    Add to cart
+                  </button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -39,6 +47,7 @@
     </div>
     <div class="container mt-2">
       <div class="row">
+        <h4 class="text-success text-uppercase">Top Rated Products For You</h4>
           <div class="row mt-4">
             <div v-for="product of filterItems(products)" :key="product.id" class="col-12 col-md-6 col-lg-3">
               <div class="card">
