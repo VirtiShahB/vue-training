@@ -3,9 +3,9 @@ import VueRouter from "vue-router";
 import ProductDetails from "../components/ProductDetails.vue";
 import CheckOut from "../components/CheckOut.vue";
 import Products from "../components/Products.vue";
-import Signin from "../components/Signin.vue";
-import Signup from "../components/Signup.vue";
-import Dashboard from "../components/Dashboard.vue";
+import Signin from "../views/Signin.vue";
+import Signup from "../views/Signup.vue";
+import Dashboard from "../views/Dashboard.vue";
 import Recommended from "../components/Recommended.vue";
 
 Vue.use(VueRouter);
@@ -14,18 +14,8 @@ const routes = [
   {
     path: "/",
     name: "dashboard",
+    alias: "/dashboard",
     component: Dashboard,
-  },
-  {
-    path: "/dashboard",
-    name: "dashboard",
-    component: Dashboard,
-  },
-  {
-    path: "/products",
-    name: "products",
-    component: Products,
-    meta: { requiresAuth: true },
   },
   {
     path: "/signin",
@@ -36,6 +26,12 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: Signup,
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: Products,
+    meta: { requiresAuth: true },
   },
   {
     path: "/product-details/:prod_id",
@@ -51,7 +47,7 @@ const routes = [
   },
   {
     path: "/recommended",
-    name: "Recommended",
+    name: "recommended",
     component: Recommended,
     meta: { requiresAuth: true },
   },

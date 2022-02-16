@@ -14,8 +14,11 @@
             v-model="user_name"
             type="text"
             placeholder="Enter user name"
-            required
+            :class="{ 'is-invalid': $v.user_name.$error }"
           ></b-form-input>
+          <div v-if="$v.user_name.$error" class="invalid-feedback">
+            <span v-if="!$v.user_name.required">Username is required</span>
+          </div>
         </b-form-group>
 
         <b-form-group
@@ -28,8 +31,12 @@
             v-model="email"
             type="email"
             placeholder="Enter email"
-            required
+            :class="{ 'is-invalid': $v.email.$error }"
           ></b-form-input>
+          <div v-if="$v.user_name.$error" class="invalid-feedback">
+            <span v-if="!$v.email.required">Email is required</span>
+            <span v-if="!$v.email.email">Email must be an email</span>
+          </div>
         </b-form-group>
 
         <b-form-group
@@ -42,8 +49,17 @@
             v-model="password"
             type="password"
             placeholder="Enter password"
-            required
+            :class="{ 'is-invalid': $v.password.$error }"
           ></b-form-input>
+          <div v-if="$v.password.$error" class="invalid-feedback">
+            <span v-if="!$v.password.required">Password is required</span>
+            <span v-if="!$v.password.minLength"
+              >Password is minimum 3 characters long</span
+            >
+            <span v-if="!$v.password.maxLength"
+              >Password is maximum 11 characters long</span
+            >
+          </div>
         </b-form-group>
 
         <b-form-group
@@ -56,8 +72,13 @@
             v-model="confirm_password"
             type="password"
             placeholder="Enter confirm password"
-            required
+            :class="{ 'is-invalid': $v.confirm_password.$error }"
           ></b-form-input>
+          <div v-if="$v.confirm_password.$error" class="invalid-feedback">
+            <span v-if="!$v.confirm_password.sameAs"
+              >Password and Confirm Password must be same</span
+            >
+          </div>
         </b-form-group>
 
         <b-button type="submit" class="btn btn-dark btn-lg btn-block"
@@ -74,6 +95,13 @@
 
 <script>
 import toastMixin from "../mixins/toastMixin";
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+  sameAs,
+} from "../../node_modules/vuelidate/lib/validators";
 
 export default {
   mixins: [toastMixin],
@@ -86,8 +114,27 @@ export default {
       users: [],
     };
   },
+  validations: {
+    user_name: {
+      required,
+    },
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(3),
+      maxLength: maxLength(8),
+    },
+    confirm_password: { required, sameAsPassword: sameAs("password") },
+  },
   methods: {
     registerUser() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
       let user = {
         user_name: this.user_name,
         email: this.email,

@@ -9,7 +9,9 @@
             <span
               style="font-size: 28px; font-weight: 700; font-family: Amaranth"
             >
-              ShoeMart
+              <router-link class="logo" :to="{ name: 'dashboard' }">
+                ShoeMart
+              </router-link>
             </span>
           </b-navbar-brand>
 
@@ -17,12 +19,11 @@
             <b-navbar-nav>
               <b-nav-item
                 class="py-4 category"
-                v-for="(category, index) in categories"
-                :key="index"
+                v-for="category in categories"
+                :key="category.title"
+                :to="{ name: category.path_name }"
               >
-                <router-link :to="category.path_name">
-                  {{ category.title }}
-                </router-link>
+                {{ category.title }}
               </b-nav-item>
             </b-navbar-nav>
           </b-collapse>
@@ -264,15 +265,15 @@ export default {
       categories: [
         {
           title: "Dashboard",
-          path_name: "/",
+          path_name: "dashboard",
         },
         {
           title: "Products",
-          path_name: "/products",
+          path_name: "products",
         },
         {
           title: "Recommended",
-          path_name: "/recommended",
+          path_name: "recommended",
         },
       ],
       cartItems: [],
@@ -336,39 +337,32 @@ export default {
 </script>
 
 <style>
-i {
-  transition: 0.3s;
+.nav-item a {
+  color: rgb(78, 77, 77);
 }
-
-i:hover {
-  color: hsl(24, 91%, 86%);
+.nav-item a:hover {
+  color: rgb(39, 38, 38);
+  text-decoration: none;
 }
-
 .avatar:hover {
   border: 2px solid hsl(26, 100%, 55%) !important;
 }
-
 .category {
   transition: 0.1s;
   color: rgb(27, 26, 26);
 }
-
 .category:hover {
   border-bottom: 3px solid hsl(26, 100%, 55%);
 }
-
 .category:hover .text {
   color: black !important;
 }
-
 .checkout-btn {
   transition: 0.3s;
 }
-
 .checkout-btn:hover {
   background-color: hsl(24, 91%, 86%) !important;
 }
-
 .cart-count {
   position: absolute;
   top: 3px;
@@ -382,5 +376,13 @@ i:hover {
 .wishlist-icon {
   height: 22px;
   width: 20px;
+}
+.logo {
+  color: black;
+  text-decoration: none;
+}
+.logo:hover {
+  color: black;
+  text-decoration: none;
 }
 </style>

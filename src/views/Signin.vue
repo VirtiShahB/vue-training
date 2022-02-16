@@ -10,8 +10,11 @@
             v-model="user_name"
             type="text"
             placeholder="Enter username"
-            required
+            :class="{ 'is-invalid': $v.user_name.$error }"
           ></b-form-input>
+          <div v-if="$v.user_name.$error" class="invalid-feedback">
+            <span v-if="!$v.user_name.required">Username is required</span>
+          </div>
         </b-form-group>
 
         <b-form-group id="input-group-2" label="Password:" label-for="password">
@@ -20,8 +23,14 @@
             v-model="password"
             type="password"
             placeholder="Enter password"
-            required
+            :class="{ 'is-invalid': $v.password.$error }"
           ></b-form-input>
+          <div v-if="$v.password.$error" class="invalid-feedback">
+            <span v-if="!$v.password.required">Password is required</span>
+            <span v-if="!$v.password.minLength"
+              >Password is minimum 3 characters long</span
+            >
+          </div>
         </b-form-group>
 
         <b-button type="submit" class="mb-1 btn btn-dark btn-lg btn-block"
@@ -43,12 +52,6 @@
           <img src="../../public/assets/facebook.png" />
           Sign In
         </b-button>
-
-        <!-- <div id="google-signin-button btn btn-block"></div> -->
-
-        <p class="forgot-password text-right mt-2 mb-4">
-          <router-link to="/forgot-password">Forgot password ?</router-link>
-        </p>
       </form>
     </div>
   </div>
@@ -57,6 +60,10 @@
 <script>
 import toastMixin from "../mixins/toastMixin";
 import { initFbsdk } from "../config/facebookAuth";
+import {
+  required,
+  minLength,
+} from "../../node_modules/vuelidate/lib/validators";
 
 export default {
   mixins: [toastMixin],
@@ -66,11 +73,24 @@ export default {
       password: "",
     };
   },
+  validations: {
+    user_name: {
+      required,
+    },
+    password: {
+      required,
+      minLength: minLength(3),
+    },
+  },
   mounted() {
     initFbsdk();
   },
   methods: {
     loginUser() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
       let credentials = {
         user_name: this.user_name,
         password: this.password,
