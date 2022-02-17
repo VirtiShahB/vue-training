@@ -1,15 +1,7 @@
-.DS_Store
-node_modules/
-/dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.editorconfig
-.env
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+/nbproject/
+/.idea/*
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
