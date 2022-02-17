@@ -1,7 +1,7 @@
 /**
  * Set localStorage
  */
-import store from '../store/store'
+import store from '../store'
 export default {
 
   setStore (name, content) {

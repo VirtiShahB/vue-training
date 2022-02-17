@@ -74,8 +74,7 @@ export default {
     }
   },
   methods: {
-    onSubmit (event) {
-      event.preventDefault()
+    onSubmit () {
       if (this.form.email !== '' && this.form.password !== '') {
         let userInfo = {
           loginType: 'site',

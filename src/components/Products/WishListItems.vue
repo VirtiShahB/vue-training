@@ -40,23 +40,16 @@ export default {
   },
   methods: {
     getWishList () {
-      const items = this.$helpers.getStore('userFavItems')
-      if (items.length > 0) {
-        this.products = this.productsData.filter(function (o1) {
-          return items.some(function (o2) {
-            return o1.id === o2
+      const wishListItems = this.$helpers.getStore('userFavItems')
+      if (wishListItems.length > 0) {
+        this.products = this.productsData.filter((products) => {
+          return wishListItems.some(function (wishListItem) {
+            return products.id === wishListItem
           })
         })
       } else {
         this.products = []
       }
-    },
-    refreshWishList (productId) {
-      const favItems = this.$helpers.getStore('userFavItems')
-      if (favItems.length === 0) {
-        this.$helpers.removeStore('userFavItems')
-      }
-      this.getWishList()
     }
   }
 }

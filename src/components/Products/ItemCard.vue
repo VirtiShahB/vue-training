@@ -75,7 +75,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ItemCard',
   props: ['product', 'fromWishlist'],

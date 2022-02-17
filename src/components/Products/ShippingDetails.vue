@@ -2,7 +2,7 @@
   <div>
     <h3>Billing Details</h3>
 
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit.prevent="show = true" @reset.prevent="onReset">
       <b-row>
         <b-col class="md-6">
           <b-form-group
@@ -137,6 +137,12 @@ export default {
   data () {
     return {
       form: {
+        firstName: '',
+        lastName: '',
+        address: '',
+        state: '',
+        city: '',
+        pincode: '',
         country: null
       },
       show: false,
@@ -149,14 +155,16 @@ export default {
     }
   },
   methods: {
-    onSubmit (event) {
-      event.preventDefault()
-      this.show = true
-    },
-    onReset (event) {
-      event.preventDefault()
-      // Reset our form values
-      this.form = {country: null}
+    onReset () {
+      this.form = {
+        firstName: '',
+        lastName: '',
+        address: '',
+        state: '',
+        city: '',
+        pincode: '',
+        country: null
+      }
     }
   }
 }

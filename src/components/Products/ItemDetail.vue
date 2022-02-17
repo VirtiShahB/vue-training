@@ -35,7 +35,7 @@
                   class="text-center"
                 ></b-form-input>
                 <b-input-group-append>
-                  <b-button @click="addItem">+</b-button>
+                  <b-button @click="itemCount += 1">+</b-button>
                 </b-input-group-append>
               </b-input-group>
             </b-col>
@@ -73,29 +73,28 @@ import ItemCard from './ItemCard'
 export default {
   name: 'ItemDetail',
   components: { ItemCard },
-  mounted () {
-    this.getProductData()
-  },
   data () {
     return {
       itemCount: 1,
       product: []
     }
   },
+  mounted () {
+    this.getProductData()
+  },
   computed: {
     ...mapGetters(['productsData']),
     similarProducts () {
-      const that = this.product
-      const products = this.productsData.filter(function (o1) {
-        return o1.category === that.category && o1.id !== that.id
+      const currentProduct = this.product
+      return this.productsData.filter((product) => {
+        return (
+          product.category === currentProduct.category &&
+          product.id !== currentProduct.id
+        )
       })
-      return products
     }
   },
   methods: {
-    addItem () {
-      this.itemCount += 1
-    },
     removeItem () {
       if (this.itemCount <= 1) {
         this.itemCount = 1
@@ -109,10 +108,9 @@ export default {
     },
     getProductData () {
       const productId = this.$route.params.productId
-      const result = this.productsData.filter(function (el) {
-        return el.id.toString() === productId.toString()
+      this.product = this.productsData.find((product) => {
+        return product.id.toString() === productId.toString()
       })
-      this.product = result[0]
     }
   }
 }
