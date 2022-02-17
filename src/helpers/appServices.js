@@ -48,10 +48,10 @@ export default {
     let totalCartItems = this.totalCartItems()
     let cartSummary = []
     if (totalCartItems) {
-      cartSummary = productsData.filter(function (o1) {
-        return totalCartItems.some(function (o2) {
-          o1.qty = o2.qty
-          return o1.id === o2.id
+      cartSummary = productsData.filter(product => {
+        return totalCartItems.some(cartItem => {
+          product.qty = cartItem.qty
+          return product.id === cartItem.id
         })
       })
     }
