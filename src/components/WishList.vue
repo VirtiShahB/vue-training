@@ -23,11 +23,17 @@
       >
         <div
           v-if="wishList.includes(products.PID)"
-          class="col-md-4 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 offset-sm-2 offset-1 mb-3"
+          class="
+            col-md-4
+            offset-md-0 offset-sm-2 offset-1
+            col-sm-8 col-10
+            offset-sm-2 offset-1
+            mb-3
+          "
         >
           <div class="card" style="width: 446%">
             <div class="px-2 red text-uppercase">new</div>
-            <span class="remove-wish" @click="removeProduct(products.PID)"
+            <span class="remove-wish" @click="RemoveToWishList(products.PID)"
               ><a href="javascript:void(0)"
                 ><i class="fa fa-times" aria-hidden="true"></i></a
             ></span>
@@ -42,13 +48,26 @@
               <p class="h4">{{ products.PNAME.substring(0, 8) + "..." }}</p>
             </b>
             <div
-              class="d-flex align-items-center justify-content-start rating border-top border-bottom py-2"
+              class="
+                d-flex
+                align-items-center
+                justify-content-start
+                rating
+                border-top border-bottom
+                py-2
+              "
             ></div>
             <div
-              class="d-flex align-items-center justify-content-between py-2 px-3"
+              class="
+                d-flex
+                align-items-center
+                justify-content-between
+                py-2
+                px-3
+              "
             >
               <div class="h4"><span>$</span>{{ products.PPRICE }}</div>
-              <div class="wish-list">
+              <div class="wish-list" @click="RemoveToWishList(products.PID)">
                 <i class="fas fa-heart"></i>
               </div>
               <div>
@@ -80,8 +99,9 @@
 
 <script>
 import { formFieldMixin } from "../mixins/formFieldMixin.js";
+import { wishlistMixin } from "../mixins/wishlistMixin.js";
 export default {
-  mixins: [formFieldMixin],
+  mixins: [formFieldMixin, wishlistMixin],
   name: "ProductList",
   data() {
     return {
@@ -104,21 +124,17 @@ export default {
     Back() {
       this.$router.push("/");
     },
-    removeProduct(pid) {
-      var wish = JSON.parse(localStorage.getItem("wishProduct"));
-      console.log(wish);
-      var filtered = wish.filter(function (value) {
-        return value != pid;
-      });
-      localStorage.setItem("wishProduct", JSON.stringify(filtered));
-      document.getElementById(pid).remove();
-      this.WishPro = filtered.length;
-    },
   },
   created: function () {
-    this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
-    this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
-    this.productList = JSON.parse(localStorage.getItem("PROLIST"));
+    if (JSON.parse(localStorage.getItem("wishProduct"))) {
+      this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
+    }
+    if (JSON.parse(localStorage.getItem("cartProduct"))) {
+      this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
+    }
+    if (JSON.parse(localStorage.getItem("PROLIST"))) {
+      this.productList = JSON.parse(localStorage.getItem("PROLIST"));
+    }
   },
 };
 </script>

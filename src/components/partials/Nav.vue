@@ -18,68 +18,113 @@
     </div>
     <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item">Home</router-link>
-        <router-link to="/orders" class="navbar-item" v-if="Orders != ''"
+        <router-link to="/" class="navbar-item" v-if="IsLogin"
+          >Home</router-link
+        >
+        <router-link
+          to="/orders"
+          class="navbar-item"
+          v-if="Orders != '' && IsLogin"
           >My Orders</router-link
         >
-      </div>
-      <div class="navbar-end">
+        <router-link
+          class="navbar-item"
+          to="/login"
+          v-if="this.$store.state.loginUser == null"
+          >Sign in</router-link
+        >
+        <router-link
+          class="navbar-item"
+          to="/signup"
+          v-if="this.$store.state.loginUser == null"
+          >Sign Up</router-link
+        >
         <div class="navbar-item">
-          <div class="cart-div" v-if="email && password">
+          <div class="cart-div" v-if="IsLogin">
             <a href="javascript:void(0)" @click="GoToWishList"
               ><i class="fa fa-heart"></i
             ></a>
-            <span class="cart-num" v-if="WishPro > 0">{{ WishPro }}</span>
+            <span class="cart-num" v-if="CountWish > 0">{{ CountWish }}</span>
           </div>
-          <div class="cart-div" v-if="email && password">
+          <div class="cart-div" v-if="IsLogin">
             <a href="javascript:void(0)" @click="addToCart()"
               ><i class="fa fa-shopping-cart"></i
             ></a>
-            <span class="cart-num" v-if="CartPro > 0">{{ CartPro }}</span>
+            <span class="cart-num" v-if="CountCart > 0">{{ CountCart }}</span>
           </div>
-          <div class="buttons">
-            <a class="button is-dark">
-              <router-link
-                class="nav-link pr-3"
-                to="/login"
-                v-if="!email && !password"
-                >Sign in</router-link
-              >
-              <router-link
-                class="nav-link pr-3"
-                to="/signup"
-                v-if="!email && !password"
-                >Sign Up</router-link
-              >
-              <a href="javascript:void(0)" v-else @click="Logout">Logout</a>
-            </a>
-          </div>
+          <a
+            href="javascript:void(0)"
+            v-if="IsLogin"
+            @click="Logout"
+            class="navbar-item"
+            >Logout</a
+          >
         </div>
       </div>
     </div>
   </nav>
 </template>
 <script>
+import { removeItem } from "@/config/utils";
+import { wishlistMixin } from "../../mixins/wishlistMixin.js";
 export default {
   name: "Nav",
+  mixins: [wishlistMixin],
   data() {
     return {
       CartPro: 0,
-      WishPro: 0,
       Orders: [],
       email: JSON.parse(localStorage.getItem("email"))
-        ? JSON.parse(localStorage.getItem("wishProduct"))
+        ? JSON.parse(localStorage.getItem("email"))
         : "",
       password: JSON.parse(localStorage.getItem("password"))
         ? JSON.parse(localStorage.getItem("password"))
         : "",
     };
   },
+  computed: {
+    IsLogin: {
+      get() {
+        if (this.$store.state.loginUser) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
+    CountWish: {
+      get() {
+        if (this.$store.state.wishpro) {
+          return this.$store.state.wishpro.length;
+        } else {
+          return 0;
+        }
+      },
+    },
+    CountCart: {
+      get() {
+        if (this.$store.state.cartProduct) {
+          return this.$store.state.cartProduct.length;
+        } else {
+          return 0;
+        }
+      },
+    },
+  },
   methods: {
     Logout() {
+      removeItem("user");
+      this.$store.commit("logOut");
       localStorage.removeItem("email");
       localStorage.removeItem("password");
       localStorage.removeItem("OrderDetails");
+      localStorage.removeItem("OrderDetails");
+      this.$toasted.show("Logout Successfully", {
+        title: "removed !",
+        variant: "success",
+        toaster: "b-toaster-bottom-center",
+        solid: true,
+      });
       this.$router.push({ name: "Login" });
     },
     GoToWishList() {
@@ -92,16 +137,16 @@ export default {
     },
   },
   created() {
-    if (JSON.parse(localStorage.getItem("wishProduct"))) {
-      this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
-    }
-
     if (JSON.parse(localStorage.getItem("cartProduct"))) {
       this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
     }
 
-    if (JSON.parse(localStorage.getItem("OrderDetails")).length > 0) {
-      this.Orders = JSON.parse(localStorage.getItem("OrderDetails"));
+    if (this.$store.state.orders) {
+      this.Orders = this.$store.state.orders;
+    }
+
+    if (this.$store.state.cartProduct) {
+      this.cartProduct = this.$store.state.cartProduct;
     }
   },
 };

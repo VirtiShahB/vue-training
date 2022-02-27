@@ -6,35 +6,60 @@
           <p>
             <span class="h2">Order List</span>
           </p>
-          <p>Order Id : {{ Orders[0].orderId }}</p>
-          <p>Total : ${{ Orders[0].total }}</p>
+          <div>
+            <span>Order Id : {{ Orders[0].orderId }}</span
+            >, <span>Total : ${{ Orders[0].total }}</span
+            >,
+            <span>Discount : ${{ Orders[0].discount }}</span>
+          </div>
+
           <div class="card mb-4">
             <div
               class="card-body p-4"
-              v-for="products in Orders[0].products"
+              v-for="products in Orders[0].pro"
               :key="products.PID"
               :id="products.PID"
             >
               <div class="row align-items-center">
                 <div class="col-md-2">
                   <img
-                    :src="products.image"
+                    :src="products.PIMAGE"
                     class="img-fluid"
                     alt="Generic placeholder image"
                   />
                 </div>
-                <div class="col-md-2 d-flex justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center">
                   <div>
                     <p class="small text-muted mb-4 pb-2">Name</p>
                     <p class="lead fw-normal mb-0">
-                      {{ products.name }}
+                      {{ products.PNAME }}
                     </p>
                   </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-center">
                   <div>
                     <p class="small text-muted mb-4 pb-2">Price</p>
-                    <p class="lead fw-normal mb-0">${{ products.price }}</p>
+                    <p class="lead fw-normal mb-0">${{ products.RealPrice }}</p>
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                    <p class="small text-muted mb-4 pb-2">Color</p>
+                    <p class="lead fw-normal mb-0">{{ products.PCOLOR }}</p>
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                    <p class="small text-muted mb-4 pb-2">Quantity</p>
+                    <p class="lead fw-normal mb-0">
+                      ${{ products.RealPrice }}x{{ products.QUANTITY }}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                    <p class="small text-muted mb-4 pb-2">Total</p>
+                    <p class="lead fw-normal mb-0">${{ products.PPRICE }}</p>
                   </div>
                 </div>
               </div>
@@ -54,7 +79,7 @@ export default {
     };
   },
   created() {
-    this.Orders = JSON.parse(localStorage.getItem("OrderDetails"));
+    this.Orders = this.$store.state.orders;
     var Products = this.Orders[0].products;
     var productList = JSON.parse(localStorage.getItem("PROLIST"));
     this.Orders[0].products = [];

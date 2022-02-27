@@ -80,7 +80,7 @@ export default {
             },
           };
           this.$store.commit("setLoginUser", userInfo);
-          router.push("/home");
+          router.push("/");
         })
         .catch((error) => {
           console.log("error", error);

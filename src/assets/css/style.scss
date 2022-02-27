@@ -817,3 +817,25 @@ label {
   text-align: center;
   color: #fff;
 }
+.buttons{
+  display: inline-flex;
+  width: 100%;
+}
+.is-dark{
+  display: inline-flex;
+}
+.pr-3{
+  width: 134px;
+}
+.navbar-start a{
+  text-decoration: none;
+}
+.navbar-item a {
+  margin-left: 15px;
+}
+.navbar-start a {
+  margin-left: 20px;
+}
+.col-md-2{
+  width: 12% !important;
+}

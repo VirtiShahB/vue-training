@@ -56,6 +56,14 @@ const routes = [
     },
   },
   {
+    path: "/orders",
+    name: "Orders",
+    component: () => import("../components/Orders.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("../components/Login.vue"),
@@ -75,11 +83,7 @@ const routes = [
     name: "Thank You",
     component: () => import("../components/ThankYou.vue"),
   },
-  {
-    path: "/orders",
-    name: "Orders",
-    component: () => import("../components/Orders.vue"),
-  },
+
 ];
 
 const router = new VueRouter({

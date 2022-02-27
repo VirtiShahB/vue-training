@@ -67,6 +67,12 @@ export default {
           localStorage.setItem("email", JSON.stringify(this.email));
           localStorage.setItem("password", JSON.stringify(this.password));
           this.$store.commit("setLoginUser", users);
+          this.$toasted.show("Login Successfully", {
+            title: "removed !",
+            variant: "success",
+            toaster: "b-toaster-bottom-center",
+            solid: true,
+          });
           this.$router.push({ path: "/" });
         }
       }

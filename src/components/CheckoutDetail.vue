@@ -138,7 +138,7 @@
                   </li>
                   <li>
                     <small class="text-muted p-price"
-                      >{{ products.PPRICE }}X1</small
+                      >{{ products.RealPrice }}X{{products.QUANTITY}}</small
                     >
                   </li>
                 </ul>
@@ -224,15 +224,15 @@ export default {
       firstname: null,
       lastname: null,
       phone: null,
-      email:null,
-      country:null,
-      state:null,
-      city:null,
-      zipcode:null,
-      address:null,
-      shippingaddress:null,
-      products:[],
-      Orders:[],
+      email: null,
+      country: null,
+      state: null,
+      city: null,
+      zipcode: null,
+      address: null,
+      shippingaddress: null,
+      products: [],
+      Orders: [],
     };
   },
   created() {
@@ -240,14 +240,14 @@ export default {
     var total = 0;
     this.ProdcutList.forEach((element) => {
       total += element.PPRICE;
-      this.products.push(element.PID)
+      this.products.push(element.PID);
     });
     this.maintotal = total - this.promocode;
   },
-  methods:{
+  methods: {
     Submit() {
-       this.submitted = true;
-       this.errors = [];
+      this.submitted = true;
+      this.errors = [];
 
       if (!this.firstname) {
         this.errors.push("First Name required.");
@@ -259,9 +259,9 @@ export default {
         this.errors.push("Phone required.");
       }
       if (!this.email) {
-        this.errors.push('Email required.');
+        this.errors.push("Email required.");
       } else if (!this.validEmail(this.email)) {
-        this.errors.push('Valid email required.');
+        this.errors.push("Valid email required.");
       }
       if (!this.country) {
         this.errors.push("Country required.");
@@ -283,35 +283,39 @@ export default {
       }
 
       if (!this.errors.length) {
-        var OrderDetails = {}
-        OrderDetails['orderId'] =  Math.random()*100;
-        OrderDetails['firstName'] = this.firstname;
-        OrderDetails['lastName'] = this.lastname;
-        OrderDetails['email'] = this.email
-        OrderDetails['phone'] = this.phone
-        OrderDetails['country'] = this.country
-        OrderDetails['state'] = this.state
-        OrderDetails['city'] = this.city
-        OrderDetails['zipcode'] = this.zipcode
-        OrderDetails['address'] = this.address
-        OrderDetails['shippingAddress'] = this.shippingaddress
-        OrderDetails['total'] = this.maintotal
-        OrderDetails['products'] = this.products
+        var OrderDetails = {};
+        OrderDetails["orderId"] = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+        OrderDetails["firstName"] = this.firstname;
+        OrderDetails["lastName"] = this.lastname;
+        OrderDetails["email"] = this.email;
+        OrderDetails["phone"] = this.phone;
+        OrderDetails["country"] = this.country;
+        OrderDetails["state"] = this.state;
+        OrderDetails["city"] = this.city;
+        OrderDetails["zipcode"] = this.zipcode;
+        OrderDetails["address"] = this.address;
+        OrderDetails["shippingAddress"] = this.shippingaddress;
+        OrderDetails["total"] = this.maintotal;
+        OrderDetails["products"] = this.products;
+        OrderDetails["pro"] = this.ProdcutList;
+        OrderDetails["discount"] = this.promocode;
         this.Orders.push(OrderDetails);
         localStorage.setItem("OrderDetails", JSON.stringify(this.Orders));
         localStorage.removeItem("cartProduct");
+        this.$store.commit("removeCart");
+        this.$store.commit("removeItemQTY");
+        localStorage.removeItem("SelectedProducts");
+        this.$store.commit("SetOrders", this.Orders);
         this.$router.push({ path: "/thankYou" });
         return true;
       }
-
-      
     },
     validEmail: function (email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
-    }
-
     },
+  },
 };
 </script>
 <style scoped>
@@ -320,7 +324,7 @@ img {
   height: unset;
   display: unset;
 }
-ul li{
+ul li {
   list-style: none;
   color: red;
 }

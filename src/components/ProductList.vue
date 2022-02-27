@@ -13,8 +13,8 @@
         class="px-1 py-1 ml-2"
         @change="onChange($event)"
       >
-        <option value="" hidden>Sort by</option>
-        <option value="rating" selected>Rating</option>
+        <option value="" selected>All</option>
+        <option value="rating">Rating</option>
         <option value="popular">Popular</option>
         <option value="featured">Featured</option>
       </select>
@@ -22,11 +22,17 @@
     <hr />
     <div class="row px-sm-2 px-0 pt-3">
       <div
-        v-for="products in productList"
+        v-for="products in this.$store.state.products"
         :key="products.PID"
-        class="col-md-4 offset-md-0 offset-sm-2 offset-1 col-sm-8 col-10 offset-sm-2 offset-1 mb-3"
+        class="
+          col-md-4
+          offset-md-0 offset-sm-2 offset-1
+          col-sm-8 col-10
+          offset-sm-2 offset-1
+          mb-3
+        "
       >
-        <div class="card" v-if="filters == products.PFILTER">
+        <div class="card" v-if="filters == products.PFILTER || filters == ''">
           <div class="px-2 red text-uppercase">new</div>
           <div
             class="d-flex justify-content-center"
@@ -38,7 +44,14 @@
             <p class="h4">{{ products.PNAME.substring(0, 8) + "..." }}</p>
           </b>
           <div
-            class="d-flex align-items-center justify-content-start rating border-top border-bottom py-2"
+            class="
+              d-flex
+              align-items-center
+              justify-content-start
+              rating
+              border-top border-bottom
+              py-2
+            "
           ></div>
           <div
             class="d-flex align-items-center justify-content-between py-2 px-3"
@@ -46,20 +59,35 @@
             <div class="h4"><span>$</span>{{ products.PPRICE }}</div>
             <div
               class="wish-list"
-              v-if="!wishList.includes(products.PID)"
+              @click="RemoveToWishList(products.PID)"
+              v-show="wishProduct1.includes(products.PID)"
+              :id="products.PID"
+            >
+              <i class="fas fa-heart"></i>
+            </div>
+            <div
+              :id="'wish_' + products.PID"
+              class="wish-list"
+              v-show="!wishProduct1.includes(products.PID)"
               @click="AddToWishList(products.PID)"
             >
               <i class="far fa-heart" aria-hidden></i>
             </div>
-            <div v-else class="wish-list">
-              <i class="fas fa-heart"></i>
-            </div>
-            <div>
+
+            <div v-show="!cartProduct1.includes(products.PID)">
               <button
                 @click="AddTOCart(products.PID)"
                 class="btn btn-dark text-uppercase"
               >
                 Add To Cart
+              </button>
+            </div>
+            <div v-show="cartProduct1.includes(products.PID)">
+              <button
+                @click="RemoveTOCart(products.PID)"
+                class="btn btn-dark text-uppercase"
+              >
+                Remove Cart
               </button>
             </div>
           </div>
@@ -73,17 +101,17 @@
 <script>
 import RecommandProducts from "./RecommandProducts.vue";
 import { formFieldMixin } from "../mixins/formFieldMixin.js";
+import { wishlistMixin } from "../mixins/wishlistMixin.js";
 export default {
-  mixins: [formFieldMixin],
+  mixins: [formFieldMixin, wishlistMixin],
   name: "ProductList",
   components: {
     RecommandProducts,
   },
   data() {
     return {
-      WishPro: 0,
-      wishProduct: [],
-      filters: "rating",
+      wishid: "",
+      filters: "",
       wishList: JSON.parse(localStorage.getItem("wishProduct"))
         ? JSON.parse(localStorage.getItem("wishProduct"))
         : "0",
@@ -104,6 +132,7 @@ export default {
             "Fabric : Reyon DISCLAIMER: The images shown are for representational purposes only. Please note that the colour of the product may slightly vary in comparison to the picture shown on the website due to various reasons which may include different lighting and devices during photo-shoot and also the colour settings and resolution of your own monitor screen. It is also important to note that we thrive to bring you the best, but, there may be a little difference in terms of fabric and colour, Wash Care: The Dry clean is recommended.",
           PFILTER: "rating",
           PTAGS: "Top",
+          QUANTITY: 1,
         },
         {
           PID: 2,
@@ -122,6 +151,7 @@ export default {
             "Wash Care : first wash is dry clean after that use machine wash or hand wash,Care Instructions: Dry Clean Only,Fit Type: Regular,Fabric : Polyester,Color : Black",
           PFILTER: "rating",
           PTAGS: "Printed",
+          QUANTITY: 1,
         },
         {
           PID: 3,
@@ -145,6 +175,7 @@ export default {
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "popular",
           PTAGS: "Top",
+          QUANTITY: 1,
         },
         {
           PID: 4,
@@ -163,6 +194,7 @@ export default {
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "popular",
           PTAGS: "Printed",
+          QUANTITY: 1,
         },
         {
           PID: 5,
@@ -180,6 +212,7 @@ export default {
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "featured",
           PTAGS: "Regular",
+          QUANTITY: 1,
         },
         {
           PID: 6,
@@ -197,12 +230,34 @@ export default {
             "Care Instructions: Hand Wash Only,Fit Type: Slim Fit,Collar Style: Collarless; Fit Type: Slim Fit; Sleeve Type: Long Sleeve.",
           PFILTER: "featured",
           PTAGS: "Regular",
+          QUANTITY: 1,
         },
       ],
     };
   },
   mounted() {
     localStorage.setItem("PROLIST", JSON.stringify(this.productList));
+    this.$store.commit("productList", this.productList);
+  },
+  computed: {
+    wishProduct1: {
+      get() {
+        if (this.$store.state.wishpro) {
+          return this.$store.state.wishpro;
+        } else {
+          return [];
+        }
+      },
+    },
+    cartProduct1: {
+      get() {
+        if (this.$store.state.cartProduct) {
+          return this.$store.state.cartProduct;
+        } else {
+          return [];
+        }
+      },
+    },
   },
   methods: {
     ProductDetails(id) {
@@ -213,20 +268,11 @@ export default {
         },
       });
     },
-    AddToWishList(pid) {
-      this.WishPro += 1;
-      this.wishProduct.push(pid);
-      localStorage.setItem("wishProduct", JSON.stringify(this.wishProduct));
-      // this.$router.go()
-    },
     onChange(event) {
       this.filters = event.target.value;
     },
   },
   created: function () {
-    if (JSON.parse(localStorage.getItem("wishProduct"))) {
-      this.WishPro = JSON.parse(localStorage.getItem("wishProduct")).length;
-    }
     if (JSON.parse(localStorage.getItem("cartProduct"))) {
       this.CartPro = JSON.parse(localStorage.getItem("cartProduct")).length;
     }

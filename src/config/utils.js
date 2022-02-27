@@ -19,6 +19,7 @@ export const getStore = (name) => {
  * Clear localStorage
  */
 export const removeItem = (name) => {
+  window.localStorage.removeItem('loginUser');
   if (!name) return;
   return window.localStorage.removeItem(name);
 };

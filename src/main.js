@@ -14,6 +14,12 @@ const gauthOption = {
   scope: "profile email",
   prompt: "select_account",
 };
+
+import Toasted from 'vue-toasted';
+Vue.use(Toasted, {
+  duration: 1500
+})
+
 Vue.use(GoogleAuth, gauthOption);
 
 Vue.config.productionTip = false;
